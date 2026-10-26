@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakkımızda — BeScript Yazılım Çözümleri</title>
+<meta name="description" content="BeScript Yazılım Çözümleri: Kartepe/Kocaeli'de mobil uygulama, AI otomasyon ve IoT sistemleri geliştiren yazılım stüdyosu. Nasıl çalıştığımız, süreç ve iletişim.">
+<link rel="canonical" href="https://bescript.com.tr/hakkimizda/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/hakkimizda/">
+<meta property="og:title" content="Hakkımızda — BeScript Yazılım Çözümleri">
+<meta property="og:description" content="Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hakkımızda — BeScript Yazılım Çözümleri">
+<meta name="twitter:description" content="Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4; --ink:#141F2A; --ink-soft:#3E4C5A;
+    --line:#C6CDD6; --cobalt:#1746D1; --live:#0E8A4A; --card:#F7F9FB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--cobalt)}
+  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+
+  /* ---------- ust bar ---------- */
+  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:620px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
+
+  /* ---------- giris ---------- */
+  .intro{padding:52px 0 10px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cobalt)}
+  .intro h1{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 110,"wght" 820;
+    font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.015em;margin:12px 0 16px;text-wrap:balance}
+  .intro h1 .accent{color:var(--cobalt)}
+  @media(max-width:560px){.intro h1{font-variation-settings:"wdth" 100,"wght" 820;font-size:clamp(27px,8vw,38px)}}
+  .intro p{max-width:62ch;color:var(--ink-soft);font-size:17px}
+
+  .serit{margin-top:30px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
+  .serit div{padding:14px 22px;border-right:1px solid var(--line);flex:1;min-width:150px}
+  .serit div:last-child{border-right:none}
+  .serit b{display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;font-variation-settings:'wdth' 110}
+  .serit span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.03em}
+
+  /* ---------- bolumler ---------- */
+  section{padding:48px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    flex-wrap:wrap;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .sec-head h2{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 96,"wght" 700;
+    font-size:clamp(21px,2.6vw,27px);line-height:1.2}
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
+
+  /* surec: gercek bir sira oldugu icin numarali */
+  .surec{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);counter-reset:adim}
+  .surec li{background:var(--card);padding:18px 20px;display:flex;flex-direction:column;gap:6px;counter-increment:adim}
+  .surec li::before{content:"0" counter(adim);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt)}
+  .surec h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:17px}
+  .surec p{font-size:14.5px;color:var(--ink-soft)}
+
+  .alanlar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .alan{border:1px solid var(--line);background:var(--card);padding:16px 18px;border-left:3px solid var(--cobalt)}
+  .alan h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:16px;margin-bottom:4px}
+  .alan p{font-size:14px;color:var(--ink-soft)}
+
+  .ilkeler{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:22px 32px}
+  @media(max-width:520px){.ilkeler{grid-template-columns:1fr}}
+  .ilke h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:17px;margin-bottom:4px}
+  .ilke p{font-size:14.5px;color:var(--ink-soft);max-width:52ch}
+
+  /* ---------- iletisim ---------- */
+  .iletisim{border:1px solid var(--ink);background:var(--card);padding:32px;display:flex;
+    justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .iletisim h2{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:clamp(22px,3vw,30px);line-height:1.15}
+  .iletisim p{color:var(--ink-soft);margin-top:6px;max-width:48ch}
+  .kanal{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .kanal a{text-decoration:none}
+  .kanal a:hover{text-decoration:underline}
+  .butonlar{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;
+    padding:10px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;
+    transition:background .15s,color .15s;white-space:nowrap}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary:hover{background:var(--cobalt);color:#fff}
+  .btn-wa{border-color:#128C7E;color:#128C7E}
+  .btn-wa:hover{background:#128C7E;color:#fff}
+  @media(max-width:620px){.iletisim{padding:24px;flex-direction:column;align-items:flex-start}
+    .butonlar{width:100%}.butonlar .btn{flex:1 1 100%;text-align:center}}
+
+  footer{padding:26px 0 40px;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· hakkımızda</span></a>
+    <nav id="ustmenu" class="topnav" aria-label="Site gezinmesi">
+      <a href="/#projeler">projeler</a>
+      <a href="/#cozumler">çözümler</a>
+      <a href="/vaka-analizi/">vaka analizi</a>
+      <a href="#iletisim">iletişim</a>
+    </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
+  </div>
+</div>
+
+<main>
+  <div class="intro">
+    <div class="wrap">
+      <p class="eyebrow"><span lang="en">BeScript</span> Yazılım Çözümleri · Kartepe / Kocaeli</p>
+      <h1>Fikirden mağazaya,<br><span class="accent">tek çatı altında.</span></h1>
+      <p>BeScript, Kartepe'de kurulu bir yazılım stüdyosu. Mobil uygulama, AI otomasyon ve IoT
+      sistemleri geliştiriyoruz; tasarım, backend, mağaza yayını ve yayın sonrası bakım aynı
+      ekipte. Geliştirdiğimiz uygulamalar Google Play ve App Store'da yayında, kurduğumuz
+      sistemler sahada çalışıyor.</p>
+      <div class="serit" role="list" aria-label="Özet">
+        <div role="listitem"><b>7</b><span>proje · canlı + demo</span></div>
+        <div role="listitem"><b>3</b><span>uygulama mağazalarda</span></div>
+        <div role="listitem"><b>5+</b><span>yıl saha deneyimi</span></div>
+        <div role="listitem"><b>+1,5M₺</b><span>4 ayda müşteri cirosu</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="surec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nasıl çalışıyoruz</h2>
+        <span class="sec-note">altı adımda teslim</span>
+      </div>
+      <ol class="surec">
+        <li><h3>Keşif</h3><p>İhtiyacınızı dinliyor, kapsamı ve fiyatı aynı gün yazılı olarak netleştiriyoruz.</p></li>
+        <li><h3>Tasarım</h3><p>Ekranlar ve akış onayınıza sunulur; kod yazılmadan önce ne alacağınızı görürsünüz.</p></li>
+        <li><h3>Geliştirme</h3><p>Mobil, backend ve entegrasyonlar birlikte ilerler; ara teslimlerle ilerlemeyi siz de takip edersiniz.</p></li>
+        <li><h3>Test</h3><p>Gerçek cihazlarda ve gerçek veriyle test; mağaza kurallarına uygunluk kontrolü.</p></li>
+        <li><h3>Yayın</h3><p>Google Play ve App Store başvurusu, mağaza görselleri ve inceleme süreci bizde.</p></li>
+        <li><h3>Bakım</h3><p>Yayın sonrası hata takibi, güncellemeler ve sunucu bakımı.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="alanlar">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Sorumluluk alanları</h2>
+        <span class="sec-note">bir projede neler bizde</span>
+      </div>
+      <div class="alanlar">
+        <div class="alan"><h3>Proje yönetimi</h3><p>Kapsam, takvim ve ara teslimlerin planlanması.</p></div>
+        <div class="alan"><h3>Mobil geliştirme</h3><p>iOS ve Android'e tek kod tabanıyla uygulama; React Native ve Expo.</p></div>
+        <div class="alan"><h3>Backend ve altyapı</h3><p>API, veritabanı, sunucu kurulumu; Python, FastAPI, PostgreSQL, Supabase.</p></div>
+        <div class="alan"><h3>AI ve otomasyon</h3><p>WhatsApp botları, agentic sistemler, veri toplama ve entegrasyonlar.</p></div>
+        <div class="alan"><h3>Test ve yayın</h3><p>Cihaz testleri, mağaza başvuruları ve yayın sonrası izleme.</p></div>
+        <div class="alan"><h3>Müşteri ilişkileri</h3><p>Talebinizi alır, proje boyunca tek muhatabınız olur; her soruyu ilgili ekibe iletir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ilkeler">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Neye önem veriyoruz</h2>
+        <span class="sec-note">her projede aynı</span>
+      </div>
+      <div class="ilkeler">
+        <div class="ilke"><h3>Kod ve veri sizin</h3><p>Kaynak kod ve veriler teslimde size geçer. Hazır platformlara kilitlenmezsiniz; istediğiniz an başka bir sunucuya taşınır.</p></div>
+        <div class="ilke"><h3>Hazır şablon değil, özel kod</h3><p>No-code araç kullanmıyoruz. Sistemin her satırını biz yazıyoruz, bu yüzden her şey değiştirilebilir.</p></div>
+        <div class="ilke"><h3>Tek muhatap</h3><p>Müşteri İlişkileri proje boyunca sizinle; kime ulaşacağınızı düşünmezsiniz.</p></div>
+        <div class="ilke"><h3>Sahada kanıtlanmış</h3><p>Uygulamalarımız mağazalarda yayında, IoT sistemlerimiz gerçek tesislerde çalışıyor. Sitedeki demolar bu sistemlerin canlandırması.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="iletisim">
+    <div class="wrap">
+      <div class="iletisim">
+        <div>
+          <h2>Projeniz için konuşalım.</h2>
+          <p>Müşteri İlişkileri ekibimiz talebinizi alır, kapsamı ve fiyatı aynı gün netleştirir.</p>
+          <p class="kanal">Müşteri İlişkileri · <a href="tel:+905400010595">0540 001 05 95</a> · <a href="mailto:iletisim@bescript.com.tr">iletisim@bescript.com.tr</a></p>
+        </div>
+        <div class="butonlar">
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp 💬</a>
+          <a class="btn btn-primary" href="tel:+905400010595">Ara ☎</a>
+          <a class="btn btn-primary" href="mailto:iletisim@bescript.com.tr">E-posta ✉</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BeScript Yazılım Çözümleri</span>
+    <span>kartepe / kocaeli · türkiye geneli hizmet</span>
+  </div>
+</footer>
+
+<script>
+/* Mobil menu */
+(function(){
+  var topbar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!topbar||!dugme) return;
+  dugme.addEventListener("click",function(){
+    var acik=topbar.classList.toggle("menu-acik");
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+  });
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "url": "https://bescript.com.tr/hakkimizda/",
+  "name": "Hakkımızda — BeScript Yazılım Çözümleri",
+  "about": {
+    "@type": "ProfessionalService",
+    "name": "BeScript Yazılım Çözümleri",
+    "url": "https://bescript.com.tr/",
+    "telephone": "+90-540-001-05-95",
+    "email": "iletisim@bescript.com.tr",
+    "address": {"@type": "PostalAddress", "addressLocality": "Kartepe", "addressRegion": "Kocaeli", "addressCountry": "TR"}
+  }
+}
+</script>
+</body>
+</html>

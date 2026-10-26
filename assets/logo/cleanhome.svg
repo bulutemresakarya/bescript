@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="CleanHome">
+  <title>CleanHome</title>
+  <path d="M8 22L24 8l16 14v16a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V22z" stroke="#2563EB" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M18 40V28h12v12" stroke="#2563EB" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M36 4l1.2 3L40 8.2 37.2 9.4 36 12.4 34.8 9.4 32 8.2l2.8-1.2L36 4z" fill="#2563EB"/>
+</svg>

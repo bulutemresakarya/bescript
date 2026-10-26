@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danışman Performans Dashboard'u (Demo)</title>
+<meta name="description" content="Gayrimenkul ofisleri için gerçek zamanlı danışman performans dashboard'unun örnek verili demosu.">
+<link rel="canonical" href="https://bescript.com.tr/dashboard/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/dashboard/">
+<meta property="og:title" content="Danışman Performans Dashboard'u (Demo)">
+<meta property="og:description" content="Gayrimenkul ofisleri için gerçek zamanlı danışman performans dashboard'unun örnek verili demosu.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Danışman Performans Dashboard'u (Demo)">
+<meta name="twitter:description" content="Gayrimenkul ofisleri için gerçek zamanlı danışman performans dashboard'unun örnek verili demosu.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0C1322;
+    --panel:#131C30;
+    --panel-2:#1A2540;
+    --line:#26324E;
+    --text:#E8EDF6;
+    --muted:#8FA0BC;
+    --red:#E11D33;
+    --blue:#2E6BE6;
+    --gold:#E8B93B;
+    --silver:#AEB9C9;
+    --bronze:#C6803F;
+    --green:#2FBF71;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+  /* demo badge */
+  .demo-banner{
+    background:linear-gradient(90deg,var(--blue),#7C5CE6);
+    text-align:center;padding:6px 12px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.05em;
+  }
+
+  /* header */
+  header{border-bottom:1px solid var(--line);background:var(--panel)}
+  .head-in{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:12px 0;gap:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo-mark{
+    width:34px;height:34px;background:var(--blue);
+    display:grid;place-items:center;
+    font-family:'Archivo',sans-serif;font-weight:900;font-size:17px;color:#fff;
+    border-radius:6px;
+  }
+  .logo-name{font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;font-variation-settings:'wdth' 110}
+  .logo-name span{color:var(--blue)}
+  .head-right{display:flex;align-items:center;gap:14px}
+  .clock{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted)}
+  .tv-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    background:transparent;border:1px solid var(--blue);color:var(--blue);
+    padding:8px 14px;border-radius:6px;cursor:pointer;transition:all .15s;
+  }
+  .tv-btn:hover{background:var(--blue);color:#fff}
+  .tv-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* ticker */
+  .ticker-bar{background:var(--panel-2);border-bottom:1px solid var(--line);overflow:hidden}
+  .ticker{
+    display:flex;gap:40px;padding:9px 0;white-space:nowrap;
+    animation:scroll 45s linear infinite;width:max-content;
+  }
+  .ticker-bar:hover .ticker{animation-play-state:paused}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.ticker{animation:none}}
+  .tick{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+  .tick b{color:var(--text);font-weight:500}
+  .up{color:var(--green)} .down{color:var(--red)}
+
+  /* controls */
+  .controls{display:flex;justify-content:space-between;align-items:center;padding:22px 0 4px;gap:14px;flex-wrap:wrap}
+  h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;font-variation-settings:'wdth' 108}
+  .periods{display:flex;gap:6px;flex-wrap:wrap}
+  .p-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    padding:7px 13px;border-radius:6px;cursor:pointer;transition:all .15s;
+  }
+  .p-btn:hover{border-color:var(--blue);color:var(--text)}
+  .p-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+  .p-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* KPI cards */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:18px 0}
+  .kpi{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;position:relative;overflow:hidden;
+  }
+  .kpi::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--blue);
+  }
+  .kpi:nth-child(2)::before{background:#7C5CE6}
+  .kpi:nth-child(3)::before{background:var(--gold)}
+  .kpi:nth-child(4)::before{background:var(--green)}
+  .kpi .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  .kpi .val{font-family:'Archivo',sans-serif;font-weight:800;font-size:28px;margin-top:6px;font-variation-settings:'wdth' 106}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+  .kpi .sub .up{font-weight:600}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.kpis{grid-template-columns:1fr}}
+
+  /* main grid */
+  .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;padding-bottom:14px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .panel{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;
+  }
+  .panel h2{
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+    margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;
+    font-variation-settings:'wdth' 106;
+  }
+  .panel h2 .note{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);font-weight:400}
+  .chart-box{position:relative;height:280px}
+
+  /* leaderboard */
+  .lb-row{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 8px;border-radius:8px;transition:background .15s;
+  }
+  .lb-row:hover{background:var(--panel-2)}
+  .rank{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+    width:24px;text-align:center;color:var(--muted);flex-shrink:0;
+  }
+  .r1 .rank{color:var(--gold)} .r2 .rank{color:var(--silver)} .r3 .rank{color:var(--bronze)}
+  .avatar{
+    width:36px;height:36px;border-radius:50%;flex-shrink:0;
+    display:grid;place-items:center;
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:#fff;
+  }
+  .lb-info{flex:1;min-width:0}
+  .lb-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lb-club{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)}
+  .lb-val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-align:right;flex-shrink:0}
+  .lb-val small{display:block;font-weight:400;color:var(--muted);font-size:10.5px}
+  .medal{font-size:14px;width:20px;text-align:center;flex-shrink:0}
+
+  /* club progress */
+  .club-bar{margin-top:6px;height:5px;background:var(--panel-2);border-radius:3px;overflow:hidden}
+  .club-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--gold));border-radius:3px}
+
+  /* testimonials */
+  .testi{font-size:14px;color:var(--muted);font-style:italic;min-height:66px}
+  .testi-who{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text);margin-top:10px;font-style:normal}
+  .testi-dots{display:flex;gap:5px;margin-top:12px}
+  .tdot{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .2s}
+  .tdot.on{background:var(--blue)}
+
+  /* bottom row */
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding-bottom:30px}
+  @media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+  .mkt-row{
+    display:flex;justify-content:space-between;padding:8px 4px;
+    border-bottom:1px solid var(--line);font-size:13.5px;
+  }
+  .mkt-row:last-child{border-bottom:none}
+  .mkt-row .k{color:var(--muted)}
+  .mkt-row .v{font-family:'IBM Plex Mono',monospace;font-weight:500}
+  .bday{display:flex;align-items:center;gap:10px;padding:8px 4px;font-size:13.5px}
+  .bday .ico{width:30px;height:30px;border-radius:8px;background:var(--panel-2);display:grid;place-items:center;flex-shrink:0}
+
+  /* TV mode */
+  .tv-overlay{
+    position:fixed;inset:0;background:var(--bg);z-index:100;
+    display:none;flex-direction:column;
+  }
+  .tv-overlay.on{display:flex}
+  .tv-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 28px;border-bottom:1px solid var(--line);
+  }
+  .tv-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px}
+  .tv-stage{flex:1;display:grid;place-items:center;padding:30px;overflow:auto}
+  .tv-slide{max-width:900px;width:100%;animation:fadeIn .5s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .tv-controls{display:flex;gap:10px;align-items:center}
+  .tv-progress{
+    position:absolute;bottom:0;left:0;height:3px;background:var(--blue);
+    transition:width .3s linear;
+  }
+  .big-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(48px,9vw,96px);font-variation-settings:'wdth' 115;text-align:center}
+  .big-lbl{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);text-align:center;margin-top:8px;letter-spacing:.08em}
+
+  footer{
+    border-top:1px solid var(--line);padding:18px 0 30px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);
+  }
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--blue);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO SÜRÜMÜ — tüm veriler örnektir · orijinal sistem bir gayrimenkul ofisinde 215 gerçek işlemle, 40+ danışmanla canlı çalıştı</div>
+
+<header>
+  <div class="wrap head-in">
+    <div class="logo">
+      <div class="logo-mark">▦</div>
+      <div class="logo-name">Danışman <span>Performans</span> <span style="color:var(--muted);font-size:12px;font-weight:400">· Dashboard</span></div>
+    </div>
+    <div class="head-right">
+      <span class="clock mono" id="clock">--:--:--</span>
+      <button class="tv-btn" id="tvOpen">▶ TV Modu</button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<main class="wrap">
+  <div class="controls">
+    <h1>Ofis Performansı</h1>
+    <div class="periods" role="tablist" aria-label="Dönem seçimi">
+      <button class="p-btn" data-p="hafta">Haftalık</button>
+      <button class="p-btn active" data-p="ay">Aylık</button>
+      <button class="p-btn" data-p="ceyrek">3-Aylık</button>
+      <button class="p-btn" data-p="yil">Yıllık</button>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Ciro Trendi <span class="note" id="chartNote">son 12 ay · lineer regresyon tahmini dahil</span></h2>
+      <div class="chart-box"><canvas id="revChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>Danışman Liderlik Tablosu <span class="note">ciro bazlı</span></h2>
+      <div id="leaderboard"></div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="panel">
+      <h2>Piyasa Göstergeleri <span class="note">30 sn'de bir yenilenir</span></h2>
+      <div id="markets"></div>
+    </div>
+    <div class="panel">
+      <h2>Müşteri Yorumları</h2>
+      <div class="testi" id="testiText"></div>
+      <div class="testi-who" id="testiWho"></div>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+    <div class="panel">
+      <h2>Bu Ay Doğum Günleri 🎂</h2>
+      <div id="bdays"></div>
+    </div>
+  </div>
+</main>
+
+<!-- TV MODE -->
+<div class="tv-overlay" id="tvOverlay" role="dialog" aria-label="TV sunum modu">
+  <div class="tv-head">
+    <div class="tv-title">Performans Panosu <span style="color:var(--muted);font-size:13px;font-weight:400">TV Sunum Modu</span></div>
+    <div class="tv-controls">
+      <button class="tv-btn" id="tvPrev">‹ Geri</button>
+      <button class="tv-btn" id="tvNext">İleri ›</button>
+      <button class="tv-btn" id="tvClose" style="border-color:var(--red);color:var(--red)">✕ Kapat</button>
+    </div>
+  </div>
+  <div class="tv-stage"><div class="tv-slide" id="tvSlide"></div></div>
+  <div class="tv-progress" id="tvProgress"></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>danışman performans dashboard'u · demo</span>
+    <span>geliştirici: <a href="../">BeScript</a> · react + express + google sheets api orijinalinin statik demosu</span>
+  </div>
+</footer>
+
+<script>
+/* ---------------- sahte veri ---------------- */
+const CONSULTANTS = [
+  {n:"Ayşe Demir",  club:"Crown Club",     c:"#2E6BE6"},
+  {n:"Mehmet Kaya", club:"Chairman's Club",c:"#E11D33"},
+  {n:"Zeynep Arslan",club:"Platinum Club", c:"#7C5CE6"},
+  {n:"Emre Yıldız", club:"Platinum Club",  c:"#2FBF71"},
+  {n:"Elif Şahin",  club:"100% Club",      c:"#E8B93B"},
+  {n:"Burak Çelik", club:"100% Club",      c:"#E1701D"},
+  {n:"Selin Koç",   club:"Executive Club", c:"#1DA8E1"},
+  {n:"Can Öztürk",  club:"Yıldızlar",      c:"#8FA0BC"},
+];
+
+/* dönem bazlı çarpanlar */
+const PERIODS = {
+  hafta:  {mult:0.055, tx:9,   lbl:"bu hafta",  chart:"son 8 hafta",  pts:8,  unit:"H"},
+  ay:     {mult:0.24,  tx:38,  lbl:"bu ay",     chart:"son 12 ay · lineer regresyon tahmini dahil", pts:12, unit:""},
+  ceyrek: {mult:0.71,  tx:112, lbl:"bu çeyrek", chart:"son 4 çeyrek", pts:4,  unit:"Ç"},
+  yil:    {mult:2.85,  tx:451, lbl:"bu yıl",    chart:"son 3 yıl",    pts:3,  unit:""},
+};
+const BASE_REV = 18_400_000; // aylık taban ciro (₺)
+const AYLAR = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
+
+const fmtTL = v => "₺" + Math.round(v).toLocaleString("tr-TR");
+const fmtTLshort = v => v >= 1e6 ? "₺"+(v/1e6).toLocaleString("tr-TR",{maximumFractionDigits:1})+"M" : fmtTL(v);
+
+/* deterministik sahte rastgelelik */
+let seed = 42;
+const rnd = () => { seed = (seed*9301+49297)%233280; return seed/233280; };
+
+/* ---------------- saat ---------------- */
+const clockEl = document.getElementById("clock");
+setInterval(()=>{ 
+  clockEl.textContent = new Date().toLocaleTimeString("tr-TR",{timeZone:"Europe/Istanbul"}) + " TRT";
+},1000);
+
+/* ---------------- ticker ---------------- */
+const TICKS = [
+  ["USD/TRY","41,87",+0.3],["EUR/TRY","45,12",-0.1],["GBP/TRY","52,96",+0.2],
+  ["GRAM ALTIN","₺3.284",+0.8],["ÇEYREK","₺5.412",+0.7],["ONS","$2.641",+0.5],
+  ["BTC","₺3.712.450",+1.9],["ETH","₺132.780",-0.6],["BNB","₺28.340",+0.4],
+  ["KOCAELİ KONUT ENDEKSİ","148,2",+1.1],["İZMİT m²","₺38.450",+0.9],["GEBZE m²","₺41.200",+1.4],
+];
+const tickerEl = document.getElementById("ticker");
+tickerEl.innerHTML = [...TICKS,...TICKS].map(([k,v,d])=>
+  `<span class="tick">${k}: <b>${v}</b> <span class="${d>=0?'up':'down'}">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1)}%</span></span>`
+).join("");
+
+/* ---------------- dönem state ---------------- */
+let period = "ay";
+let chart = null;
+
+function consultantData(p){
+  seed = 42;
+  const m = PERIODS[p].mult;
+  return CONSULTANTS.map((c,i)=>{
+    const base = BASE_REV * m * (1 - i*0.09) * (0.9 + rnd()*0.25);
+    const tx = Math.max(1, Math.round(PERIODS[p].tx * (1 - i*0.085) * (0.85+rnd()*0.3) / 3.2));
+    return {...c, rev: base/2.6, tx};
+  }).sort((a,b)=>b.rev-a.rev);
+}
+
+function render(){
+  const P = PERIODS[period];
+  const data = consultantData(period);
+  const totalRev = data.reduce((s,c)=>s+c.rev,0);
+  const totalTx  = data.reduce((s,c)=>s+c.tx,0);
+
+  /* KPI */
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><div class="lbl">TOPLAM CİRO</div><div class="val">${fmtTLshort(totalRev)}</div><div class="sub"><span class="up">▲ %12,4</span> önceki döneme göre</div></div>
+    <div class="kpi"><div class="lbl">İŞLEM SAYISI</div><div class="val">${totalTx}</div><div class="sub">${P.lbl} · satış + kiralama</div></div>
+    <div class="kpi"><div class="lbl">AKTİF DANIŞMAN</div><div class="val">${CONSULTANTS.length*5}</div><div class="sub">${CONSULTANTS.length} tanesi listede</div></div>
+    <div class="kpi"><div class="lbl">ORT. İŞLEM DEĞERİ</div><div class="val">${fmtTLshort(totalRev/totalTx)}</div><div class="sub"><span class="up">▲ %4,1</span> trend yukarı</div></div>`;
+
+  /* leaderboard */
+  const medals = ["🥇","🥈","🥉"];
+  document.getElementById("leaderboard").innerHTML = data.slice(0,8).map((c,i)=>{
+    const ini = c.n.split(" ").map(w=>w[0]).join("");
+    const prog = Math.min(100, 35 + (7-i)*9);
+    return `<div class="lb-row r${i+1}">
+      <span class="rank">${i+1}</span>
+      <span class="medal">${medals[i]||""}</span>
+      <div class="avatar" style="background:${c.c}">${ini}</div>
+      <div class="lb-info">
+        <div class="lb-name">${c.n}</div>
+        <div class="lb-club">${c.club}</div>
+        <div class="club-bar"><div class="club-fill" style="width:${prog}%"></div></div>
+      </div>
+      <div class="lb-val">${fmtTLshort(c.rev)}<small>${c.tx} işlem</small></div>
+    </div>`;
+  }).join("");
+
+  /* chart */
+  document.getElementById("chartNote").textContent = P.chart;
+  seed = 7;
+  const pts = P.pts;
+  const labels = [];
+  const now = new Date();
+  for(let i=pts-1;i>=0;i--){
+    if(period==="ay") labels.push(AYLAR[(now.getMonth()-i+24)%12]);
+    else if(period==="yil") labels.push(String(now.getFullYear()-i));
+    else labels.push(P.unit+(pts-i));
+  }
+  const vals = labels.map((_,i)=> BASE_REV*P.mult/pts * (0.75 + i*0.045 + rnd()*0.25) * pts/2.4);
+  /* lineer regresyon → 2 nokta tahmin */
+  const n=vals.length, xs=vals.map((_,i)=>i);
+  const xm=xs.reduce((a,b)=>a+b)/n, ym=vals.reduce((a,b)=>a+b)/n;
+  const slope=xs.reduce((s,x,i)=>s+(x-xm)*(vals[i]-ym),0)/xs.reduce((s,x)=>s+(x-xm)**2,0);
+  const icept=ym-slope*xm;
+  const fc=[...vals.map(()=>null)];
+  fc[n-1]=vals[n-1];
+  const fLabels=[...labels];
+  for(let k=1;k<=2;k++){ fLabels.push("tahmin"+(k>1?" +"+k:"")); fc.push(icept+slope*(n-1+k)); vals.push(NaN); }
+
+  if(chart) chart.destroy();
+  chart = new Chart(document.getElementById("revChart"),{
+    type:"line",
+    data:{labels:fLabels,datasets:[
+      {label:"Ciro",data:vals,borderColor:"#2E6BE6",backgroundColor:"rgba(46,107,230,.12)",fill:true,tension:.35,pointRadius:3,pointBackgroundColor:"#2E6BE6",spanGaps:false},
+      {label:"Regresyon tahmini",data:fc,borderColor:"#E8B93B",borderDash:[6,5],pointRadius:3,pointBackgroundColor:"#E8B93B",tension:.2}
+    ]},
+    options:{
+      maintainAspectRatio:false,responsive:true,
+      plugins:{legend:{labels:{color:"#8FA0BC",font:{family:"'IBM Plex Mono'",size:11}}},
+        tooltip:{callbacks:{label:c=>c.parsed.y?fmtTLshort(c.parsed.y):""}}},
+      scales:{
+        x:{ticks:{color:"#8FA0BC",font:{family:"'IBM Plex Mono'",size:11}},grid:{color:"#1A2540"}},
+        y:{ticks:{color:"#8FA0BC",font:{family:"'IBM Plex Mono'",size:11},callback:v=>fmtTLshort(v)},grid:{color:"#1A2540"}}
+      }
+    }
+  });
+}
+
+document.querySelectorAll(".p-btn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".p-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    period=b.dataset.p;
+    render();
+  });
+});
+
+/* ---------------- piyasa paneli ---------------- */
+const MKT = [
+  ["USD/TRY","41,87"],["EUR/TRY","45,12"],["Gram Altın","₺3.284"],
+  ["BTC/TRY","₺3.712.450"],["Kocaeli Konut Endeksi","148,2"],["İzmit Ort. m²","₺38.450"],
+];
+function renderMkt(){
+  document.getElementById("markets").innerHTML = MKT.map(([k,v])=>{
+    const d=(Math.random()*2-0.7).toFixed(1);
+    return `<div class="mkt-row"><span class="k">${k}</span><span class="v">${v} <span class="${d>=0?'up':'down'}">${d>=0?'▲':'▼'}${Math.abs(d)}%</span></span></div>`;
+  }).join("");
+}
+renderMkt();
+setInterval(renderMkt,30000);
+
+/* ---------------- yorumlar ---------------- */
+const TESTI = [
+  ["Evimizi iki haftada, beklediğimizin üzerinde bir fiyata sattılar. Süreç boyunca her adımda bilgilendirildik.","— A.K., İzmit (satış)"],
+  ["Kiralama sürecinde sözleşmeden teslime kadar her şey profesyonelce yürüdü.","— M.T., Başiskele (kiralama)"],
+  ["Yatırım için doğru bölgeyi veriye dayalı olarak önerdiler. Bir yılda değer artışı beklentiyi aştı.","— S.D., Gebze (yatırım)"],
+  ["İlk ev alışverişimizdi, kredi sürecinde bile yanımızdaydılar.","— E.B., Kartepe (satış)"],
+];
+let tIdx=0;
+function renderTesti(){
+  document.getElementById("testiText").textContent = "“"+TESTI[tIdx][0]+"”";
+  document.getElementById("testiWho").textContent = TESTI[tIdx][1];
+  document.getElementById("testiDots").innerHTML = TESTI.map((_,i)=>`<span class="tdot ${i===tIdx?'on':''}"></span>`).join("");
+  tIdx=(tIdx+1)%TESTI.length;
+}
+renderTesti();
+setInterval(renderTesti,6000);
+
+/* ---------------- doğum günleri ---------------- */
+document.getElementById("bdays").innerHTML = [
+  ["🎂","Zeynep Arslan","22 Temmuz"],
+  ["🎂","Can Öztürk","27 Temmuz"],
+  ["🎉","Ofis kuruluş yıldönümü","31 Temmuz"],
+].map(([i,n,d])=>`<div class="bday"><div class="ico">${i}</div><div><b>${n}</b><br><span style="color:var(--muted);font-size:12px">${d}</span></div></div>`).join("");
+
+/* ---------------- TV modu ---------------- */
+const tvOverlay=document.getElementById("tvOverlay");
+const tvSlide=document.getElementById("tvSlide");
+const tvProgress=document.getElementById("tvProgress");
+let tvIdx=0, tvTimer=null, tvTick=null, tvStart=0;
+const TV_INTERVAL=30000;
+
+function tvSlides(){
+  const data=consultantData(period);
+  const totalRev=data.reduce((s,c)=>s+c.rev,0);
+  const medals=["🥇","🥈","🥉"];
+  return [
+    `<div class="big-num">${fmtTLshort(totalRev)}</div><div class="big-lbl">TOPLAM CİRO · ${PERIODS[period].lbl.toUpperCase()}</div>`,
+    `<h2 style="font-family:'Archivo';font-size:24px;margin-bottom:20px;text-align:center">Liderlik Tablosu</h2>`+
+      data.slice(0,5).map((c,i)=>`<div class="lb-row r${i+1}" style="font-size:17px">
+        <span class="rank" style="font-size:16px">${i+1}</span><span class="medal">${medals[i]||""}</span>
+        <div class="avatar" style="background:${c.c};width:44px;height:44px;font-size:15px">${c.n.split(" ").map(w=>w[0]).join("")}</div>
+        <div class="lb-info"><div class="lb-name" style="font-size:16px">${c.n}</div><div class="lb-club">${c.club}</div></div>
+        <div class="lb-val" style="font-size:16px">${fmtTLshort(c.rev)}</div></div>`).join(""),
+    `<div class="big-num">${data.reduce((s,c)=>s+c.tx,0)}</div><div class="big-lbl">İŞLEM · ${PERIODS[period].lbl.toUpperCase()} · SATIŞ + KİRALAMA</div>`,
+  ];
+}
+function tvShow(i){
+  const s=tvSlides();
+  tvIdx=(i+s.length)%s.length;
+  tvSlide.innerHTML=s[tvIdx];
+  tvSlide.style.animation="none"; void tvSlide.offsetWidth; tvSlide.style.animation="";
+  tvStart=Date.now();
+}
+function tvOpen(){
+  tvOverlay.classList.add("on");
+  if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+  tvShow(0);
+  tvTimer=setInterval(()=>tvShow(tvIdx+1),TV_INTERVAL);
+  tvTick=setInterval(()=>{tvProgress.style.width=((Date.now()-tvStart)/TV_INTERVAL*100)+"%"},250);
+}
+function tvClose(){
+  tvOverlay.classList.remove("on");
+  clearInterval(tvTimer);clearInterval(tvTick);
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+}
+document.getElementById("tvOpen").addEventListener("click",tvOpen);
+document.getElementById("tvClose").addEventListener("click",tvClose);
+document.getElementById("tvNext").addEventListener("click",()=>{clearInterval(tvTimer);tvShow(tvIdx+1);tvTimer=setInterval(()=>tvShow(tvIdx+1),TV_INTERVAL)});
+document.getElementById("tvPrev").addEventListener("click",()=>{clearInterval(tvTimer);tvShow(tvIdx-1);tvTimer=setInterval(()=>tvShow(tvIdx+1),TV_INTERVAL)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&tvOverlay.classList.contains("on"))tvClose()});
+
+render();
+</script>
+</body>
+</html>
+

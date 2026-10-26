@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BOCU BC-01 — Ürün Demosu</title>
+<meta name="description" content="BOCU BC-01: 3 fazlı sulama pompaları için uzaktan izleme, koruma ve kontrol sistemi. Gerçek MQTT protokolüyle çalışan interaktif demo, mimari özeti ve yol haritası." />
+<link rel="canonical" href="https://bescript.com.tr/bocu/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/bocu/">
+<meta property="og:title" content="BOCU BC-01 — Ürün Demosu">
+<meta property="og:description" content="3 fazlı sulama pompaları için uzaktan izleme, koruma ve kontrol. Gerçek protokolle çalışan interaktif demo.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BOCU BC-01 — Ürün Demosu">
+<meta name="twitter:description" content="3 fazlı sulama pompaları için uzaktan izleme, koruma ve kontrol. Gerçek protokolle çalışan interaktif demo.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<style>
+  :root{
+    --ink-950:#08090B; --ink-900:#0E1013; --ink-850:#141719; --ink-800:#1A1E22;
+    --ink-700:#252A30; --ink-600:#333940;
+    --gold-300:#F3D6A0; --gold-400:#E8B96B; --gold-500:#D29A45; --gold-600:#A9772F;
+    --ok:#2ECC71; --warn:#F5A524; --danger:#F0503C; --info:#4EA1FF;
+    --muted:#98A2AE; --muted-2:#6E7885;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.05);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:radial-gradient(1100px 520px at 12% -8%, #1c1a13 0%, var(--ink-950) 58%), var(--ink-950);
+    color:#F2F4F6;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:60;background:rgba(8,9,11,.78);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+  }
+  .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;height:66px}
+  .brandmark{display:flex;align-items:center;gap:11px;font-weight:700;font-size:17px;letter-spacing:.01em}
+  .brandmark img{width:34px;height:34px;border-radius:9px;border:1px solid var(--line)}
+  .brandmark small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted-2);font-weight:400;letter-spacing:.08em}
+  .header-pill{
+    font-family:var(--mono);font-size:11.5px;color:var(--gold-400);
+    border:1px solid rgba(232,185,107,.32);background:rgba(232,185,107,.07);
+    padding:6px 12px;border-radius:999px;white-space:nowrap;
+  }
+  .header-back{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none}
+  .header-back:hover{color:var(--gold-400)}
+  @media(max-width:640px){.header-back{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:60px 0 52px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--gold-500);text-transform:uppercase}
+  h1{margin:16px 0 0;font-size:clamp(32px,5.2vw,50px);line-height:1.06;letter-spacing:-.02em;font-weight:800}
+  h1 .g{background:linear-gradient(94deg,var(--gold-300),var(--gold-500));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin:20px 0 0;color:#C7CDD4;font-size:16.5px;max-width:58ch}
+  .stat-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .stat-chip{
+    border:1px solid var(--line);background:var(--ink-850);border-radius:12px;padding:10px 14px;min-width:104px;
+  }
+  .stat-chip b{display:block;font-size:15px;letter-spacing:-.01em}
+  .stat-chip span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted-2);margin-top:2px}
+  .tech-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}
+  .tech-badge{
+    font-family:var(--mono);font-size:11px;color:#C7CDD4;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.03);padding:5px 10px;border-radius:999px;
+  }
+  .hero-art{position:relative;margin:0}
+  .hero-art .card-art{
+    border:1px solid var(--line);border-radius:22px;padding:20px 16px 14px;
+    background:linear-gradient(180deg,#101216,#0A0B0D);
+    box-shadow:0 40px 90px -55px rgba(0,0,0,.95);
+  }
+  .hero-art svg{display:block;width:100%;height:auto;max-width:440px;margin:0 auto}
+  .hero-art figcaption{
+    font-family:var(--mono);font-size:10.5px;color:var(--muted-2);text-align:center;margin-top:12px;line-height:1.6;
+  }
+  .led{animation:led 2.4s ease-in-out infinite}
+  @keyframes led{0%,100%{opacity:1}50%{opacity:.35}}
+  .flow-dash{stroke-dasharray:5 7;animation:flow 1.8s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-24}}
+  @media (prefers-reduced-motion:reduce){.led,.flow-dash{animation:none}}
+
+  /* ---------- genel bolum ---------- */
+  section{padding:58px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+  h2{margin:0;font-size:25px;letter-spacing:-.015em;font-weight:800}
+  .sec-note{font-family:var(--mono);font-size:11.5px;color:var(--muted-2)}
+  .sec-intro{color:#B9C0C8;max-width:70ch;margin:-8px 0 26px;font-size:15px}
+
+  /* ---------- demo duzeni ---------- */
+  .demo-grid{display:grid;grid-template-columns:352px minmax(0,1fr);gap:30px;align-items:start}
+  @media(max-width:960px){.demo-grid{grid-template-columns:1fr;gap:26px;justify-items:center}}
+
+  .phone{
+    width:352px;max-width:100%;border-radius:38px;padding:11px;
+    background:linear-gradient(180deg,#2A2E34,#101215);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 44px 90px -46px rgba(0,0,0,.95);
+    position:sticky;top:88px;
+  }
+  @media(max-width:960px){.phone{position:static}}
+  .screen{background:#F4F6F8;border-radius:29px;overflow:hidden;color:#141F2A;display:flex;flex-direction:column;height:686px}
+  .st-bar{display:flex;justify-content:space-between;align-items:center;padding:9px 18px 5px;font-size:11.5px;font-weight:600;color:#141F2A}
+  .app-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 16px 12px;border-bottom:1px solid #E3E7EC;background:#fff}
+  .app-bar .who{display:flex;align-items:center;gap:9px}
+  .app-bar img{width:28px;height:28px;border-radius:8px}
+  .app-bar .who b{font-size:14.5px;letter-spacing:-.01em}
+  .app-bar .who small{display:block;font-family:var(--mono);font-size:9.5px;color:#7A8593;letter-spacing:.04em}
+  .conn{font-family:var(--mono);font-size:10px;display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;border:1px solid #CBD3DC;color:#33414F;background:#F1F4F7}
+  .conn i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:block}
+  .conn.off i{background:#98A2AE}
+  .conn.off{color:#7A8593}
+
+  .tabs{display:flex;background:#fff;border-bottom:1px solid #E3E7EC}
+  .tabs button{
+    flex:1;appearance:none;background:none;border:none;padding:11px 4px 9px;cursor:pointer;
+    font-family:var(--mono);font-size:11px;color:#7A8593;border-bottom:2px solid transparent;
+  }
+  .tabs button[aria-selected="true"]{color:#141F2A;border-bottom-color:var(--gold-500);font-weight:600}
+  .tabs button:focus-visible{outline:2px solid var(--gold-600);outline-offset:-2px}
+  .panes{flex:1;overflow-y:auto;overflow-x:hidden;background:#F4F6F8;padding:12px 13px 18px}
+  .pane[hidden]{display:none}
+
+  .card{background:#fff;border:1px solid #E3E7EC;border-radius:14px;padding:13px;margin-bottom:10px}
+  .card h4{margin:0 0 9px;font-size:11px;font-family:var(--mono);letter-spacing:.06em;color:#7A8593;font-weight:500}
+  .motor-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .motor-state{font-size:19px;font-weight:800;letter-spacing:-.01em}
+  .motor-state.on{color:#0E8A4A}
+  .motor-state.off{color:#5A6672}
+  .motor-sub{font-family:var(--mono);font-size:10.5px;color:#7A8593;margin-top:2px}
+  .pump{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:#F1F4F7;border:1px solid #E3E7EC}
+  .pump.on{background:rgba(14,138,74,.09);border-color:rgba(14,138,74,.3)}
+
+  .kv{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+  .kv .cell{background:#F7F9FB;border:1px solid #E9EDF1;border-radius:10px;padding:8px 9px;text-align:center}
+  .kv .cell .p{font-family:var(--mono);font-size:9.5px;color:#7A8593;letter-spacing:.06em}
+  .kv .cell .n{font-size:16px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .kv .cell.alarm{background:rgba(240,80,60,.08);border-color:rgba(240,80,60,.35)}
+  .kv .cell.alarm .n{color:#C2321F}
+  .avg{font-family:var(--mono);font-size:10px;color:#7A8593;margin-top:7px;text-align:right}
+  .nodata{font-size:12.5px;color:#7A8593;background:#F7F9FB;border:1px dashed #CBD3DC;border-radius:10px;padding:10px}
+
+  .banner{border-radius:12px;padding:11px 12px;margin-bottom:10px;font-size:13px;line-height:1.45}
+  .banner b{display:block;font-size:13.5px;margin-bottom:2px}
+  .banner.trip{background:rgba(240,80,60,.1);border:1px solid rgba(240,80,60,.4);color:#8E2415}
+  .banner.offline{background:rgba(122,133,147,.12);border:1px solid #CBD3DC;color:#4A5563}
+  .banner .mini{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
+
+  .btn{
+    appearance:none;border:1px solid #CBD3DC;background:#fff;color:#141F2A;border-radius:10px;
+    padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+    transition:background .14s,color .14s,border-color .14s,opacity .14s;
+  }
+  .btn:hover:not(:disabled){border-color:#8D98A5}
+  .btn:disabled{opacity:.42;cursor:not-allowed}
+  .btn:focus-visible{outline:2px solid var(--gold-600);outline-offset:2px}
+  .btn-on{background:#0E8A4A;border-color:#0E8A4A;color:#fff}
+  .btn-on:hover:not(:disabled){background:#0B7440;border-color:#0B7440}
+  .btn-off{background:#C2321F;border-color:#C2321F;color:#fff}
+  .btn-off:hover:not(:disabled){background:#A62918;border-color:#A62918}
+  .btn-ghost{background:#fff}
+  .btn-sm{padding:7px 11px;font-size:12px;border-radius:9px}
+  .ctl-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .ctl-note{font-family:var(--mono);font-size:10px;color:#7A8593;margin-top:8px;min-height:14px}
+  .ctl-note.wait{color:#9A6A00}
+  .ctl-note.err{color:#C2321F}
+  .ctl-note.ok{color:#0E8A4A}
+
+  .seg{display:flex;border:1px solid #E3E7EC;border-radius:10px;overflow:hidden}
+  .seg button{
+    flex:1;appearance:none;border:none;background:#fff;padding:8px 6px;font-size:12px;cursor:pointer;
+    color:#5A6672;font-family:inherit;
+  }
+  .seg button[aria-pressed="true"]{background:#141F2A;color:#fff;font-weight:600}
+  .seg button:disabled{opacity:.45;cursor:not-allowed}
+
+  .field{margin-bottom:11px}
+  .field label{display:flex;justify-content:space-between;font-size:12px;color:#5A6672;margin-bottom:5px}
+  .field label b{font-variant-numeric:tabular-nums;color:#141F2A}
+  .field input[type=range]{width:100%;accent-color:#B67E2E}
+  .sync{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:999px;border:1px solid #E3E7EC}
+  .sync.applied{color:#0E8A4A;background:rgba(14,138,74,.08);border-color:rgba(14,138,74,.28)}
+  .sync.pending{color:#9A6A00;background:rgba(245,165,36,.1);border-color:rgba(245,165,36,.32)}
+  .sync.failed{color:#C2321F;background:rgba(240,80,60,.08);border-color:rgba(240,80,60,.32)}
+
+  .evlist{display:flex;flex-direction:column;gap:7px}
+  .ev{display:flex;gap:9px;background:#fff;border:1px solid #E3E7EC;border-radius:11px;padding:9px 10px}
+  .ev .ico{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;flex-shrink:0}
+  .ev .tx{min-width:0;flex:1}
+  .ev .tx b{display:block;font-size:12.5px}
+  .ev .tx span{display:block;font-family:var(--mono);font-size:10px;color:#7A8593;margin-top:2px;word-break:break-word}
+  .ev .tm{font-family:var(--mono);font-size:9.5px;color:#98A2AE;white-space:nowrap}
+  .ev.sev-alarm .ico{background:rgba(240,80,60,.1);color:#C2321F}
+  .ev.sev-warn .ico{background:rgba(245,165,36,.13);color:#9A6A00}
+  .ev.sev-info .ico{background:rgba(78,161,255,.12);color:#215FA6}
+  .ev.sev-ok .ico{background:rgba(14,138,74,.1);color:#0E8A4A}
+  .ev-empty{font-size:12.5px;color:#7A8593;text-align:center;padding:22px 8px}
+
+  /* ---------- sag kolon ---------- */
+  .sidecol{display:flex;flex-direction:column;gap:18px;min-width:0;width:100%}
+  .panel{border:1px solid var(--line);background:var(--ink-900);border-radius:16px;overflow:hidden}
+  .panel > header{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    padding:13px 16px;border-bottom:1px solid var(--line);background:var(--ink-850);
+  }
+  .panel > header h3{margin:0;font-size:13.5px;letter-spacing:-.01em}
+  .panel > header p{margin:2px 0 0;font-family:var(--mono);font-size:10.5px;color:var(--muted-2)}
+  .panel .body{padding:15px 16px}
+
+  .scen{display:flex;flex-wrap:wrap;gap:8px}
+  .scen button{
+    appearance:none;cursor:pointer;font-family:var(--mono);font-size:11.5px;
+    border:1px solid var(--line);background:var(--ink-850);color:#C7CDD4;
+    padding:8px 12px;border-radius:999px;transition:border-color .14s,color .14s,background .14s;
+  }
+  .scen button:hover{border-color:var(--gold-600);color:var(--gold-300)}
+  .scen button[aria-pressed="true"]{background:rgba(232,185,107,.12);border-color:var(--gold-500);color:var(--gold-300);font-weight:600}
+  .scen button:focus-visible{outline:2px solid var(--gold-500);outline-offset:2px}
+  .scen-desc{margin:13px 0 0;font-size:13.5px;color:#B9C0C8}
+  .scen-desc b{color:var(--gold-300);font-weight:600}
+
+  .wire{margin:0;padding:0;list-style:none;max-height:330px;overflow-y:auto;overflow-x:hidden}
+  .wire li{padding:9px 16px;border-bottom:1px solid var(--line-2);font-family:var(--mono);font-size:11px;line-height:1.5}
+  .wire li:last-child{border-bottom:none}
+  .wire .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+  .wire .dir{font-size:10px;padding:1px 6px;border-radius:5px;border:1px solid var(--line)}
+  .wire .dir.up{color:var(--info);border-color:rgba(78,161,255,.35);background:rgba(78,161,255,.08)}
+  .wire .dir.down{color:var(--gold-400);border-color:rgba(232,185,107,.32);background:rgba(232,185,107,.08)}
+  .wire .dir.srv{color:#C084FC;border-color:rgba(192,132,252,.32);background:rgba(192,132,252,.08)}
+  .wire .topic{color:#E6E9ED}
+  .wire .meta{color:var(--muted-2);font-size:9.5px}
+  .wire .pl{color:#9FE8C0;word-break:break-all;white-space:pre-wrap}
+  .wire .pl.warnpl{color:#F7C77A}
+  .wire-empty{padding:22px 16px;color:var(--muted-2);font-family:var(--mono);font-size:11px}
+
+  .cmds{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .cmd{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:#C7CDD4;flex-wrap:wrap}
+  .cmd .cid{color:var(--muted-2)}
+  .cmd .cst{padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-size:10px}
+  .cmd .cst.queued{color:var(--muted)}
+  .cmd .cst.sent{color:var(--warn);border-color:rgba(245,165,36,.35);background:rgba(245,165,36,.08)}
+  .cmd .cst.acked{color:var(--ok);border-color:rgba(46,204,113,.35);background:rgba(46,204,113,.08)}
+  .cmd .cst.rejected{color:var(--danger);border-color:rgba(240,80,60,.35);background:rgba(240,80,60,.08)}
+  .cmd .cst.timeout{color:var(--danger);border-color:rgba(240,80,60,.35);background:rgba(240,80,60,.08)}
+  .cmd-empty{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
+
+  .note{
+    margin-top:14px;border-left:2px solid var(--gold-600);background:rgba(232,185,107,.05);
+    padding:11px 14px;font-size:13px;color:#C7CDD4;border-radius:0 10px 10px 0;
+  }
+  .note b{color:var(--gold-300)}
+
+  /* ---------- icerik bolumleri ---------- */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+  .col{border:1px solid var(--line);background:var(--ink-900);border-radius:16px;padding:20px}
+  .col h3{margin:0 0 10px;font-size:15px;letter-spacing:-.01em}
+  .col p{margin:0;color:#B9C0C8;font-size:14px}
+  .col ul{margin:10px 0 0;padding-left:18px;color:#B9C0C8;font-size:13.5px}
+  .col li{margin-bottom:5px}
+  .col .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--gold-500);text-transform:uppercase;margin-bottom:8px}
+
+  .flow{
+    font-family:var(--mono);font-size:12px;line-height:1.75;color:#C7CDD4;white-space:pre;
+    overflow-x:auto;border:1px solid var(--line);background:var(--ink-900);border-radius:16px;padding:20px;margin:0;
+  }
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+  th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line-2);vertical-align:top;color:#B9C0C8}
+  th{background:var(--ink-850);color:#E6E9ED;font-size:11.5px;font-family:var(--mono);letter-spacing:.06em;font-weight:500;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td code,p code,li code{font-family:var(--mono);font-size:12px;color:var(--gold-300);background:rgba(232,185,107,.08);padding:1px 5px;border-radius:5px}
+
+  .roadmap{margin-top:26px;display:flex;flex-direction:column;gap:0}
+  .phase{display:flex;gap:14px;padding:0 0 20px;position:relative}
+  .phase:not(:last-child)::before{content:"";position:absolute;left:6px;top:16px;bottom:0;width:1px;background:var(--line)}
+  .phase .dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--ink-600);background:var(--ink-900);flex-shrink:0;margin-top:4px;z-index:1}
+  .phase.done .dot{background:var(--ok);border-color:var(--ok)}
+  .phase.current .dot{background:var(--gold-400);border-color:var(--gold-400);box-shadow:0 0 0 4px rgba(232,185,107,.16)}
+  .phase b{font-size:14px}
+  .phase p{margin:3px 0 0;color:#A8B0BA;font-size:13.5px}
+
+  footer{padding:30px 0 46px}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .credit{font-family:var(--mono);font-size:11px;color:var(--muted-2)}
+  .credit a{color:var(--gold-500);text-decoration:none}
+  .credit a:hover{text-decoration:underline}
+
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brandmark">
+      <img src="/assets/logo/bocu.jpg" alt="BOCU" width="34" height="34">
+      <span>BOCU BC-01<small>3 FAZLI POMPA KORUMA</small></span>
+    </div>
+    <a class="header-back" href="/">← bescript.com.tr</a>
+    <span class="header-pill">Google Play'de yayında</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Tarımsal sulama · IoT · NB-IoT</div>
+      <h1>İnternet olmasa bile<br><span class="g">motor korunur.</span></h1>
+      <p class="lead">
+        BOCU BC-01, tarımsal sulamada kullanılan 3 fazlı dalgıç ve dinamo pompaları uzaktan izleyen,
+        koruyan ve kontrol eden bir cihazdır. Koruma kararı <b>cihazın kendisinde</b>dir; sunucu
+        koruma kesmesi yapmaz — konfigürasyonun kaynağı, kayıt tutucusu ve kullanıcı arayüzüdür.
+        Bu sayfadaki demo, cihazla sunucu arasındaki gerçek MQTT protokolünü birebir uygular.
+      </p>
+      <div class="stat-row">
+        <div class="stat-chip"><b>3 faz</b><span>akım + gerilim</span></div>
+        <div class="stat-chip"><b>60 sn</b><span>telemetri aralığı</span></div>
+        <div class="stat-chip"><b>0.1 A</b><span>ölçüm çözünürlüğü</span></div>
+        <div class="stat-chip"><b>HMAC</b><span>imzalı komut</span></div>
+        <div class="stat-chip"><b>19</b><span>olay kodu</span></div>
+      </div>
+      <div class="tech-row">
+        <span class="tech-badge">Python 3.12 · FastAPI</span>
+        <span class="tech-badge">EMQX (MQTT 3.1.1)</span>
+        <span class="tech-badge">aiomqtt · asyncpg</span>
+        <span class="tech-badge">Supabase (Postgres + RLS)</span>
+        <span class="tech-badge">React Native · Expo</span>
+        <span class="tech-badge">Arduino Nano + SIM7020E</span>
+        <span class="tech-badge">Docker Compose · Caddy</span>
+      </div>
+    </div>
+    <figure class="hero-art">
+      <div class="card-art">
+        <svg viewBox="0 0 480 452" role="img" aria-labelledby="diagTitle diagDesc">
+          <title id="diagTitle">Koruma zinciri şeması</title>
+          <desc id="diagDesc">Şebekeden gelen üç faz BC-01 cihazında ölçülüp korunuyor ve kontaktörün A1 bobini üzerinden pompayı sürüyor. Buluta giden hat kopsa bile bu zincir cihazın içinde kapanıyor.</desc>
+
+          <!-- sebeke -->
+          <text x="24" y="16" fill="#98A2AE" font-family="ui-monospace,monospace" font-size="10.5" letter-spacing="1.4">3 FAZLI ŞEBEKE</text>
+          <g font-family="ui-monospace,monospace" font-size="10.5" text-anchor="middle">
+            <text x="105" y="38" fill="#F0503C">R</text>
+            <text x="137" y="38" fill="#E8B96B">S</text>
+            <text x="169" y="38" fill="#4EA1FF">T</text>
+          </g>
+          <g stroke-width="2.4" stroke-linecap="round">
+            <path d="M105 46 V100" stroke="#F0503C"/>
+            <path d="M137 46 V100" stroke="#E8B96B"/>
+            <path d="M169 46 V100" stroke="#4EA1FF"/>
+          </g>
+
+          <!-- cihaz -->
+          <rect x="24" y="102" width="226" height="118" rx="16" fill="#15181C" stroke="#3A3021"/>
+          <text x="44" y="134" fill="#F2F4F6" font-size="17" font-weight="700" font-family="inherit">BC-01</text>
+          <circle class="led" cx="228" cy="128" r="5" fill="#2ECC71"/>
+          <g font-family="ui-monospace,monospace" font-size="10" fill="#B9C0C8">
+            <circle cx="46" cy="156" r="2.5" fill="#E8B96B"/><text x="58" y="160">akım + gerilim ölçümü</text>
+            <circle cx="46" cy="178" r="2.5" fill="#E8B96B"/><text x="58" y="182">koruma lojiği · gecikme</text>
+            <circle cx="46" cy="200" r="2.5" fill="#E8B96B"/><text x="58" y="204">kesme kararı · kilit</text>
+          </g>
+
+          <!-- karar hatti -->
+          <path d="M137 220 V252" stroke="#E8B96B" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M131 244 l6 8 6-8" fill="none" stroke="#E8B96B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- kontaktor -->
+          <rect x="40" y="254" width="194" height="56" rx="13" fill="#101317" stroke="#252A30"/>
+          <text x="137" y="279" fill="#E6E9ED" font-size="13.5" font-weight="600" text-anchor="middle" font-family="inherit">KONTAKTÖR</text>
+          <text x="137" y="296" fill="#98A2AE" font-size="10" text-anchor="middle" font-family="ui-monospace,monospace">A1 bobin kumandası</text>
+
+          <path d="M137 310 V342" stroke="#E8B96B" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M131 334 l6 8 6-8" fill="none" stroke="#E8B96B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- pompa -->
+          <rect x="40" y="344" width="194" height="56" rx="13" fill="#101317" stroke="#252A30"/>
+          <text x="137" y="369" fill="#E6E9ED" font-size="13.5" font-weight="600" text-anchor="middle" font-family="inherit">POMPA / MOTOR</text>
+          <text x="137" y="386" fill="#98A2AE" font-size="10" text-anchor="middle" font-family="ui-monospace,monospace">3 fazlı dalgıç · dinamo</text>
+
+          <text x="137" y="426" fill="#2ECC71" font-size="10.5" text-anchor="middle" font-family="ui-monospace,monospace">bu zincir cihazın içinde kapanır</text>
+
+          <!-- bulut kolu -->
+          <path class="flow-dash" d="M250 152 H312" stroke="#4A5058" stroke-width="2" fill="none"/>
+          <g stroke="#F0503C" stroke-width="2.4" stroke-linecap="round">
+            <path d="M274 145 l14 14"/><path d="M288 145 l-14 14"/>
+          </g>
+          <text x="281" y="132" fill="#F0503C" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">kopabilir</text>
+
+          <rect x="312" y="102" width="144" height="104" rx="14" fill="#0F1114" stroke="#252A30"/>
+          <text x="384" y="132" fill="#C7CDD4" font-size="13" font-weight="600" text-anchor="middle" font-family="inherit">BULUT</text>
+          <text x="384" y="152" fill="#98A2AE" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">broker · sunucu</text>
+          <text x="384" y="168" fill="#98A2AE" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">telefon</text>
+          <text x="384" y="190" fill="#6E7885" font-size="9" text-anchor="middle" font-family="ui-monospace,monospace">izleme · ayar · kayıt</text>
+
+          <text x="384" y="232" fill="#6E7885" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">koruma kararı</text>
+          <text x="384" y="246" fill="#6E7885" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">burada verilmez</text>
+        </svg>
+      </div>
+      <figcaption>Koruma kararı cihazın içindedir. Sağdaki kol yalnızca izleme, ayar ve kayıt içindir;<br>kapsama gitse de motorun koruması çalışmaya devam eder.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>İnteraktif Demo</h2>
+      <span class="sec-note">senaryoyu seç, cihazı kendin kontrol et</span>
+    </div>
+    <p class="sec-intro">
+      Aşağıdaki telefon uygulamayı, yanındaki günlük ise telefonla cihaz arasında gerçekten akan
+      MQTT trafiğini gösterir. Payload'lar protokol sözleşmesindeki birebir formattır: akım desiamper,
+      gerilim volt, zaman UTC epoch saniye. Demo hızlandırılmıştır — telemetri 60 sn yerine 2 sn'de
+      bir, ACK zaman aşımı 90 sn yerine 8 sn'de dolar.
+    </p>
+
+    <div class="demo-grid">
+
+      <div class="phone">
+        <div class="screen">
+          <div class="st-bar"><span id="clock">09:41</span><span>◍ ▮▮▮ ▰</span></div>
+          <div class="app-bar">
+            <div class="who">
+              <img src="/assets/logo/bocu.jpg" alt="" width="28" height="28">
+              <span><b>Tarla Pompası 1</b><small id="devId">BC01-2504001</small></span>
+            </div>
+            <span class="conn" id="conn"><i></i><span id="connText">ÇEVRİMİÇİ</span></span>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Uygulama sekmeleri">
+            <button role="tab" id="tab-panel" aria-controls="pane-panel" aria-selected="true">Panel</button>
+            <button role="tab" id="tab-ayar" aria-controls="pane-ayar" aria-selected="false">Ayarlar</button>
+            <button role="tab" id="tab-olay" aria-controls="pane-olay" aria-selected="false">Olaylar<span id="evCount"></span></button>
+          </div>
+
+          <div class="panes">
+
+            <div class="pane" id="pane-panel" role="tabpanel" aria-labelledby="tab-panel">
+              <div id="banners"></div>
+
+              <div class="card">
+                <div class="motor-row">
+                  <div>
+                    <div class="motor-state off" id="motorState">DURDU</div>
+                    <div class="motor-sub" id="motorSub">röle kapalı · koruma: otomatik</div>
+                  </div>
+                  <div class="pump" id="pumpIcon" aria-hidden="true">⛔</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <h4>AKIM (A)</h4>
+                <div class="kv" id="currentCells"></div>
+                <div class="avg" id="currentAvg">ortalama: 0.0 A</div>
+              </div>
+
+              <div class="card" id="voltCard">
+                <h4>GERİLİM (V)</h4>
+                <div class="kv" id="voltCells"></div>
+                <div class="avg" id="voltAvg">ortalama: 227 V</div>
+              </div>
+
+              <div class="card">
+                <h4>UZAKTAN KONTROL</h4>
+                <div class="ctl-row">
+                  <button class="btn btn-on" id="btnOn">AÇ</button>
+                  <button class="btn btn-off" id="btnOff">KAPAT</button>
+                </div>
+                <div class="ctl-note" id="ctlNote">hazır</div>
+              </div>
+
+              <div class="card">
+                <h4>KORUMA MODU</h4>
+                <div class="seg" role="group" aria-label="Koruma modu">
+                  <button id="modeAuto" aria-pressed="true">Otomatik</button>
+                  <button id="modeManual" aria-pressed="false">Manuel</button>
+                </div>
+                <div class="ctl-note" id="modeNote">otomatik: limit aşılınca cihaz röleyi keser</div>
+              </div>
+            </div>
+
+            <div class="pane" id="pane-ayar" role="tabpanel" aria-labelledby="tab-ayar" hidden>
+              <div class="card">
+                <h4>KORUMA LİMİTLERİ</h4>
+                <div class="field">
+                  <label for="fImax">Aşırı akım limiti <b><span id="vImax">20,0</span> A</b></label>
+                  <input type="range" id="fImax" min="50" max="400" step="5" value="200">
+                </div>
+                <div class="field">
+                  <label for="fImin">Düşük akım limiti <b><span id="vImin">10,0</span> A</b></label>
+                  <input type="range" id="fImin" min="0" max="200" step="5" value="100">
+                </div>
+                <div class="field">
+                  <label for="fVmin">Düşük gerilim limiti <b><span id="vVmin">200,0</span> V</b></label>
+                  <input type="range" id="fVmin" min="1700" max="2200" step="50" value="2000">
+                </div>
+                <div class="field">
+                  <label for="fDly">Koruma gecikmesi <b><span id="vDly">10</span> sn</b></label>
+                  <input type="range" id="fDly" min="1" max="120" step="1" value="10">
+                </div>
+                <button class="btn btn-ghost btn-sm" id="btnSaveCfg" disabled>Cihaza gönder</button>
+                <div class="ctl-note" id="cfgHint">değişmiş ayar yok</div>
+              </div>
+
+              <div class="card">
+                <h4>SENKRON DURUMU</h4>
+                <span class="sync applied" id="cfgSync">✓ cihazda uygulandı · cv=7</span>
+                <div class="ctl-note">Ayar cihaza ulaşana kadar "uygulandı" yazmaz. Kullanıcı limitin gerçekten geçtiğini bilmeli.</div>
+              </div>
+            </div>
+
+            <div class="pane" id="pane-olay" role="tabpanel" aria-labelledby="tab-olay" hidden>
+              <div class="evlist" id="evList"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="sidecol">
+
+        <div class="panel">
+          <header>
+            <div>
+              <h3>Senaryo</h3>
+              <p>simülatörün gerçek senaryolarıyla aynı adlar</p>
+            </div>
+          </header>
+          <div class="body">
+            <div class="scen" id="scenBtns"></div>
+            <p class="scen-desc" id="scenDesc"></p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <div>
+              <h3>Kablo üzerinde ne oluyor</h3>
+              <p>b/{id}/t · e · s · c · a · g</p>
+            </div>
+            <button class="btn btn-sm btn-ghost" id="btnClearWire" style="background:transparent;color:#C7CDD4;border-color:rgba(255,255,255,.14)">Temizle</button>
+          </header>
+          <ul class="wire" id="wire"><li class="wire-empty">bağlantı kuruluyor…</li></ul>
+        </div>
+
+        <div class="panel">
+          <header>
+            <div>
+              <h3>Komut kuyruğu</h3>
+              <p>uygulama satır yazar, köprü imzalar</p>
+            </div>
+          </header>
+          <div class="body">
+            <ul class="cmds" id="cmdList"><li class="cmd-empty">henüz komut yok</li></ul>
+            <div class="note">
+              <b>Neden böyle?</b> Uygulama komutu doğrudan cihaza göndermez; <code>commands</code>
+              tablosuna <code>queued</code> satırı yazar. HMAC anahtarı yalnızca köprüde durur,
+              telefona hiç inmez — çalınan bir oturumla pompa çalıştırılamaz. ACK 90 saniye
+              beklenir, gelmezse komut <code>timeout</code> olur ve <b>otomatik tekrar
+              gönderilmez</b>: sessizce tekrarlanan bir röle komutu sahada tehlikelidir.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sistem">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Sistem</h2>
+      <span class="sec-note">cihazdan telefona kadar</span>
+    </div>
+    <pre class="flow">BC-01 (Arduino Nano + SIM7020E NB-IoT)
+   │  MQTT / Turkcell M2M
+   ▼
+EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + bölümlenmiş telemetri
+   ▲                     │
+   │                     └────────► notifier worker ──► Expo Push (FCM / APNs)
+   │
+   ├─ commander worker ◄── commands tablosu ◄──── RN Expo uygulaması
+   │                                                    │
+   └─────────── MQTT over WSS (canlı veri) ─────────────┘</pre>
+
+    <div class="cols" style="margin-top:22px">
+      <div class="col">
+        <div class="kicker">Kısıt</div>
+        <h3>2 KB RAM'e sığan protokol</h3>
+        <p>Cihaz tarafı Arduino Nano: 2 KB RAM, 32 KB flash, RTC yok, yedek besleme yok. Payload'lar bu yüzden tek harfli alanlarla yazıldı ve ölçüler tam sayı tutuluyor.</p>
+        <ul>
+          <li>Akım <code>desiamper</code> — <code>52</code> = 5,2 A</li>
+          <li>Saat sunucudan: <code>time</code> komutu, <code>tv=0</code> iken zamanlayıcı çalışmaz</li>
+          <li>Offline eşiği 200 sn (telemetri 60 sn)</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="kicker">Sınır</div>
+        <h3>Koruma kararı cihazda</h3>
+        <p>Sunucu hiçbir koşulda röle kesmez. Şebeke veya kapsama gittiğinde motorun korumasız kalmaması ürünün ana vaadi; bu yüzden karar zinciri buluta bağlanmadı.</p>
+        <ul>
+          <li>Sunucu yalnızca kayıt, konfigürasyon ve arayüz</li>
+          <li>Kesme sonrası röle kilitli kalır, <code>latch_reset</code> ister</li>
+          <li>Kilitliyken gelen <code>relay:1</code> cihazda reddedilir</li>
+          <li>Röle geri beslemesi yok: "gerçekten çalıştı mı" sorusu akım ölçümüyle doğrulanır (<code>NOLOAD</code>)</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="kicker">Güvenlik</div>
+        <h3>Sırlar ayrı tabloda</h3>
+        <p>RLS satırları filtreler, sütunları değil. Kendi cihazını görebilen kullanıcı aynı satırdaki imza anahtarını da okuyabiliyordu; ilk RLS test koşusunda iki test bunu yakaladı.</p>
+        <ul>
+          <li><code>hmac_key</code>, <code>secret_hash</code>, <code>claim_code</code> → <code>device_secrets</code></li>
+          <li>Bu tabloda istemci politikası yok, yalnızca <code>service_role</code></li>
+          <li>Yerel Postgres'e karşı koşan 20 RLS testiyle doğrulanıyor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="protokol">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Protokol Sözleşmesi</h2>
+      <span class="sec-note">firmware ekibiyle ortak, tek taraflı değişmez</span>
+    </div>
+    <p class="sec-intro">
+      Cihaz firmware'ini harici bir ekip yazıyor. Entegrasyon gününde "kimin hatası" tartışmasını
+      bitirmek için protokol tek bir dokümana yazıldı, simülatör de sunucuyla <b>aynı</b> protokol
+      modülünü kullanıyor: simülatörün yaptığı şey, tanımın kendisi.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Topic</th><th>Yön</th><th>QoS</th><th>Retained</th><th>İçerik</th></tr>
+        <tr><td><code>b/{id}/t</code></td><td>cihaz → sunucu</td><td>0</td><td>hayır</td><td>Telemetri, 60 sn</td></tr>
+        <tr><td><code>b/{id}/e</code></td><td>cihaz → sunucu</td><td>1</td><td>hayır</td><td>Alarm / olay, <code>seq</code> ile tekrar elenir</td></tr>
+        <tr><td><code>b/{id}/s</code></td><td>cihaz → sunucu</td><td>1</td><td><b>evet</b></td><td>Durum özeti + LWT (<code>{"o":0}</code>)</td></tr>
+        <tr><td><code>b/{id}/c</code></td><td>sunucu → cihaz</td><td>1</td><td>hayır</td><td>HMAC imzalı komut</td></tr>
+        <tr><td><code>b/{id}/a</code></td><td>cihaz → sunucu</td><td>1</td><td>hayır</td><td>Komut ACK'i</td></tr>
+        <tr><td><code>b/{id}/g</code></td><td>sunucu → cihaz</td><td>1</td><td><b>evet</b></td><td>Konfigürasyon, <code>cv</code> sürümlü</td></tr>
+      </table>
+    </div>
+    <div class="note" style="margin-top:18px">
+      <b>ACL:</b> cihaz yalnızca kendi <code>{id}</code> ağacına yazabilir. Mobil istemci JWT ile
+      bağlanır, yetkili olduğu cihazların <code>t/e/s/a</code> topic'lerini <b>yalnızca okur</b> —
+      telefondan hiçbir şeye yazılamaz.
+    </div>
+  </div>
+</section>
+
+<section id="durum">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Gidişat</h2>
+      <span class="sec-note">son güncelleme: 2 Ekim 2026</span>
+    </div>
+    <p class="sec-intro">
+      Mobil uygulama <b>Google Play'de yayında</b>: <a href="https://play.google.com/store/apps/details?id=com.bocu.app" target="_blank" rel="noopener">Bocu Remote: Akıllı Koruma</a>. Sunucu tarafı bir sunucuda konteyner olarak 7/24 çalışıyor
+      ve bir cihaz sahada gerçek bir üç fazlı pompaya bağlı.
+      Her fazın kendi kabul kriterleri var; kriterler geçmeden sonraki faza geçilmiyor.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Katman</th><th>Durum</th></tr>
+        <tr><td>Protokol + simülatör</td><td>Tamam. Protokol tek bir modülde tanımlı; sahte cihaz 14 senaryo koşuyor (<code>overcurrent</code>, <code>dry_run</code>, <code>phase_loss</code>, <code>no_ack</code>, <code>bad_hmac</code>, <code>offline_queue</code> ve diğerleri). Bu sayfadaki demo bunlardan altısını tarayıcıda canlandırır. Ayrıca bir kabul aracı gerçek cihazı dinleyip 25 protokol maddesini tek tek derecelendiriyor.</td></tr>
+        <tr><td>Veritabanı + yetkilendirme</td><td>Supabase üzerinde canlı. Cihaz sahiplenme, cihaz paylaşımı, hesap silme, bölümlenmiş telemetri, konfigürasyon/zamanlayıcı ve abonelik şeması uygulandı. RLS politikaları 53 testle korunuyor.</td></tr>
+        <tr><td>Sunucu servisleri</td><td>Beş konteyner ayakta: EMQX, Redis, ingest, komutçu, bildirim. Yanlarında bir izleyici var — sağlıklıyken susuyor, yalnızca müdahale gerektireni bildiriyor ve aynı sebebi saat içinde tekrarlamıyor.</td></tr>
+        <tr><td>Komut yolu</td><td>Tamam. İmzalama, ACK takibi, 90 saniyelik zaman aşımı, retained konfigürasyon yayını ve saat senkronu. Cihaz başına aynı anda tek röle komutu tutuluyor; yenisi gelince eskisi bekletilmeden iptal ediliyor — geç teslim edilen bir "aç" komutu boş tarlada pompayı kaldırır.</td></tr>
+        <tr><td>Bildirim</td><td>Uçtan uca doğrulandı. FCM kurulu, cihaz jetonu kayıtlı; saha testinde 21 bildirim telefona düştü.</td></tr>
+        <tr><td>Mobil uygulama</td><td>15 ekran, 5 sekmeli navigasyon: canlı ölçüm, cihaz listesi, alarmlar, grafikler, olay geçmişi, haftalık zamanlayıcı, cihaz ayarları, cihaz paylaşımı ve hesap. Giriş e-posta, Google veya Apple ile; parola sıfırlama ve hesap silme dahil.</td></tr>
+        <tr><td>Test</td><td>237 test: RLS 53, protokol 39, komutçu 38, ingest 32, bildirim 30, protokol uyumluluğu 20, sahiplenme 9, provisioning 7, simülatör 7, sağlık 2. <code>ruff</code> + <code>mypy --strict</code> temiz.</td></tr>
+      </table>
+    </div>
+
+    <p class="sec-intro" style="margin-top:26px">
+      <b>5 Eylül 2026 — ilk saha testi.</b> O güne kadar her şey tezgâhta, ısıtıcı yüküyle
+      denenmişti. Cihaz tarlaya götürülüp gerçek bir üç fazlı pompaya bağlandı; korumaların
+      hepsi gerçek yükte tetiklendi. Tezgâhta günlerce sıfır okuyan gerilim ölçümü de burada
+      kapandı — sahada üç faz da okudu.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Kanıtlanan</th><th>Ölçüm</th></tr>
+        <tr><td>Üç faz gerilim + akım</td><td>240 / 240 / 239 V, 31 A</td></tr>
+        <tr><td>Uzaktan aç / kapat</td><td>Motor komutu izledi; kalkış akımı 24.3 → 31.1 A yakalandı</td></tr>
+        <tr><td>Aşırı akım koruması</td><td><code>OC</code> — 30.6 A, limit 6.9 A: kesti ve kilitledi</td></tr>
+        <tr><td>Düşük akım koruması</td><td><code>UC</code> — 0.1 A, limit 8.0 A: kesti</td></tr>
+        <tr><td>Faz kaybı</td><td><code>PL</code> — R fazı, alan seti şartnameye tam uygun</td></tr>
+        <tr><td>Çalıştırma reddi</td><td><code>NOSTART</code> — 241 V, limit 240: çalıştırmadı, kilitlemedi</td></tr>
+        <tr><td>Bildirim zinciri</td><td>21 bildirim telefona düştü</td></tr>
+        <tr><td>Komut başarısı</td><td>64 komut onaylandı (%77); kaybolan komut yok, düşenlerin sebebi saat gecikmesi</td></tr>
+      </table>
+    </div>
+
+    <div class="note">
+      <b>Bu sayfadaki demo ne gösteriyor?</b> Demo, uygulamanın akışını tarayıcıda canlandıran
+      bağımsız bir maket: gerçek protokolün senaryolarını çalıştırır ama sahadaki cihaza bağlı
+      değildir. Sahadaki sistem mobil uygulamadan kullanılıyor; buradaki demo, aynı akışın
+      kimse bir pompaya bağlanmadan denenebilen hâli.
+    </div>
+
+    <div class="roadmap">
+      <div class="phase done"><div class="dot"></div><div><b>Faz 0 — Tamamlandı</b><p>Monorepo, docker-compose (EMQX, Redis, Caddy), <code>.env.example</code>, ruff/mypy/pytest, Expo projesi, CI.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Protokol modülü (encode/decode, HMAC, birim dönüşümleri), sahte cihaz simülatörü, firmware ekibine verilen <code>protocol.md</code>.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 2 — Tamamlandı</b><p>Şema, RLS, kimlik doğrulama, cihaz sahiplenme (QR/claim kodu) ve üretim provisioning script'i. Mimari burada Supabase'e taşındı: auth ve CRUD hazır alındı, kendi servisimiz "köprü" boyutuna indi.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 3 — Tamamlandı</b><p>Ingest worker, telemetri doğrulama, <code>seq</code> tabanlı tekrar eleme, aylık bölümlenmiş telemetri tablosu.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 4 — Tamamlandı</b><p>Komut yolu ve konfigürasyon senkronu: imzalama, ACK, zaman aşımı, <code>pending/applied/failed</code> durumları, saat senkronu.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 5 — Tamamlandı</b><p>Bildirim worker'ı: FCM push, alarm cooldown'ı, normale dönüş bildirimi, <code>LINK_LOST</code> gecikmesi. Saha testinde uçtan uca doğrulandı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 6 — Tamamlandı</b><p>Mobil temel: giriş, cihaz listesi, dashboard, canlı veri, röle kontrolü, kilit akışı, QR ile cihaz ekleme.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 7 — Tamamlandı</b><p>Mobil ayarlar, haftalık zamanlayıcı, grafikler, alarm ve olay listesi, cihaz paylaşımı, hesap silme.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 8 — Tamamlandı · Google Play yayını</b><p>Kapalı test ve sertleştirme: rate limit, metrik, yedekleme, yük testi, mağaza hazırlığı. Uygulama 2 Ekim 2026'da Google Play'de yayına girdi, sistem sahada gerçek bir pompayla çalışıyor.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Şu an burada — saha yaygınlaştırma</b><p>Yayın sonrası izleme, ek cihazların sahaya alınması ve iOS sürümü.</p></div></div>
+    </div>
+
+    <div class="cols" style="margin-top:30px">
+      <div class="col">
+        <div class="kicker">Açık madde</div>
+        <h3>Elektrik kesintisi</h3>
+        <p>Cihazda yedek besleme yok. Süperkapasitör olmadan "elektrik kesildi" (<code>PF</code>) mesajı üretilemez; sunucu bu durumda yalnızca <code>LINK_LOST</code> diyebilir, yani şebeke kesintisi ile kapsama sorunu ayırt edilemez. Protokol iki durumu da destekliyor, karar donanım tarafında.</p>
+      </div>
+      <div class="col">
+        <div class="kicker">Açık madde</div>
+        <h3>Yapışmış kontaktör alarmı</h3>
+        <p>Uygulamanın gönderebileceği en ağır mesaj bu — kişiden tarlaya gidip şalteri indirmesini ister. Cihaz değerlendirmeyi röleyi açtıktan hemen sonra yaptığı için kaçak akımda da tetikleniyordu. Sunucu artık ölçümüyle çelişen alarmı telefona taşımıyor; kalıcı çözüm, kararın kesmeden birkaç saniye sonra ve üst üste birkaç örnekle verilmesi.</p>
+      </div>
+      <div class="col">
+        <div class="kicker">Açık madde</div>
+        <h3>Sinyal</h3>
+        <p>Saha kurulumunda sinyal sınırda ölçüldü (CSQ 2–8). Koruma bundan etkilenmiyor — karar cihazın kendisinde, internet gitse de motor korunur — ama uzaktan kontrolün güvenilir olması için antenin metal panonun dışına alınması gerekiyor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="credit">BOCU BC-01 · sunucu ve mobil taraf: <a href="/">BeScript</a> · cihaz firmware'i harici ekip</div>
+    <div class="credit">Bu sayfa örnek (mock) verilerle çalışan bağımsız bir ürün demosudur.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Demo hizlandirilmistir: cihazda telemetri 60 sn, ACK penceresi 90 sn,
+     config zaman asimi 5 dakikadir. Burada sirasiyla 2 / 8 / 14 saniye. */
+  var DEVICE_ID   = "BC01-2504001";
+  var TICK_MS     = 2000;
+  var ACK_TIMEOUT = 8000;
+  var CFG_TIMEOUT = 14000;
+  var WIRE_MAX    = 40;
+  var EVENT_MAX   = 30;
+  var FW          = "1.2.0";
+
+  var SCENARIOS = [
+    { id:"normal", label:"normal",
+      desc:"Pompa sağlıklı çalışıyor: üç faz dengeli, akım limitin altında. <b>AÇ / KAPAT</b> ile röleyi sür, <b>Ayarlar</b> sekmesinden limit değiştirip senkron akışını izle." },
+    { id:"overcurrent", label:"aşırı akım",
+      desc:"Pompayı <b>AÇ</b> — akım her telemetride tırmanır. Limiti aştığında cihaz <b>kendi başına</b> keser: önce <code>OC</code>, ardından <code>TRIP</code> olayı düşer ve röle <b>kilitli</b> kalır. Kilit sıfırlanmadan pompa açılamaz." },
+    { id:"phase_loss", label:"faz kaybı",
+      desc:"Pompayı aç, birkaç saniye sonra T fazı kaybolur. Cihaz <code>PL</code> olayını üretip röleyi keser. Faz kaybı dalgıç pompayı dakikalar içinde yakan arızadır; karar bu yüzden sunucuya bırakılmadı." },
+    { id:"no_voltage", label:"gerilim ölçümü yok",
+      desc:"Firmware gerilim göndermezse protokol <code>v:null</code> taşır. Uygulama gerilim kartlarını <b>gizler</b>, tahmini değer üretmez. Firmware ekibinden yazılı cevap bekleyen açık maddelerden biri." },
+    { id:"no_ack", label:"ACK gelmiyor",
+      desc:"Komut cihaza ulaşıyor ama onay dönmüyor. 90 saniye sonunda komut <code>timeout</code> olur ve <b>otomatik tekrarlanmaz</b> — sessizce tekrar edilen bir röle komutu sahada tehlikelidir." },
+    { id:"link_lost", label:"bağlantı koptu",
+      desc:"Kapsama gidiyor. Broker LWT'yi yayınlıyor, sunucu <code>LINK_LOST</code> olayını <b>kendisi</b> üretiyor. Kontroller kapanıyor; gönderilen ayar cihaza ulaşamadığı için <code>failed</code> olup <code>CFG_FAIL</code> düşüyor." }
+  ];
+
+  var EVENT_META = {
+    OC:{t:"Aşırı akım",          sev:"alarm", ico:"\u2191"},
+    UC:{t:"Düşük akım",          sev:"warn",  ico:"\u2193"},
+    OV:{t:"Aşırı gerilim",       sev:"alarm", ico:"\u26A1"},
+    UV:{t:"Düşük gerilim",       sev:"warn",  ico:"\u26A1"},
+    PL:{t:"Faz kaybı",           sev:"alarm", ico:"\u2715"},
+    PI:{t:"Faz dengesizliği",    sev:"warn",  ico:"\u2248"},
+    PF:{t:"Şebeke elektriği kesildi", sev:"alarm", ico:"\u2707"},
+    PR:{t:"Şebeke elektriği geldi",   sev:"ok",    ico:"\u2707"},
+    RON:{t:"Röle açıldı",        sev:"ok",    ico:"\u25B6"},
+    ROFF:{t:"Röle kapatıldı",    sev:"info",  ico:"\u25A0"},
+    SON:{t:"Zamanlayıcı açtı",   sev:"info",  ico:"\u23F1"},
+    SOFF:{t:"Zamanlayıcı kapattı", sev:"info", ico:"\u23F1"},
+    TRIP:{t:"Koruma kesti, kilit aktif", sev:"alarm", ico:"\u26D4"},
+    RESET:{t:"Kilit sıfırlandı", sev:"ok",    ico:"\u21BA"},
+    BOOT:{t:"Cihaz yeniden başladı", sev:"info", ico:"\u2699"},
+    NOLOAD:{t:"Röle açık, akım yok", sev:"warn", ico:"\u2205"},
+    LINK_LOST:{t:"Cihaz çevrimdışı", sev:"warn", ico:"\u2601"},
+    LINK_UP:{t:"Cihaz çevrimiçi",    sev:"ok",   ico:"\u2601"},
+    CFG_FAIL:{t:"Ayar cihaza ulaşmadı", sev:"alarm", ico:"\u2699"}
+  };
+  var SERVER_EVENTS = { LINK_LOST:1, LINK_UP:1, CFG_FAIL:1 };
+
+  var S = {
+    scen:"normal",
+    online:true, relay:0, mode:1, latch:0, grid:1, tv:1,
+    cv:7,
+    cfg:{ imin:100, imax:200, vmin:2000, vmax:2250, dly:10, imb:15 },
+    draft:{ imin:100, imax:200, vmin:2000, dly:10 },
+    cfgStatus:"applied",
+    cfgTimer:null,
+    i:[0,0,0], v:[228,227,226],
+    seq:141, ramp:0, tick:0, overRun:0, noLoadRun:0,
+    events:[], cmds:[], wire:[],
+    latchConfirm:false, tripReason:""
+  };
+
+  /* ---------- kucuk yardimcilar ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+  function nowSec(){ return Math.floor(Date.now()/1000); }
+  function jitter(base, spread){ return Math.max(0, Math.round(base + (Math.random()*2-1)*spread)); }
+  function amp(dA){ return (dA/10).toFixed(1).replace(".", ","); }
+  function volt(dV){ return (dV/10).toFixed(0); }
+  function hex(n){ var s=""; while(s.length<n){ s += Math.floor(Math.random()*16).toString(16); } return s; }
+  function clockText(){
+    var d=new Date();
+    return ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2);
+  }
+  function stamp(){
+    var d=new Date();
+    return ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2);
+  }
+  /* Gercek imza HMAC-SHA256(device_secret, id|k|v|ts)'in ilk 8 byte'i.
+     Demoda ayni bicimde 16 hex uretilir; anahtar zaten tarayiciya inmez. */
+  function signature(id, k, v, ts){
+    var src = id+"|"+k+"|"+v+"|"+ts, h1=0x811c9dc5, h2=0x01000193;
+    for (var n=0; n<src.length; n++){
+      h1 = (h1 ^ src.charCodeAt(n)) * 16777619 >>> 0;
+      h2 = (h2 + src.charCodeAt(n) * (n+7)) * 2654435761 >>> 0;
+    }
+    return ("00000000"+h1.toString(16)).slice(-8) + ("00000000"+h2.toString(16)).slice(-8);
+  }
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  /* ---------- kablo gunlugu ---------- */
+  function wire(dir, topic, meta, payload, warn){
+    S.wire.unshift({ dir:dir, topic:topic, meta:meta, payload:payload, warn:!!warn, tm:stamp() });
+    if (S.wire.length > WIRE_MAX) S.wire.length = WIRE_MAX;
+    renderWire();
+  }
+  function renderWire(){
+    var el=$("wire");
+    if (!S.wire.length){ el.innerHTML='<li class="wire-empty">günlük boş</li>'; return; }
+    var out=[];
+    for (var n=0; n<S.wire.length; n++){
+      var w=S.wire[n], cls = w.dir==="up" ? "up" : (w.dir==="down" ? "down" : "srv");
+      var label = w.dir==="up" ? "cihaz \u2192" : (w.dir==="down" ? "\u2192 cihaz" : "sunucu");
+      out.push(
+        '<li><div class="hd"><span class="dir '+cls+'">'+label+'</span>'+
+        '<span class="topic">'+esc(w.topic)+'</span>'+
+        '<span class="meta">'+esc(w.meta)+' \u00B7 '+w.tm+'</span></div>'+
+        '<div class="pl'+(w.warn?" warnpl":"")+'">'+esc(w.payload)+'</div></li>'
+      );
+    }
+    el.innerHTML = out.join("");
+  }
+
+  /* ---------- olaylar ---------- */
+  function emit(code, phase, measured, limit, act){
+    S.seq = (S.seq + 1) % 65536;
+    var e = { c:code, p:phase||null, mv:(measured===undefined?null:measured),
+              lv:(limit===undefined?null:limit), act:act?1:0, seq:S.seq, tm:stamp() };
+    S.events.unshift(e);
+    if (S.events.length > EVENT_MAX) S.events.length = EVENT_MAX;
+
+    if (SERVER_EVENTS[code]) {
+      wire("srv", "events tablosu", "insert", JSON.stringify({ c:code, src:"server", seq:e.seq }), true);
+    } else {
+      wire("up", "b/"+DEVICE_ID+"/e", "QoS1",
+           JSON.stringify({ ts:nowSec(), c:code, p:e.p, mv:e.mv, lv:e.lv, act:e.act, seq:e.seq }),
+           EVENT_META[code] && EVENT_META[code].sev === "alarm");
+    }
+    renderEvents();
+  }
+  function eventDetail(e){
+    var m = EVENT_META[e.c] || { t:"Bilinmeyen kod" };
+    var bits = [ e.c ];
+    if (e.p) bits.push(e.p + " fazı");
+    if (e.mv !== null && e.mv !== undefined) {
+      var isVolt = (e.c === "OV" || e.c === "UV");
+      bits.push("ölçülen " + (isVolt ? e.mv + " V" : amp(e.mv) + " A"));
+      if (e.lv !== null) bits.push("limit " + (isVolt ? volt(e.lv) + " V" : amp(e.lv) + " A"));
+    }
+    if (e.act) bits.push("röle kesildi");
+    if (SERVER_EVENTS[e.c]) bits.push("sunucu üretti");
+    bits.push("seq " + e.seq);
+    return bits.join(" \u00B7 ");
+  }
+  function renderEvents(){
+    var el = $("evList");
+    $("evCount").textContent = S.events.length ? " (" + S.events.length + ")" : "";
+    if (!S.events.length){ el.innerHTML = '<div class="ev-empty">Bu cihazda kayıtlı olay yok.</div>'; return; }
+    var out = [];
+    for (var n=0; n<S.events.length; n++){
+      var e = S.events[n], m = EVENT_META[e.c] || { t:"Bilinmeyen kod (UNKNOWN)", sev:"info", ico:"?" };
+      out.push(
+        '<div class="ev sev-'+m.sev+'"><div class="ico">'+m.ico+'</div>'+
+        '<div class="tx"><b>'+esc(m.t)+'</b><span>'+esc(eventDetail(e))+'</span></div>'+
+        '<div class="tm">'+e.tm+'</div></div>'
+      );
+    }
+    el.innerHTML = out.join("");
+  }
+
+  /* ---------- yayinlar ---------- */
+  function publishStatus(){
+    wire("up", "b/"+DEVICE_ID+"/s", "QoS1 \u00B7 retained",
+      JSON.stringify({ o:S.online?1:0, r:S.relay, m:S.mode, lt:S.latch, g:S.grid, cv:S.cv, tv:S.tv, fw:FW }));
+  }
+  function publishConfig(){
+    wire("down", "b/"+DEVICE_ID+"/g", "QoS1 \u00B7 retained",
+      JSON.stringify({ cv:S.cv, imin:S.cfg.imin, imax:S.cfg.imax, vmin:S.cfg.vmin, vmax:S.cfg.vmax,
+                       dly:S.cfg.dly, auto:S.mode, imb:S.cfg.imb,
+                       sch:[{ d:62, on:480, off:1080, a:1 }] }));
+  }
+
+  /* ---------- koruma (cihazda calisir) ---------- */
+  function trip(code, phase, measured, limit){
+    emit(code, phase, measured, limit, 1);
+    S.relay = 0; S.latch = 1; S.ramp = 0; S.overRun = 0;
+    S.tripReason = (EVENT_META[code] ? EVENT_META[code].t : code) + (phase ? " \u00B7 " + phase + " fazı" : "");
+    emit("TRIP", phase, measured, limit, 1);
+    publishStatus();
+  }
+
+  function readings(){
+    var on = S.relay === 1;
+    var i, v;
+
+    if (S.scen === "phase_loss" && on && S.tick > 3) {
+      i = [ jitter(58,3), jitter(57,3), 0 ];
+      v = [ jitter(228,2), jitter(227,2), 0 ];
+    } else if (S.scen === "overcurrent" && on) {
+      S.ramp += 45;
+      i = [ jitter(50+S.ramp,3), jitter(48+S.ramp,3), jitter(49+S.ramp,3) ];
+      v = [ jitter(226,2), jitter(225,2), jitter(224,2) ];
+    } else {
+      i = on ? [ jitter(52,2), jitter(50,2), jitter(49,2) ] : [0,0,0];
+      v = [ jitter(228,2), jitter(227,2), jitter(226,2) ];
+    }
+    if (S.scen === "no_voltage") v = null;
+    return { i:i, v:v };
+  }
+
+  function protect(){
+    if (!S.relay) { S.overRun = 0; S.noLoadRun = 0; return; }
+
+    var maxI = Math.max(S.i[0], S.i[1], S.i[2]);
+    var phase = ["R","S","T"][S.i.indexOf(maxI)];
+
+    /* Faz kaybi: bir fazin akimi sifir, digerleri akiyorsa. */
+    if (maxI > 0 && (S.i[0] === 0 || S.i[1] === 0 || S.i[2] === 0)) {
+      var lost = S.i[0] === 0 ? "R" : (S.i[1] === 0 ? "S" : "T");
+      if (S.mode === 1) { trip("PL", lost, 0, null); }
+      else { emit("PL", lost, 0, null, 0); }
+      return;
+    }
+    /* Asiri akim: limit ustunde gecirilen sure koruma gecikmesini asmali. */
+    if (maxI > S.cfg.imax) {
+      S.overRun++;
+      if (S.overRun >= 2) {
+        if (S.mode === 1) { trip("OC", phase, maxI, S.cfg.imax); }
+        else { emit("OC", phase, maxI, S.cfg.imax, 0); S.overRun = 0; }
+        return;
+      }
+    } else {
+      S.overRun = 0;
+    }
+    /* Role acik ama akim yok: kontaktor veya motor arizasi suphesi. */
+    if (maxI === 0) {
+      S.noLoadRun++;
+      if (S.noLoadRun === 3) emit("NOLOAD", null, 0, S.cfg.imin, 0);
+    } else {
+      S.noLoadRun = 0;
+    }
+    /* Dusuk gerilim, olcum varsa. */
+    if (S.v) {
+      var minV = Math.min(S.v[0], S.v[1], S.v[2]) * 10;
+      if (minV > 0 && minV < S.cfg.vmin) {
+        if (S.mode === 1) trip("UV", ["R","S","T"][S.v.indexOf(Math.min(S.v[0],S.v[1],S.v[2]))], Math.round(minV/10), S.cfg.vmin);
+        else emit("UV", null, Math.round(minV/10), S.cfg.vmin, 0);
+      }
+    }
+  }
+
+  /* ---------- telemetri dongusu ---------- */
+  function tick(){
+    if (document.hidden) return;
+    S.tick++;
+
+    if (S.scen === "link_lost" && S.online && S.tick > 2) { goOffline(); return; }
+    if (!S.online) return;
+
+    var r = readings();
+    S.i = r.i; S.v = r.v;
+
+    wire("up", "b/"+DEVICE_ID+"/t", "QoS0",
+      JSON.stringify({ ts:nowSec(), i:S.i, v:S.v, r:S.relay, m:S.mode, lt:S.latch,
+                       g:S.grid, cv:S.cv, q:jitter(18,3) }));
+
+    protect();
+    render();
+  }
+
+  function goOffline(){
+    S.online = false; S.i = [0,0,0];
+    wire("up", "b/"+DEVICE_ID+"/s", "QoS1 \u00B7 retained \u00B7 LWT", JSON.stringify({ o:0 }), true);
+    emit("LINK_LOST");
+    render();
+  }
+
+  /* ---------- komutlar ---------- */
+  function renderCommands(){
+    var el = $("cmdList");
+    if (!S.cmds.length){ el.innerHTML = '<li class="cmd-empty">henüz komut yok</li>'; return; }
+    var names = { queued:"kuyrukta", sent:"gönderildi", acked:"onaylandı", rejected:"reddedildi", timeout:"zaman aşımı" };
+    var out = [];
+    for (var n=0; n<Math.min(S.cmds.length,6); n++){
+      var c = S.cmds[n];
+      out.push('<li class="cmd"><span class="cid">#'+c.id+'</span><span>'+esc(c.label)+'</span>'+
+               '<span class="cst '+c.state+'">'+names[c.state]+(c.err?" \u00B7 "+esc(c.err):"")+'</span></li>');
+    }
+    el.innerHTML = out.join("");
+  }
+
+  function note(text, cls){
+    var el = $("ctlNote");
+    el.textContent = text;
+    el.className = "ctl-note" + (cls ? " " + cls : "");
+  }
+
+  function sendCommand(k, v, label){
+    var cmd = { id:hex(6), k:k, v:v, label:label, state:"queued", err:null };
+    S.cmds.unshift(cmd);
+    renderCommands();
+    wire("srv", "commands tablosu", "insert",
+      JSON.stringify({ id:cmd.id, device:DEVICE_ID, k:k, v:v, status:"queued" }));
+
+    setTimeout(function(){
+      var ts = nowSec();
+      cmd.state = "sent";
+      renderCommands();
+      wire("down", "b/"+DEVICE_ID+"/c", "QoS1",
+        JSON.stringify({ id:cmd.id, k:k, v:v, ts:ts, h:signature(cmd.id,k,v,ts) }));
+      note("ACK bekleniyor (gerçekte 90 sn)\u2026", "wait");
+
+      if (!S.online || S.scen === "no_ack") {
+        setTimeout(function(){
+          if (cmd.state !== "sent") return;
+          cmd.state = "timeout";
+          renderCommands();
+          note("ACK gelmedi \u00B7 komut zaman aşımına uğradı, tekrar gönderilmez", "err");
+        }, ACK_TIMEOUT);
+        return;
+      }
+      setTimeout(function(){ deviceApply(cmd); }, 700 + Math.random()*600);
+    }, 420);
+  }
+
+  function ack(cmd, ok, err){
+    cmd.state = ok ? "acked" : "rejected";
+    cmd.err = err;
+    renderCommands();
+    wire("up", "b/"+DEVICE_ID+"/a", "QoS1",
+      JSON.stringify({ id:cmd.id, ok:ok, e:err, cv:S.cv }), !ok);
+    if (ok) note("komut cihazda uygulandı \u00B7 ACK ok", "ok");
+    else if (err === "latched") note("cihaz reddetti: koruma kilidi aktif (e:\"latched\")", "err");
+    else note("cihaz reddetti: " + err, "err");
+    render();
+  }
+
+  function deviceApply(cmd){
+    if (cmd.k === "relay" && cmd.v === 1 && S.latch === 1) { ack(cmd, 0, "latched"); return; }
+    if (cmd.k === "relay") {
+      S.relay = cmd.v;
+      S.ramp = 0; S.overRun = 0; S.noLoadRun = 0;
+      emit(cmd.v ? "RON" : "ROFF", null, undefined, undefined, 0);
+    } else if (cmd.k === "mode") {
+      S.mode = cmd.v;
+    } else if (cmd.k === "latch_reset") {
+      S.latch = 0; S.tripReason = "";
+      emit("RESET", null, undefined, undefined, 0);
+    }
+    ack(cmd, 1, null);
+    publishStatus();
+  }
+
+  /* ---------- konfigurasyon senkronu ---------- */
+  function setCfgStatus(state){
+    S.cfgStatus = state;
+    var el = $("cfgSync");
+    el.className = "sync " + state;
+    if (state === "applied") el.textContent = "\u2713 cihazda uygulandı \u00B7 cv=" + S.cv;
+    else if (state === "pending") el.textContent = "\u23F3 cihaza gönderildi, onay bekleniyor \u00B7 cv=" + S.cv;
+    else el.textContent = "\u26A0 cihaza ulaşmadı \u00B7 cv=" + S.cv;
+    $("btnSaveCfg").disabled = (state === "pending") || !cfgDirty();
+  }
+  function cfgDirty(){
+    return S.draft.imax !== S.cfg.imax || S.draft.imin !== S.cfg.imin ||
+           S.draft.vmin !== S.cfg.vmin || S.draft.dly !== S.cfg.dly;
+  }
+  function saveConfig(){
+    if (!cfgDirty() || S.cfgStatus === "pending") return;
+    S.cfg.imax = S.draft.imax; S.cfg.imin = S.draft.imin;
+    S.cfg.vmin = S.draft.vmin; S.cfg.dly = S.draft.dly;
+    S.cv += 1;
+    setCfgStatus("pending");
+    $("cfgHint").textContent = "cv " + (S.cv-1) + " \u2192 " + S.cv + " \u00B7 retained yayınlandı";
+    publishConfig();
+
+    if (S.cfgTimer) clearTimeout(S.cfgTimer);
+    if (S.online && S.scen !== "link_lost") {
+      S.cfgTimer = setTimeout(function(){
+        wire("up", "b/"+DEVICE_ID+"/a", "QoS1", JSON.stringify({ id:"cfg", ok:1, e:null, cv:S.cv }));
+        setCfgStatus("applied");
+        $("cfgHint").textContent = "EEPROM'a yazıldı \u00B7 sonraki telemetride cv=" + S.cv + " doğrulanacak";
+        publishStatus();
+      }, 2600);
+    } else {
+      S.cfgTimer = setTimeout(function(){
+        setCfgStatus("failed");
+        emit("CFG_FAIL");
+        $("cfgHint").textContent = "5 dakika içinde cv güncellenmedi \u00B7 ayar geri alınmadı, kullanıcıya bildirildi";
+      }, CFG_TIMEOUT);
+    }
+  }
+
+  /* ---------- ekran ---------- */
+  function cell(label, value, alarm){
+    return '<div class="cell'+(alarm?" alarm":"")+'"><div class="p">'+label+'</div><div class="n">'+value+'</div></div>';
+  }
+  function render(){
+    /* baglanti */
+    var conn = $("conn");
+    conn.className = "conn" + (S.online ? "" : " off");
+    $("connText").textContent = S.online ? "ÇEVRİMİÇİ" : "ÇEVRİMDIŞI";
+
+    /* motor */
+    var st = $("motorState");
+    st.textContent = S.relay === 1 ? "ÇALIŞIYOR" : "DURDU";
+    st.className = "motor-state " + (S.relay === 1 ? "on" : "off");
+    $("motorSub").textContent = "röle " + (S.relay ? "açık" : "kapalı") + " \u00B7 koruma: " +
+      (S.mode ? "otomatik" : "manuel") + (S.latch ? " \u00B7 KİLİTLİ" : "");
+    var pump = $("pumpIcon");
+    pump.textContent = S.relay ? "\uD83D\uDCA7" : "\u26D4";
+    pump.className = "pump" + (S.relay ? " on" : "");
+
+    /* akim */
+    var names = ["R","S","T"], out = [], n, sum = 0;
+    for (n=0; n<3; n++){
+      sum += S.i[n];
+      out.push(cell(names[n], amp(S.i[n]), S.i[n] > S.cfg.imax));
+    }
+    $("currentCells").innerHTML = out.join("");
+    $("currentAvg").textContent = "ortalama: " + amp(Math.round(sum/3)) + " A \u00B7 limit " + amp(S.cfg.imax) + " A";
+
+    /* gerilim */
+    if (S.v === null) {
+      $("voltCells").innerHTML = '<div class="nodata" style="grid-column:1/-1">Bu cihazda gerilim ölçümü yok. Protokol <code>v:null</code> taşıyor; uygulama tahmini değer üretmek yerine kartları gizler.</div>';
+      $("voltAvg").textContent = "";
+    } else {
+      out = []; sum = 0;
+      for (n=0; n<3; n++){
+        sum += S.v[n];
+        out.push(cell(names[n], S.v[n] + " V", S.v[n]*10 < S.cfg.vmin));
+      }
+      $("voltCells").innerHTML = out.join("");
+      $("voltAvg").textContent = "ortalama: " + Math.round(sum/3) + " V \u00B7 alt limit " + volt(S.cfg.vmin) + " V";
+    }
+
+    /* bantlar */
+    var b = "";
+    if (!S.online) {
+      b += '<div class="banner offline"><b>Cihaz çevrimdışı</b>200 saniyedir telemetri gelmiyor. Son bilinen durum gösteriliyor, kontroller kapalı. Cihaz 10 saniyede bir yeniden bağlanmayı deniyor.</div>';
+    }
+    if (S.latch) {
+      b += '<div class="banner trip"><b>Koruma kesti \u00B7 kilit aktif</b>' +
+           esc(S.tripReason || "Koruma limiti aşıldı") +
+           '. Röle kullanıcı onayına kadar kapalı kalır. Arızanın giderildiğini doğrulamadan sıfırlama.' +
+           '<div class="mini"><button class="btn btn-sm" id="btnLatch">' +
+           (S.latchConfirm ? "Eminim, kilidi sıfırla" : "Kilidi sıfırla") + '</button></div></div>';
+    }
+    $("banners").innerHTML = b;
+    if (S.latch) {
+      $("btnLatch").addEventListener("click", function(){
+        if (!S.latchConfirm) { S.latchConfirm = true; render(); return; }
+        S.latchConfirm = false;
+        sendCommand("latch_reset", 1, "latch_reset");
+        render();
+      });
+    }
+
+    /* kontroller */
+    $("btnOn").disabled  = !S.online || S.relay === 1;
+    $("btnOff").disabled = !S.online || S.relay === 0;
+    $("modeAuto").disabled = !S.online;
+    $("modeManual").disabled = !S.online;
+    $("modeAuto").setAttribute("aria-pressed", S.mode === 1 ? "true" : "false");
+    $("modeManual").setAttribute("aria-pressed", S.mode === 0 ? "true" : "false");
+    $("modeNote").textContent = S.mode === 1
+      ? "otomatik: limit aşılınca cihaz röleyi keser"
+      : "manuel: cihaz alarm üretir ama kesmez \u2014 sorumluluk kullanıcıda";
+
+    if (S.latch && S.online) note("kilit aktif \u00B7 AÇ komutu cihaz tarafında reddedilir", "err");
+    else if (!S.online) note("cihaz çevrimdışı \u00B7 komut broker'da kuyruğa girer", "");
+  }
+
+  /* ---------- senaryo ---------- */
+  function setScenario(id){
+    S.scen = id;
+    S.online = true; S.relay = 0; S.latch = 0; S.mode = 1; S.grid = 1;
+    S.ramp = 0; S.tick = 0; S.overRun = 0; S.noLoadRun = 0;
+    S.i = [0,0,0]; S.v = (id === "no_voltage") ? null : [228,227,226];
+    S.tripReason = ""; S.latchConfirm = false;
+    S.events = []; S.wire = []; S.cmds = [];
+    if (S.cfgTimer) { clearTimeout(S.cfgTimer); S.cfgTimer = null; }
+    setCfgStatus("applied");
+    $("cfgHint").textContent = "değişmiş ayar yok";
+
+    var btns = $("scenBtns").children, n;
+    for (n=0; n<btns.length; n++){
+      btns[n].setAttribute("aria-pressed", btns[n].getAttribute("data-id") === id ? "true" : "false");
+    }
+    for (n=0; n<SCENARIOS.length; n++){
+      if (SCENARIOS[n].id === id) $("scenDesc").innerHTML = SCENARIOS[n].desc;
+    }
+
+    emit("BOOT", null, undefined, undefined, 0);
+    publishStatus();
+    publishConfig();
+    renderCommands();
+    render();
+    note("hazır \u00B7 pompayı açmayı dene", "");
+  }
+
+  /* ---------- baglama ---------- */
+  function buildScenarioButtons(){
+    var out = [];
+    for (var n=0; n<SCENARIOS.length; n++){
+      out.push('<button type="button" data-id="'+SCENARIOS[n].id+'" aria-pressed="false">'+SCENARIOS[n].label+'</button>');
+    }
+    $("scenBtns").innerHTML = out.join("");
+    $("scenBtns").addEventListener("click", function(ev){
+      var b = ev.target.closest("button[data-id]");
+      if (b) setScenario(b.getAttribute("data-id"));
+    });
+  }
+
+  function bindTabs(){
+    var tabs = [["tab-panel","pane-panel"],["tab-ayar","pane-ayar"],["tab-olay","pane-olay"]];
+    tabs.forEach(function(pair){
+      $(pair[0]).addEventListener("click", function(){
+        tabs.forEach(function(p){
+          var sel = p[0] === pair[0];
+          $(p[0]).setAttribute("aria-selected", sel ? "true" : "false");
+          $(p[1]).hidden = !sel;
+        });
+      });
+    });
+  }
+
+  function bindConfig(){
+    var map = [
+      ["fImax","vImax","imax", function(v){ return amp(v); }],
+      ["fImin","vImin","imin", function(v){ return amp(v); }],
+      ["fVmin","vVmin","vmin", function(v){ return (v/10).toFixed(1).replace(".",","); }],
+      ["fDly","vDly","dly",   function(v){ return String(v); }]
+    ];
+    map.forEach(function(m){
+      $(m[0]).addEventListener("input", function(){
+        var val = parseInt(this.value, 10);
+        S.draft[m[2]] = val;
+        $(m[1]).textContent = m[3](val);
+        $("btnSaveCfg").disabled = !cfgDirty() || S.cfgStatus === "pending";
+        $("cfgHint").textContent = cfgDirty()
+          ? "kaydedilmedi \u00B7 göndermeden cihazda hiçbir şey değişmez"
+          : "değişmiş ayar yok";
+      });
+    });
+    $("btnSaveCfg").addEventListener("click", saveConfig);
+  }
+
+  function init(){
+    buildScenarioButtons();
+    bindTabs();
+    bindConfig();
+    $("devId").textContent = DEVICE_ID;
+    $("btnOn").addEventListener("click", function(){ sendCommand("relay", 1, "relay:1 (aç)"); });
+    $("btnOff").addEventListener("click", function(){ sendCommand("relay", 0, "relay:0 (kapat)"); });
+    $("modeAuto").addEventListener("click", function(){ if (S.mode !== 1) sendCommand("mode", 1, "mode:1 (otomatik)"); });
+    $("modeManual").addEventListener("click", function(){ if (S.mode !== 0) sendCommand("mode", 0, "mode:0 (manuel)"); });
+    $("btnClearWire").addEventListener("click", function(){ S.wire = []; renderWire(); });
+
+    setScenario("normal");
+    $("clock").textContent = clockText();
+    setInterval(function(){ $("clock").textContent = clockText(); }, 20000);
+    setInterval(tick, TICK_MS);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+
+</body>
+</html>

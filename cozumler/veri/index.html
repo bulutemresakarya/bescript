@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web'den Excel'e — Veri Toplama (Canlı Demo)</title>
+<meta name="description" content="Web'deki dağınık veriyi otomatik toplayıp temiz Excel tablosuna çeviren sistemin canlı demosu. Taramayı başlat, tabloyu gerçekten indir.">
+<link rel="canonical" href="https://bescript.com.tr/cozumler/veri/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/cozumler/veri/">
+<meta property="og:title" content="Web'den Excel'e — Veri Toplama (Canlı Demo)">
+<meta property="og:description" content="Web'deki dağınık veriyi otomatik toplayıp temiz Excel tablosuna çeviren sistemin canlı demosu. Taramayı başlat, tabloyu gerçekten indir.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web'den Excel'e — Veri Toplama (Canlı Demo)">
+<meta name="twitter:description" content="Web'deki dağınık veriyi otomatik toplayıp temiz Excel tablosuna çeviren sistemin canlı demosu. Taramayı başlat, tabloyu gerçekten indir.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --bg:#EFF3F6;
+    --ink:#131E2B;
+    --muted:#5C6B7C;
+    --teal:#0E7C86;
+    --teal-dark:#0A5D65;
+    --line:#D3DCE4;
+    --card:#FFFFFF;
+    --green:#0E8A4A;
+    --hl:#FFF3D6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  .demo-banner{background:var(--ink);color:#fff;text-align:center;padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .demo-banner b{color:#39C6D0}
+
+  header{padding:44px 0 8px;text-align:center}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);letter-spacing:.12em;margin-bottom:12px}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;font-variation-settings:'wdth' 114;font-size:clamp(28px,4.6vw,42px);max-width:24ch;margin:0 auto;letter-spacing:-.01em}
+  h1 span{color:var(--teal)}
+  .sub{color:var(--muted);max-width:58ch;font-size:16px;margin:14px auto 0}
+  .sub b{color:var(--ink)}
+
+  .controls{display:flex;justify-content:center;gap:12px;padding:26px 0 20px;flex-wrap:wrap;align-items:center}
+  .go{
+    font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;
+    background:var(--teal);color:#fff;border:none;border-radius:10px;
+    padding:13px 28px;cursor:pointer;transition:all .15s;
+  }
+  .go:hover:not(:disabled){background:var(--teal-dark)}
+  .go:disabled{opacity:.45;cursor:not-allowed}
+  .go:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .dl{
+    font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;
+    background:var(--green);color:#fff;border:none;border-radius:10px;
+    padding:13px 28px;cursor:pointer;display:none;animation:popIn .3s ease;
+  }
+  @keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+  .dl:hover{background:#0A6B39}
+  .scan-stats{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+  .scan-stats b{color:var(--teal-dark)}
+
+  .split{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;padding-bottom:12px;align-items:start}
+  @media(max-width:900px){.split{grid-template-columns:1fr}}
+
+  /* sahte site */
+  .browser{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 14px 40px -18px rgba(19,30,43,.18)}
+  .b-bar{background:#E4EAEF;padding:9px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+  .b-dot{width:10px;height:10px;border-radius:50%}
+  .b-url{
+    flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);
+    padding:5px 12px;margin-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .b-body{padding:12px;max-height:430px;overflow-y:auto}
+  .b-title{font-weight:700;font-size:13.5px;padding:2px 4px 10px;color:var(--muted)}
+  .listing{
+    border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px;
+    transition:background .25s,border-color .25s;
+  }
+  .listing.scanned{background:var(--hl);border-color:#E8C570}
+  .listing.done{background:#EDF9F1;border-color:#9FD9B4}
+  .listing .lt{font-weight:600;font-size:13px}
+  .listing .lm{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .listing .lp{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;color:var(--teal-dark);margin-top:4px}
+  .listing .tickmark{float:right;color:var(--green);font-weight:700;opacity:0;transition:opacity .2s}
+  .listing.done .tickmark{opacity:1}
+
+  /* excel taraf */
+  .excel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 14px 40px -18px rgba(19,30,43,.18)}
+  .x-bar{background:#1E6E42;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  .x-bar .x-ico{width:22px;height:22px;background:#fff;color:#1E6E42;border-radius:5px;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px}
+  .x-bar .x-name{font-size:13px;font-weight:600}
+  .x-body{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:12px;min-width:560px}
+  th{
+    background:#F2F6F4;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+    color:var(--muted);text-align:left;padding:8px 10px;border:1px solid var(--line);letter-spacing:.03em;
+  }
+  td{padding:8px 10px;border:1px solid #E9EEF2;font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+  tr.new-row{animation:rowIn .35s ease}
+  @keyframes rowIn{from{opacity:0;background:var(--hl)}to{opacity:1}}
+  @media (prefers-reduced-motion: reduce){tr.new-row,.dl{animation:none}}
+  td.num{text-align:right}
+  .empty-hint{padding:34px 20px;text-align:center;color:var(--muted);font-size:13px}
+  .progress{height:4px;background:var(--line)}
+  .progress i{display:block;height:100%;width:0%;background:var(--teal);transition:width .4s ease}
+
+  .value{padding:40px 0 6px}
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:820px){.value-grid{grid-template-columns:1fr}}
+  .vcell{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .vcell h3{font-size:14px;font-weight:700;margin-bottom:5px}
+  .vcell p{font-size:13px;color:var(--muted)}
+
+  .pricing{padding:38px 0 56px}
+  .price-card{border:1px solid var(--ink);border-radius:16px;background:var(--card);padding:34px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .price-left h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:23px;margin-bottom:8px}
+  .price-meta{display:flex;gap:10px;flex-wrap:wrap}
+  .pm{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;border:1px solid var(--line);border-radius:8px;padding:6px 12px;color:var(--muted)}
+  .pm b{color:var(--teal-dark)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:12px 22px;border-radius:9px;border:1px solid var(--ink);color:var(--ink);transition:all .15s}
+  .btn:hover{background:var(--ink);color:#fff}
+  .btn-wa{background:var(--green);border-color:var(--green);color:#fff}
+  .btn-wa:hover{background:#0A6B39;border-color:#0A6B39}
+
+  footer{border-top:1px solid var(--line);padding:18px 0 34px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--teal-dark);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">CANLI DEMO — taramayı <b>kendin başlat</b>, dolan tabloyu <b>gerçekten Excel olarak indir</b> · site örnektir, sistem gerçektir</div>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">İLANLAR · FİYATLAR · RAKİPLER · HER TÜRLÜ AÇIK VERİ</p>
+    <h1>Web'deki dağınık veri, <span>elinizde temiz Excel.</span></h1>
+    <p class="sub">Elle kopyala-yapıştır günler sürer, hata doludur. Sistemim aynı işi <b>dakikalar içinde, sıfır hatayla</b> yapar — üstelik her gün otomatik tekrarlar. Aşağıda küçük bir örneğini kendiniz çalıştırın.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <button class="go" id="go">▶ Taramayı Başlat</button>
+    <button class="dl" id="dl">⬇ Excel indir (.xlsx)</button>
+    <span class="scan-stats" id="stats">hazır — 8 ilan bekliyor</span>
+  </div>
+
+  <div class="split">
+    <div class="browser">
+      <div class="b-bar">
+        <span class="b-dot" style="background:#F26D5F"></span>
+        <span class="b-dot" style="background:#F2BE45"></span>
+        <span class="b-dot" style="background:#57BE6C"></span>
+        <span class="b-url">https://ornek-ilan-sitesi.com/kocaeli/satilik-daire</span>
+      </div>
+      <div class="b-body" id="siteBody">
+        <div class="b-title">Kocaeli Satılık Daire İlanları — 8 sonuç</div>
+      </div>
+    </div>
+
+    <div class="excel">
+      <div class="x-bar">
+        <span class="x-ico">X</span>
+        <span class="x-name">kocaeli-satilik-daireler.xlsx</span>
+      </div>
+      <div class="progress"><i id="prog"></i></div>
+      <div class="x-body">
+        <table id="xtable">
+          <thead>
+            <tr><th>#</th><th>BAŞLIK</th><th>İLÇE</th><th>ODA</th><th>M²</th><th>FİYAT (TL)</th><th>TL/M²</th></tr>
+          </thead>
+          <tbody id="xbody">
+            <tr><td colspan="7"><div class="empty-hint">▶ Taramayı başlatın — satırlar buraya temizlenmiş halde düşecek</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="value">
+  <div class="wrap">
+    <div class="value-grid">
+      <div class="vcell"><h3>🧹 Ham veri değil, temiz veri</h3><p>"4.750.000 TL" yazısı sayıya, "Başiskele / Yeşilyurt" ilçeye ayrışır; birim fiyat gibi türetilmiş kolonlar otomatik hesaplanır.</p></div>
+      <div class="vcell"><h3>⏰ Bir kez kurulur, hep çalışır</h3><p>Her sabah 08:00'de tarar, yeni kayıtları e-postanıza/Telegram'ınıza Excel olarak bırakır. Siz uyurken veri toplanır.</p></div>
+      <div class="vcell"><h3>⚖️ Kurallara uygun</h3><p>Yalnızca halka açık veriler, site kurallarına saygılı tarama hızı, KVKK hassasiyeti. Kurumsal kullanıma uygun rapor formatı.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <div class="price-card">
+      <div class="price-left">
+        <h2>Hangi veriyi toplayalım?</h2>
+        <div class="price-meta">
+          <span class="pm"><b>10.000 TL</b>'den başlayan</span>
+          <span class="pm"><b>5 günde</b> teslim</span>
+          <span class="pm">Zamanlanmış otomatik çalışma <b>dahil</b></span>
+        </div>
+      </div>
+      <div class="btns">
+        <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Veri%20Toplama%20Sistemi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        <a class="btn" href="mailto:iletisim@bescript.com.tr?subject=Veri%20Toplama%20Teklif">Teklif İste ✉</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>web'den excel'e veri toplama · canlı demo</span>
+    <span>geliştirici: <a href="../../">BeScript</a></span>
+  </div>
+</footer>
+
+<script>
+const DATA=[
+  {t:"Deniz Manzaralı 3+1 Ferah Daire",loc:"Başiskele / Yeşilyurt",oda:"3+1",m2:145,f:4750000},
+  {t:"Site İçinde Havuzlu 2+1",loc:"İzmit / Yahyakaptan",oda:"2+1",m2:105,f:3280000},
+  {t:"Sahibinden Yeni Bina 4+1 Dubleks",loc:"Gebze / Tatlıkuyu",oda:"4+1",m2:190,f:5900000},
+  {t:"Kartepe'de Doğa İçinde 3+1",loc:"Kartepe / Maşukiye",oda:"3+1",m2:150,f:4100000},
+  {t:"Merkezi Konumda 1+1 Yatırımlık",loc:"İzmit / Kemalpaşa",oda:"1+1",m2:62,f:1950000},
+  {t:"Golcük Sahile Yakın 2+1",loc:"Gölcük / Değirmendere",oda:"2+1",m2:98,f:2740000},
+  {t:"Krediye Uygun 3+1 Ara Kat",loc:"Derince / Çenedağ",oda:"3+1",m2:128,f:3150000},
+  {t:"Lüks Site 4.5+1 Ebeveyn Banyolu",loc:"Başiskele / Fatih",oda:"4+1",m2:210,f:6800000},
+];
+const fmt=v=>v.toLocaleString("tr-TR");
+const $site=document.getElementById("siteBody"),$xb=document.getElementById("xbody"),
+$go=document.getElementById("go"),$dl=document.getElementById("dl"),
+$stats=document.getElementById("stats"),$prog=document.getElementById("prog");
+
+/* sol taraftaki ilanlar */
+DATA.forEach((d,i)=>{
+  const div=document.createElement("div");
+  div.className="listing";div.id="ls"+i;
+  div.innerHTML=`<span class="tickmark">✓ alındı</span><div class="lt">${d.t}</div><div class="lm">📍 ${d.loc} · ${d.oda} · ${d.m2} m² · dün güncellendi</div><div class="lp">${fmt(d.f)} TL</div>`;
+  $site.appendChild(div);
+});
+
+let done=false, t0=0;
+async function scan(){
+  if(done){location.reload();return;}
+  $go.disabled=true;$go.textContent="⏳ Taranıyor…";
+  $xb.innerHTML="";t0=performance.now();
+  for(let i=0;i<DATA.length;i++){
+    const d=DATA[i], ls=document.getElementById("ls"+i);
+    ls.classList.add("scanned");
+    ls.scrollIntoView({block:"nearest",behavior:"smooth"});
+    await new Promise(r=>setTimeout(r,420));
+    ls.classList.remove("scanned");ls.classList.add("done");
+    const ilce=d.loc.split(" / ")[0];
+    const tr=document.createElement("tr");tr.className="new-row";
+    tr.innerHTML=`<td>${i+1}</td><td>${d.t}</td><td>${ilce}</td><td>${d.oda}</td><td class="num">${d.m2}</td><td class="num">${fmt(d.f)}</td><td class="num">${fmt(Math.round(d.f/d.m2))}</td>`;
+    $xb.appendChild(tr);
+    $prog.style.width=((i+1)/DATA.length*100)+"%";
+    $stats.innerHTML=`<b>${i+1}/${DATA.length}</b> kayıt işlendi`;
+  }
+  const sec=((performance.now()-t0)/1000).toFixed(1);
+  $stats.innerHTML=`✓ <b>${DATA.length} kayıt</b> · <b>${sec} sn</b> · <b>0 hata</b> — elle yapsan ~20 dk sürerdi`;
+  $go.disabled=false;$go.textContent="↻ Tekrar tara";done=true;
+  $dl.style.display="inline-block";
+}
+$go.addEventListener("click",scan);
+
+$dl.addEventListener("click",()=>{
+  const rows=DATA.map((d,i)=>({
+    "#":i+1,"Başlık":d.t,"İlçe":d.loc.split(" / ")[0],"Mahalle":d.loc.split(" / ")[1],
+    "Oda":d.oda,"m²":d.m2,"Fiyat (TL)":d.f,"TL/m²":Math.round(d.f/d.m2)
+  }));
+  const ws=XLSX.utils.json_to_sheet(rows);
+  ws["!cols"]=[{wch:3},{wch:38},{wch:12},{wch:14},{wch:6},{wch:6},{wch:12},{wch:10}];
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,"İlanlar");
+  XLSX.writeFile(wb,"kocaeli-satilik-daireler-demo.xlsx");
+});
+</script>
+</body>
+</html>

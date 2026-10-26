@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kripto Trader Bot — Kontrol Paneli</title>
+<meta name="description" content="Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları, açık pozisyon takibi ve canlı PnL akışının demosu.">
+<link rel="canonical" href="https://bescript.com.tr/kripto-bot/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/kripto-bot/">
+<meta property="og:title" content="Kripto Trader Bot — Kontrol Paneli">
+<meta property="og:description" content="Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları, açık pozisyon takibi ve canlı PnL akışının demosu.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kripto Trader Bot — Kontrol Paneli">
+<meta name="twitter:description" content="Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları, açık pozisyon takibi ve canlı PnL akışının demosu.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<style>
+  :root{
+    --bg:#0b0e11;
+    --panel:#15181d;
+    --panel2:#1b1f26;
+    --line:#242a33;
+    --text:#e8ecf1;
+    --muted:#7d8899;
+    --teal:#00b897;
+    --teal-dim:rgba(0,184,151,.12);
+    --red:#f5455c;
+    --red-dim:rgba(245,69,92,.12);
+    --gold:#f0b90b;
+    --mono:"Roboto Mono","SF Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    font-size:14px;
+    line-height:1.45;
+    padding-bottom:40px;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:0 12px}
+
+  /* HEADER */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 4px 12px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+  }
+  .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px}
+  .logo .mark{
+    width:26px;height:26px;border-radius:6px;
+    background:linear-gradient(135deg,var(--teal),#007a67);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:13px;color:#04110e;font-weight:800;
+  }
+  .status{
+    display:flex;align-items:center;gap:6px;
+    background:var(--teal-dim);color:var(--teal);
+    font-size:12px;font-weight:600;
+    padding:5px 11px;border-radius:20px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion: reduce){.dot{animation:none}}
+
+  /* CARDS */
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:12px;
+  }
+  .card h2{
+    font-size:12px;font-weight:600;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.08em;
+    margin-bottom:14px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .card h2 .tag{
+    font-size:10px;color:var(--gold);letter-spacing:.05em;
+    border:1px solid rgba(240,185,11,.35);border-radius:4px;padding:2px 6px;
+  }
+
+  /* BALANCE STRIP */
+  .balance{display:flex;gap:0;text-align:left}
+  .balance div{flex:1}
+  .balance .lbl{font-size:11px;color:var(--muted);margin-bottom:3px}
+  .balance .val{font-family:var(--mono);font-size:16px;font-weight:600}
+  .balance .val.green{color:var(--teal)}
+
+  /* FORM */
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+  select,input[type="text"],input[type="time"],input[type="number"]{
+    width:100%;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    color:var(--text);
+    padding:10px 12px;
+    font-size:14px;
+    font-family:var(--mono);
+    outline:none;
+  }
+  select:focus,input:focus{border-color:var(--teal)}
+  .row{display:flex;gap:10px}
+  .row .field{flex:1}
+
+  /* SEGMENTED */
+  .seg{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{
+    flex:1;background:none;border:none;color:var(--muted);
+    padding:10px 0;font-size:13px;font-weight:600;cursor:pointer;
+    font-family:inherit;
+  }
+  .seg button.on-long{background:var(--teal);color:#04110e}
+  .seg button.on-short{background:var(--red);color:#fff}
+  .seg button.on-neutral{background:#2a3140;color:var(--text)}
+  .seg button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+
+  /* LEVERAGE */
+  .lev-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .lev-val{font-family:var(--mono);font-weight:700;color:var(--gold);font-size:15px}
+  input[type="range"]{
+    width:100%;accent-color:var(--teal);height:24px;
+  }
+  .lev-marks{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:var(--mono)}
+
+  /* CHECK LINE */
+  .checkline{
+    display:flex;align-items:center;gap:9px;
+    background:var(--panel2);border:1px solid var(--line);
+    border-radius:8px;padding:10px 12px;font-size:13px;
+  }
+  .checkline input{accent-color:var(--teal);width:16px;height:16px}
+
+  /* SAVE BTN */
+  .save{
+    width:100%;
+    background:var(--teal);
+    color:#04110e;
+    border:none;border-radius:8px;
+    padding:13px;font-size:15px;font-weight:700;
+    cursor:pointer;margin-top:4px;
+    font-family:inherit;
+  }
+  .save:active{opacity:.85}
+
+  /* POSITION */
+  .pos-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .pos-sym{font-weight:700;font-size:15px}
+  .pos-sym .side{
+    font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:7px;
+    background:var(--teal-dim);color:var(--teal);
+  }
+  .pos-sym .levtag{font-size:11px;color:var(--muted);margin-left:6px;font-family:var(--mono)}
+  .pnl{font-family:var(--mono);font-weight:700;color:var(--teal);font-size:15px;text-align:right}
+  .pnl small{display:block;font-size:11px;font-weight:400;color:var(--teal)}
+  .pos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .pos-grid .lbl{font-size:10.5px;color:var(--muted);margin-bottom:2px}
+  .pos-grid .val{font-family:var(--mono);font-size:13px}
+  .next{
+    margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);
+    display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);
+  }
+  .next b{font-family:var(--mono);color:var(--gold);font-weight:600}
+  .pos-sym .side.short{background:var(--red-dim);color:var(--red)}
+
+  /* KASA */
+  .kasa-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  .kasa-val{font-family:var(--mono);font-size:27px;font-weight:700;color:var(--teal);line-height:1.05}
+  .kasa-val.neg{color:var(--red)}
+  .kasa-note{font-size:11px;color:var(--muted);margin-top:3px}
+  .kasa-eq{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+  .kasa-eq b{display:block;color:var(--text);font-size:15px;font-weight:600}
+  .wr-bar{height:6px;border-radius:3px;background:var(--red);overflow:hidden;margin:13px 0 0}
+  .wr-bar i{display:block;height:100%;background:var(--teal);border-radius:3px;transition:width .4s}
+  .kasa-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:11px}
+  .kasa-stats .lbl{font-size:10.5px;color:var(--muted);margin-bottom:2px}
+  .kasa-stats .val{font-family:var(--mono);font-size:13px}
+
+  /* ISLEM AKSIYONLARI */
+  .act{display:flex;gap:10px;margin-top:14px}
+  .act button{
+    flex:1;border:none;border-radius:8px;padding:12px 8px;
+    font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .act .long{background:var(--teal);color:#04110e}
+  .act .short{background:var(--red);color:#fff}
+  .act .close{background:#2a3140;color:var(--text)}
+  .act button:active{opacity:.85}
+  .act button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .empty{text-align:center;color:var(--muted);font-size:13px;padding:16px 0 4px}
+  .empty b{display:block;color:var(--text);font-weight:600;margin-bottom:3px}
+  .warnline{
+    margin-top:10px;background:var(--red-dim);border:1px solid rgba(245,69,92,.35);
+    color:var(--red);border-radius:8px;padding:9px 11px;font-size:12px;
+  }
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{color:var(--muted);font-weight:500;text-align:left;padding:0 0 8px;font-size:11px}
+  td{padding:7px 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px}
+  td.green{color:var(--teal)}
+  td.red{color:var(--red)}
+  td .side-l{color:var(--teal);font-weight:600}
+  td .side-s{color:var(--red);font-weight:600}
+  th:last-child,td:last-child{text-align:right}
+
+  /* LOG */
+  .log{
+    background:#07090c;border:1px solid var(--line);border-radius:8px;
+    padding:12px;font-family:var(--mono);font-size:11.5px;line-height:1.8;
+    color:#9aa7b8;
+  }
+  .log .t{color:#525e6e}
+  .log .ok{color:var(--teal)}
+  .log .warn{color:var(--gold)}
+
+  footer{
+    text-align:center;font-size:11px;color:var(--muted);margin-top:18px;
+  }
+</style>
+</head>
+<body>
+<div style="background:#15181d;border-bottom:1px solid #242a33;text-align:center;padding:6px 12px;font-family:var(--mono);font-size:11px;color:#7d8899">DEMO — veriler temsilidir, fiyat akışı simülasyondur · <a href="../" style="color:var(--teal);text-decoration:none">← tüm projeler</a></div>
+<div class="wrap">
+
+  <header>
+    <div class="logo">
+      <div class="mark">₿</div>
+      <div>Kripto Trader Bot <span style="color:var(--muted);font-weight:400;font-size:12px">· futures</span></div>
+    </div>
+    <div class="status"><span class="dot"></span>Bot Aktif</div>
+  </header>
+
+  <!-- BAKIYE -->
+  <div class="card">
+    <div class="balance">
+      <div>
+        <div class="lbl">Bakiye (USDT)</div>
+        <div class="val" id="balTotal">2.418,60</div>
+      </div>
+      <div>
+        <div class="lbl">Kullanılabilir</div>
+        <div class="val" id="balFree">1.918,60</div>
+      </div>
+      <div>
+        <div class="lbl">Açık PNL</div>
+        <div class="val green" id="balPnl">+42,75</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KASA -->
+  <div class="card">
+    <h2>Kasa <span class="tag">BİRİKEN KÂR</span></h2>
+    <div class="kasa-top">
+      <div>
+        <div class="kasa-val" id="kasaVal">+289,16</div>
+        <div class="kasa-note">kapatılan işlemlerden gerçekleşen toplam</div>
+      </div>
+      <div class="kasa-eq">
+        <b id="kasaEq">%13,58</b>
+        sermaye getirisi
+      </div>
+    </div>
+    <div class="wr-bar" title="Başarı oranı"><i id="wrBar" style="width:75%"></i></div>
+    <div class="kasa-stats">
+      <div><div class="lbl">İşlem</div><div class="val" id="stTrades">4</div></div>
+      <div><div class="lbl">Kazanan</div><div class="val" style="color:var(--teal)" id="stWins">3</div></div>
+      <div><div class="lbl">Kaybeden</div><div class="val" style="color:var(--red)" id="stLoss">1</div></div>
+      <div><div class="lbl">Başarı</div><div class="val" id="stWr">%75</div></div>
+    </div>
+  </div>
+
+  <!-- BOT AYARLARI -->
+  <div class="card">
+    <h2>Bot Ayarları <span class="tag">DEMO</span></h2>
+
+    <div class="field">
+      <label for="pair">Kontrat</label>
+      <select id="pair">
+        <option>BTC_USDT Perpetual</option>
+        <option>ETH_USDT Perpetual</option>
+        <option>SOL_USDT Perpetual</option>
+        <option>XRP_USDT Perpetual</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="freq">İşlem Sıklığı</label>
+        <select id="freq">
+          <option>Günde 1 işlem</option>
+          <option>Haftada 1 işlem</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="time">İşlem Saati</label>
+        <input type="time" id="time" value="10:00">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Yön</label>
+      <div class="seg" id="side">
+        <button type="button" class="on-long" onclick="setSide(this,'long')">Long</button>
+        <button type="button" onclick="setSide(this,'short')">Short</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Kapatma Kuralı</label>
+      <div class="checkline">
+        <input type="checkbox" id="flip" checked>
+        <label for="flip" style="margin:0;color:var(--text)">Yeni işlem açılırken önceki pozisyonu kapat</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="tp">Take-Profit %</label>
+        <input type="number" id="tp" placeholder="Kapalı" value="">
+      </div>
+      <div class="field">
+        <label for="sl">Stop-Loss %</label>
+        <input type="number" id="sl" placeholder="Kapalı" value="">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="sizetype">Pozisyon Boyutu</label>
+        <select id="sizetype">
+          <option>Sabit tutar (USDT)</option>
+          <option>Bakiye yüzdesi (%)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sizeval">Değer</label>
+        <input type="number" id="sizeval" value="500">
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="lev-head">
+        <label style="margin:0" for="lev">Kaldıraç</label>
+        <span class="lev-val" id="levval">10x</span>
+      </div>
+      <input type="range" id="lev" min="1" max="100" value="10" oninput="document.getElementById('levval').textContent=this.value+'x'">
+      <div class="lev-marks"><span>1x</span><span>25x</span><span>50x</span><span>75x</span><span>100x</span></div>
+    </div>
+
+    <div class="field">
+      <label>Emir Tipi</label>
+      <div class="seg" id="otype">
+        <button type="button" class="on-neutral" onclick="setType(this)">Market</button>
+        <button type="button" onclick="setType(this)">Limit</button>
+      </div>
+    </div>
+
+    <button class="save" onclick="this.textContent='Ayarlar kaydedildi ✓';setTimeout(()=>this.textContent='Ayarları Kaydet',1600)">Ayarları Kaydet</button>
+  </div>
+
+  <!-- AÇIK POZİSYON -->
+  <div class="card">
+    <h2>Açık Pozisyon</h2>
+    <div id="posBox"></div>
+    <div class="act" id="actBox"></div>
+    <div id="tradeWarn"></div>
+    <div class="next">
+      <span>Sonraki otomatik işlem</span>
+      <b id="nextTrade">10 Tem 10:00 · 14 sa 07 dk</b>
+    </div>
+  </div>
+
+  <!-- SON İŞLEMLER -->
+  <div class="card">
+    <h2>Son İşlemler</h2>
+    <table>
+      <thead>
+        <tr><th>Tarih</th><th>Yön</th><th>Giriş</th><th>Çıkış</th><th>PNL</th></tr>
+      </thead>
+      <tbody id="tradeRows">
+        <tr><td>08.07 10:00</td><td><span class="side-l">LONG</span></td><td>66.104</td><td>67.412</td><td class="green">+98,90</td></tr>
+        <tr><td>07.07 10:00</td><td><span class="side-s">SHORT</span></td><td>67.850</td><td>66.104</td><td class="green">+128,63</td></tr>
+        <tr><td>06.07 10:00</td><td><span class="side-l">LONG</span></td><td>68.212</td><td>67.850</td><td class="red">−26,54</td></tr>
+        <tr><td>05.07 10:00</td><td><span class="side-l">LONG</span></td><td>67.030</td><td>68.212</td><td class="green">+88,17</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOT LOG -->
+  <div class="card">
+    <h2>Bot Kaydı</h2>
+    <div class="log" id="botLog">
+      <div><span class="t">09.07 10:00:01</span> <span class="ok">✓</span> Önceki pozisyon kapatıldı (SHORT → +128,63)</div>
+      <div><span class="t">09.07 10:00:02</span> <span class="ok">✓</span> Market emri gönderildi: LONG 0,0742 BTC @ 10x</div>
+      <div><span class="t">09.07 10:00:02</span> <span class="ok">✓</span> Emir doldu · 67.412,5</div>
+      <div><span class="t">09.07 14:00:00</span> Bağlantı kontrolü · borsa API <span class="ok">OK</span> (182 ms)</div>
+      <div><span class="t">09.07 18:00:00</span> Bağlantı kontrolü · borsa API <span class="ok">OK</span> (147 ms)</div>
+      <div><span class="t">09.07 19:52:11</span> <span class="warn">i</span> Sonraki tetikleyici: 10.07.2026 10:00</div>
+    </div>
+  </div>
+
+  <footer>Demo sürüm · BeScript · Veriler temsilidir</footer>
+
+</div>
+
+<script>
+function setSide(btn, side){
+  const seg = btn.parentElement;
+  seg.querySelectorAll('button').forEach(b=>b.className='');
+  btn.className = side === 'long' ? 'on-long' : 'on-short';
+}
+function setType(btn){
+  const seg = btn.parentElement;
+  seg.querySelectorAll('button').forEach(b=>b.className='');
+  btn.className = 'on-neutral';
+}
+
+/* ===================================================================
+   Kripto bot demosu — durum yonetimli simulasyon
+   Gercek para veya gercek borsa baglantisi yoktur; fiyatlar rastgele
+   yuruyus, tum bakiyeler tarayicida tutulur ve yenilemede sifirlanir.
+   =================================================================== */
+
+const BASE_EQUITY = 2129.44;   // kasa haric ana sermaye
+const PRICES  = { BTC_USDT:67988.1, ETH_USDT:3542.7, SOL_USDT:172.4, XRP_USDT:0.6218 };
+const PX_DEC  = { BTC_USDT:1, ETH_USDT:2, SOL_USDT:2, XRP_USDT:4 };
+const QTY_DEC = { BTC_USDT:4, ETH_USDT:3, SOL_USDT:2, XRP_USDT:0 };
+
+const state = {
+  kasa: 289.16,          // asagidaki 4 baslangic isleminin toplami
+  wins: 3, losses: 1,
+  secsLeft: 14*3600 + 7*60,
+  pos: {                 // sayfa canli gorunsun diye acik baslayan pozisyon
+    sym:"BTC_USDT", side:"long", entry:67412.5, size:0.0742,
+    margin:500, lev:10, opened:"09.07 10:00"
+  }
+};
+
+const $ = id => document.getElementById(id);
+const fmt = (v,d=1) => v.toLocaleString("tr-TR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const signed = (v,d=2) => (v>=0?"+":"−") + fmt(Math.abs(v),d);
+const pctStr = (v,d=2) => (v>=0?"+":"−") + "%" + fmt(Math.abs(v),d);
+const symOf = () => $("pair").value.split(" ")[0];
+
+function log(html){
+  const t = new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  const d = document.createElement("div");
+  d.innerHTML = `<span class="t">${t}</span> ${html}`;
+  const box = $("botLog");
+  box.appendChild(d);
+  while (box.children.length > 9) box.removeChild(box.firstChild);
+}
+
+function warn(msg){
+  $("tradeWarn").innerHTML = msg ? `<div class="warnline">${msg}</div>` : "";
+  if (msg) setTimeout(()=>{ $("tradeWarn").innerHTML=""; }, 4200);
+}
+
+/* --- turev hesaplar --- */
+const equity    = () => BASE_EQUITY + state.kasa;
+const freeMargin= () => equity() - (state.pos ? state.pos.margin : 0);
+function unrealised(){
+  const p = state.pos;
+  if (!p) return 0;
+  const diff = PRICES[p.sym] - p.entry;
+  return (p.side === "long" ? diff : -diff) * p.size;
+}
+function liqPrice(p){
+  // izole marjin, ~%95 bakim esigi yaklasimi
+  const d = p.entry * (0.95 / p.lev);
+  return p.side === "long" ? p.entry - d : p.entry + d;
+}
+
+/* --- pozisyon ac / kapat --- */
+function openPos(side){
+  const sym = symOf();
+  const lev = +$("lev").value;
+  const pct = $("sizetype").selectedIndex === 1;
+  const raw = parseFloat($("sizeval").value);
+
+  if (!raw || raw <= 0) return warn("Pozisyon boyutu için geçerli bir değer girin.");
+
+  const flip = $("flip").checked;
+  if (state.pos && !flip)
+    return warn("Açık pozisyon var. Kapatma kuralı kapalı olduğu için yeni pozisyon açılamaz.");
+
+  // Marjin kontrolu, pozisyon kapatmadan ONCE yapilir: aksi halde reddedilen
+  // bir emir mevcut pozisyonu kapatip yerine yenisini acmadan birakiyordu.
+  // Ters islemde mevcut marjin serbest kalacagi ve PNL gerceklesecegi icin
+  // kullanilabilir tutar buna gore hesaplanir.
+  const avail = state.pos ? equity() + unrealised() : freeMargin();
+  const margin = pct ? avail * raw / 100 : raw;
+
+  if (margin > avail + 0.001)
+    return warn(`Yetersiz marjin. Kullanılabilir: ${fmt(avail,2)} USDT, istenen: ${fmt(margin,2)} USDT.`);
+  if (margin < 5) return warn("Minimum marjin 5 USDT.");
+
+  if (state.pos) closePos("ters işlem");
+
+  const entry = PRICES[sym];
+  state.pos = {
+    sym, side, entry, lev, margin,
+    size: margin * lev / entry,
+    opened: new Date().toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).replace(",","")
+  };
+
+  const q = fmt(state.pos.size, QTY_DEC[sym]);
+  log(`<span class="ok">✓</span> ${$("otype").querySelector("button.on-neutral")?.textContent||"Market"} emri doldu: ` +
+      `<b style="color:${side==="long"?"var(--teal)":"var(--red)"}">${side.toUpperCase()}</b> ${q} ${sym.split("_")[0]} @ ${fmt(entry,PX_DEC[sym])} · ${lev}x`);
+  render();
+}
+
+function closePos(reason){
+  const p = state.pos;
+  if (!p) return;
+  const pnl = unrealised();
+  const exit = PRICES[p.sym];
+
+  state.kasa += pnl;
+  if (pnl >= 0) state.wins++; else state.losses++;
+  state.pos = null;
+
+  addTradeRow(p, exit, pnl);
+  log(`<span class="${pnl>=0?"ok":"warn"}">${pnl>=0?"✓":"!"}</span> Pozisyon kapatıldı (${reason}) · ` +
+      `${p.side.toUpperCase()} ${p.sym.split("_")[0]} → <b style="color:${pnl>=0?"var(--teal)":"var(--red)"}">${signed(pnl)} USDT</b> · kasa ${signed(state.kasa)}`);
+  render();
+}
+
+function addTradeRow(p, exit, pnl){
+  const tr = document.createElement("tr");
+  const d = PX_DEC[p.sym];
+  tr.innerHTML =
+    `<td>${new Date().toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).replace(",","")}</td>` +
+    `<td><span class="side-${p.side==="long"?"l":"s"}">${p.side.toUpperCase()}</span></td>` +
+    `<td>${fmt(p.entry,d)}</td><td>${fmt(exit,d)}</td>` +
+    `<td class="${pnl>=0?"green":"red"}">${signed(pnl)}</td>`;
+  const body = $("tradeRows");
+  body.insertBefore(tr, body.firstChild);
+  while (body.children.length > 8) body.removeChild(body.lastChild);
+}
+
+/* --- ekran --- */
+function render(){
+  const p = state.pos, pnl = unrealised();
+
+  // pozisyon kutusu
+  if (p) {
+    const d = PX_DEC[p.sym], col = pnl>=0 ? "var(--teal)" : "var(--red)";
+    const pct = pnl / p.margin * 100;
+    $("posBox").innerHTML = `
+      <div class="pos-head">
+        <div class="pos-sym">${p.sym} <span class="side ${p.side}">${p.side.toUpperCase()}</span><span class="levtag">${p.lev}x izole</span></div>
+        <div class="pnl" style="color:${col}">${signed(pnl)} USDT<small style="color:${col}">${pctStr(pct)}</small></div>
+      </div>
+      <div class="pos-grid">
+        <div><div class="lbl">Giriş Fiyatı</div><div class="val">${fmt(p.entry,d)}</div></div>
+        <div><div class="lbl">Mark Fiyatı</div><div class="val">${fmt(PRICES[p.sym],d)}</div></div>
+        <div><div class="lbl">Likidasyon</div><div class="val" style="color:var(--red)">${fmt(liqPrice(p),d)}</div></div>
+        <div><div class="lbl">Marjin</div><div class="val">${fmt(p.margin,2)}</div></div>
+        <div><div class="lbl">Boyut</div><div class="val">${fmt(p.size,QTY_DEC[p.sym])} ${p.sym.split("_")[0]}</div></div>
+        <div><div class="lbl">Açılış</div><div class="val">${p.opened}</div></div>
+      </div>`;
+    $("actBox").innerHTML = `<button class="close" onclick="closePos('manuel')">Pozisyonu Kapat</button>`;
+  } else {
+    $("posBox").innerHTML = `<div class="empty"><b>Açık pozisyon yok</b>${symOf()} · ${fmt(PRICES[symOf()],PX_DEC[symOf()])} USDT</div>`;
+    $("actBox").innerHTML =
+      `<button class="long" onclick="openPos('long')">LONG Aç</button>` +
+      `<button class="short" onclick="openPos('short')">SHORT Aç</button>`;
+  }
+
+  // bakiye seridi
+  $("balTotal").textContent = fmt(equity(), 2);   // gerceklesen cuzdan bakiyesi; acik PNL ayri gosteriliyor
+  $("balFree").textContent  = fmt(freeMargin(), 2);
+  const bp = $("balPnl");
+  bp.textContent = signed(pnl);
+  bp.style.color = pnl>=0 ? "var(--teal)" : "var(--red)";
+
+  // kasa
+  const kv = $("kasaVal");
+  kv.textContent = signed(state.kasa);
+  kv.classList.toggle("neg", state.kasa < 0);
+  $("kasaEq").textContent = pctStr(state.kasa / BASE_EQUITY * 100);
+  const total = state.wins + state.losses;
+  const wr = total ? Math.round(state.wins / total * 100) : 0;
+  $("stTrades").textContent = total;
+  $("stWins").textContent   = state.wins;
+  $("stLoss").textContent   = state.losses;
+  $("stWr").textContent     = "%" + wr;
+  $("wrBar").style.width    = wr + "%";
+}
+
+/* --- zamanlayicilar --- */
+function tickPrice(){
+  for (const k in PRICES) PRICES[k] = Math.max(PRICES[k]*0.5, PRICES[k] * (1 + (Math.random()-0.4985) * 0.0016));
+
+  const p = state.pos;
+  if (p) {
+    const pct = unrealised() / p.margin * 100;
+    const tp = parseFloat($("tp").value), sl = parseFloat($("sl").value);
+    if (pct <= -100)            return closePos("likidasyon");
+    if (tp > 0 && pct >= tp)    return closePos(`take-profit %${tp}`);
+    if (sl > 0 && pct <= -sl)   return closePos(`stop-loss %${sl}`);
+  }
+  render();
+}
+function tickClock(){
+  state.secsLeft = Math.max(0, state.secsLeft - 1);
+  const h = Math.floor(state.secsLeft/3600), m = Math.floor(state.secsLeft%3600/60);
+  $("nextTrade").textContent = `10 Tem 10:00 · ${h} sa ${String(m).padStart(2,"0")} dk`;
+}
+function tickHeartbeat(){
+  log(`Bağlantı kontrolü · borsa API <span class="ok">OK</span> (${140+Math.floor(Math.random()*80)} ms)`);
+}
+
+$("pair").addEventListener("change", render);
+$("sizetype").addEventListener("change", ()=>{
+  const pct = $("sizetype").selectedIndex === 1;
+  $("sizeval").value = pct ? 25 : 500;
+});
+
+setInterval(tickPrice, 2200);
+setInterval(tickClock, 1000);
+setInterval(tickHeartbeat, 18000);
+render();
+</script>
+</body>
+</html>

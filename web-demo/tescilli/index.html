@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tescillipazar Eşleştirme Sistemi · Etkileşimli Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#16202C; --muted:#5B6878; --line:#DCE2EA;
+  --navy:#1F3A5F; --blue:#2E7DD7; --blue-soft:#E6EFFB; --amber:#B7791F; --amber-soft:#FBF1DF;
+  --green:#1E8E5A; --green-soft:#E3F4EA; --violet:#6A4FC2; --violet-soft:#EEEAFB; --red:#B8433A; --red-soft:#FBE9E7;
+  --wa-bg:#E9E2D8; --wa-bubble:#FFFFFF;
+  --font:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --cond:"IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1620; --surface:#17212D; --ink:#E7ECF2; --muted:#9AA7B6; --line:#2A3746;
+    --navy:#9CC1EE; --blue:#5B9DE8; --blue-soft:#1C2E45; --amber:#E0A94A; --amber-soft:#33291A;
+    --green:#4CC08A; --green-soft:#16302A; --violet:#A893EC; --violet-soft:#262143; --red:#E07A70; --red-soft:#3A2220;
+    --wa-bg:#1B2530; --wa-bubble:#223140;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1620; --surface:#17212D; --ink:#E7ECF2; --muted:#9AA7B6; --line:#2A3746;
+  --navy:#9CC1EE; --blue:#5B9DE8; --blue-soft:#1C2E45; --amber:#E0A94A; --amber-soft:#33291A;
+  --green:#4CC08A; --green-soft:#16302A; --violet:#A893EC; --violet-soft:#262143; --red:#E07A70; --red-soft:#3A2220;
+  --wa-bg:#1B2530; --wa-bubble:#223140;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+
+/* header */
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:14px;min-height:64px;flex-wrap:wrap;padding:8px 0}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand img{width:36px;height:36px;border-radius:8px;background:#fff;padding:3px}
+.brand b{font-family:var(--cond);font-size:17px;letter-spacing:.2px;color:var(--navy)}
+.brand span{display:block;font-size:12px;color:var(--muted);line-height:1.2}
+.tabs{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:10px;border:1px solid var(--line)}
+.tabs button{border:0;background:transparent;padding:7px 14px;border-radius:7px;cursor:pointer;font-weight:500;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(20,30,45,.12)}
+.note{font-size:12.5px;color:var(--muted);padding:10px 0 0}
+
+main{padding:22px 0 50px}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:22px;align-items:start}
+.grid>*,.dgrid>*{min-width:0}
+@media (max-width:920px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.pad{padding:18px}
+h1{font-family:var(--cond);font-size:30px;line-height:1.1;margin:0 0 6px;color:var(--navy)}
+h2{font-size:16px;margin:0 0 12px}
+h3{font-size:14px;margin:0 0 8px}
+p{margin:0 0 10px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+
+/* form */
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.req-text{background:var(--blue-soft);border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:14px;border-left:3px solid var(--blue)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:3px}
+input,select{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px}
+.full{grid-column:1/-1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 16px;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--navy);color:#fff;width:100%;margin-top:14px}
+:root[data-theme="dark"] .btn-primary{color:#0F1620}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-primary{color:#0F1620}}
+.btn-primary:disabled{opacity:.55;cursor:progress}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+
+/* rail */
+.rail{position:relative;padding:4px 0 0}
+.stage{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:start;position:relative;padding-bottom:16px}
+.stage:not(:last-child)::after{content:"";position:absolute;left:16px;top:34px;bottom:0;width:2px;background:var(--line)}
+.stage.done:not(:last-child)::after{background:var(--green)}
+.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;border:2px solid var(--line);background:var(--surface);color:var(--muted);position:relative;z-index:1}
+.stage.active .dot{border-color:var(--blue);color:var(--blue);animation:pulse 1s ease-in-out infinite}
+.stage.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.stage.fail .dot{background:var(--red);border-color:var(--red);color:#fff}
+@keyframes pulse{50%{box-shadow:0 0 0 6px var(--blue-soft)}}
+@media (prefers-reduced-motion: reduce){.stage.active .dot{animation:none}}
+.stage .t{font-weight:600;padding-top:6px}
+.stage .d{font-size:13px;color:var(--muted)}
+.stage .tag{font-size:11.5px;padding:2px 8px;border-radius:99px;margin-top:8px;white-space:nowrap}
+.tag.api{background:var(--blue-soft);color:var(--blue)}
+.tag.apify{background:var(--amber-soft);color:var(--amber)}
+.tag.ai{background:var(--violet-soft);color:var(--violet)}
+.tag.wa{background:var(--green-soft);color:var(--green)}
+.stage .out{font-size:13px;margin-top:4px;color:var(--ink)}
+.state{display:inline-block;font-family:var(--cond);font-weight:700;font-size:13px;padding:3px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+
+/* funnel */
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 18px}
+@media (max-width:560px){.funnel{grid-template-columns:repeat(2,1fr)}}
+.fn{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.fn b{display:block;font-family:var(--cond);font-size:30px;line-height:1.05;color:var(--navy)}
+.fn span{font-size:12.5px;color:var(--muted)}
+
+/* listings */
+.listwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:600;color:var(--muted);font-size:12.5px;background:var(--bg);position:sticky;top:0}
+tr.out td{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
+tr.top td{background:var(--green-soft)}
+.score{display:flex;align-items:center;gap:8px;min-width:120px}
+.bar{flex:1;height:7px;background:var(--bg);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--blue);transition:width .6s ease}
+.bar i.hi{background:var(--green)}
+.why{white-space:normal;min-width:220px;font-size:12.5px;color:var(--muted)}
+.scroll{max-height:420px;overflow:auto}
+
+/* whatsapp */
+.phones{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.phone{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--wa-bg)}
+.phone .ph{background:#1F6F54;color:#fff;padding:9px 12px;font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.phone .body{padding:12px}
+.bubble{background:var(--wa-bubble);border-radius:10px 10px 10px 2px;padding:9px 11px;font-size:13px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.bubble a{color:var(--blue);word-break:break-all}
+.bubble .meta{text-align:right;font-size:11px;color:var(--muted);margin-top:4px}
+.ticks{color:#53BDEB;font-weight:700}
+.skip{border:1px dashed var(--red);background:var(--red-soft);border-radius:14px;padding:12px;font-size:13px;color:var(--red)}
+
+.empty{border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--muted)}
+.section{margin-top:22px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border-bottom:0}
+
+/* dashboard */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{padding:14px 16px}
+.kpi b{display:block;font-family:var(--cond);font-size:32px;line-height:1.1;color:var(--navy)}
+.kpi span{font-size:13px;color:var(--muted)}
+.dgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-top:18px}
+@media (max-width:920px){.dgrid{grid-template-columns:1fr}}
+.pill{font-size:12px;padding:2px 8px;border-radius:99px;font-weight:600}
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.pill.err{background:var(--red-soft);color:var(--red)}
+.range{display:grid;grid-template-columns:1fr 54px;gap:10px;align-items:center;margin-bottom:12px}
+.range output{font-weight:700;text-align:right}
+input[type=range]{padding:0;border:0;accent-color:var(--navy)}
+.switch{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.switch input{width:auto}
+.optlist{display:flex;gap:6px;flex-wrap:wrap}
+.chart{height:140px;display:flex;align-items:flex-end;gap:6px;padding-top:8px}
+.chart div{flex:1;background:var(--blue);border-radius:4px 4px 0 0;min-height:4px;position:relative}
+.chart div span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted)}
+.hidden{display:none!important}
+footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="hbar">
+      <div class="brand">
+        <img src="data:image/png;base64,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" alt="Karaarslan Digital logosu">
+        <div><b>Tescillipazar Eşleştirme Sistemi</b><span>Karaarslan Digital · etkileşimli demo</span></div>
+      </div>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="sim">Talep simülasyonu</button>
+        <button role="tab" aria-selected="false" data-tab="panel">Yönetim paneli</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="note">Bu demo örnek verilerle ve hızlandırılmış olarak çalışır. Gerçek sistemde bir talep yaklaşık 2–5 dakikada işlenir; ilanlar Sahibinden'den, mesajlar Meta onaylı WhatsApp şablonuyla gönderilir.</p>
+
+  <!-- SIMULATION -->
+  <section id="tab-sim">
+    <div class="grid">
+      <aside class="panel pad">
+        <h1>Bir talep girin</h1>
+        <p class="muted small">Tescillipazar'da oluşan bir alıcı talebini taklit edin. Hazır örneklerden birini seçebilir ya da alanları değiştirebilirsiniz.</p>
+        <div class="presets" id="presets"></div>
+        <div class="req-text" id="reqText"></div>
+        <div class="fgrid">
+          <div><label for="f-brand">Marka</label><select id="f-brand"></select></div>
+          <div><label for="f-model">Model</label><select id="f-model"></select></div>
+          <div><label for="f-year">En düşük model yılı</label><input id="f-year" type="number" min="2005" max="2026"></div>
+          <div><label for="f-price">En yüksek fiyat (₺)</label><input id="f-price" type="number" step="50000" min="100000"></div>
+          <div><label for="f-color">Renk</label><select id="f-color"></select></div>
+          <div><label for="f-km">En fazla km</label><input id="f-km" type="number" step="10000" min="0"></div>
+          <div class="full"><label for="f-dmg">Hasar durumu</label>
+            <select id="f-dmg"><option value="any">Fark etmez</option><option value="nodeg">Değişen olmasın</option><option value="clean">Boyasız ve değişensiz</option></select></div>
+          <div class="full"><label for="f-city">Tercih edilen şehir</label><select id="f-city"></select></div>
+        </div>
+        <button class="btn btn-primary" id="run">Talebi gönder</button>
+        <div class="section">
+          <h3>Bu çalıştırmanın ayarları</h3>
+          <div class="kv"><span class="muted">Taranacak ilan</span><b id="s-scan"></b></div>
+          <div class="kv"><span class="muted">Eşleşme eşiği</span><b id="s-thr"></b></div>
+          <div class="kv"><span class="muted">En fazla mesaj</span><b id="s-max"></b></div>
+          <p class="small muted" style="margin-top:8px">Ayarları “Yönetim paneli” sekmesinden değiştirebilirsiniz.</p>
+        </div>
+      </aside>
+
+      <div>
+        <div class="panel pad">
+          <div class="row" style="justify-content:space-between;margin-bottom:12px">
+            <h2 style="margin:0">Talebin yolculuğu</h2>
+            <span class="state" id="state">BEKLİYOR</span>
+          </div>
+          <div class="rail" id="rail"></div>
+        </div>
+
+        <div class="section">
+          <div class="funnel">
+            <div class="fn"><b id="n1">–</b><span>ilan bulundu</span></div>
+            <div class="fn"><b id="n2">–</b><span>kurallardan geçti</span></div>
+            <div class="fn"><b id="n3">–</b><span>eşiği geçti</span></div>
+            <div class="fn"><b id="n4">–</b><span>satıcıya mesaj gitti</span></div>
+          </div>
+          <div class="panel pad">
+            <div class="row" style="justify-content:space-between;margin-bottom:10px">
+              <h2 style="margin:0">Bulunan ilanlar ve puanlar</h2>
+              <span class="small muted" id="costRun"></span>
+            </div>
+            <div id="listEmpty" class="empty">Talebi gönderdiğinizde Sahibinden'den bulunan ilanlar burada listelenir.</div>
+            <div class="listwrap scroll hidden" id="listBox">
+              <table><thead><tr><th>İlan</th><th>Yıl</th><th>Km</th><th>Fiyat</th><th>Renk</th><th>Hasar</th><th>Konum</th><th>Puan</th><th>Gerekçe</th></tr></thead>
+              <tbody id="listBody"></tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="section panel pad">
+          <h2>Satıcılara giden mesajlar</h2>
+          <div id="waEmpty" class="empty">Eşiği geçen ilanların sahiplerine gönderilen WhatsApp mesajları burada görünür.</div>
+          <div class="phones" id="phones"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="tab-panel" class="hidden">
+    <div class="kpis">
+      <div class="panel kpi"><b id="k1">0</b><span>işlenen talep</span></div>
+      <div class="panel kpi"><b id="k2">0</b><span>gönderilen mesaj</span></div>
+      <div class="panel kpi"><b id="k3">%0</b><span>ortalama eşleşme puanı</span></div>
+      <div class="panel kpi"><b id="k4">$0,00</b><span>toplam işletme gideri</span></div>
+    </div>
+    <div class="dgrid">
+      <div class="panel pad">
+        <div class="row" style="justify-content:space-between;margin-bottom:10px">
+          <h2 style="margin:0">Talepler</h2>
+          <button class="btn btn-ghost small" id="retry" disabled>Hatalı talebi yeniden başlat</button>
+        </div>
+        <div class="listwrap scroll">
+          <table style="min-width:560px"><thead><tr><th>No</th><th>Talep</th><th>Durum</th><th>Mesaj</th><th>En iyi puan</th><th>Süre</th><th>Gider</th></tr></thead>
+          <tbody id="reqBody"></tbody></table>
+        </div>
+        <div class="section">
+          <h3>Son 7 günde gönderilen mesajlar</h3>
+          <div class="chart" id="chart"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel pad">
+          <h2>Ayarlar</h2>
+          <label for="r-scan">Talep başına taranacak ilan</label>
+          <div class="range"><input type="range" id="r-scan" min="10" max="30" step="5"><output id="o-scan"></output></div>
+          <label for="r-thr">Eşleşme eşiği</label>
+          <div class="range"><input type="range" id="r-thr" min="50" max="95" step="5"><output id="o-thr"></output></div>
+          <label for="r-max">Talep başına en fazla mesaj</label>
+          <div class="range"><input type="range" id="r-max" min="1" max="5" step="1"><output id="o-max"></output></div>
+          <div class="switch"><span>Sadece 09:00–20:00 arası gönder</span><input type="checkbox" id="c-window" checked></div>
+          <div class="switch"><span>Aynı satıcıya 7 gün içinde tekrar yazma</span><input type="checkbox" id="c-freq" checked></div>
+          <p class="small muted">Değişiklikler bir sonraki talepte geçerli olur. Taranan ilan ve mesaj sayısı azaldıkça gider düşer.</p>
+        </div>
+        <div class="panel pad section">
+          <h2>Mesaj istemeyenler</h2>
+          <p class="small muted">“DUR” yazan satıcılar otomatik olarak buraya eklenir ve bir daha mesaj almaz.</p>
+          <div class="optlist" id="optlist"></div>
+        </div>
+        <div class="panel pad section">
+          <h2>Numara durumu</h2>
+          <div class="kv"><span class="muted">Meta kalite puanı</span><b style="color:var(--green)">Yüksek</b></div>
+          <div class="kv"><span class="muted">Günlük gönderim limiti</span><b>1.000 kişi</b></div>
+          <div class="kv"><span class="muted">Bugün kullanılan</span><b id="limitUsed">0</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Karaarslan Digital · karaarslandigital.com.tr · Demo verileri örnektir; gerçek kişi ve ilan bilgisi içermez.</div></footer>
+
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const fmt = n => n.toLocaleString("tr-TR");
+const money = n => fmt(Math.round(n)) + " ₺";
+const usd = n => "$" + n.toFixed(2).replace(".", ",");
+const sleep = ms => new Promise(r => setTimeout(r, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? Math.min(ms, 250) : ms));
+const rnd = (a, b) => a + Math.random() * (b - a);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+
+const CATALOG = {
+  BMW: {"520i": [1300000, 2600000], "320i": [1000000, 2000000], "X1 sDrive": [1400000, 2500000]},
+  Toyota: {"Corolla 1.5": [700000, 1500000], "C-HR Hybrid": [1100000, 1900000]},
+  Honda: {"Civic 1.5 Eco": [700000, 1400000], "CR-V": [1200000, 2200000]},
+  Renault: {"Clio 1.0 TCe": [500000, 1050000], "Megane 1.3": [650000, 1300000]},
+  Volkswagen: {"Passat 1.5 TSI": [1000000, 2000000], "Golf 1.5 eTSI": [900000, 1800000]}
+};
+const COLORS = ["Beyaz", "Siyah", "Gri", "Füme", "Mavi", "Kırmızı", "Lacivert"];
+const CITIES = ["İstanbul", "Ankara", "İzmir", "Kocaeli", "Bursa", "Antalya"];
+const DISTRICTS = {"İstanbul":["Pendik","Kadıköy","Başakşehir","Maltepe"],"Ankara":["Çankaya","Keçiören","Etimesgut"],"İzmir":["Karşıyaka","Bornova","Buca"],"Kocaeli":["İzmit","Gebze","Kartepe"],"Bursa":["Nilüfer","Osmangazi"],"Antalya":["Muratpaşa","Konyaaltı"]};
+const NAMES = ["Murat K.","Ayşe D.","Emre T.","Selin A.","Hakan Y.","Zeynep Ö.","Burak S.","Elif G.","Cem B.","Deniz U.","Kaan P.","Gizem E."];
+const PRESETS = [
+  {label:"Beyaz BMW 520i", brand:"BMW", model:"520i", year:2015, price:1500000, color:"Beyaz", km:200000, dmg:"nodeg", city:"İstanbul"},
+  {label:"Hibrit C-HR", brand:"Toyota", model:"C-HR Hybrid", year:2019, price:1500000, color:"Gri", km:120000, dmg:"any", city:"Ankara"},
+  {label:"Temiz Civic", brand:"Honda", model:"Civic 1.5 Eco", year:2018, price:1100000, color:"Siyah", km:150000, dmg:"clean", city:"Kocaeli"},
+  {label:"Uygun Clio", brand:"Renault", model:"Clio 1.0 TCe", year:2020, price:850000, color:"Kırmızı", km:90000, dmg:"any", city:"İzmir"}
+];
+
+const settings = {scan:20, thr:80, max:5, window:true, freq:true};
+const store = {reqs:[], sent:0, cost:0, scores:[], opt:["+90 5** *** ** 14","+90 5** *** ** 87"], contacted:new Set(), seq:548};
+
+// ---------- form ----------
+const fBrand=$("#f-brand"), fModel=$("#f-model"), fColor=$("#f-color"), fCity=$("#f-city");
+Object.keys(CATALOG).forEach(b => fBrand.add(new Option(b, b)));
+COLORS.forEach(c => fColor.add(new Option(c, c)));
+CITIES.forEach(c => fCity.add(new Option(c, c)));
+fCity.add(new Option("Fark etmez", "any"));
+function fillModels(){ fModel.innerHTML=""; Object.keys(CATALOG[fBrand.value]).forEach(m => fModel.add(new Option(m, m))); }
+fBrand.addEventListener("change", () => { fillModels(); updateText(); });
+PRESETS.forEach((p, i) => {
+  const b = document.createElement("button"); b.className="chip"; b.type="button"; b.textContent=p.label;
+  b.addEventListener("click", () => applyPreset(p)); $("#presets").appendChild(b);
+});
+function applyPreset(p){
+  fBrand.value=p.brand; fillModels(); fModel.value=p.model; $("#f-year").value=p.year; $("#f-price").value=p.price;
+  fColor.value=p.color; $("#f-km").value=p.km; $("#f-dmg").value=p.dmg; fCity.value=p.city; updateText();
+}
+function readReq(){
+  return {brand:fBrand.value, model:fModel.value, year:+$("#f-year").value||2005, price:+$("#f-price").value||1e9,
+          color:fColor.value, km:+$("#f-km").value||1e9, dmg:$("#f-dmg").value, city:fCity.value};
+}
+function updateText(){
+  const r = readReq();
+  const dmg = {any:"", nodeg:", değişensiz", clean:", boyasız ve değişensiz"}[r.dmg];
+  const city = r.city==="any" ? "" : `, tercihen ${r.city}`;
+  $("#reqText").innerHTML = `“${r.year} ve üzeri, ${fmt(r.km)} km altı, ${r.color.toLowerCase()} renkli${dmg}, ${money(r.price)} altı <b>${r.brand} ${r.model}</b> arıyorum${city}.”`;
+}
+["#f-model","#f-year","#f-price","#f-color","#f-km","#f-dmg","#f-city"].forEach(s => $(s).addEventListener("input", updateText));
+applyPreset(PRESETS[0]);
+
+// ---------- rail ----------
+const STAGES = [
+  {k:"ALINDI", t:"Talep alındı", d:"Tescillipazar talebi gönderdi; imza doğrulandı ve kaydedildi.", tag:["api","API"]},
+  {k:"NORMALİZE", t:"Kriterler çıkarıldı", d:"Talep standart arama kriterlerine dönüştürüldü.", tag:["api","API"]},
+  {k:"ARANDI", t:"Sahibinden'de arandı", d:"Filtrelere uygun güncel ilanlar telefonsuz olarak çekildi.", tag:["apify","Apify"]},
+  {k:"ÖN ELEME", t:"Kurallar uygulandı", d:"Fiyat, yıl, km ve hasar kuralları dışında kalan ilanlar elendi.", tag:["api","Kural"]},
+  {k:"SKORLANDI", t:"Yapay zekâ puanladı", d:"Kalan ilanlar 0–100 arasında puanlandı, eşiği geçenler seçildi.", tag:["ai","Yapay zekâ"]},
+  {k:"ZENGİNLEŞTİRİLDİ", t:"Telefonlar alındı", d:"Sadece seçilen ilanların satıcı telefonları çekildi.", tag:["apify","Apify"]},
+  {k:"KONTROL", t:"Gönderim kontrolü", d:"Mesaj istemeyenler, son 7 günde yazılanlar ve saat aralığı kontrol edildi.", tag:["api","Koruma"]},
+  {k:"GÖNDERİLDİ", t:"WhatsApp gönderildi", d:"Onaylı şablonla talep bağlantısı satıcılara iletildi.", tag:["wa","WhatsApp"]}
+];
+function drawRail(){
+  $("#rail").innerHTML = STAGES.map((s,i)=>`<div class="stage" id="st${i}"><div class="dot">${i+1}</div>
+    <div><div class="t">${s.t}</div><div class="d">${s.d}</div><div class="out" id="out${i}"></div></div>
+    <span class="tag ${s.tag[0]}">${s.tag[1]}</span></div>`).join("");
+}
+drawRail();
+function setStage(i, cls, out){
+  const el = $("#st"+i); el.classList.remove("active","done","fail"); if(cls) el.classList.add(cls);
+  if(out !== undefined) $("#out"+i).innerHTML = out;
+}
+
+// ---------- data ----------
+function genListings(r, n){
+  const [lo] = CATALOG[r.brand][r.model]; const out = [];
+  for(let i=0;i<n;i++){
+    const year = Math.min(2024, Math.round(rnd(r.year-2, r.year+6)));
+    const km = Math.round(Math.min(r.km*1.3, Math.max(15000, r.km*rnd(.2,1.15) - (year-r.year)*8000))/1000)*1000;
+    let price = r.price * (rnd(.74,1.04) + (year-r.year)*0.035) - (km - r.km*0.6)*0.3;
+    price = Math.max(lo*.6, Math.round(price/5000)*5000);
+    const color = Math.random()<.4 ? r.color : pick(COLORS);
+    const dm = Math.random(); const dmg = dm<.45 ? "Hatasız" : dm<.75 ? `${Math.ceil(rnd(0,3))} parça boyalı` : `${Math.ceil(rnd(0,2))} parça değişen`;
+    const city = (r.city!=="any" && Math.random()<.55) ? r.city : pick(CITIES);
+    out.push({id: String(Math.floor(rnd(1.20e9,1.35e9))), year, km, price, color, dmg, city, dist: pick(DISTRICTS[city]),
+              seller: NAMES[i % NAMES.length], title:`${year} ${r.brand} ${r.model}`});
+  }
+  return out;
+}
+function hardFilter(l, r){
+  if(l.price > r.price*1.03) return "bütçe üstü";
+  if(l.year < r.year) return "model yılı düşük";
+  if(l.km > r.km) return "km yüksek";
+  if(r.dmg!=="any" && l.dmg.includes("değişen")) return "değişen var";
+  return null;
+}
+function score(l, r){
+  let s = 0, notes = [];
+  const pr = l.price / r.price; s += pr<=.9 ? 25 : pr<=1 ? 22 : 12; if(pr<=.9) notes.push("bütçenin rahat altında"); else if(pr>1) notes.push("bütçeyi az aşıyor");
+  s += Math.min(20, 12 + (l.year - r.year)*2); 
+  s += l.km < r.km*.5 ? 15 : l.km < r.km*.8 ? 11 : 7; if(l.km < r.km*.5) notes.push("düşük km");
+  if(l.color===r.color){ s += 15; notes.push("renk uyumlu"); } else { s += 4; notes.push(`renk ${l.color.toLowerCase()}`); }
+  if(l.dmg==="Hatasız"){ s += 20; notes.push("hatasız"); }
+  else if(l.dmg.includes("boyalı")){ s += r.dmg==="clean" ? 6 : 14; notes.push(l.dmg.toLowerCase()); }
+  if(r.city!=="any"){ if(l.city===r.city){ s+=5; notes.push("aynı şehir"); } } else s+=5;
+  s = Math.max(0, Math.min(99, Math.round(s + rnd(-3,3))));
+  return {s, why: notes.slice(0,3).join(", ").replace(/^./, c=>c.toUpperCase()) + "."};
+}
+function maskPhone(){ return `+90 5${Math.floor(rnd(30,56))} *** ** ${String(Math.floor(rnd(10,99)))}`; }
+
+// ---------- run ----------
+let running = false;
+$("#run").addEventListener("click", run);
+async function run(){
+  if(running) return; running = true;
+  const btn = $("#run"); btn.disabled = true; btn.textContent = "Talep işleniyor…";
+  const r = readReq(); const t0 = performance.now();
+  const no = ++store.seq; const run = {...settings};
+  drawRail(); ["#n1","#n2","#n3","#n4"].forEach(s=>$(s).textContent="–");
+  $("#listBody").innerHTML=""; $("#listEmpty").classList.add("hidden"); $("#listBox").classList.remove("hidden");
+  $("#phones").innerHTML=""; $("#waEmpty").classList.remove("hidden"); $("#costRun").textContent="";
+  const state = t => $("#state").textContent = t;
+  let cost = 0;
+
+  state("ALINDI"); setStage(0,"active"); await sleep(700);
+  setStage(0,"done",`Talep no: <b>#${no}</b> · ${new Date().toLocaleTimeString("tr-TR")}`);
+
+  state("NORMALİZE"); setStage(1,"active"); await sleep(800);
+  setStage(1,"done",`<code>${r.brand} ${r.model} · ≥${r.year} · ≤${fmt(r.price)} ₺ · ≤${fmt(r.km)} km · ${r.color}</code>`);
+
+  state("ARANDI"); setStage(2,"active"); await sleep(1300);
+  const cached = store.reqs.some(q => q.key === `${r.brand}|${r.model}|${r.year}|${r.city}`);
+  const list = genListings(r, run.scan);
+  if(!cached) cost += run.scan*0.007 + 0.005;
+  $("#n1").textContent = list.length;
+  setStage(2,"done", cached ? `${list.length} ilan önbellekten geldi, Apify ücreti ödenmedi.` : `${list.length} ilan çekildi.`);
+
+  state("ÖN ELEME"); setStage(3,"active");
+  list.forEach(l => { l.rej = hardFilter(l, r); });
+  renderList(list); await sleep(1000);
+  const pass = list.filter(l => !l.rej);
+  $("#n2").textContent = pass.length;
+  setStage(3,"done",`${list.length - pass.length} ilan elendi, ${pass.length} ilan puanlamaya geçti.`);
+
+  state("SKORLANDI"); setStage(4,"active"); cost += 0.015;
+  for(const l of pass){ Object.assign(l, score(l, r)); }
+  pass.sort((a,b)=>b.s-a.s);
+  const chosen = pass.filter(l => l.s >= run.thr).slice(0, run.max);
+  chosen.forEach(l => l.top = true);
+  renderList([...pass, ...list.filter(l=>l.rej)]); await sleep(1200);
+  $("#n3").textContent = pass.filter(l => l.s >= run.thr).length;
+  setStage(4, chosen.length ? "done" : "fail",
+    chosen.length ? `En yüksek puan <b>${pass[0].s}</b>. Eşik %${run.thr}; ${chosen.length} ilan seçildi.` :
+    `Eşiği geçen ilan yok (en yüksek: ${pass[0] ? pass[0].s : "–"}). Satıcılara mesaj gönderilmeyecek.`);
+
+  if(!chosen.length){
+    for(let i=5;i<8;i++) setStage(i, null, '<span class="muted">Atlandı</span>');
+    $("#n4").textContent = 0; state("EŞLEŞME YOK");
+    finish(no, r, "none", 0, pass[0]?.s ?? 0, cost, t0); return;
+  }
+
+  state("ZENGİNLEŞTİRİLDİ"); setStage(5,"active"); await sleep(1100);
+  chosen.forEach(l => l.phone = maskPhone()); cost += chosen.length*0.012 + 0.005;
+  setStage(5,"done",`${chosen.length} satıcının telefonu alındı. Telefonlar şifreli saklanır ve panelde maskeli görünür.`);
+
+  state("KONTROL"); setStage(6,"active"); await sleep(800);
+  const skipped = [];
+  chosen.forEach((l, i) => {
+    if(run.freq && store.contacted.has(l.seller)) { l.skip = "Son 7 gün içinde bu satıcıya zaten yazıldı."; skipped.push(l); }
+    else if(i===chosen.length-1 && chosen.length>2 && Math.random()<.5){ l.skip = "Satıcı daha önce “DUR” yazmıştı."; l.phone = pick(store.opt); skipped.push(l); }
+  });
+  const hour = new Date().getHours(); const outside = run.window && (hour < 9 || hour >= 20);
+  setStage(6,"done", (skipped.length ? `${skipped.length} satıcı atlandı. ` : "Tüm satıcılar uygun. ") +
+    (outside ? "Saat 09:00–20:00 dışında olduğu için mesajlar sabah 09:00'da gönderilmek üzere sıraya alındı." : "Gönderim saati uygun."));
+
+  state("GÖNDERİLDİ"); setStage(7,"active"); $("#waEmpty").classList.add("hidden");
+  let sent = 0;
+  for(const l of chosen){
+    await sleep(450);
+    if(l.skip){ addSkip(l); continue; }
+    addPhone(l, no, outside); sent++; store.contacted.add(l.seller); cost += 0.011;
+    $("#n4").textContent = sent;
+  }
+  $("#n4").textContent = sent;
+  setStage(7,"done", outside ? `${sent} mesaj sıraya alındı.` : `${sent} mesaj gönderildi; teslim ve okundu bilgisi takip ediliyor.`);
+  state("TAMAMLANDI");
+  finish(no, r, "ok", sent, pass[0].s, cost, t0);
+}
+function finish(no, r, status, sent, best, cost, t0){
+  const secs = String(Math.round(rnd(70, 170)));
+  $("#costRun").textContent = `Bu talebin tahmini gideri: ${usd(cost)}`;
+  store.reqs.unshift({no, text:`${r.brand} ${r.model}`, status, sent, best, secs, cost, key:`${r.brand}|${r.model}|${r.year}|${r.city}`});
+  store.sent += sent; store.cost += cost; if(best) store.scores.push(best);
+  renderDash();
+  running = false; const btn=$("#run"); btn.disabled=false; btn.textContent="Talebi gönder";
+}
+function renderList(list){
+  $("#listBody").innerHTML = list.map(l => {
+    const cls = l.rej ? "out" : l.top ? "top" : "";
+    const sc = l.rej ? `<span class="small">elendi</span>` : l.s!==undefined ?
+      `<div class="score"><div class="bar"><i class="${l.s>=settings.thr?'hi':''}" style="width:${l.s}%"></i></div><b>${l.s}</b></div>` : `<span class="small muted">bekliyor</span>`;
+    const why = l.rej ? l.rej.replace(/^./,c=>c.toUpperCase()) : (l.why || "");
+    return `<tr class="${cls}"><td>${l.title}<div class="small muted">#${l.id}</div></td><td>${l.year}</td><td>${fmt(l.km)}</td><td>${money(l.price)}</td>
+      <td>${l.color}</td><td>${l.dmg}</td><td>${l.city} / ${l.dist}</td><td>${sc}</td><td class="why">${why}</td></tr>`;
+  }).join("");
+}
+function addPhone(l, no, queued){
+  const d = document.createElement("div"); d.className="phone";
+  const time = new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+  d.innerHTML = `<div class="ph"><span>${l.seller}</span><span>${l.phone}</span></div><div class="body"><div class="bubble">
+    Merhaba, Tescillipazar.com'da <b>${l.title}</b> ilanınıza uygun bir alıcı talebi var (eşleşme %${l.s}). Talebi incelemek için:
+    <a href="#" onclick="return false">tescillipazar.com/talep/${no}</a><br><br>
+    <span class="muted small">Bu bildirimleri almak istemiyorsanız DUR yazabilirsiniz.</span>
+    <div class="meta">${queued ? "09:00'da gönderilecek" : time + ' <span class="ticks">✓✓</span>'}</div></div></div>`;
+  $("#phones").appendChild(d);
+}
+function addSkip(l){
+  const d = document.createElement("div"); d.className="skip";
+  d.innerHTML = `<b>${l.seller}</b> · ${l.title}<br>Mesaj gönderilmedi: ${l.skip}`;
+  $("#phones").appendChild(d);
+}
+
+// ---------- dashboard ----------
+function renderDash(){
+  $("#k1").textContent = store.reqs.length;
+  $("#k2").textContent = store.sent;
+  $("#k3").textContent = "%" + (store.scores.length ? Math.round(store.scores.reduce((a,b)=>a+b,0)/store.scores.length) : 0);
+  $("#k4").textContent = usd(store.cost);
+  $("#limitUsed").textContent = store.sent;
+  const lab = {ok:["Tamamlandı","ok"], none:["Eşleşme yok","none"], err:["Hata · Apify zaman aşımı","err"]};
+  $("#reqBody").innerHTML = store.reqs.length ? store.reqs.map(q => `<tr><td>#${q.no}</td><td>${q.text}</td>
+    <td><span class="pill ${lab[q.status][1]}">${lab[q.status][0]}</span></td><td>${q.sent}</td><td>${q.best||"–"}</td><td>${q.secs} sn</td><td>${usd(q.cost)}</td></tr>`).join("")
+    : `<tr><td colspan="7" class="muted">Henüz talep yok. “Talep simülasyonu” sekmesinden bir talep gönderin.</td></tr>`;
+  $("#retry").disabled = !store.reqs.some(q => q.status==="err");
+  $("#optlist").innerHTML = store.opt.map(o=>`<span class="chip">${o}</span>`).join("");
+}
+$("#retry").addEventListener("click", () => {
+  const q = store.reqs.find(q => q.status==="err"); if(!q) return;
+  q.status = "ok"; q.sent = 3; q.best = 86; q.cost += 0.28; store.sent += 3; store.cost += 0.28; store.scores.push(86);
+  renderDash();
+});
+// seed history
+(function seed(){
+  const seedRows = [
+    {no:545, text:"Toyota Corolla 1.5", status:"ok", sent:5, best:91, secs:"142", cost:.28},
+    {no:546, text:"Renault Megane 1.3", status:"none", sent:0, best:68, secs:"97", cost:.16},
+    {no:547, text:"Volkswagen Passat 1.5 TSI", status:"err", sent:0, best:0, secs:"61", cost:.14}
+  ];
+  seedRows.forEach(s => { store.reqs.unshift({...s, key:s.text}); store.sent += s.sent; store.cost += s.cost; if(s.best) store.scores.push(s.best); });
+  const days = [18, 26, 21, 34, 29, 12, 8]; const names = ["Cum","Cmt","Paz","Pzt","Sal","Çar","Bgn"];
+  const mx = Math.max(...days);
+  $("#chart").innerHTML = days.map((v,i)=>`<div style="height:${v/mx*100}%" title="${v} mesaj"><span>${names[i]}</span></div>`).join("");
+  renderDash();
+})();
+
+// settings
+function bindRange(id, key, fmtFn){
+  const el = $("#r-"+id), o = $("#o-"+id);
+  el.value = settings[key];
+  const upd = () => { settings[key] = +el.value; o.textContent = fmtFn(settings[key]); syncSummary(); };
+  el.addEventListener("input", upd); upd();
+}
+function syncSummary(){ $("#s-scan").textContent = settings.scan + " ilan"; $("#s-thr").textContent = "%" + settings.thr; $("#s-max").textContent = settings.max + " satıcı"; }
+bindRange("scan","scan",v=>v); bindRange("thr","thr",v=>"%"+v); bindRange("max","max",v=>v);
+$("#c-window").addEventListener("change", e => settings.window = e.target.checked);
+$("#c-freq").addEventListener("change", e => settings.freq = e.target.checked);
+
+// tabs
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x===b));
+  $("#tab-sim").classList.toggle("hidden", b.dataset.tab!=="sim");
+  $("#tab-panel").classList.toggle("hidden", b.dataset.tab!=="panel");
+}));
+})();
+</script>
+</body>
+</html>

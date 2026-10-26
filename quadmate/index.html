@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quadmate — Ürün Demosu</title>
+<meta name="description" content="Quadmate: konum bazlı 'eksik oyuncu bulma' mobil uygulaması. İnteraktif ürün demosu ve mimari özeti." />
+<link rel="canonical" href="https://bescript.com.tr/quadmate/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/quadmate/">
+<meta property="og:title" content="Quadmate — Ürün Demosu">
+<meta property="og:description" content="Quadmate: konum bazlı 'eksik oyuncu bulma' mobil uygulaması. İnteraktif ürün demosu ve mimari özeti.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quadmate — Ürün Demosu">
+<meta name="twitter:description" content="Quadmate: konum bazlı 'eksik oyuncu bulma' mobil uygulaması. İnteraktif ürün demosu ve mimari özeti.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<style>
+  :root{
+    /* Koyu tema marka skalasi — uygulamanin .dark ramp'iyla birebir
+       (logodaki #202368 koyu zeminde kayboldugu icin ayni hue'nun parlak hali) */
+    --brand-50:#EEEFFC; --brand-100:#DEE1F9; --brand-200:#C5C9F4; --brand-300:#9DA3E8;
+    --brand-400:#6A72D8; --brand-500:#4A54C8; --brand-600:#3D46AC; --brand-700:#303787;
+    --brand-800:#252A66; --brand-900:#1A1E4A; --brand-950:#10122E;
+    --ink-950:#0A0714; --ink-900:#120B24; --ink-800:#1B1233; --ink-700:#251A44; --ink-600:#332358;
+    --gold-400:#FBBF57; --gold-500:#F2A93C; --gold-600:#D98F1F;
+    --success:#22C55E; --danger:#EF4444; --text-muted:#9B93B0;
+    --radius-lg:20px; --radius-full:999px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
+  body{
+    background:radial-gradient(1200px 600px at 20% -10%, #1a2050 0%, var(--ink-950) 55%), var(--ink-950);
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,7,20,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .brandmark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-0.01em;}
+  .header-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .15s}
+  .header-back:hover{color:var(--gold-400)}
+  @media(max-width:640px){.header-back{display:none}}
+  .brandmark .dots{display:inline-grid;grid-template-columns:repeat(2,7px);grid-template-rows:repeat(2,7px);gap:3px;}
+  .brandmark .dots span{border-radius:50%;display:block;width:7px;height:7px;}
+  .brandmark .dots span:nth-child(1){background:var(--brand-400);}
+  .brandmark .dots span:nth-child(2){background:#F26D6D;}
+  .brandmark .dots span:nth-child(3){background:#4EA1FF;}
+  .brandmark .dots span:nth-child(4){background:var(--gold-400);}
+  .header-pill{
+    font-size:12px;font-weight:600;color:var(--brand-200);
+    background:rgba(74,84,200,0.16);border:1px solid rgba(74,84,200,0.35);
+    padding:6px 12px;border-radius:var(--radius-full);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 40px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+    color:var(--gold-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-400);}
+  .hero h1{
+    font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 18px;
+    background:linear-gradient(135deg,#fff 30%,var(--brand-200) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{font-size:18px;line-height:1.6;color:var(--text-muted);max-width:640px;margin:0 0 28px;}
+  .stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px;}
+  .stat-chip{
+    background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;
+    padding:14px 18px;min-width:140px;
+  }
+  .stat-chip b{display:block;font-size:20px;color:#fff;margin-bottom:2px;}
+  .stat-chip span{font-size:12.5px;color:var(--text-muted);}
+  .tech-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tech-badge{
+    font-size:12.5px;font-weight:600;color:var(--text-muted);
+    background:var(--ink-800);border:1px solid var(--ink-600);
+    padding:7px 13px;border-radius:var(--radius-full);
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:56px 0;}
+  .section-head{max-width:640px;margin:0 0 36px;}
+  .section-kicker{font-size:12px;font-weight:700;color:var(--brand-300);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(24px,3vw,32px);margin:0 0 12px;letter-spacing:-0.01em;}
+  .section-head p{color:var(--text-muted);font-size:15.5px;line-height:1.6;margin:0;}
+
+  /* ---------- demo layout ---------- */
+  .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start;}
+  /* grid item'larin otomatik min-size'i (min-width:auto) telefon maketinin 375px'ini
+     taban yapip .wrap padding'ini tasiriyordu; minmax(0,1fr) + min-width:0 ile
+     kolon gercekten esneyip tum bloklar ayni sag kenarda hizalaniyor. */
+  .demo-grid>*{min-width:0;}
+  @media (max-width:980px){.demo-grid{grid-template-columns:minmax(0,1fr);}}
+
+  .feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
+  .feature-item{
+    display:flex;gap:14px;align-items:flex-start;
+    background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;padding:16px 18px;
+  }
+  .feature-item .ico{
+    width:38px;height:38px;flex:none;border-radius:11px;background:rgba(74,84,200,0.18);
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+  }
+  .feature-item .txt{min-width:0;}
+  .feature-item h3{margin:0 0 4px;font-size:14.5px;}
+  .feature-item p{margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.5;}
+
+  .status-note{
+    margin-top:26px;background:linear-gradient(135deg,rgba(242,169,60,0.12),rgba(74,84,200,0.10));
+    border:1px solid rgba(242,169,60,0.3);border-radius:16px;padding:16px 18px;
+    font-size:14px;color:var(--brand-100);line-height:1.65;max-width:64ch;
+  }
+  .status-note b{color:#fff;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;
+    color:var(--gold-400);background:rgba(242,169,60,0.10);padding:1px 5px;border-radius:5px;}
+
+  .howto{
+    background:linear-gradient(135deg,rgba(74,84,200,0.14),rgba(242,169,60,0.08));
+    border:1px solid rgba(74,84,200,0.3);border-radius:16px;padding:16px 18px;font-size:13.5px;color:var(--brand-200);line-height:1.6;
+  }
+  .howto b{color:#fff;}
+
+  /* ---------- phone ---------- */
+  .phone-stage{position:sticky;top:96px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .phone{
+    width:375px;height:780px;border-radius:52px;padding:14px;
+    background:linear-gradient(160deg,#1c2242,#0d0818 70%);
+    box-shadow:0 30px 80px -20px rgba(74,84,200,0.55), inset 0 0 0 2px rgba(255,255,255,0.04);
+    position:relative;
+  }
+  .phone-screen{
+    position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;
+    background:var(--ink-950);
+    display:flex;flex-direction:column;
+  }
+  .notch{
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:120px;height:26px;background:#0d0818;border-radius:0 0 16px 16px;z-index:40;
+  }
+  .status-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px 4px;font-size:13px;font-weight:600;color:#fff;flex:none;}
+  .status-bar .icons{display:flex;gap:5px;align-items:center;opacity:0.9;}
+
+  .app-header{padding:6px 18px 12px;flex:none;}
+  .app-header .row{display:flex;align-items:center;justify-content:space-between;}
+  .app-header h1{font-size:22px;margin:0;font-weight:700;}
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;background:var(--ink-800);border:1px solid var(--ink-700);
+    display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#fff;
+  }
+  .icon-btn:active{background:var(--ink-700);}
+  .btn-row{display:flex;gap:8px;}
+
+  /* yatay kayan filtre seridi: kenarlarda maske ile fade -> "tasmis" degil
+     "kaydirilabilir" gorunur; basa/sona gelince ilgili fade kapanir. */
+  .chip-scroll{
+    display:flex;gap:8px;overflow-x:auto;padding:2px 18px 14px;flex:none;scrollbar-width:none;
+    overscroll-behavior-x:contain;
+    --fade-l:0px; --fade-r:26px;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+  }
+  .chip-scroll.is-scrolled{--fade-l:18px;}
+  .chip-scroll.is-end{--fade-r:0px;}
+  .chip-scroll::after{content:"";flex:none;width:4px;}
+  .chip-scroll::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);
+    border:1px solid var(--ink-600);background:var(--ink-800);color:var(--text-muted);
+    font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;white-space:nowrap;user-select:none;
+    transition:all .15s ease;
+  }
+  .chip.selected{border-color:var(--brand-400);background:rgba(74,84,200,0.2);color:var(--brand-200);}
+  .chip:active{transform:scale(0.96);}
+
+  .screen-body{flex:1;overflow-y:auto;padding:0 18px 90px;scrollbar-width:none;}
+  .screen-body::-webkit-scrollbar{display:none;}
+
+  .card{
+    border-radius:18px;border:1px solid var(--ink-700);background:var(--ink-800);padding:16px;
+    margin-bottom:12px;cursor:pointer;transition:transform .12s ease, border-color .12s ease;
+  }
+  .card:active{transform:scale(0.98);}
+  .card:hover{border-color:var(--ink-600);}
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .card-title-row{display:flex;gap:10px;align-items:flex-start;min-width:0;}
+  .card-title-row .emoji{font-size:22px;line-height:1;}
+  .card-title-row .txt{min-width:0;}
+  .card-title-row .txt .t{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .card-title-row .txt .v{font-size:13px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .badge{font-size:11px;font-weight:700;border-radius:var(--radius-full);padding:5px 10px;white-space:nowrap;}
+  .badge.brand{background:rgba(74,84,200,0.2);color:var(--brand-200);}
+  .badge.gold{background:rgba(242,169,60,0.2);color:var(--gold-400);}
+  .badge.neutral{background:var(--ink-700);color:var(--text-muted);}
+  .badge.success{background:rgba(34,197,94,0.18);color:var(--success);}
+  .card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--text-muted);}
+  .card-host{display:flex;align-items:center;gap:8px;margin-top:12px;}
+  .avatar{
+    border-radius:50%;background:linear-gradient(135deg,var(--brand-400),var(--brand-700));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none;
+  }
+  .card-host .avatar{width:22px;height:22px;font-size:10px;}
+  .card-host .name{font-size:12px;color:var(--text-muted);}
+
+  .empty-state{margin-top:60px;text-align:center;color:var(--text-muted);font-size:14px;padding:0 20px;line-height:1.6;}
+
+  /* map view */
+  .map-wrap{
+    position:relative;margin:0 -18px;height:calc(100% + 0px);min-height:520px;overflow:hidden;
+    background:
+      repeating-linear-gradient(0deg, rgba(106,114,216,0.08) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(106,114,216,0.08) 0 1px, transparent 1px 40px),
+      radial-gradient(600px 400px at 30% 20%, rgba(74,84,200,0.28), transparent 60%),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .me-dot{position:absolute;left:38%;top:46%;width:14px;height:14px;border-radius:50%;background:#4EA1FF;box-shadow:0 0 0 6px rgba(78,161,255,0.25);}
+  .me-dot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(78,161,255,0.35);animation:pulse 2.2s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(0.4);opacity:0.8;}100%{transform:scale(2.2);opacity:0;}}
+  .pin{
+    position:absolute;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg) translate(-50%,-100%);
+    background:var(--brand-500);border:2px solid #fff;box-shadow:0 6px 14px rgba(0,0,0,0.4);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .pin span{transform:rotate(45deg);font-size:14px;}
+  .pin.active{background:var(--gold-500);}
+  .map-popup{
+    /* .map-wrap ekran kenarindan 18px tasarak tam genislikte durdugu icin
+       popup'in yan bosluklari 18px + 16px olmali; aksi halde kartin kenarlari
+       telefonun yuvarlak kosesinde kirpiliyordu. Alt bosluk da tab bar'in
+       (78px) uzerine oturacak sekilde 94px. */
+    position:absolute;left:34px;right:34px;bottom:94px;z-index:26;
+    background:var(--ink-800);border:1px solid var(--ink-600);border-radius:16px;padding:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.5);
+    animation:slideUp .18s ease;
+  }
+  @keyframes slideUp{from{transform:translateY(16px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+  /* form controls (Masa Aç / Filtreler) */
+  .field-label{font-size:14px;font-weight:700;color:#fff;margin:20px 0 10px;}
+  .field-label:first-child{margin-top:4px;}
+  .chip-grid{display:flex;flex-wrap:wrap;gap:8px;}
+  .input{
+    width:100%;background:var(--ink-800);border:1px solid var(--ink-600);border-radius:14px;
+    padding:14px 16px;color:#fff;font-size:14px;margin-top:10px;outline:none;
+  }
+  .input::placeholder{color:var(--text-muted);}
+  .input:focus{border-color:var(--brand-400);}
+  .mini-map{height:140px;border-radius:16px;margin-top:10px;position:relative;overflow:hidden;
+    background:repeating-linear-gradient(0deg, rgba(106,114,216,0.1) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(106,114,216,0.1) 0 1px, transparent 1px 28px),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .mini-map .pin{left:50%;top:50%;}
+
+  .btn{
+    height:52px;width:100%;border-radius:16px;border:none;font-size:15px;font-weight:700;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;
+  }
+  .btn.primary{background:var(--brand-500);}
+  .btn.primary:active{background:var(--brand-600);}
+  .btn.secondary{background:var(--ink-700);border:1px solid var(--ink-600);}
+  .btn.ghost{background:transparent;color:var(--brand-300);}
+  .btn:disabled{opacity:0.4;cursor:default;}
+
+  /* overlay (stack screens) */
+  .overlay{
+    position:absolute;inset:0;background:var(--ink-950);display:flex;flex-direction:column;z-index:30;
+    animation:slideInUp .22s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes slideInUp{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .overlay-header{
+    display:flex;align-items:center;gap:12px;padding:16px 16px 10px;flex:none;
+  }
+  .overlay-header h2{font-size:17px;margin:0;font-weight:700;flex:1;}
+  .overlay-body{flex:1;overflow-y:auto;padding:6px 18px 24px;scrollbar-width:none;}
+  .overlay-body::-webkit-scrollbar{display:none;}
+  .overlay-footer{padding:14px 18px 18px;flex:none;border-top:1px solid var(--ink-800);}
+
+  .detail-map{height:170px;border-radius:18px;overflow:hidden;position:relative;margin-bottom:18px;
+    background:repeating-linear-gradient(0deg, rgba(106,114,216,0.1) 0 1px, transparent 1px 30px),
+      repeating-linear-gradient(90deg, rgba(106,114,216,0.1) 0 1px, transparent 1px 30px),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .detail-map .pin{left:50%;top:50%;}
+  .detail-title{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .detail-title .emoji{font-size:30px;}
+  .detail-title h3{font-size:21px;margin:0;font-weight:700;}
+  .badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .detail-meta{font-size:14px;color:#fff;margin-bottom:4px;}
+  .detail-sub{font-size:13px;color:var(--text-muted);margin-bottom:4px;}
+  .detail-desc{font-size:14.5px;color:var(--text-muted);line-height:1.6;margin:16px 0;}
+  .host-row{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--ink-700);margin-top:6px;}
+  .host-row .avatar{width:44px;height:44px;font-size:16px;}
+  .host-row .name{font-size:15px;font-weight:600;color:#fff;}
+  .host-row .role{font-size:12px;color:var(--text-muted);}
+
+  /* chat */
+  .chat-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ink-800);cursor:pointer;}
+  .chat-row .avatar{width:46px;height:46px;font-size:16px;}
+  .chat-row .body{flex:1;min-width:0;}
+  .chat-row .top{display:flex;justify-content:space-between;font-size:14px;}
+  .chat-row .top .name{font-weight:600;color:#fff;}
+  .chat-row .top .time{font-size:11.5px;color:var(--text-muted);}
+  .chat-row .preview{font-size:13px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px;}
+  .unread-dot{width:9px;height:9px;border-radius:50%;background:var(--gold-500);flex:none;}
+
+  .plan-card{
+    background:linear-gradient(135deg,rgba(74,84,200,0.18),rgba(74,84,200,0.06));
+    border:1px solid rgba(74,84,200,0.35);border-radius:16px;padding:14px;margin-bottom:16px;
+  }
+  .plan-card .k{font-size:11px;font-weight:700;color:var(--brand-300);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+  .plan-card .title{font-size:14.5px;font-weight:600;color:#fff;margin-bottom:2px;}
+  .plan-card .sub{font-size:12.5px;color:var(--text-muted);}
+
+  .bubble-row{display:flex;margin-bottom:10px;}
+  .bubble-row.me{justify-content:flex-end;}
+  .bubble{max-width:76%;padding:10px 14px;border-radius:16px;font-size:13.5px;line-height:1.45;}
+  .bubble-row.me .bubble{background:var(--brand-500);color:#fff;border-bottom-right-radius:4px;}
+  .bubble-row.them .bubble{background:var(--ink-800);color:#fff;border-bottom-left-radius:4px;}
+  .chat-input-row{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--ink-800);border:1px solid var(--ink-700);border-radius:999px;margin:6px 18px 14px;}
+  .chat-input-row input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:13.5px;}
+  .chat-input-row input::placeholder{color:var(--text-muted);}
+  .send-dot{width:32px;height:32px;border-radius:50%;background:var(--brand-500);display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;}
+
+  /* requests */
+  .seg{display:flex;background:var(--ink-800);border-radius:14px;padding:4px;margin:4px 0 16px;}
+  .seg button{flex:1;border:none;background:transparent;color:var(--text-muted);font-size:13px;font-weight:700;padding:10px;border-radius:11px;cursor:pointer;}
+  .seg button.active{background:var(--brand-500);color:#fff;}
+  .req-card{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;padding:14px;margin-bottom:12px;}
+  .req-card .txt{font-size:13.5px;color:#fff;line-height:1.5;margin-bottom:10px;}
+  .req-card .txt b{color:var(--brand-200);}
+  .req-actions{display:flex;gap:8px;}
+  .req-actions button{flex:1;height:38px;border-radius:11px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;}
+  .req-actions .accept{background:var(--success);color:#08210f;}
+  .req-actions .decline{background:var(--ink-700);color:#fff;border:1px solid var(--ink-600);}
+
+  /* profile */
+  .profile-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 0 20px;}
+  .profile-head .avatar{width:76px;height:76px;font-size:26px;margin-bottom:12px;}
+  .profile-head h2{margin:0 0 3px;font-size:19px;}
+  .profile-head .sub{font-size:12.5px;color:var(--text-muted);}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0;}
+  .stat-box{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:14px;padding:12px 6px;text-align:center;}
+  .stat-box b{display:block;font-size:16px;color:#fff;}
+  .stat-box span{font-size:10.5px;color:var(--text-muted);}
+  .list-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--ink-800);font-size:14px;color:#fff;cursor:pointer;}
+  .list-row .ico{width:32px;text-align:center;font-size:16px;}
+  .list-row .chev{margin-left:auto;color:var(--text-muted);}
+
+  /* tab bar */
+  .tab-bar{
+    position:absolute;left:0;right:0;bottom:0;height:78px;background:rgba(18,11,36,0.92);backdrop-filter:blur(10px);
+    border-top:1px solid var(--ink-700);display:flex;z-index:20;padding-bottom:14px;
+  }
+  .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text-muted);}
+  .tab-btn .ic{font-size:19px;opacity:0.55;}
+  .tab-btn .lb{font-size:10.5px;font-weight:600;}
+  .tab-btn.active{color:var(--brand-300);}
+  .tab-btn.active .ic{opacity:1;}
+  .fab{
+    position:absolute;right:18px;bottom:92px;width:58px;height:58px;border-radius:50%;
+    background:linear-gradient(135deg,var(--brand-400),var(--brand-600));
+    display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;
+    box-shadow:0 12px 24px rgba(74,84,200,0.55);cursor:pointer;z-index:25;border:none;line-height:0;
+  }
+  .fab:active{transform:scale(0.94);}
+
+  .toast{
+    position:absolute;left:50%;bottom:100px;transform:translateX(-50%);
+    background:#fff;color:#160c2c;font-size:13px;font-weight:700;padding:11px 18px;border-radius:999px;
+    box-shadow:0 10px 26px rgba(0,0,0,0.4);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+  .demo-caption{font-size:12.5px;color:var(--text-muted);text-align:center;max-width:320px;}
+
+  /* ---------- architecture ---------- */
+  .arch-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;margin-bottom:40px;}
+  @media (max-width:900px){.arch-flow{grid-template-columns:1fr;}.arch-arrow{display:none;}}
+  .arch-col{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:18px;padding:20px;}
+  .arch-col h4{margin:0 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-300);}
+  .arch-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .arch-col li{font-size:13.5px;color:#e9e4f5;background:var(--ink-900);border:1px solid var(--ink-700);border-radius:10px;padding:9px 12px;}
+  .arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--brand-400);font-size:22px;}
+
+  .stack-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .stack-table th{text-align:left;color:var(--text-muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;padding:0 12px 10px;}
+  .stack-table td{background:var(--ink-800);border-top:1px solid var(--ink-700);padding:12px;}
+  .stack-table tr td:first-child{border-radius:12px 0 0 12px;color:#fff;font-weight:600;}
+  .stack-table tr td:last-child{border-radius:0 12px 12px 0;color:var(--text-muted);}
+  .stack-table-wrap{overflow-x:auto;}
+
+  .roadmap{display:flex;flex-direction:column;gap:10px;margin-top:40px;}
+  .phase{display:flex;gap:14px;align-items:flex-start;background:var(--ink-800);border:1px solid var(--ink-700);border-radius:14px;padding:14px 16px;}
+  .phase.done{opacity:0.6;}
+  .phase.current{border-color:var(--brand-400);background:rgba(74,84,200,0.1);}
+  .phase .dot{width:10px;height:10px;border-radius:50%;background:var(--ink-600);margin-top:5px;flex:none;}
+  .phase.done .dot{background:var(--success);}
+  .phase.current .dot{background:var(--gold-500);box-shadow:0 0 0 4px rgba(242,169,60,0.25);}
+  .phase b{font-size:13.5px;color:#fff;}
+  .phase p{margin:3px 0 0;font-size:12.5px;color:var(--text-muted);line-height:1.5;}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--ink-800);margin-top:20px;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;}
+  footer .credit{font-size:13px;color:var(--text-muted);}
+  footer .credit b{color:#fff;}
+
+  /* .demo-grid tek sutuna 980px'de geciyor (yukarida) - telefonun genisligi de
+     ayni esikte esnemeli, aksi halde 420-980px arasi (ör. bazi buyuk telefonlar)
+     sabit 375px genislik tasabiliyordu. */
+  @media (max-width:980px){
+    .phone{width:100%;max-width:375px;border-radius:36px;padding:10px;}
+    .phone-screen{border-radius:26px;}
+  }
+  @media (max-width:420px){
+    .wrap{padding:0 18px;}
+    .phone{height:74vh;min-height:640px;}
+    .phone-stage{position:static;width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brandmark">
+      <span class="dots"><span></span><span></span><span></span><span></span></span>
+      Quadmate
+    </div>
+    <a class="header-back" href="/">← bescript.com.tr</a>
+    <span class="header-pill">App Store ve Google Play'de</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Konum bazlı sosyal oyun uygulaması</div>
+    <h1>Eksik oyuncuyu bulmanın<br/>en hızlı yolu.</h1>
+    <p class="lead">
+      Quadmate; Okey, Bilardo, Kağıt/101, Satranç, Dart gibi oyunlar için etrafındaki
+      oyuncularla seni buluşturan, konum tabanlı bir "masa/etkinlik" eşleştirme uygulaması.
+      Bir masa aç ya da yakınındaki bir masaya istek gönder — gerisini uygulama halleder.
+    </p>
+    <div class="status-note">
+      <b>Şu anki durum — 16 Ekim 2026.</b> Uygulama <b>iki mağazada da yayında</b>:
+      <a href="https://play.google.com/store/apps/details?id=com.quadmate.app" target="_blank" rel="noopener">Google Play</a> ve
+      <a href="https://apps.apple.com/tr/app/quadmate/id6813102419" target="_blank" rel="noopener">App Store</a>.
+      Kendi Supabase projesi (Pro plan, günlük yedek), <b>quadmate.com.tr</b> alan adı, kendi SMTP'si ve
+      EAS ile alınan imzalı Android ve iOS build'leriyle çalışıyor.
+    </div>
+    <div class="stat-row">
+      <div class="stat-chip"><b>8</b><span>oyun türü</span></div>
+      <div class="stat-chip"><b>Host / Guest</b><span>masa modeli</span></div>
+      <div class="stat-chip"><b>Realtime</b><span>sohbet & bildirim</span></div>
+      <div class="stat-chip"><b>PostGIS</b><span>konum gizliliği</span></div>
+    </div>
+    <div class="tech-row">
+      <span class="tech-badge">React Native · Expo</span>
+      <span class="tech-badge">TypeScript</span>
+      <span class="tech-badge">NativeWind (Tailwind)</span>
+      <span class="tech-badge">React Navigation</span>
+      <span class="tech-badge">Zustand</span>
+      <span class="tech-badge">TanStack Query</span>
+      <span class="tech-badge">Supabase (Postgres + PostGIS)</span>
+      <span class="tech-badge">Supabase Realtime</span>
+      <span class="tech-badge">Edge Functions (Deno)</span>
+      <span class="tech-badge">RevenueCat</span>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap demo-grid">
+    <div>
+      <div class="section-kicker">İnteraktif Demo</div>
+      <h2 style="font-size:28px;margin:0 0 14px;letter-spacing:-0.01em;">Uygulamanın içinde gez</h2>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.65;margin:0 0 26px;">
+        Sağdaki telefon, gerçek uygulamanın tasarım sistemiyle (lacivert + koyu zemin + altın vurgu,
+        açık/koyu tema desteğiyle) birebir üretildi. Alt sekmelere, kartlara, harita/liste geçişine ve
+        <b style="color:#fff;"> + </b> butonuyla masa açma akışına tıklayarak deneyebilirsin.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="ico"><ion-icon name="compass-outline"></ion-icon></div>
+          <div class="txt">
+            <h3>Keşfet — Harita &amp; Liste</h3>
+            <p>Yakınındaki açık masaları listede ya da haritada gör; mesafe, oyun türü ve seviyeye göre filtrele.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><ion-icon name="add-circle-outline"></ion-icon></div>
+          <div class="txt">
+            <h3>Masa Aç</h3>
+            <p>Oyun seç, haritadan mekân işaretle, tarih/saat/süre/kişi sayısı belirle ve yayınla.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><ion-icon name="paper-plane-outline"></ion-icon></div>
+          <div class="txt">
+            <h3>İstek Gönder &amp; Onayla</h3>
+            <p>Gelen/giden istekleri yönet; host kabul edince masa planı ve grup sohbeti otomatik açılır.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><ion-icon name="chatbubbles-outline"></ion-icon></div>
+          <div class="txt">
+            <h3>Realtime Sohbet</h3>
+            <p>Her masaya bağlı grup sohbeti, üstte gömülü masa planı kartıyla birlikte gelir.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><ion-icon name="notifications-outline"></ion-icon></div>
+          <div class="txt">
+            <h3>Anlık Bildirimler</h3>
+            <p>Yeni istek, kabul/red ve mesajlar telefona push bildirimi olarak düşer — uygulamayı açmaya gerek yok.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="howto">
+        💡 <b>Nasıl kullanılır:</b> Alttaki sekmelerden birine dokun, bir masa kartına tıkla,
+        sağ üstteki <ion-icon name="map-outline" style="vertical-align:-3px;"></ion-icon> ikonuyla harita görünümüne geç, ya da lacivert <b>+</b> butonuyla yeni masa aç.
+        Tüm veriler örnek (mock) veridir.
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="phone-screen" id="phoneScreen">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span>09:41</span>
+            <span class="icons">📶 🛜 🔋</span>
+          </div>
+          <div id="appRoot" style="flex:1;display:flex;flex-direction:column;min-height:0;position:relative;"></div>
+          <div class="toast" id="toast"></div>
+        </div>
+      </div>
+      <div class="demo-caption">Etkileşimli prototip — gerçek Quadmate uygulamasının (Expo / React Native) tasarım sistemiyle birebir üretildi.</div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Mimari</div>
+      <h2>Tek platformda ilişkisel veri + coğrafi sorgu + realtime</h2>
+      <p>
+        Supabase; masalar/katılımcılar gibi ilişkisel veriyi, PostGIS ile konum sorgularını,
+        Realtime ile sohbeti, Auth ve Storage'ı tek bir platformda sağladığı için ayrı bir
+        custom backend'e gerek kalmıyor. Kota/bildirim/webhook gibi özel iş mantığı Edge Functions'ta yazılıyor.
+      </p>
+    </div>
+
+    <div class="arch-flow">
+      <div class="arch-col">
+        <h4>Mobil İstemci</h4>
+        <ul>
+          <li>Ekranlar / React Navigation</li>
+          <li>Zustand (client state)</li>
+          <li>TanStack Query (server cache)</li>
+          <li>Supabase JS SDK</li>
+        </ul>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-col">
+        <h4>Supabase Platformu</h4>
+        <ul>
+          <li>Auth</li>
+          <li>Postgres + PostGIS (konum sorguları)</li>
+          <li>Realtime (sohbet, masa durumu)</li>
+          <li>Storage (avatar, doğrulama belgesi)</li>
+          <li>Postgres trigger + pg_net — push bildirimi tetikleme</li>
+          <li>Vault + <code>http</code> — mekân araması sunucuda (Places anahtarı istemcide tutulmuyor)</li>
+          <li>Edge Functions (Deno) — kota/webhook (Faz 5, planlanan)</li>
+        </ul>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-col">
+        <h4>3. Parti Servisler</h4>
+        <ul>
+          <li>Google Maps / Places API</li>
+          <li>Expo Push → FCM / APNs</li>
+          <li>RevenueCat → App Store / Play Billing</li>
+          <li>Sentry · PostHog</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack-table-wrap">
+      <table class="stack-table">
+        <tr><th>Katman</th><th>Seçim &amp; not</th></tr>
+        <tr><td>Konum sorguları</td><td>PostgreSQL + PostGIS (ST_DWithin, geography(Point,4326)) — tam koordinat client'a hiç dönmez, sadece mesafe / jitter'lı yaklaşık nokta döner.</td></tr>
+        <tr><td>Veri modeli</td><td>profiles · activities · tables · join_requests · table_participants · conversations/messages · notifications · ratings · subscriptions · usage_quota — RLS ile satır seviyesi izolasyon.</td></tr>
+        <tr><td>Giriş yolları</td><td>E-posta + şifre, <b>Google ve Apple ile giriş</b> (tarayıcı akışı — <code>signInWithOAuth</code> + <code>quadmate://</code> derin bağlantı). Native SDK yerine tarayıcı seçildi: Play App Signing devredeyken native akışın istediği SHA-1 dağıtım anahtarına ait oluyor ve "kendi build'imde çalışıyor, mağazadan inince çalışmıyor" hatasına yol açıyor.</td></tr>
+        <tr><td>Mekân araması</td><td>Google Places çağrısı istemciden alınıp <code>search_places</code> RPC'sine taşındı; anahtar <b>Supabase Vault</b>'ta, kullanıcı başına saatlik 60 arama kotası var. Places web servisi Android paket kısıtlamasını tanımadığı için pakete gömülü anahtar korunamıyordu.</td></tr>
+        <tr><td>Monetizasyon</td><td>Aylık 3 ücretsiz "İstek Gönder" + 3 ücretsiz "Masa Aç" hakkı (bağımsız iki kota); limit dolunca Quadmate Premium paywall'ı.</td></tr>
+        <tr><td>Tasarım sistemi</td><td>NativeWind (Tailwind for RN) üzerinde logodan gelen lacivert (#202368) + koyu/açık zemin (ink) + altın (#F2A93C) vurgu paleti, açık/koyu tema desteğiyle — tek kaynak <code>theme/colors.ts</code>.</td></tr>
+      </table>
+    </div>
+
+    <div class="roadmap">
+      <div class="phase done"><div class="dot"></div><div><b>Faz 0 — Tamamlandı</b><p>Proje iskeleti, tasarım sistemi, navigasyon şeması, Supabase şema taslağı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Auth, onboarding, konum izni, oyun seçimi, temel profil; canlı Supabase projesi bağlandı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 2 — Tamamlandı</b><p>Masa Aç (Google Places arama dahil), Keşfet (harita/liste), Masa Detay, Filtreler ekranları canlıda.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 3 — Tamamlandı</b><p>İstek Gönder/Kabul, Masa Planı, gerçek zamanlı (Realtime) grup sohbeti canlıda.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 4 — Tamamlandı</b><p>Push bildirimleri ve bildirim tercihleri, masa yönetimi (iptal / ayrılma / düzenleme), puanlama, profil fotoğrafı yükleme, e-posta doğrulama, şikayet ve engelleme, hesap silme. Telefon doğrulaması SMS sağlayıcı kararına bağlı olarak açık kaldı.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 5 — Beklemede</b><p>Monetizasyon: kota takibi, RevenueCat ve paywall. Paywall ekranı yazıldı ama satış açılmadı — şu an tüm özellikler ücretsiz.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 6 — Tamamlandı · Google Play yayını</b><p>Açık/koyu tema, hesap silme ve gizlilik sayfaları yayında, e-posta markası kendi alan adında, build'ler EAS'te imzalı alınıyor, Google/Apple ile giriş yazıldı, mekân araması sunucuya taşındı. Play Console formları dolduruldu, kapalı test tamamlandı ve uygulama <b>2 Ekim 2026'da Google Play'de üretime çıktı</b>.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 7 — Tamamlandı · App Store yayını</b><p>Apple Developer hesabı → iOS build → TestFlight → App Store. Uygulama 16 Ekim 2026'da App Store'da yayına girdi.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Şu an burada — yayın sonrası</b><p>Sentry/PostHog ile izleme ve moderasyon arayüzü.</p></div></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="credit">Designed &amp; developed by <b>Karaarslan Digital</b></div>
+    <div class="credit">Bu sayfa örnek (mock) verilerle çalışan bağımsız bir ürün demosudur.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var ACTIVITIES = [
+    {id:'okey', name:'Okey', icon:'🀄'},
+    {id:'bilardo', name:'Bilardo', icon:'🎱'},
+    {id:'kagit_101', name:'Kağıt / 101', icon:'🃏'},
+    {id:'satranc', name:'Satranç', icon:'♟️'},
+    {id:'dart', name:'Dart', icon:'🎯'},
+    {id:'masa_tenisi', name:'Masa Tenisi', icon:'🏓'},
+    {id:'langirt', name:'Langırt', icon:'⚽'},
+    {id:'tavla', name:'Tavla', icon:'🎲'}
+  ];
+  var SKILL_LEVELS = [
+    {id:'fark_etmez', label:'Fark Etmez'},
+    {id:'baslangic', label:'Başlangıç'},
+    {id:'orta', label:'Orta'},
+    {id:'ileri', label:'İleri'}
+  ];
+  var DISTANCES = [1,3,5,10,20];
+  var DATE_OPTIONS = ['Bugün','Yarın','Cumartesi'];
+  var TIME_OPTIONS = ['18:00','19:00','19:30','20:00','20:30','21:00'];
+  var DURATION_OPTIONS = [60,90,120];
+  var SEATS_OPTIONS = [1,2,3,4];
+
+  var TABLES = [
+    {id:'t1', activityId:'bilardo', icon:'🎱', activityName:'Bilardo', title:'Bilardo Gecesi', venue:'Cue Club Bilardo, Kadıköy', distance:'0.4 km', time:'Bugün 20:00', duration:90, seatsFilled:2, seatsTotal:4, skill:'orta', host:'Emre K.', hostInitials:'EK', desc:'Haftalık bilardo buluşmamıza katıl, rakip aranıyor. Tecrübe şart değil 🎱', x:'34%', y:'30%'},
+    {id:'t2', activityId:'okey', icon:'🀄', activityName:'Okey', title:'Okey Masası Açık', venue:'Sahil Kıraathanesi, Moda', distance:'0.8 km', time:'Bugün 19:30', duration:120, seatsFilled:3, seatsTotal:4, skill:'fark_etmez', host:'Ayşe T.', hostInitials:'AT', desc:'3 kişiyiz, 1 kişi daha arıyoruz. Çay ocak bizden ☕', x:'58%', y:'22%'},
+    {id:'t3', activityId:'satranc', icon:'♟️', activityName:'Satranç', title:'Satranç Rakibi Aranıyor', venue:'Caddebostan Sahil Kafe', distance:'1.2 km', time:'Yarın 17:00', duration:60, seatsFilled:1, seatsTotal:2, skill:'ileri', host:'Deniz Y.', hostInitials:'DY', desc:'1200+ elo civarı rakip arıyorum, sahilde açık havada oynayalım.', x:'22%', y:'58%'},
+    {id:'t4', activityId:'kagit_101', icon:'🃏', activityName:'Kağıt / 101', title:'101 Oynayalım', venue:'Moda Kültür Kahvesi', distance:'1.5 km', time:'Bugün 21:00', duration:90, seatsFilled:2, seatsTotal:4, skill:'baslangic', host:'Buğra S.', hostInitials:'BS', desc:'Yeni öğrenenler dahil, keyifli bir masa kuruyoruz.', x:'70%', y:'55%'},
+    {id:'t5', activityId:'dart', icon:'🎯', activityName:'Dart', title:'Dart İdmanı', venue:'Barbaros Dart Bar', distance:'2.1 km', time:'Yarın 20:30', duration:60, seatsFilled:3, seatsTotal:4, skill:'orta', host:'Selin A.', hostInitials:'SA', desc:'Turnuva öncesi son idman, gelip form tutalım.', x:'48%', y:'72%'}
+  ];
+
+  var CHATS = [
+    {id:'c1', name:'Emre K.', initials:'EK', time:'20:14', unread:true, tableTitle:'Bilardo Gecesi', planStatus:'Onaylandı', planVenue:'Cue Club Bilardo, Kadıköy', planTime:'Bugün 20:00',
+      messages:[
+        {me:false, text:'Merhaba! Bilardo masasına bekliyoruz 🎱'},
+        {me:true, text:'Harika, 20:00 gibi orada oluruz.'},
+        {me:false, text:'Süper, masayı ayırttım. Görüşürüz!'}
+      ]},
+    {id:'c2', name:'Ayşe T.', initials:'AT', time:'Dün', unread:false, tableTitle:'Okey Masası Açık', planStatus:'Onay Bekliyor', planVenue:'Sahil Kıraathanesi, Moda', planTime:'Bugün 19:30',
+      messages:[
+        {me:false, text:'İsteğini aldım, birazdan dönüş yaparım.'},
+        {me:true, text:'Tamamdır, bekliyorum 🙌'}
+      ]},
+    {id:'c3', name:'Deniz Y.', initials:'DY', time:'Salı', unread:false, tableTitle:'Satranç Rakibi Aranıyor', planStatus:'Tamamlandı', planVenue:'Caddebostan Sahil Kafe', planTime:'Geçen hafta',
+      messages:[
+        {me:false, text:'Çok iyi oynadın, tekrar oynayalım bir ara.'},
+        {me:true, text:'Kesinlikle, haber ver!'}
+      ]}
+  ];
+
+  var REQUESTS_INCOMING = [
+    {id:'ri1', name:'Ayşe T.', table:'Okey Masası Açık', note:'"Bu akşam müsaitim, katılabilir miyim?"'},
+    {id:'ri2', name:'Buğra S.', table:'Bilardo Gecesi', note:'"Yeni başladım ama çok istekliyim :)"'}
+  ];
+  var REQUESTS_OUTGOING = [
+    {id:'ro1', table:'Dart İdmanı', status:'Onay bekliyor'},
+    {id:'ro2', table:'Satranç Rakibi Aranıyor', status:'Kabul edildi'}
+  ];
+
+  var state = {
+    tab: 'discover',
+    discoverView: 'list',
+    overlay: null,
+    overlayData: {},
+    activePinId: null,
+    filters: { activities: new Set(), radius: 5, skill: 'fark_etmez' },
+    requestsTab: 'gelen',
+    incoming: REQUESTS_INCOMING.slice(),
+    outgoing: REQUESTS_OUTGOING.slice(),
+    sentRequestIds: new Set(),
+    createForm: { activityId: null, venue:'', date:0, time:null, duration:90, seats:2, skill:'fark_etmez' }
+  };
+
+  var root = document.getElementById('appRoot');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800);
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function initialsAvatar(initials, size){ return '<div class="avatar" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*0.38)+'px;">'+esc(initials)+'</div>'; }
+  function skillLabel(id){ var f = SKILL_LEVELS.filter(function(s){return s.id===id;})[0]; return f ? f.label : id; }
+
+  // ---------------- render dispatch ----------------
+  function render(){
+    var html = '<div style="display:flex;flex-direction:column;height:100%;min-height:0;">';
+    html += renderTabContent();
+    html += renderTabBar();
+    var showFab = state.tab === 'discover' && !(state.discoverView === 'map' && state.activePinId);
+    if (showFab) html += '<button class="fab" onclick="App.openCreate()">+</button>';
+    html += '</div>';
+    if (state.overlay) html += renderOverlay();
+    root.innerHTML = html;
+    initEdgeFades();
+  }
+
+  // Yatay kayan seritlerde (filtre chip'leri) kenar fade'ini kaydirma
+  // konumuna gore ac/kapat: basta sol fade, sonda sag fade kapali.
+  function initEdgeFades(){
+    var scrollers = root.querySelectorAll('.chip-scroll');
+    Array.prototype.forEach.call(scrollers, function(el){
+      var update = function(){
+        var max = el.scrollWidth - el.clientWidth;
+        el.classList.toggle('is-scrolled', el.scrollLeft > 4);
+        el.classList.toggle('is-end', max <= 1 || el.scrollLeft >= max - 4);
+      };
+      el.addEventListener('scroll', update, {passive:true});
+      update();
+    });
+  }
+
+  function renderTabBar(){
+    var tabs = [
+      {id:'discover', ic:'<ion-icon name="compass-outline"></ion-icon>', lb:'Keşfet'},
+      {id:'requests', ic:'<ion-icon name="paper-plane-outline"></ion-icon>', lb:'İstekler'},
+      {id:'chats', ic:'<ion-icon name="chatbubbles-outline"></ion-icon>', lb:'Sohbetler'},
+      {id:'profile', ic:'<ion-icon name="person-circle-outline"></ion-icon>', lb:'Profil'}
+    ];
+    var html = '<div class="tab-bar">';
+    tabs.forEach(function(t){
+      html += '<button class="tab-btn '+(state.tab===t.id?'active':'')+'" onclick="App.setTab(\''+t.id+'\')">'+
+        '<span class="ic">'+t.ic+'</span><span class="lb">'+t.lb+'</span></button>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderTabContent(){
+    if (state.tab === 'discover') return renderDiscover();
+    if (state.tab === 'requests') return renderRequests();
+    if (state.tab === 'chats') return renderChatList();
+    if (state.tab === 'profile') return renderProfile();
+    return '';
+  }
+
+  // ---------------- discover ----------------
+  function filteredTables(){
+    return TABLES.filter(function(t){
+      if (state.filters.activities.size > 0 && !state.filters.activities.has(t.activityId)) return false;
+      if (state.filters.skill !== 'fark_etmez' && t.skill !== state.filters.skill) return false;
+      return true;
+    });
+  }
+
+  function renderDiscover(){
+    var html = '<div class="app-header"><div class="row"><h1>Keşfet</h1><div class="btn-row">'+
+      '<button class="icon-btn" onclick="App.toast(\'Bildirimler (demo)\')"><ion-icon name="notifications-outline"></ion-icon></button>'+
+      '<button class="icon-btn" onclick="App.toggleView()"><ion-icon name="'+(state.discoverView==='list'?'map-outline':'list-outline')+'"></ion-icon></button>'+
+      '<button class="icon-btn" onclick="App.openFilters()"><ion-icon name="options-outline"></ion-icon></button>'+
+      '</div></div></div>';
+
+    html += '<div class="chip-scroll">';
+    html += '<div class="chip '+(state.filters.activities.size===0?'selected':'')+'" onclick="App.clearActivities()">Tümü</div>';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(state.filters.activities.has(a.id)?'selected':'')+'" onclick="App.toggleActivity(\''+a.id+'\')">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
+
+    var tables = filteredTables();
+
+    if (state.discoverView === 'list'){
+      html += '<div class="screen-body">';
+      if (tables.length === 0){
+        html += '<div class="empty-state">Bu filtrelerle açık masa yok.<br/>Filtreleri genişletmeyi veya kendi masanı açmayı deneyebilirsin.</div>';
+      } else {
+        tables.forEach(function(t){ html += tableCardHtml(t); });
+      }
+      html += '</div>';
+    } else {
+      html += '<div class="map-wrap">';
+      html += '<div class="me-dot"></div>';
+      tables.forEach(function(t){
+        html += '<div class="pin '+(state.activePinId===t.id?'active':'')+'" style="left:'+t.x+';top:'+t.y+';" onclick="App.selectPin(\''+t.id+'\')"><span>'+t.icon+'</span></div>';
+      });
+      if (state.activePinId){
+        var pt = tables.filter(function(t){return t.id===state.activePinId;})[0];
+        if (pt){
+          html += '<div class="map-popup">'+
+            '<div class="card-title-row" style="margin-bottom:10px;">'+
+              '<span class="emoji">'+pt.icon+'</span>'+
+              '<div class="txt"><div class="t">'+esc(pt.title)+'</div><div class="v">'+esc(pt.venue)+' · '+pt.distance+'</div></div>'+
+            '</div>'+
+            '<button class="btn primary" style="height:42px;" onclick="App.openDetail(\''+pt.id+'\')">Detayları Gör</button>'+
+          '</div>';
+        }
+      } else if (tables.length === 0){
+        html += '<div class="map-popup" style="text-align:center;color:var(--text-muted);font-size:13px;">Bu filtrelerle masa yok.</div>';
+      }
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function tableCardHtml(t){
+    return '<div class="card" onclick="App.openDetail(\''+t.id+'\')">'+
+      '<div class="card-top">'+
+        '<div class="card-title-row">'+
+          '<span class="emoji">'+t.icon+'</span>'+
+          '<div class="txt"><div class="t">'+esc(t.title)+'</div><div class="v">'+esc(t.venue)+'</div></div>'+
+        '</div>'+
+        '<span class="badge brand">'+t.distance+'</span>'+
+      '</div>'+
+      '<div class="card-meta"><span>'+t.time+'</span><span>'+t.seatsFilled+'/'+t.seatsTotal+' kişi</span></div>'+
+      '<div class="card-host">'+initialsAvatar(t.hostInitials,22)+'<span class="name">'+esc(t.host)+'</span></div>'+
+    '</div>';
+  }
+
+  // ---------------- table detail (overlay) ----------------
+  function renderDetail(t){
+    var isFull = t.seatsFilled >= t.seatsTotal;
+    var alreadySent = state.sentRequestIds.has(t.id);
+    var html = '';
+    html += '<div class="detail-map"><div class="pin"><span>'+t.icon+'</span></div></div>';
+    html += '<div class="detail-title"><span class="emoji">'+t.icon+'</span><h3>'+esc(t.title)+'</h3></div>';
+    html += '<div class="badge-row">'+
+      '<span class="badge brand">'+t.activityName+'</span>'+
+      '<span class="badge neutral">'+skillLabel(t.skill)+'</span>'+
+      (isFull ? '<span class="badge gold">Dolu</span>' : '')+
+    '</div>';
+    html += '<div class="detail-meta">'+esc(t.venue)+'</div>';
+    html += '<div class="detail-sub">'+t.time+'</div>';
+    html += '<div class="detail-sub">'+t.duration+' dakika · '+t.seatsFilled+'/'+t.seatsTotal+' kişi</div>';
+    html += '<div class="detail-desc">'+esc(t.desc)+'</div>';
+    html += '<div class="host-row">'+initialsAvatar(t.hostInitials,44)+
+      '<div><div class="name">'+esc(t.host)+'</div><div class="role">Host</div></div></div>';
+
+    var footer = '';
+    if (isFull){
+      footer = '<button class="btn secondary" disabled>Masa Dolu</button>';
+    } else if (alreadySent){
+      footer = '<button class="btn secondary" disabled>İstek Gönderildi ✓</button>';
+    } else {
+      footer = '<button class="btn primary" onclick="App.sendRequest(\''+t.id+'\')">İstek Gönder</button>';
+    }
+    return { body: html, footer: footer, title: 'Masa Detay' };
+  }
+
+  // ---------------- filters (overlay) ----------------
+  function renderFiltersOverlay(){
+    var html = '<div class="field-label">Oyun Türü</div><div class="chip-grid">';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(state.filters.activities.has(a.id)?'selected':'')+'" onclick="App.toggleActivity(\''+a.id+'\', true)">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Mesafe</div><div class="chip-grid">';
+    DISTANCES.forEach(function(km){
+      html += '<div class="chip '+(state.filters.radius===km?'selected':'')+'" onclick="App.setRadius('+km+')">'+km+' km</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Seviye</div><div class="chip-grid">';
+    SKILL_LEVELS.forEach(function(s){
+      html += '<div class="chip '+(state.filters.skill===s.id?'selected':'')+'" onclick="App.setSkillFilter(\''+s.id+'\')">'+s.label+'</div>';
+    });
+    html += '</div>';
+
+    return {
+      body: html,
+      title: 'Filtreler',
+      footer: '<button class="btn primary" style="margin-bottom:10px;" onclick="App.closeOverlay()">Uygula</button>'+
+              '<button class="btn ghost" onclick="App.resetFilters()">Sıfırla</button>'
+    };
+  }
+
+  // ---------------- create table (overlay) ----------------
+  function renderCreateOverlay(){
+    var f = state.createForm;
+    var html = '<div class="field-label" style="margin-top:6px;">Oyun</div><div class="chip-grid">';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(f.activityId===a.id?'selected':'')+'" onclick="App.setCreateField(\'activityId\',\''+a.id+'\')">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Mekan</div>';
+    html += '<div class="mini-map"><div class="pin"><span>📍</span></div></div>';
+    html += '<input class="input" placeholder="Mekan adı (örn. Cue Club Bilardo)" value="'+esc(f.venue)+'" oninput="App.setCreateField(\'venue\', this.value)" />';
+
+    html += '<div class="field-label">Ne Zaman</div><div class="chip-grid">';
+    DATE_OPTIONS.forEach(function(d,i){
+      html += '<div class="chip '+(f.date===i?'selected':'')+'" onclick="App.setCreateField(\'date\','+i+')">'+d+'</div>';
+    });
+    html += '</div>';
+    html += '<div class="chip-grid" style="margin-top:8px;">';
+    TIME_OPTIONS.forEach(function(t){
+      html += '<div class="chip '+(f.time===t?'selected':'')+'" onclick="App.setCreateField(\'time\',\''+t+'\')">'+t+'</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Süre</div><div class="chip-grid">';
+    DURATION_OPTIONS.forEach(function(m){
+      html += '<div class="chip '+(f.duration===m?'selected':'')+'" onclick="App.setCreateField(\'duration\','+m+')">'+m+' dk</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Kaç Kişi Aranıyor</div><div class="chip-grid">';
+    SEATS_OPTIONS.forEach(function(s){
+      html += '<div class="chip '+(f.seats===s?'selected':'')+'" onclick="App.setCreateField(\'seats\','+s+')">'+s+' kişi</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Seviye</div><div class="chip-grid">';
+    SKILL_LEVELS.forEach(function(s){
+      html += '<div class="chip '+(f.skill===s.id?'selected':'')+'" onclick="App.setCreateField(\'skill\',\''+s.id+'\')">'+s.label+'</div>';
+    });
+    html += '</div>';
+    html += '<div style="height:8px;"></div>';
+
+    return {
+      body: html,
+      title: 'Masa Aç',
+      footer: '<button class="btn primary" onclick="App.publishTable()">Yayınla</button>'
+    };
+  }
+
+  // ---------------- requests ----------------
+  function renderRequests(){
+    var html = '<div class="app-header"><h1>İstekler</h1></div>';
+    html += '<div class="screen-body">';
+    html += '<div class="seg">'+
+      '<button class="'+(state.requestsTab==='gelen'?'active':'')+'" onclick="App.setRequestsTab(\'gelen\')">Gelen</button>'+
+      '<button class="'+(state.requestsTab==='giden'?'active':'')+'" onclick="App.setRequestsTab(\'giden\')">Giden</button>'+
+    '</div>';
+
+    if (state.requestsTab === 'gelen'){
+      if (state.incoming.length === 0){
+        html += '<div class="empty-state">Bekleyen istek yok.</div>';
+      } else {
+        state.incoming.forEach(function(r){
+          html += '<div class="req-card">'+
+            '<div class="txt"><b>'+esc(r.name)+'</b> "'+esc(r.table)+'" masana istek gönderdi.<br/><span style="color:var(--text-muted);">'+esc(r.note)+'</span></div>'+
+            '<div class="req-actions">'+
+              '<button class="accept" onclick="App.resolveIncoming(\''+r.id+'\',true)">Kabul Et</button>'+
+              '<button class="decline" onclick="App.resolveIncoming(\''+r.id+'\',false)">Reddet</button>'+
+            '</div>'+
+          '</div>';
+        });
+      }
+    } else {
+      if (state.outgoing.length === 0){
+        html += '<div class="empty-state">Gönderilmiş isteğin yok.</div>';
+      } else {
+        state.outgoing.forEach(function(r){
+          var tone = r.status === 'Kabul edildi' ? 'success' : 'gold';
+          html += '<div class="req-card">'+
+            '<div class="txt" style="margin-bottom:0;"><b>'+esc(r.table)+'</b></div>'+
+            '<div style="margin-top:8px;"><span class="badge '+tone+'">'+esc(r.status)+'</span></div>'+
+          '</div>';
+        });
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- chats ----------------
+  function renderChatList(){
+    var html = '<div class="app-header"><h1>Sohbetler</h1></div>';
+    html += '<div class="screen-body">';
+    CHATS.forEach(function(c){
+      var last = c.messages[c.messages.length-1];
+      html += '<div class="chat-row" onclick="App.openChat(\''+c.id+'\')">'+
+        initialsAvatar(c.initials,46)+
+        '<div class="body">'+
+          '<div class="top"><span class="name">'+esc(c.name)+'</span><span class="time">'+c.time+'</span></div>'+
+          '<div style="display:flex;align-items:center;gap:6px;">'+
+            '<span class="preview">'+esc(last.text)+'</span>'+
+            (c.unread ? '<span class="unread-dot"></span>' : '')+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderChatOverlay(chat){
+    var html = '<div class="plan-card">'+
+      '<div class="k">Masa Planı · '+esc(chat.planStatus)+'</div>'+
+      '<div class="title">'+esc(chat.tableTitle)+'</div>'+
+      '<div class="sub">'+esc(chat.planVenue)+' · '+esc(chat.planTime)+'</div>'+
+    '</div>';
+    chat.messages.forEach(function(m){
+      html += '<div class="bubble-row '+(m.me?'me':'them')+'"><div class="bubble">'+esc(m.text)+'</div></div>';
+    });
+    return { body: html, title: chat.name, isChat:true };
+  }
+
+  // ---------------- profile ----------------
+  function renderProfile(){
+    var html = '<div class="app-header"><div class="row"><h1>Profil</h1><button class="icon-btn" onclick="App.toast(\'Ayarlar (demo)\')"><ion-icon name="settings-outline"></ion-icon></button></div></div>';
+    html += '<div class="screen-body">';
+    html += '<div class="profile-head">'+initialsAvatar('BE',76)+
+      '<h2>Bulut Emre</h2><div class="sub">📍 Kadıköy, İstanbul · Üye: 2025</div></div>';
+
+    html += '<div class="stat-grid">'+
+      '<div class="stat-box"><b>%96</b><span>Yanıt oranı</span></div>'+
+      '<div class="stat-box"><b>24</b><span>Katıldığı masa</span></div>'+
+      '<div class="stat-box"><b>4.9★</b><span>Puan</span></div>'+
+    '</div>';
+
+    html += '<div class="field-label" style="margin-top:6px;">Favori Oyunlar</div><div class="chip-grid">'+
+      '<div class="chip selected">🎱 Bilardo</div><div class="chip selected">🀄 Okey</div><div class="chip selected">♟️ Satranç</div>'+
+    '</div>';
+
+    html += '<div class="field-label">Hesap</div>';
+    [
+      {icon:'checkmark-circle-outline', label:'Doğrulama rozetleri'},
+      {icon:'notifications-outline', label:'Bildirim tercihleri'},
+      {icon:'sparkles-outline', label:'Quadmate Premium'},
+      {icon:'lock-closed-outline', label:'Gizlilik & Güvenlik'},
+      {icon:'globe-outline', label:'Dil'}
+    ].forEach(function(row){
+      html += '<div class="list-row" onclick="App.toast(\'Demo ekranı\')"><span class="ico"><ion-icon name="'+row.icon+'"></ion-icon></span><span>'+row.label+'</span><span class="chev">›</span></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- overlay shell ----------------
+  function renderOverlay(){
+    var payload;
+    if (state.overlay === 'detail') payload = renderDetail(state.overlayData.table);
+    else if (state.overlay === 'filters') payload = renderFiltersOverlay();
+    else if (state.overlay === 'create') payload = renderCreateOverlay();
+    else if (state.overlay === 'chat') payload = renderChatOverlay(state.overlayData.chat);
+    else return '';
+
+    var html = '<div class="overlay">';
+    html += '<div class="overlay-header"><button class="icon-btn" onclick="App.closeOverlay()">←</button><h2>'+esc(payload.title)+'</h2></div>';
+    html += '<div class="overlay-body">'+payload.body+'</div>';
+    if (payload.isChat){
+      html += '<div class="chat-input-row"><input placeholder="Mesaj yaz..." onkeydown="if(event.key===\'Enter\'){App.toast(\'Mesaj gönderildi (demo)\'); this.value=\'\';}"/><div class="send-dot" onclick="App.toast(\'Mesaj gönderildi (demo)\')"><ion-icon name="send" style="font-size:15px;"></ion-icon></div></div>';
+    } else if (payload.footer){
+      html += '<div class="overlay-footer">'+payload.footer+'</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- actions ----------------
+  var App = {
+    setTab: function(t){ state.tab = t; state.overlay = null; render(); },
+    toggleView: function(){ state.discoverView = state.discoverView==='list' ? 'map' : 'list'; state.activePinId=null; render(); },
+    clearActivities: function(){ state.filters.activities.clear(); render(); },
+    toggleActivity: function(id){
+      if (state.filters.activities.has(id)) state.filters.activities.delete(id);
+      else state.filters.activities.add(id);
+      render();
+    },
+    setRadius: function(km){ state.filters.radius = km; render(); },
+    setSkillFilter: function(id){ state.filters.skill = id; render(); },
+    resetFilters: function(){ state.filters = {activities:new Set(), radius:5, skill:'fark_etmez'}; render(); },
+    selectPin: function(id){ state.activePinId = state.activePinId===id ? null : id; render(); },
+    openFilters: function(){ state.overlay='filters'; render(); },
+    openDetail: function(id){
+      var t = TABLES.filter(function(x){return x.id===id;})[0];
+      state.overlay = 'detail'; state.overlayData = {table:t}; render();
+    },
+    openCreate: function(){ state.overlay='create'; render(); },
+    setCreateField: function(k,v){ state.createForm[k]=v; render(); },
+    publishTable: function(){
+      var f = state.createForm;
+      if (!f.activityId){ toast('Bir oyun türü seç.'); return; }
+      if (!f.venue || !f.venue.trim()){ toast('Mekan adını gir.'); return; }
+      if (!f.time){ toast('Bir saat seç.'); return; }
+      state.overlay = null;
+      render();
+      toast('Masa yayınlandı 🎉');
+      state.createForm = { activityId: null, venue:'', date:0, time:null, duration:90, seats:2, skill:'fark_etmez' };
+    },
+    sendRequest: function(id){
+      state.sentRequestIds.add(id);
+      render();
+      toast('İstek gönderildi ✅');
+    },
+    openChat: function(id){
+      var c = CHATS.filter(function(x){return x.id===id;})[0];
+      c.unread = false;
+      state.overlay = 'chat'; state.overlayData = {chat:c}; render();
+    },
+    setRequestsTab: function(t){ state.requestsTab = t; render(); },
+    resolveIncoming: function(id, accepted){
+      state.incoming = state.incoming.filter(function(r){return r.id!==id;});
+      render();
+      toast(accepted ? 'İstek kabul edildi ✅' : 'İstek reddedildi');
+    },
+    closeOverlay: function(){ state.overlay = null; render(); },
+    toast: toast
+  };
+  window.App = App;
+
+  render();
+  window.addEventListener('resize', initEdgeFades);
+})();
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

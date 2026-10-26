@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram İş Botu — Uyurken Çalışan Personel (Demo)</title>
+<meta name="description" content="İstediğiniz kaynağı 7/24 izleyen, koşul sağlanınca Telegram'a bildirim düşüren iş botunun interaktif demosu.">
+<link rel="canonical" href="https://bescript.com.tr/cozumler/telegram/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/cozumler/telegram/">
+<meta property="og:title" content="Telegram İş Botu — Uyurken Çalışan Personel (Demo)">
+<meta property="og:description" content="İstediğiniz kaynağı 7/24 izleyen, koşul sağlanınca Telegram'a bildirim düşüren iş botunun interaktif demosu.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Telegram İş Botu — Uyurken Çalışan Personel (Demo)">
+<meta name="twitter:description" content="İstediğiniz kaynağı 7/24 izleyen, koşul sağlanınca Telegram'a bildirim düşüren iş botunun interaktif demosu.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF3F8;
+    --ink:#12222F;
+    --muted:#5A6C7D;
+    --blue:#2AABEE;
+    --blue-dark:#1B8DC7;
+    --line:#D2DDE7;
+    --card:#FFFFFF;
+    --green:#0E8A4A;
+    --tg-bg:#0E1621;
+    --tg-bubble:#182533;
+    --tg-text:#F1F5F9;
+    --tg-muted:#7F91A4;
+    --tg-accent:#2AABEE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+  .demo-banner{background:var(--ink);color:#fff;text-align:center;padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .demo-banner b{color:var(--blue)}
+
+  header{padding:44px 0 8px;text-align:center}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--blue-dark);letter-spacing:.12em;margin-bottom:12px}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;font-variation-settings:'wdth' 114;font-size:clamp(28px,4.6vw,42px);max-width:22ch;margin:0 auto;letter-spacing:-.01em}
+  h1 span{color:var(--blue-dark)}
+  .sub{color:var(--muted);max-width:58ch;font-size:16px;margin:14px auto 0}
+  .sub b{color:var(--ink)}
+
+  .scenarios{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:26px 0 16px}
+  .scen{
+    display:flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;
+    padding:10px 16px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);color:var(--muted);cursor:pointer;transition:all .15s;
+  }
+  .scen:hover{border-color:var(--blue);color:var(--ink)}
+  .scen.active{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+  .scen:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .scene-note{text-align:center;font-size:13.5px;color:var(--muted);max-width:66ch;margin:0 auto 18px}
+  .scene-note b{color:var(--ink)}
+
+  .phone-zone{display:flex;justify-content:center;padding-bottom:6px}
+  .phone{
+    width:100%;max-width:440px;background:var(--tg-bg);
+    border-radius:22px;overflow:hidden;border:6px solid #0A1119;
+    box-shadow:0 24px 60px -20px rgba(18,34,47,.4);
+    display:flex;flex-direction:column;height:600px;
+  }
+  .tg-head{background:#17212B;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .tg-avatar{
+    width:40px;height:40px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--blue),#1B6FA8);
+    display:grid;place-items:center;font-size:19px;
+  }
+  .tg-title{color:var(--tg-text);font-weight:600;font-size:15px;line-height:1.2}
+  .tg-status{color:var(--tg-accent);font-size:12px}
+  .tg-body{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:9px}
+  .tmsg{
+    max-width:92%;background:var(--tg-bubble);border-radius:12px;border-top-left-radius:4px;
+    padding:10px 13px;color:var(--tg-text);font-size:13.6px;line-height:1.45;
+    white-space:pre-wrap;word-wrap:break-word;align-self:flex-start;animation:pop .25s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.tmsg{animation:none}}
+  .tmsg b{font-weight:600}
+  .tmsg .tm-time{display:block;text-align:right;font-size:10px;color:var(--tg-muted);margin-top:4px}
+  .tmsg.tsys{align-self:center;background:rgba(255,255,255,.06);font-size:11.5px;color:var(--tg-muted);border-radius:999px;padding:5px 14px;font-family:'IBM Plex Mono',monospace;text-align:center}
+  .ibtns{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:9px}
+  .ibtns.single{grid-template-columns:1fr}
+  .ibtn{
+    background:rgba(42,171,238,.12);border:1px solid rgba(42,171,238,.35);
+    color:var(--tg-accent);font-size:12.5px;font-weight:600;
+    border-radius:8px;padding:8px 6px;cursor:pointer;font-family:inherit;
+    transition:background .15s;
+  }
+  .ibtn:hover{background:rgba(42,171,238,.22)}
+  .ibtn:disabled{opacity:.45;cursor:default}
+  .ibtn:focus-visible{outline:2px solid var(--tg-accent);outline-offset:1px}
+
+  .value{padding:40px 0 6px}
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:820px){.value-grid{grid-template-columns:1fr}}
+  .vcell{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .vcell h3{font-size:14px;font-weight:700;margin-bottom:5px}
+  .vcell p{font-size:13px;color:var(--muted)}
+
+  .pricing{padding:38px 0 56px}
+  .price-card{border:1px solid var(--ink);border-radius:16px;background:var(--card);padding:34px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .price-left h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:23px;margin-bottom:8px}
+  .price-meta{display:flex;gap:10px;flex-wrap:wrap}
+  .pm{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;border:1px solid var(--line);border-radius:8px;padding:6px 12px;color:var(--muted)}
+  .pm b{color:var(--blue-dark)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:12px 22px;border-radius:9px;border:1px solid var(--ink);color:var(--ink);transition:all .15s}
+  .btn:hover{background:var(--ink);color:#fff}
+  .btn-wa{background:var(--green);border-color:var(--green);color:#fff}
+  .btn-wa:hover{background:#0A6B39;border-color:#0A6B39}
+
+  footer{border-top:1px solid var(--line);padding:18px 0 34px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--blue-dark);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">İNTERAKTİF DEMO — bildirimler canlı düşüyor, <b>butonlara basılabilir</b> · aynı motor Armut iş takibinde 7/24 gerçek çalışıyor</div>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">FİYAT · İLAN · İHALE · STOK · SİPARİŞ — NE İZLETİRSENİZ</p>
+    <h1>Uyurken çalışan <span>personeliniz.</span></h1>
+    <p class="sub">İstediğiniz kaynağı 7/24 izler; koşul sağlandığı an Telegram'ınıza düşürür, tek dokunuşla aksiyon aldırır. <b>Senaryo seçin</b> — bildirimlerin gelişini izleyin, butonlara kendiniz basın.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="scenarios" role="tablist" aria-label="Senaryo seçimi">
+    <button class="scen active" data-s="fiyat" role="tab">💰 Fiyat Takibi</button>
+    <button class="scen" data-s="ilan" role="tab">📋 İhale & İlan Takibi</button>
+    <button class="scen" data-s="siparis" role="tab">🛒 Sipariş Bildirimi</button>
+  </div>
+  <p class="scene-note" id="sceneNote"></p>
+
+  <div class="phone-zone">
+    <div class="phone">
+      <div class="tg-head">
+        <div class="tg-avatar" id="tgAvatar">🤖</div>
+        <div>
+          <div class="tg-title" id="tgTitle">Takip Botu</div>
+          <div class="tg-status">bot · 7/24 çevrimiçi</div>
+        </div>
+      </div>
+      <div class="tg-body" id="tgBody"></div>
+    </div>
+  </div>
+  <p class="scene-note" style="margin-top:14px">↻ Senaryoya tekrar tıklayarak baştan oynatabilirsiniz</p>
+</div>
+
+<section class="value">
+  <div class="wrap">
+    <div class="value-grid">
+      <div class="vcell"><h3>⚡ Saniyeler içinde haber</h3><p>Rakip fiyat düşürdü, yeni ihale çıktı, kritik stok bitti — siz öğrenene kadar fırsat kaçmaz, bot anında bildirir.</p></div>
+      <div class="vcell"><h3>👆 Bildirimden aksiyona</h3><p>Mesajın altındaki butonlarla onayla, reddet, ekibe ata — telefonu açıp panele girmeye gerek kalmaz.</p></div>
+      <div class="vcell"><h3>🔧 Kanıtlanmış motor</h3><p>Aynı altyapı kendi iş akışımda aylardır 7/24 çalışıyor: platform ilanlarını anlık yakalayıp Telegram'a düşüren botum hiç iş kaçırmadı.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <div class="price-card">
+      <div class="price-left">
+        <h2>Neyi takip edelim?</h2>
+        <div class="price-meta">
+          <span class="pm"><b>15.000 TL</b>'den başlayan</span>
+          <span class="pm"><b>5 günde</b> teslim</span>
+          <span class="pm">Kendi sunucunuzda — <b>abonelik yok</b></span>
+        </div>
+      </div>
+      <div class="btns">
+        <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        <a class="btn" href="mailto:iletisim@bescript.com.tr?subject=Telegram%20Bot%20Teklif">Teklif İste ✉</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>telegram iş botu · interaktif demo</span>
+    <span>geliştirici: <a href="../../">BeScript</a></span>
+  </div>
+</footer>
+
+<script>
+const $body=document.getElementById("tgBody"),$title=document.getElementById("tgTitle"),
+$avatar=document.getElementById("tgAvatar"),$note=document.getElementById("sceneNote");
+const now=()=>new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+let timers=[];const wait=ms=>new Promise(r=>{const t=setTimeout(r,ms);timers.push(t)});
+
+function addMsg(text,btns,sys){
+  const d=document.createElement("div");
+  d.className="tmsg"+(sys?" tsys":"");
+  let h=text.replace(/\*(.+?)\*/g,"<b>$1</b>");
+  if(!sys)h+=`<span class="tm-time">${now()}</span>`;
+  d.innerHTML=h;
+  if(btns){
+    const g=document.createElement("div");
+    g.className="ibtns"+(btns.length===1?" single":"");
+    btns.forEach(bt=>{
+      const b=document.createElement("button");
+      b.className="ibtn";b.textContent=bt.l;
+      b.addEventListener("click",()=>{
+        g.querySelectorAll(".ibtn").forEach(x=>x.disabled=true);
+        addMsg(bt.r);
+      });
+      g.appendChild(b);
+    });
+    d.appendChild(g);
+  }
+  $body.appendChild(d);$body.scrollTop=$body.scrollHeight;
+}
+
+const SCENS={
+fiyat:{
+  t:"Fiyat Takip Botu",a:"💰",
+  note:"Örnek: e-ticaret satıcısı, 3 rakibinin fiyatını izletiyor. Eşik aşılınca bildirim + tek dokunuşla aksiyon.",
+  async run(){
+    addMsg("Takip aktif · 3 rakip · 14 ürün · kontrol sıklığı: 10 dk",null,true);
+    await wait(900);
+    addMsg("📉 *FİYAT DÜŞTÜ!*\n\n🏷️ Ürün: Akıllı Robot Süpürge X20\n🏪 Rakip: TeknoMarket\n💰 2.899 TL → *2.649 TL* (−%8,6)\n\n📊 Sizin fiyatınız: 2.799 TL\n⚠️ Artık rakipten *150 TL pahalısınız*",[
+      {l:"✓ Fiyatımı 2.629 TL yap",r:"✅ *Fiyat güncellendi:* 2.799 → 2.629 TL\nMağaza panelinize işlendi. Yeni fark: rakipten 20 TL ucuzsunuz. 🏆"},
+      {l:"✕ Şimdilik izle",r:"👁️ İzlemeye devam. Rakip 2.600 TL altına inerse tekrar haber vereceğim."}
+    ]);
+    await wait(2600);
+    addMsg("📈 *STOK UYARISI*\n\n🏪 Rakip: HızlıAlışveriş\n🏷️ Bluetooth Kulaklık Pro — *stok tükendi*\n\n💡 Fırsat: bu üründe şu an tek satıcı sizsiniz. Fiyat artışı değerlendirilebilir.",[
+      {l:"↑ %5 zam uygula",r:"✅ Fiyat 1.499 → *1.574 TL* olarak güncellendi. Rakip stok girene kadar izlemedeyim."},
+      {l:"Raporu gör",r:"📊 *Günlük özet:* 14 ürün · 3 fiyat değişimi · 1 stok fırsatı · ort. rekabet farkınız: −%2,1 (iyi durumdasınız 👍)"}
+    ]);
+  }
+},
+ilan:{
+  t:"İhale & İlan Botu",a:"📋",
+  note:"Örnek: inşaat firması EKAP ihalelerini, nakliyeci yeni iş ilanlarını izletiyor. Kriterlere uyan çıkar çıkmaz bildirim.",
+  async run(){
+    addMsg("Takip aktif · EKAP + 2 ilan sitesi · filtre: Kocaeli, yapım işleri, 5-50M TL",null,true);
+    await wait(900);
+    addMsg("🔔 *YENİ İHALE — kriterlerinize uyuyor!*\n\n🏛️ Kurum: Kocaeli Büyükşehir Belediyesi\n📋 İş: Park ve rekreasyon alanı yapımı\n💰 Yaklaşık maliyet: 18,4M TL\n📅 Son teklif: 12 gün sonra\n📍 İzmit",[
+      {l:"⭐ İlgileniyorum",r:"✅ *Takibe alındı.* Şartname dokümanı indirildi, klasörünüze kaydedildi. Son teklif tarihinden 3 gün önce hatırlatacağım. 🔔"},
+      {l:"✕ Uygun değil",r:"🗑️ Gizlendi. Benzer ihalelerde puanlamayı buna göre güncelledim."}
+    ]);
+    await wait(2600);
+    addMsg("🔔 *YENİ İLAN — 2 dakika önce yayınlandı*\n\n📦 Kategori: Fabrika taşıma, Gebze → Manisa\n💰 Bütçe: müşteri teklif bekliyor\n⚡ İlk teklif veren genelde kazanıyor!",[
+      {l:"✓ Hemen teklif ver",r:"🚀 *Hazır teklif şablonunuz gönderildi.* Yanıt gelirse anında bildireceğim. (Rakiplerinizden 9 dk öndesiniz)"},
+      {l:"✕ Reddet",r:"Gizlendi. Bu kategorideki ilanları göstermeye devam edeyim mi? Ayarlardan değiştirebilirsiniz."}
+    ]);
+  }
+},
+siparis:{
+  t:"Sipariş & Operasyon Botu",a:"🛒",
+  note:"Örnek: restoran/e-ticaret operasyonu. Yeni sipariş ekip kanalına düşer, onay/atama tek dokunuş.",
+  async run(){
+    addMsg("Ekip kanalı · 3 üye çevrimiçi · vardiya: akşam",null,true);
+    await wait(900);
+    addMsg("🛒 *YENİ SİPARİŞ #2847*\n\n👤 Ayşe K. (⭐ 4,9 · 12. sipariş)\n📦 2× Kuzu Tandır, 1× Sütlaç, 2× Ayran\n💰 1.600 TL · Online ödendi ✓\n📍 Yahyakaptan Mah. — 3,2 km",[
+      {l:"✓ Onayla → Mutfağa",r:"👨‍🍳 *Mutfak ekranına düştü.* Tahmini hazırlık: 25 dk. Kurye otomatik atandı: Emre (şu an 1,1 km mesafede). Müşteriye 'hazırlanıyor' bildirimi gitti. 📲"},
+      {l:"⏱ 15 dk gecikme bildir",r:"📲 Müşteriye kibar gecikme mesajı + %10 indirim kuponu gönderildi. (Müşteri kaybetmemenin maliyeti: 160 TL 😉)"}
+    ]);
+    await wait(2600);
+    addMsg("⚠️ *KRİTİK STOK*\n\n🥩 Kuzu eti: *2 porsiyon kaldı*\nBugünkü satış hızıyla ~40 dk içinde tükenir.",[
+      {l:"📞 Tedarikçiye sipariş geç",r:"✅ Tedarikçi WhatsApp'ına hazır sipariş mesajı gönderildi: '10 kg kuzu, yarın 09:00 teslim.' Onay gelince haber veririm."},
+      {l:"Menüden kaldır",r:"✅ Kuzu Tandır tüm kanallarda (QR menü + paket servis) 'tükendi' olarak işaretlendi. Stok girince otomatik açılacak."}
+    ]);
+  }
+}};
+
+let cur="fiyat";
+function play(k){
+  cur=k;timers.forEach(t=>clearTimeout(t));timers=[];
+  const S=SCENS[k];
+  document.querySelectorAll(".scen").forEach(b=>b.classList.toggle("active",b.dataset.s===k));
+  $title.textContent=S.t;$avatar.textContent=S.a;$note.innerHTML=S.note;
+  $body.innerHTML="";S.run();
+}
+document.querySelectorAll(".scen").forEach(b=>b.addEventListener("click",()=>play(b.dataset.s)));
+play("fiyat");
+</script>
+</body>
+</html>

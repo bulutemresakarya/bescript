@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46" role="img" aria-label="TrueMax.ai">
+  <title>TrueMax.ai</title>
+  <!-- truemax-ai/index.html icindeki CSS ile cizilmis .bot-head markasinin
+       birebir SVG karsiligi (46x46, olculer 1:1 korundu) -->
+  <defs>
+    <linearGradient id="tmBody" x1="0.15" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#DDE7F0"/>
+      <stop offset="1" stop-color="#B9CBDA"/>
+    </linearGradient>
+    <clipPath id="tmClip"><rect width="46" height="46" rx="14"/></clipPath>
+  </defs>
+
+  <rect width="46" height="46" rx="14" fill="url(#tmBody)"/>
+  <!-- inset 0 -3px 0 rgba(0,0,0,.12) -->
+  <g clip-path="url(#tmClip)"><rect y="43" width="46" height="3" fill="#000" opacity="0.12"/></g>
+
+  <!-- anten: 2.5x7 cubuk + ucundaki 7x7 top -->
+  <rect x="21.75" y="7" width="2.5" height="7" fill="#17323F"/>
+  <circle cx="23.05" cy="5.5" r="2.75" fill="#39C2F7" stroke="#17323F" stroke-width="1.5"/>
+
+  <!-- yuz: 30x24 border-box, 3px cerceve -->
+  <rect x="9.5" y="12.5" width="27" height="21" rx="6.5" fill="#39C2F7" stroke="#17323F" stroke-width="3"/>
+  <circle cx="18.5" cy="22.5" r="2.5" fill="#17323F"/>
+  <circle cx="27.5" cy="22.5" r="2.5" fill="#17323F"/>
+</svg>

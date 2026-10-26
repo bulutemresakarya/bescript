@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danışman Performans Dashboard'u — Teknik Vaka Analizi</title>
+<meta name="description" content="40+ gayrimenkul danışmanının performansını Google Sheets verisinden gerçek zamanlı panoya çeviren dashboard: kiosk modu, oyunlaştırma ve lineer regresyon ile ciro tahmini.">
+<link rel="canonical" href="https://bescript.com.tr/vaka-analizi/dashboard/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/vaka-analizi/dashboard/">
+<meta property="og:title" content="Danışman Performans Dashboard'u — Teknik Vaka Analizi">
+<meta property="og:description" content="Haftalık 8 saatlik manuel raporlamayı 5 saniyeye indiren gerçek zamanlı performans panosunun mimarisi.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Danışman Performans Dashboard'u — Teknik Vaka Analizi">
+<meta name="twitter:description" content="Google Sheets'i veritabanı olarak kullanan, 30 saniyede bir yenilenen performans panosu.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4; --ink:#141F2A; --ink-soft:#3E4C5A;
+    --line:#C6CDD6; --cobalt:#1746D1; --live:#0E8A4A; --demo:#B45309;
+    --card:#F7F9FB; --warn:#B42318;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  a{color:var(--cobalt)}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1040px}
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
+
+  .notice{background:var(--ink);color:#fff;text-align:center;padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.03em}
+  .notice b{color:#FFB547}
+
+  header.hero{padding:52px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.08em;margin-bottom:16px}
+  h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 116;font-weight:850;font-size:clamp(30px,5.4vw,48px);line-height:1.06;letter-spacing:-.015em}
+  .lede{margin-top:20px;color:var(--ink-soft);font-size:17.5px;max-width:60ch}
+  .lede b{color:var(--ink)}
+
+  .meta{margin-top:32px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
+  .meta div{padding:12px 20px;border-right:1px solid var(--line);flex:1;min-width:140px}
+  .meta div:last-child{border-right:none}
+  .meta .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase}
+  .meta .v{font-weight:600;font-size:14.5px;margin-top:3px}
+
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 112;font-size:25px;letter-spacing:-.01em;margin-bottom:8px}
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:22px}
+  p{margin-bottom:14px;max-width:68ch}
+  p:last-child{margin-bottom:0}
+  code{font-family:'IBM Plex Mono',monospace;background:var(--card);border:1px solid var(--line);padding:1px 6px;border-radius:4px;font-size:13px}
+
+  .ps{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  @media(max-width:660px){.ps{grid-template-columns:1fr}}
+  .ps > div{border:1px solid var(--line);background:var(--card);padding:18px 20px}
+  .ps h3{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px}
+  .ps .prob h3{color:var(--warn)}
+  .ps .sol h3{color:var(--live)}
+  .ps ul{margin-left:18px;font-size:14.5px;color:var(--ink-soft)}
+  .ps li{margin-bottom:8px}
+  .ps li b{color:var(--ink)}
+
+  .feat{border:1px solid var(--line);background:var(--card);padding:18px 20px;margin-bottom:12px}
+  .feat h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px}
+  .feat p{font-size:14.5px;color:var(--ink-soft);margin-bottom:0}
+  .feat p b{color:var(--ink)}
+
+  .stackgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:8px}
+  .stackgrid > div{border:1px solid var(--line);background:var(--card);padding:16px 18px}
+  .stackgrid h3{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .stackgrid p{font-size:14px;margin:0}
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}
+  th,td{text-align:left;padding:10px 14px;border:1px solid var(--line)}
+  th{background:var(--card);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+  td b{color:var(--cobalt)}
+
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:18px}
+  .shots figure{border:1px solid var(--line);background:var(--card);padding:8px}
+  .shots img{width:100%;height:auto;display:block;border-radius:3px}
+  .shots figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:7px;text-align:center}
+  .shots.narrow{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+
+  .cta{padding:46px 0;border-bottom:1px solid var(--line)}
+  .cta-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:11px 18px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none}
+  .btn:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+  .btn-primary:hover{background:#1039ad;color:#fff}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+
+  footer{padding:26px 0}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);max-width:1040px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· vaka analizi</span></a>
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="/vaka-analizi/">tüm analizler</a>
+      <a href="/dashboard/">interaktif demo</a>
+      <a href="/#iletisim">iletişim</a>
+    </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
+  </div>
+</div>
+
+<div class="notice">TEKNİK VAKA ANALİZİ · Müşteri gizliliği nedeniyle kaynak kod <b>kapalı</b> · Mimari ve sonuçlar aşağıda</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">GAYRİMENKUL · VERİ GÖRSELLEŞTİRME · SAAS</p>
+    <h1>8 saatlik haftalık raporu 5 saniyeye indirmek</h1>
+    <p class="lede">40'tan fazla gayrimenkul danışmanının satış performansını, ofis cirosunu ve rekabet analizini <b>gerçek zamanlı</b> takip eden pano. Google Sheets'teki dağınık veriyi modern bir arayüze çevirir ve ofis TV'lerinde kendi kendine döner.</p>
+    <div class="meta">
+      <div><div class="k">Rolüm</div><div class="v">Full-Stack Developer</div></div>
+      <div><div class="k">Ölçek</div><div class="v">40+ danışman</div></div>
+      <div><div class="k">Durum</div><div class="v">Production · pasif</div></div>
+      <div><div class="k">Tarih</div><div class="v">Haziran 2025</div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>İş problemi ve çözüm</h2>
+    <p class="sec-note">manuel süreçler ve veri körlüğü</p>
+    <div class="ps">
+      <div class="prob">
+        <h3>Problem</h3>
+        <ul>
+          <li><b>Zaman kaybı:</b> Haftalık raporları hazırlamak yöneticilerin 8 saatini alıyordu</li>
+          <li><b>Hata riski:</b> Manuel veri girişlerinde %15 hata oranı vardı</li>
+          <li><b>Motivasyon eksikliği:</b> Danışmanlar performansını anlık göremediği için rekabet oluşmuyordu</li>
+          <li><b>Sunum zorluğu:</b> Müşteri toplantılarında güncel veriyi göstermek zordu</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <h3>Çözüm</h3>
+        <ul>
+          <li><b>Otomasyon:</b> Veriler Google Sheets'ten 5 dakikalık senkronizasyonla otomatik çekilir</li>
+          <li><b>Görünürlük:</b> Ofis TV'lerinde kiosk modu ile canlı veriler döner</li>
+          <li><b>Oyunlaştırma:</b> Canlı liderlik tabloları ve kulüp hedefleri rekabeti besler</li>
+          <li><b>Güncellik:</b> Pano 30 saniyede bir kendini yeniler</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Ana özellikler</h2>
+    <p class="sec-note">panoyu ayakta tutan dört modül</p>
+    <div class="feat">
+      <h3>Gerçek zamanlı veri entegrasyonu</h3>
+      <p>215+ satırlık işlem verisi ve personel listesi otomatik senkronize edilir. Dolar, euro, altın ve kripto verileri ekranın altında canlı akar. <b>TanStack Query</b> ile önbellekleme yapılıp sunucu yükü minimize edilir.</p>
+    </div>
+    <div class="feat">
+      <h3>Performans analitiği</h3>
+      <p>Haftalık, aylık, 3/6 aylık ve yıllık grafikler. <b>Lineer regresyon</b> ile gelecek üç ayın ciro tahmini. Yıldızlar Kulübü'nden Crown Kulübü'ne ilerleme çubukları ve kalan ciro hesabı.</p>
+    </div>
+    <div class="feat">
+      <h3>TV sunum modu (kiosk)</h3>
+      <p>Ofis içi ekranlar için dashboard sayfaları arasında <b>otomatik rotasyon</b>: liderlik tablosu, piyasa, doğum günleri, recruiting. Klavye kısayollarıyla manuel kontrol da var.</p>
+    </div>
+    <div class="feat">
+      <h3>İşe alım yarışması</h3>
+      <p>Danışmanların ofise kazandırdığı adayların takibi, <b>referans hiyerarşisi</b> ve görselleştirilmiş recruiting liderleri tablosu.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Teknik mimari</h2>
+    <p class="sec-note">performans, tip güvenliği ve ölçeklenebilirlik üzerine</p>
+    <div class="stackgrid">
+      <div>
+        <h3>Frontend</h3>
+        <p>React 18 · TypeScript · Vite · TanStack Query · React Context · Tailwind CSS · shadcn/ui · Framer Motion · Recharts · Wouter</p>
+      </div>
+      <div>
+        <h3>Backend</h3>
+        <p>Node.js 20 · Express.js · PostgreSQL · Drizzle ORM · Google Sheets API v4 · ExchangeRate-API · CoinGecko</p>
+      </div>
+      <div>
+        <h3>Güvenlik &amp; dağıtım</h3>
+        <p>Helmet · rate limiting · ortam değişkeni gizleme · Replit Autoscale · özel alan adı üzerinde SSL</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Sonuçlar</h2>
+    <p class="sec-note">öncesi ve sonrası</p>
+    <table>
+      <tr><th>Metrik</th><th>Önce</th><th>Sonra</th></tr>
+      <tr><td>Raporlama süresi</td><td>8 saat</td><td><b>5 saniye</b> · tam otomatik</td></tr>
+      <tr><td>Veri güncelliği</td><td>Haftalık</td><td><b>30 saniye</b></td></tr>
+      <tr><td>Hata oranı</td><td>%15</td><td><b>%0,01</b></td></tr>
+      <tr><td>Ofis motivasyonu</td><td>Ölçülmüyordu</td><td><b>%40 artış</b> · görsel rekabet</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Ekran görüntüleri</h2>
+    <p class="sec-note">masaüstü pano ve mobil görünüm</p>
+    <div class="shots">
+      <figure><img src="assets/1-pc.png" alt="Ana ekran, masaüstü" loading="lazy"><figcaption>Ana ekran</figcaption></figure>
+      <figure><img src="assets/2-pc.png" alt="Dönemsel performans analizi" loading="lazy"><figcaption>Dönemsel analiz</figcaption></figure>
+      <figure><img src="assets/3-pc.png" alt="Haftalık ciro liderleri" loading="lazy"><figcaption>Ciro liderleri</figcaption></figure>
+    </div>
+    <div class="shots narrow" style="margin-top:14px">
+      <figure><img src="assets/1_mobil.jpg" alt="Ana ekran, mobil" loading="lazy"><figcaption>Mobil · ana ekran</figcaption></figure>
+      <figure><img src="assets/2_mobil.jpg" alt="Dönemsel performans, mobil" loading="lazy"><figcaption>Mobil · analiz</figcaption></figure>
+      <figure><img src="assets/3_mobil.jpg" alt="Rekabet analizi, mobil" loading="lazy"><figcaption>Mobil · rekabet</figcaption></figure>
+      <figure><img src="assets/4_mobil.jpg" alt="Recruiting rekabeti" loading="lazy"><figcaption>Recruiting</figcaption></figure>
+      <figure><img src="assets/5_mobil.jpg" alt="Doğum günleri ekranı" loading="lazy"><figcaption>Doğum günleri</figcaption></figure>
+      <figure><img src="assets/6_mobil.jpg" alt="Giriş ekranı" loading="lazy"><figcaption>Giriş ekranı</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-in">
+      <div>
+        <h2 style="margin-bottom:6px">Panoyu kendin gez</h2>
+        <p style="color:var(--ink-soft);font-size:15px;margin:0">İnteraktif demoda liderlik tablosu, ciro trendi ve piyasa göstergeleri canlı çalışıyor.</p>
+      </div>
+      <div class="btns">
+        <a class="btn btn-primary" href="/dashboard/">İnteraktif demo →</a>
+        <a class="btn" href="/vaka-analizi/">Diğer analizler</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BeScript Yazılım Çözümleri</span>
+    <span>kartepe / kocaeli · uzaktan çalışmaya açık</span>
+  </div>
+</footer>
+
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
+</body>
+</html>

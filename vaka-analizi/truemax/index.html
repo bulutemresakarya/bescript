@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueMax — Teknik Vaka Analizi</title>
+<meta name="description" content="RE/MAX True ofisi için kurulan otonom gayrimenkul müşteri kazanım hattı: sıfır-tıklama veri hasadı, 120 dakikalık SLA tahkim motoru ve WhatsApp yapay zeka ön görüşmesi.">
+<link rel="canonical" href="https://bescript.com.tr/vaka-analizi/truemax/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/vaka-analizi/truemax/">
+<meta property="og:title" content="TrueMax — Teknik Vaka Analizi">
+<meta property="og:description" content="Sıfır-tıklama veri hasadı, SLA tahkim motoru ve WhatsApp yapay zeka orkestrasyonu üzerine bir mühendislik vaka analizi.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TrueMax — Teknik Vaka Analizi">
+<meta name="twitter:description" content="Ofis portföyünü %60, ciroyu %40 artıran otonom gayrimenkul satış hattının mimarisi.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4; --ink:#141F2A; --ink-soft:#3E4C5A;
+    --line:#C6CDD6; --cobalt:#1746D1; --live:#0E8A4A; --demo:#B45309;
+    --card:#F7F9FB; --warn:#B42318;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  a{color:var(--cobalt)}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1040px}
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
+
+  .notice{background:var(--ink);color:#fff;text-align:center;padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.03em}
+  .notice b{color:#FFB547}
+
+  header.hero{padding:52px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.08em;margin-bottom:16px}
+  h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 116;font-weight:850;font-size:clamp(30px,5.4vw,48px);line-height:1.06;letter-spacing:-.015em}
+  .lede{margin-top:20px;color:var(--ink-soft);font-size:17.5px;max-width:60ch}
+  .lede b{color:var(--ink)}
+
+  .meta{margin-top:32px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
+  .meta div{padding:12px 20px;border-right:1px solid var(--line);flex:1;min-width:140px}
+  .meta div:last-child{border-right:none}
+  .meta .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase}
+  .meta .v{font-weight:600;font-size:14.5px;margin-top:3px}
+
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 112;font-size:25px;letter-spacing:-.01em;margin-bottom:8px}
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:22px}
+  p{margin-bottom:14px;max-width:68ch}
+  p:last-child{margin-bottom:0}
+  code{font-family:'IBM Plex Mono',monospace;background:var(--card);border:1px solid var(--line);padding:1px 6px;border-radius:4px;font-size:13px}
+
+  .impact{display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card);margin-top:4px}
+  .impact div{padding:18px 22px;border-right:1px solid var(--line);flex:1;min-width:160px}
+  .impact div:last-child{border-right:none}
+  .impact .n{font-family:'Archivo',sans-serif;font-weight:850;font-size:30px;color:var(--cobalt);line-height:1.1}
+  .impact .l{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:5px;letter-spacing:.03em}
+
+  /* katman diyagrami */
+  .layers{margin-top:20px}
+  .layer{border:1px solid var(--line);background:var(--card);margin-bottom:8px}
+  .layer-h{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:#fff}
+  .layer-n{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--cobalt);color:#fff;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0}
+  .layer-t{font-family:'Archivo',sans-serif;font-weight:700;font-size:15.5px}
+  .flow{display:flex;align-items:stretch;gap:0;padding:14px 16px;flex-wrap:wrap}
+  .node{border:1px solid var(--line);background:#fff;padding:9px 13px;font-size:13px;min-width:0}
+  .node b{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:.04em;margin-bottom:2px;text-transform:uppercase}
+  .arrow{display:grid;place-items:center;padding:0 10px;color:var(--cobalt);font-size:16px;flex-shrink:0}
+  @media(max-width:620px){.arrow{transform:rotate(90deg);padding:6px 0;width:100%}.flow{flex-direction:column}.node{width:100%}}
+
+  .chal{border-left:3px solid var(--cobalt);padding:2px 0 2px 20px;margin-bottom:30px}
+  .chal h3{font-family:'Archivo',sans-serif;font-weight:750;font-size:19px;margin-bottom:12px}
+  .chal .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+  .chal .lbl.p{color:var(--warn)}
+  .chal .lbl.s{color:var(--live)}
+  .chal p{font-size:15px;margin-bottom:14px}
+  .chal ul{margin:0 0 14px 20px;font-size:15px;color:var(--ink-soft)}
+  .chal li{margin-bottom:7px}
+  .chal li b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}
+  th,td{text-align:left;padding:10px 14px;border:1px solid var(--line)}
+  th{background:var(--card);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+  td b{color:var(--cobalt)}
+
+  .cta{padding:46px 0;border-bottom:1px solid var(--line)}
+  .cta-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:11px 18px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none}
+  .btn:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+  .btn-primary:hover{background:#1039ad;color:#fff}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+
+  footer{padding:26px 0}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);max-width:1040px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· vaka analizi</span></a>
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="/vaka-analizi/">tüm analizler</a>
+      <a href="/truemax-ai/">interaktif demo</a>
+      <a href="/#iletisim">iletişim</a>
+    </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
+  </div>
+</div>
+
+<div class="notice">TEKNİK VAKA ANALİZİ · Sahada para basan ticari ürün, kaynak kod <b>gizli depoda</b> · Mimari aşağıda</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">GAYRİMENKUL · OTONOM SATIŞ HATTI · B2B</p>
+    <h1>TrueMax — kendi kendine müşteri kazanan satış hattı</h1>
+    <p class="lede">RE/MAX True ofisi için tek başıma kurup canlıya aldığım <b>kapalı döngü</b> bir müşteri kazanım ve tahkim sistemi. Kimlik doğrulamalı portallardan sıfır-tıklama ile ilan toplar, danışmanlara katı SLA kurallarıyla dağıtır ve WhatsApp'ta yapay zeka ile ön görüşme yapar.</p>
+    <div class="meta">
+      <div><div class="k">Rolüm</div><div class="v">Solo Developer · Mimar</div></div>
+      <div><div class="k">Müşteri</div><div class="v">RE/MAX True ofisi</div></div>
+      <div><div class="k">Durum</div><div class="v">Canlı · gelir üretiyor</div></div>
+      <div><div class="k">Ölçek</div><div class="v">1.000+ kayıt / gün</div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Sahadaki etkisi</h2>
+    <p class="sec-note">sistem canlıya alındıktan sonra ölçülen değişim</p>
+    <div class="impact">
+      <div><div class="n">%60+</div><div class="l">aktif müşteri portföyünde artış</div></div>
+      <div><div class="n">%40+</div><div class="l">toplam ofis cirosunda artış</div></div>
+      <div><div class="n">1.000+</div><div class="l">günlük mülk kaydı · insan eli değmeden</div></div>
+      <div><div class="n">%70</div><div class="l">llm token maliyetinde tasarruf</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Üç katmanlı mimari</h2>
+    <p class="sec-note">veri hasadı → sla tahkimi → diyalog orkestrasyonu</p>
+
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-h"><span class="layer-n">1</span><span class="layer-t">Otomatik veri hasadı</span></div>
+        <div class="flow">
+          <div class="node"><b>kaynak</b>Revy portalı</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>oturum çal</b>Headless Selenium</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>hızlı çekim</b>Asenkron HTTP</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>normalize</b>SQLite WAL</div>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div class="layer-h"><span class="layer-n">2</span><span class="layer-t">SLA ve tahkim motoru</span></div>
+        <div class="flow">
+          <div class="node"><b>09:00 cron</b>Dağıtıcı</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>eşleştir</b>Kota + bölge haritası</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>ata</b>Danışman WhatsApp</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>120 dk yanıt yoksa</b>Round-robin devir</div>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div class="layer-h"><span class="layer-n">3</span><span class="layer-t">Diyalog ve niyet yapay zekası</span></div>
+        <div class="flow">
+          <div class="node"><b>müşteri yanıtı</b>WhatsApp</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>birleştir</b>60 sn debouncer</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>niyet analizi</b>GPT-4o-mini</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="node"><b>çıktı</b>Persona yanıtı + triage kartı</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Çekirdek modüller</h2>
+    <p class="sec-note">her biri ayrı bir problemi çözüyor</p>
+
+    <div class="chal">
+      <h3>1. Veri hasatçısı</h3>
+      <div class="lbl p">Görev</div>
+      <p>Bölgesel FSBO (sahibinden satılık/kiralık) ilanlarının sıfır-tıklama ile veritabanına aktarılması.</p>
+      <div class="lbl s">Mühendislik çözümü</div>
+      <ul>
+        <li>Hantal DOM kazıma yükünden kaçınmak için <b>headless Firefox yalnızca oturum açmak</b> ve taze <code>XSRF-TOKEN</code> ile çerezleri almak için kullanılır.</li>
+        <li>Oturum yakalanır yakalanmaz tarayıcı kapatılır; veri çok daha hızlı olan asenkron <code>requests.Session</code> üzerinden iç API'den çekilir.</li>
+        <li>Gelen karmaşık JSON ağacı <code>pandas.json_normalize</code> ile düzleştirilip SQLite'a yazılır.</li>
+      </ul>
+    </div>
+
+    <div class="chal">
+      <h3>2. SLA dağıtım ve tahkim motoru</h3>
+      <div class="lbl p">Görev</div>
+      <p>Coğrafi haritalama, kota yönetimi ve katı eskalasyon denetimi.</p>
+      <div class="lbl s">Mühendislik çözümü</div>
+      <ul>
+        <li>Yeni ilanlar her danışmanın günlük kotasına (örn. maksimum 200) ve bölge uzmanlığına göre eşleştirilir.</li>
+        <li>Mülk sahibine ilk temas kurulurken <b>eşzamanlı olarak</b> danışmana kabul/red butonlu atama kartı gider.</li>
+        <li><b>120 dakikalık katı kabul süresi:</b> Danışman yanıt vermezse arka plandaki denetim döngüsü atamayı iptal eder ve müşteriyi adil bir <b>stateful round-robin</b> ile sıradaki danışmana devreder.</li>
+      </ul>
+    </div>
+
+    <div class="chal">
+      <h3>3. Diyalog ve niyet orkestratörü</h3>
+      <div class="lbl p">Görev</div>
+      <p>Gelen mesajların filtrelenmesi, niyet analizi ve temsilci personasıyla otonom iletişim.</p>
+      <div class="lbl s">Mühendislik çözümü</div>
+      <ul>
+        <li>WhatsApp kullanıcılarının kısa cümlelerle arka arkaya Enter'a basma alışkanlığını yönetmek için kullanıcı başına <b>60 saniyelik bellek içi debouncing havuzu</b> kuruldu.</li>
+        <li>Birleştirilen metin <code>gpt-4o-mini</code>'ye beslenip niyet saptanır: <code>positive</code>, <code>negative</code>, <code>closed</code>, <code>spam</code>.</li>
+        <li>Pozitif niyette sistem, mülkün bölge temsilcisinin veritabanındaki <b>üslubuna ve bilgi kapsamına bürünerek</b> cevap üretir ve yöneticiye detaylı ön görüşme kartı iletir.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Öne çıkan mühendislik paternleri</h2>
+    <p class="sec-note">maliyet, ban riski ve kilitlenme — üçü de tasarımla çözüldü</p>
+    <table>
+      <tr><th>Patern</th><th>Ne yapıyor</th><th>Kazanım</th></tr>
+      <tr>
+        <td><b>Mesaj birleştirme</b></td>
+        <td>Her mesaja anında LLM tetiklemek yerine iletiler 60 saniye kuyrukta bekletilip tek bağlam olarak birleştirilir</td>
+        <td><b>~%70</b> token tasarrufu, rate-limit cezası sıfır</td>
+      </tr>
+      <tr>
+        <td><b>İnsansı gecikme</b></td>
+        <td>Önce <code>sendSeen()</code>, ardından karakter uzunluğuna göre dinamik yazma süresi ve 2–5 sn arası rastgele sapma</td>
+        <td>50 karakterlik mesajda 17–20 sn arasında salınan doğal ritim</td>
+      </tr>
+      <tr>
+        <td><b>WAL eşzamanlılık</b></td>
+        <td>İki Node.js botu ve Python hasatçısı aynı anda yazarken <code>journal_mode = WAL</code> ve transaction bazlı erişim</td>
+        <td>Sıfır kilitlenme</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-in">
+      <div>
+        <h2 style="margin-bottom:6px">Botu kendin dene</h2>
+        <p style="color:var(--ink-soft);font-size:15px;margin:0">İnteraktif demoda lead akışını ve yanıt dağılımını canlandırdım.</p>
+      </div>
+      <div class="btns">
+        <a class="btn btn-primary" href="/truemax-ai/">İnteraktif demo →</a>
+        <a class="btn" href="/vaka-analizi/">Diğer analizler</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BeScript Yazılım Çözümleri</span>
+    <span>kartepe / kocaeli · uzaktan çalışmaya açık</span>
+  </div>
+</footer>
+
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
+</body>
+</html>

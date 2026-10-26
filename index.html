@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="dWb3fAmcEK0voAQIB9LimehmcTM4Orc0lK28WuS3wjE" />
+<title>BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT</title>
+<meta name="description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
+<link rel="canonical" href="https://bescript.com.tr/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/">
+<meta property="og:title" content="BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT">
+<meta property="og:description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT">
+<meta name="twitter:description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4;
+    --ink:#141F2A;
+    --ink-soft:#3E4C5A;
+    --line:#C6CDD6;
+    --cobalt:#1746D1;
+    --live:#0E8A4A;
+    --demo:#B45309;
+    --beta:#7A3E9D;
+    --wip:#6D28D9;
+    --card:#F7F9FB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em}
+  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
+
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line)}
+  @media(max-width:720px){.hero{padding:34px 0 42px}}
+  @media(max-width:520px){.hero{padding:24px 0 34px}.hero-eyebrow{margin-bottom:14px}}
+  .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px}
+  h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118;font-weight:850;font-size:clamp(34px,6vw,58px);line-height:1.04;letter-spacing:-.015em;max-width:16ch}
+  /* Dar ekranda baslik genisletilmis eksende tasiyordu; wdth daraltilip
+     olcek asagi cekiliyor ki sayfa yatay tasmasin. */
+  @media(max-width:560px){
+    h1{font-variation-settings:'wdth' 100;font-size:clamp(27px,8.2vw,40px);max-width:none}
+  }
+  h1 .accent{color:var(--cobalt)}
+  .hero-sub{margin-top:22px;max-width:56ch;color:var(--ink-soft);font-size:17px}
+  .hero-strip{margin-top:36px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
+  .stat{padding:14px 22px;border-right:1px solid var(--line);flex:1;min-width:150px}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;font-variation-settings:'wdth' 110}
+  .stat .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;letter-spacing:.03em}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;gap:16px;flex-wrap:wrap}
+  h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 112;font-size:26px;letter-spacing:-.01em}
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+
+  .manifest{border:1px solid var(--line);background:var(--card)}
+  .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
+  .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
+  /* kapali test ve gelistirme asamasindaki urunler */
+  .st-beta{color:var(--beta)} .st-beta .dot{background:var(--beta)}
+  .st-wip{color:var(--wip)} .st-wip .dot{background:var(--wip);box-shadow:0 0 0 3px rgba(109,40,217,.14)}
+  .proj-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
+  .proj-desc{color:var(--ink-soft);font-size:15px;max-width:58ch}
+  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
+  .price-tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--live);margin-top:10px;font-weight:500}
+
+  /* --- akordeon proje listesi --- */
+  .filtreler{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .filtre{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);background:var(--card);
+    border:1px solid var(--line);padding:7px 13px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .filtre .sayi{margin-left:7px;opacity:.55}
+  .filtre:hover{color:var(--cobalt);border-color:var(--cobalt)}
+  .filtre.secili{color:#fff;background:var(--cobalt);border-color:var(--cobalt)}
+  .filtre.secili .sayi{opacity:.75}
+  .filtre:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  .acc-item.gizli{display:none}
+
+  .acc-item{border-bottom:1px solid var(--line)}
+  .acc-item:last-child{border-bottom:none}
+  .acc-head{
+    width:100%;display:grid;grid-template-columns:38px 1fr auto auto;gap:14px;align-items:center;
+    padding:15px 20px;background:transparent;border:none;cursor:pointer;text-align:left;
+    font-family:inherit;color:inherit;transition:background .15s;
+  }
+  .acc-head:hover{background:rgba(23,70,209,.04)}
+  .acc-head:focus-visible{outline:2px solid var(--cobalt);outline-offset:-2px}
+  .acc-item.open .acc-head{background:rgba(23,70,209,.05)}
+  .logo{
+    width:38px;height:38px;border-radius:9px;overflow:hidden;flex-shrink:0;
+    display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);
+  }
+  .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Cizgisel SVG logolar kirpilmasin, nefes alsin */
+  .logo-contain{padding:5px;background:#fff}
+  .logo-contain img{object-fit:contain}
+  .logo .mono{font-family:'Archivo',sans-serif;font-weight:850;font-size:16px;font-variation-settings:'wdth' 112;color:#fff;line-height:1}
+  .acc-head .proj-name{font-size:16.5px}
+  .acc-head .status{font-size:11.5px}
+  /* yil + durum rozeti tek grup: masaustunde yan yana, mobilde ayni satirda */
+  .head-meta{display:flex;align-items:center;gap:12px}
+  .yr{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .chev{width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s ease;flex-shrink:0}
+  .acc-item.open .chev{transform:rotate(180deg);stroke:var(--cobalt)}
+  .acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+  .acc-item.open .acc-panel{grid-template-rows:1fr}
+  .acc-inner{overflow:hidden;visibility:hidden;transition:visibility 0s linear .28s}
+  .acc-item.open .acc-inner{visibility:visible;transition-delay:0s}
+  .acc-body{padding:2px 20px 20px 72px}
+  .acc-body .row-link{margin-top:16px}
+  @media(max-width:720px){
+    /* Mobilde durum etiketi proje adinin altina iner */
+    .acc-head{
+      grid-template-columns:32px 1fr auto;
+      grid-template-areas:"logo name chev" "logo status chev";
+      gap:0 11px;row-gap:5px;padding:13px 15px;
+    }
+    .acc-head .logo{grid-area:logo;align-self:center;width:32px;height:32px}
+    .acc-head .proj-name{grid-area:name;font-size:15.5px}
+    .acc-head .head-meta{grid-area:status;gap:9px}
+    .yr{font-size:11px}
+    .acc-head .chev{grid-area:chev;align-self:center}
+    .acc-body{padding:2px 15px 18px 15px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .acc-panel,.chev,.acc-inner{transition:none}
+  }
+  /* --- cozumler vitrini --- */
+  #cozumler{background:linear-gradient(180deg,var(--card),var(--paper))}
+  /* Vitrin rafi: her kart bir urun, altindaki cizgi raf, kartlar rafin
+     uzerinde duruyormus gibi golge birakir. Bitisik kartlarin raflari
+     bosluga tasip birlesir, boylece kesintisiz tek bir raf gorunur. */
+  /* vitrin katalogu: tek satir, sayfa sayfa gezilir; raf cizgisi kartin
+     altinda kaldigi icin yolun alt bosluguna yer birakiliyor */
+  .katalog.vitrin .kat-yol{padding-bottom:26px}
+  .katalog.vitrin .kat-sira{gap:20px}
+  .katalog.vitrin .sol{flex:0 0 clamp(250px,74vw,318px)}
+  .sol{
+    position:relative;background:#fff;border:1px solid var(--line);border-radius:2px;
+    display:flex;flex-direction:column;overflow:visible;
+    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  }
+  /* raf */
+  .sol::after{
+    content:"";position:absolute;left:-10px;right:-10px;bottom:-13px;height:3px;
+    background:linear-gradient(180deg,rgba(20,31,42,.22),rgba(20,31,42,.05));pointer-events:none;
+  }
+  /* kartin rafa dusen golgesi */
+  .sol::before{
+    content:"";position:absolute;left:10px;right:10px;bottom:-12px;height:14px;pointer-events:none;
+    background:radial-gradient(60% 100% at 50% 0,rgba(20,31,42,.26),rgba(20,31,42,0) 72%);
+    transition:opacity .22s ease,transform .22s ease;
+  }
+  .sol:hover{transform:translateY(-7px);border-color:var(--cobalt);
+    box-shadow:0 20px 34px -22px rgba(20,31,42,.5)}
+  .sol:hover::before{transform:scaleX(1.06);opacity:.75}
+  .sol:focus-within{border-color:var(--cobalt)}
+  /* urun nisi: ikonun yasadigi cam bolme */
+  .sol .ico{
+    width:auto;height:104px;border-radius:0;margin:0 0 18px;border:0;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(23,70,209,.10),rgba(23,70,209,.02) 62%,rgba(255,255,255,0));
+    display:grid;place-items:center;transition:background .22s ease;
+  }
+  .sol .ico::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(255,255,255,.7)}
+  .sol:hover .ico{background:linear-gradient(180deg,rgba(23,70,209,.17),rgba(23,70,209,.04) 62%,rgba(255,255,255,0))}
+  .sol .ico svg{width:34px;height:34px;stroke:var(--cobalt);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .sol h3,.sol p,.sol .sol-btns{padding-inline:20px}
+  .sol .sol-btns{padding-bottom:20px}
+  .sol h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:16.5px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
+  .sol p{color:var(--ink-soft);font-size:13.5px;margin-top:7px;margin-bottom:16px;flex:1}
+  .sol .sol-price{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--live);font-weight:500;margin:14px 0 12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .sol-btns{display:flex;gap:8px;flex-wrap:wrap}
+  .sol-btns .btn{flex:1;text-align:center;padding:10px 12px;font-size:12.5px;border-radius:2px}
+  .btn-wa{border-color:#0E8A4A;color:#0E8A4A}
+  .btn-wa:hover{background:#0E8A4A;color:#fff}
+
+  /* teknik vaka analizleri */
+  .vaka-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:720px){.vaka-grid{grid-template-columns:1fr}}
+  .vaka{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;
+    transition:transform .15s,border-color .15s;
+  }
+  .vaka:hover{transform:translateY(-3px);border-color:var(--cobalt)}
+  .vaka:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .vaka h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:16.5px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
+  .vaka p{color:var(--ink-soft);font-size:13.5px;margin-top:7px;flex:1}
+  .vaka-go{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);margin-top:14px}
+
+  /* Katalog: kartlar yatayda dizilir, kendi kendine akar, elle de kaydirilir */
+  .katalog{position:relative}
+  .kat-yol{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;padding:4px 0 8px}
+  .kat-yol::-webkit-scrollbar{display:none}
+  .kat-yol.tutuluyor{cursor:grabbing}
+  .kat-sira{display:flex;gap:14px;width:max-content}
+  .katalog .vaka{flex:0 0 clamp(250px,72vw,320px)}
+  .kat-yol{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%)}
+  .kat-ok{position:absolute;top:calc(50% - 4px);transform:translateY(-50%);z-index:3;
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);
+    color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;
+    display:grid;place-items:center;cursor:pointer;opacity:0;box-shadow:0 3px 12px rgba(20,31,42,.16);
+    transition:opacity .18s ease,border-color .15s,color .15s}
+  .katalog:hover .kat-ok{opacity:1}
+  .kat-ok:focus-visible{opacity:1;outline:2px solid var(--cobalt);outline-offset:2px}
+  .kat-ok:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .kat-ok.geri{left:-6px} .kat-ok.ileri{right:-6px}
+  @media(hover:none){.kat-ok{display:none}}
+  .row-link {
+    display: flex;
+    flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
+    align-items: stretch; /* Tum ogeler en uzun ogenin yuksekligine esitlenir */
+    gap: 10px;
+  }
+  /* Her oge kendi dogal genisliginde durur; sabit genislik vermek butonlari
+     sisman, rozetleri de bosluk icinde yuzer gosteriyordu. Ortak olan tek
+     sey yukseklik: butonlar stretch ile 40px'e cikip rozetlerin ust ve alt
+     kenariyla tam hizalanir, metinleri de ortada kalir. */
+  .row-link .btn{display:flex;align-items:center;justify-content:center}
+
+  /* Buton içindeki metinlerin tam ortalanması için */
+  .row-link .btn {
+    text-align: center;
+  }
+
+  /* Yakında butonları için eklenecek yeni sınıf */
+  .btn-soon {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* Linkin tıklanabilirliğini tamamen kapatır */
+   }
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:9px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .15s,color .15s;white-space:nowrap}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary:hover{background:var(--cobalt);color:#fff}
+  /* --- resmi magaza rozetleri (butonlarla ayni satirda) --- */
+  .badge{display:flex;align-items:center;justify-content:center;transition:opacity .15s,transform .15s}
+  .badge:hover{opacity:.82;transform:translateY(-2px)}
+  .badge:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px;border-radius:8px}
+  .badge img{display:block;width:auto}
+  .badge-apple{height:40px}
+  /* Google'in resmi PNG'sinde %23.2 seffaf dikey dolgu var (olculdu: 250px'in
+     192px'i opak). Gorunur yuksekligi Apple rozetiyle esitlemek icin 52px
+     verip dolguyu negatif margin ile geri aliyoruz. */
+  .badge-google{height:52px;margin:-6px 0}
+  @media(max-width:720px){
+    /* Mobilde tek hizalama mantigi: her buton kendi satirinda tam genislik,
+       iki magaza rozeti ise alta tek satirda yan yana ve ortali gelir.
+       Rozetleri tek tek ortalamak, farkli genislikte olduklari icin
+       sayfayi tirtikli gosteriyordu. */
+    .row-link{flex-direction:row;flex-wrap:wrap;align-items:center;
+      justify-content:center;width:100%;gap:10px}
+    .row-link .btn{flex:0 0 100%}
+    .row-link .badge{flex:0 0 auto}
+  }
+  /* Cok dar ekranlarda iki rozet yan yana sigsin diye biraz kuculur;
+     Google rozetinin seffaf dolgu orani korunur. */
+  @media(max-width:380px){
+    .badge-apple{height:36px}
+    .badge-google{height:47px;margin:-5px 0}
+  }
+  .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stack-cell{background:var(--card);padding:20px 22px}
+  .stack-cell h3{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--cobalt);letter-spacing:.05em;margin-bottom:10px}
+  .stack-cell p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
+
+  .pano-dugme,.daha-dugme{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    color:var(--ink);background:var(--card);border:1px solid var(--line);padding:9px 18px;cursor:pointer;
+    transition:border-color .15s,color .15s}
+  .pano-dugme:hover,.daha-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .pano-dugme:focus-visible,.daha-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+
+  .contact{padding:64px 0 80px;border-bottom:none}
+  .contact-kanal{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .contact-kanal a{color:var(--cobalt);text-decoration:none}
+  .contact-kanal a:hover{text-decoration:underline}
+  .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .contact-inner h2{max-width:20ch}
+  .contact-text h2{max-width:20ch}
+  .contact-sub{margin-top:10px;color:var(--ink-soft);font-size:15px;max-width:42ch}
+  @media(max-width:720px){
+    .contact-inner{padding:28px;flex-direction:column;align-items:flex-start}
+    .contact-actions{width:100%}
+    .contact-actions .btn{flex:1;text-align:center}
+  }
+  .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
+  
+  footer{padding:24px 0 40px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+
+  /* ==========================================================================
+     HAREKET — kaydirmayla beliren bolumler, ilerleme cizgisi, hafif parallax.
+     Stiller yalnizca html.anim varken devreye girer: JavaScript kapaliysa
+     sayfa hicbir sey gizlemeden, oldugu gibi acilir.
+     ========================================================================== */
+  section{scroll-margin-top:70px}
+
+  .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:30;pointer-events:none}
+  .prog span{display:block;height:100%;width:0;background:var(--cobalt)}
+
+  .topbar{transition:box-shadow .25s ease}
+  .topbar.stuck{box-shadow:0 8px 22px rgba(20,31,42,.07)}
+
+  html.anim .reveal{opacity:0;transform:translateY(18px);
+    transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)}
+  html.anim .reveal.in{opacity:1;transform:none}
+
+  .hero .wrap{will-change:transform}
+  .hero-strip .num{font-variant-numeric:tabular-nums}
+
+  .btn{transition:background .15s,color .15s,transform .15s}
+  .btn:hover{transform:translateY(-1px)}
+
+  @media (prefers-reduced-motion: reduce){
+    html.anim .reveal{opacity:1;transform:none;transition:none}
+    .btn:hover{transform:none}
+    .prog{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· yazılım çözümleri</span></div>
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="#projeler">projeler</a>
+      <a href="#cozumler">çözümler</a>
+      <a href="/vaka-analizi/">vaka analizi</a>
+      <a href="/hakkimizda/">hakkımızda</a>
+      <a href="#iletisim">iletişim</a>
+    </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">MOBİL UYGULAMA · AI OTOMASYON · IoT · KARTEPE / KOCAELİ</p>
+    <h1>Fikirden mağazaya,<br><span class="accent">uçtan uca.</span></h1>
+    <p class="hero-sub">BeScript — mobil uygulama, AI otomasyon ve IoT sistemleri geliştiren
+    bir yazılım stüdyosu. Tasarım, backend, mağaza yayını ve sonrası aynı elden çıkar.
+    Geliştirdiğimiz üç uygulama Google Play ve App Store'da yayında; kurduğumuz sistemler sahada 7/24 çalışıyor.</p>
+    <div class="hero-strip" role="list" aria-label="Özet istatistikler">
+      <div class="stat" role="listitem"><div class="num">7</div><div class="lbl">ürün · canlı + demo</div></div>
+      <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
+      <div class="stat" role="listitem"><div class="num">5+</div><div class="lbl">yıl saha deneyimi</div></div>
+      <div class="stat" role="listitem"><div class="num">+1,5M₺</div><div class="lbl">4 ayda müşteri cirosu</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="projeler">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Projeler</h2>
+      <span class="sec-note">filtrele · başlığa dokun · demolar gerçek sistemlerin canlandırması</span>
+    </div>
+    <div class="filtreler" role="group" aria-label="Proje filtresi">
+      <button class="filtre secili" type="button" data-filtre="hepsi" aria-pressed="true">tümü</button>
+      <button class="filtre" type="button" data-filtre="ai" aria-pressed="false">yapay zekâ</button>
+      <button class="filtre" type="button" data-filtre="mobil" aria-pressed="false">mobil</button>
+      <button class="filtre" type="button" data-filtre="whatsapp" aria-pressed="false">whatsapp botu</button>
+      <button class="filtre" type="button" data-filtre="web" aria-pressed="false">web &amp; pano</button>
+      <button class="filtre" type="button" data-filtre="iot" aria-pressed="false">iot &amp; donanım</button>
+    </div>
+    <div class="manifest" id="projeListesi">
+
+      <div class="acc-item" data-tur="ai mobil whatsapp">
+        <button class="acc-head" id="h-tirdas" aria-expanded="false" aria-controls="p-tirdas">
+          <span class="logo"><img src="assets/logo/tirdas.jpg" alt="" width="80" height="80"></span>
+          <span class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-tirdas" role="region" aria-labelledby="h-tirdas">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Yük–araç pazaryeri: WhatsApp gruplarındaki serbest metin ilanları AI ile yapılandırıp botta ve mobil uygulamada aynı havuzda sunar. Mobil uygulama Play Store ve App Store'da yayında. Demoda iki telefon yan yana — bota kendin yaz, uygulamada sekmeleri gez.</p>
+            <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="tirdas/">Demoyu dene →</a>
+              <a class="btn" href="vaka-analizi/tirdas/">Teknik analiz →</a>
+              <a class="btn" href="https://wa.me/905064113311" target="_blank" rel="noopener">WhatsApp Botu ↗</a>
+              <a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
+                <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
+              </a>
+              <a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
+                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item" data-tur="iot mobil">
+        <button class="acc-head" id="h-bocu" aria-expanded="false" aria-controls="p-bocu">
+          <span class="logo"><img src="assets/logo/bocu.jpg" alt="" width="80" height="80" loading="lazy"></span>
+          <span class="proj-name">BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-bocu" role="region" aria-labelledby="h-bocu">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Tarımsal sulamada kullanılan 3 fazlı pompaları uzaktan izleyen, koruyan ve kontrol eden IoT sistemi. Cihaz NB-IoT ile MQTT konuşuyor; sunucu tarafı (broker, ingest ve komut worker'ları, imzalı komut yolu) ve mobil uygulama bizde, firmware harici ekipte. Koruma kararı cihazda: internet gitse de motor korunur. Demoda gerçek protokolle çalışan bir cihaz simüle ediliyor — aşırı akım, faz kaybı, ACK gelmemesi ve bağlantı kopması senaryolarını kendin tetikleyebilirsin.</p>
+            <div class="tags">
+              <span class="tag">python · fastapi</span>
+              <span class="tag">mqtt · emqx</span>
+              <span class="tag">supabase · rls</span>
+              <span class="tag">react native</span>
+              <span class="tag">nb-iot</span>
+            </div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="bocu/">Demoyu dene →</a>
+              <a class="badge" href="https://play.google.com/store/apps/details?id=com.bocu.app" target="_blank" rel="noopener">
+                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item" data-tur="mobil">
+        <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
+          <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
+          <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-quadmate" role="region" aria-labelledby="h-quadmate">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Uygulama <b>Google Play'de yayında</b>: gerçek Supabase projesi, kendi alan adı ve e-posta altyapısıyla canlı çalışıyor. Etkileşimli demoda harita üzerinden yakındaki açık masaları görebilir, ilanlara katılabilir veya kendi oyun masanızı açarak bildirim akışını deneyimleyebilirsiniz.</p>
+            <div class="tags">
+              <span class="tag">react native</span>
+              <span class="tag">expo</span>
+              <span class="tag">supabase</span>
+              <span class="tag">postgis</span>
+            </div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="quadmate/">Demoyu dene →</a>
+              <a class="badge" href="https://play.google.com/store/apps/details?id=com.quadmate.app" target="_blank" rel="noopener">
+                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+              </a>
+              <a class="badge" href="https://apps.apple.com/tr/app/quadmate/id6813102419" target="_blank" rel="noopener">
+                <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item" data-tur="ai whatsapp">
+        <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
+          <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
+          <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-truemax" role="region" aria-labelledby="h-truemax">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması. 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli.</p>
+            <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a><a class="btn" href="vaka-analizi/truemax/">Teknik analiz →</a></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item" data-tur="ai whatsapp">
+        <button class="acc-head" id="h-redi" aria-expanded="false" aria-controls="p-redi">
+          <span class="logo"><img src="assets/logo/red-i.png" alt="" width="80" height="80" loading="lazy"></span>
+          <span class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-redi" role="region" aria-labelledby="h-redi">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Aynı motorun RedPartners kurulumu, kanıtlanmış saha sonuçlarıyla. Demo sayfasında yanıt dağılımı analizi ve tam sunum PDF'i de var.</p>
+            <div class="tags"><span class="tag">ai niyet analizi</span><span class="tag">whatsapp</span><span class="tag">lead-gen</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="red-i/">Demoyu dene →</a></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item" data-tur="web">
+        <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
+          <span class="logo" style="background:#2E6BE6;border-color:#2E6BE6"><span class="mono">▦</span></span>
+          <span class="proj-name">Danışman Performans Dashboard'u</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-dashboard" role="region" aria-labelledby="h-dashboard">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
+            <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a><a class="btn" href="vaka-analizi/dashboard/">Teknik analiz →</a></div>
+          </div></div>
+        </div>
+      </div>
+
+
+      <div class="acc-item" data-tur="web">
+        <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
+          <span class="logo logo-contain"><img src="assets/logo/cleanhome.svg" alt="" width="48" height="48" loading="lazy"></span>
+          <span class="proj-name">CleanHome</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-cleanhome" role="region" aria-labelledby="h-cleanhome">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri - teslimden beri kesintisiz yayında.</p>
+            <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+    <button class="daha-dugme" type="button" aria-expanded="false" aria-controls="projeListesi">tümünü göster</button>
+  </div>
+</section>
+
+<section id="cozumler">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Hazır Çözümler</h2>
+      <span class="sec-note">size de kurarız — dene, beğen, sipariş ver</span>
+    </div>
+    <div class="katalog vitrin" data-katalog data-akis>
+      <button class="kat-ok geri" type="button" aria-label="Önceki sayfa">‹</button>
+      <button class="kat-ok ileri" type="button" aria-label="Sonraki sayfa">›</button>
+      <div class="kat-yol" tabindex="0" role="region" aria-label="Hazır çözümler — yatay kaydırılabilir liste">
+        <div class="kat-sira">
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3c-1.5 0-2.9-.35-4.1-.97L3 20l1.2-4.3A8.1 8.1 0 0 1 3 11.5 8.4 8.4 0 0 1 12.5 3.2 8.4 8.4 0 0 1 21 11.5z"/><circle cx="8.6" cy="11.5" r=".4"/><circle cx="12.5" cy="11.5" r=".4"/><circle cx="16.4" cy="11.5" r=".4"/></svg></div>
+        <h3>AI Müşteri Temsilcisi</h3>
+        <p>WhatsApp'ta 7/24 yanıt veren, randevu ve sipariş alan yapay zeka temsilci. Demoda 5 sektör var — kendi sektörünü seç, botla kendin konuş.</p>
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/chatbot/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22AI%20M%C3%BC%C5%9Fteri%20Temsilcisi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 5.2h3"/><circle cx="12" cy="18.4" r=".7"/></svg></div>
+        <h3>Mobil Uygulama</h3>
+        <p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar: pazaryeri, eşleştirme, işletme takip, sadakat. Mağaza yayını ve güncellemeler dahil — Tırdaş ve Quadmate bu şekilde yayınlandı.</p>
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/mobil/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h3v3h-3zM20.5 14v.5M17 20.5h.5M20.5 18v2.5"/></svg></div>
+        <h3>QR Menü & Dijital Katalog</h3>
+        <p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma. Fiyat güncellemesi saniyeler sürer, baskı maliyeti biter.</p>
+        
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/qrmenu/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22QR%20Men%C3%BC%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="13" rx="1.5"/><path d="M3.5 8.5h17M9.2 8.5V17M14.9 8.5V17"/><path d="M12 17.5v3M10 19l2 2 2-2"/></svg></div>
+        <h3>Web'den Excel'e Veri Toplama</h3>
+        <p>İhtiyacınız olan veriyi (ilanlar, fiyatlar, rakip listeleri) web'den otomatik toplayıp temiz Excel tablosuna çevirir.</p>
+        
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/veri/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Veri%20Toplama%20Sistemi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3.6 10.8c-.8.3-.75 1.4.06 1.66l4.54 1.44 1.6 4.9c.25.8 1.3.9 1.7.16l2.1-3.9 4.6 3.3c.6.44 1.46.1 1.6-.65L21.9 5c.13-.75-.5-1.3-.9-1z"/><path d="M8.2 13.9 21 4"/></svg></div>
+        <h3>Telegram İş Botu</h3>
+        <p>İstediğiniz kaynağı 7/24 izler; fiyat, ilan, ihale, sipariş — koşul sağlanınca Telegram'a bildirim düşürür, tek dokunuşla aksiyon aldırır.</p>
+        
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/telegram/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v15.5h16.5"/><rect x="7" y="12" width="2.8" height="7.5" rx=".6"/><rect x="12" y="9" width="2.8" height="10.5" rx=".6"/><rect x="17" y="5.5" width="2.8" height="14" rx=".6"/></svg></div>
+        <h3>Sektörel KPI Dashboard'u</h3>
+        <p>Verileriniz nerede olursa olsun (Excel, Sheets, POS) tek panoda: ciro, trend, karşılaştırma, TV modu.</p>
+        
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/dashboard/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22KPI%20Dashboard%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="2.5"/><circle cx="18.5" cy="5.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M7.8 10.8 16.2 6.6M7.8 13.2l8.4 4.2"/></svg></div>
+        <h3>Entegrasyon & Otomasyon</h3>
+        <p>"Form doldu, CRM'e yazıldı, WhatsApp onayı gitti, rapor düştü." Kullandığınız araçları birbirine bağlar, elle taşınan her işi otomatiğe alırız.</p>
+     
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/entegrasyon/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20ve%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3.5v17h17"/><path d="M7.5 16.2l3.6-4.6 3 2.5 5.4-7.1"/><path d="M19.5 7h-3.6M19.5 7v3.6"/></svg></div>
+        <h3>Kripto Alım-Satım Botu</h3>
+        <p>Kendi stratejinizi borsa API'si üzerinden çalıştıran bot ve kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu, açık pozisyon takibi ve canlı PnL. Strateji sizin; önce paper-trading modunda, gerçek para riske girmeden denenir.</p>
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="kripto-bot/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Kripto%20Al%C4%B1m-Sat%C4%B1m%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vaka">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Teknik Vaka Analizleri</h2>
+      <span class="sec-note">demolar ne yaptığını gösterir, bunlar nasıl çalıştığını</span>
+    </div>
+    <div class="katalog" data-katalog data-akis>
+      <button class="kat-ok geri" type="button" aria-label="Önceki vaka analizi">‹</button>
+      <button class="kat-ok ileri" type="button" aria-label="Sonraki vaka analizi">›</button>
+      <div class="kat-yol" tabindex="0" role="region" aria-label="Vaka analizleri — yatay kaydırılabilir liste">
+        <div class="kat-sira">
+      <a class="vaka" href="vaka-analizi/tirdas/">
+        <h3>Tırdaş — Lojistik AI asistanı</h3>
+        <p>Anti-ban rate limiting, 81 il / 973 ilçe doğrulama katmanı, panelde %300 hızlanma.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/truemax/">
+        <h3>TrueMax — Otonom satış hattı</h3>
+        <p>Portföyde %60+ artış, 120 dakikalık SLA tahkimi, token maliyetinde ~%70 tasarruf.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/dashboard/">
+        <h3>Danışman performans panosu</h3>
+        <p>8 saatlik haftalık rapor 5 saniyeye indi, hata oranı %15'ten %0,01'e düştü.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/stardoll/">
+        <h3>Otomasyon & yönetim paneli</h3>
+        <p>Hibrit request/browser mimarisiyle kaynak tüketimini düşüren, sunucu yanıtına göre kendi hızını ayarlayan RPA paketi.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/rpa-bot/">
+        <h3>Masaüstü RPA otomasyonu</h3>
+        <p>Donmayan arayüz, thread içinde event loop yönetimi ve teknik olmayan kullanıcıya tek dosya EXE teslimi.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/">
+        <h3>Tümü →</h3>
+        <p>Beş üretim sisteminin mimarisi, karşılaşılan problemler ve uygulanan çözümler.</p>
+        <span class="vaka-go">Hepsini gör →</span>
+      </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Nasıl Çalışıyoruz</h2>
+      <span class="sec-note">hazır platform yok, kod var</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-cell"><h3>ÇEKİRDEK</h3><p>Python · Node.js · FastAPI · PostgreSQL · LangChain / LangGraph · React Native</p></div>
+      <div class="stack-cell"><h3>ALTYAPI</h3><p>Kendi VDS sunucularımız (Oracle Cloud vb.) ve işin gerektirdiği yerde Supabase gibi yönetilen servisler. Hangi servisin aylık ne tuttuğu baştan yazılı; kod ve veri sende kalır, istediğin an taşınır.</p></div>
+      <div class="stack-cell"><h3>YAKLAŞIM</h3><p>Her otomasyon özel yazılmış kod. No-code araç kullanmıyoruz; sistemin her satırına hakimiz, her şey özelleştirilebilir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" class="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h2>Projeniz için konuşalım.</h2>
+        <p class="contact-sub">Ne yapmak istediğinizi anlatın; kapsamı ve fiyatı aynı gün netleştirelim.
+        Müşteri İlişkileri ekibimiz talebinizi alır ve proje boyunca tek muhatabınız olur.</p>
+        <p class="contact-kanal">Müşteri İlişkileri · <a href="tel:+905400010595">0540 001 05 95</a> · <a href="mailto:iletisim@bescript.com.tr">iletisim@bescript.com.tr</a></p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp 💬</a>
+        <a class="btn btn-primary" href="tel:+905400010595">Ara ☎</a>
+        <a class="btn btn-primary" href="mailto:iletisim@bescript.com.tr">E-posta ✉</a>
+        <a class="btn" href="/hakkimizda/">Hakkımızda</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>            
+  <div class="wrap">
+    <span>© 2026 BeScript Yazılım Çözümleri</span>
+    <span>kartepe / kocaeli · türkiye geneli hizmet</span>
+  </div>
+</footer>
+
+<script>
+/* Akordeon: tek seferde bir proje acik kalir, boylece liste kompakt kalir */
+document.querySelectorAll(".acc-head").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var item=btn.closest(".acc-item");
+    var wasOpen=item.classList.contains("open");
+    document.querySelectorAll(".acc-item.open").forEach(function(open){
+      open.classList.remove("open");
+      open.querySelector(".acc-head").setAttribute("aria-expanded","false");
+    });
+    if(!wasOpen){
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+    }
+  });
+});
+</script>
+
+
+<script>
+/* ---------------------------------------------------------------------------
+   Hareket: kaydirma ilerleme cizgisi, bolumlerin belirmesi, hero'da hafif
+   parallax ve istatistik sayaci. Kutuphane yok; hepsi IntersectionObserver
+   ve requestAnimationFrame ile. prefers-reduced-motion aciksa hicbiri calismaz,
+   icerik oldugu yerde durur.
+   --------------------------------------------------------------------------- */
+(function(){
+  "use strict";
+  var kok=document.documentElement;
+  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
+  kok.classList.add("anim");
+
+  /* ilerleme cizgisi + yapisik ust bar + hero parallax */
+  var cizgi=document.createElement("div");
+  cizgi.className="prog"; cizgi.setAttribute("aria-hidden","true");
+  var dolgu=document.createElement("span"); cizgi.appendChild(dolgu);
+  document.body.appendChild(cizgi);
+
+  var ustBar=document.querySelector(".topbar");
+  var heroIc=document.querySelector(".hero .wrap");
+  var sirada=false;
+
+  function kaydirmaAninda(){
+    var y=window.pageYOffset||0;
+    var toplam=document.documentElement.scrollHeight-window.innerHeight;
+    dolgu.style.width=(toplam>0?Math.min(100,(y/toplam)*100):0)+"%";
+    if(ustBar){ ustBar.classList.toggle("stuck", y>8); }
+    if(heroIc && !azHareket.matches){
+      var k=Math.min(y,420);
+      heroIc.style.transform="translateY("+(k*0.06).toFixed(1)+"px)";
+      heroIc.style.opacity=String(1-Math.min(k/900,0.4));
+    }
+    sirada=false;
+  }
+  window.addEventListener("scroll",function(){
+    if(!sirada){ sirada=true; requestAnimationFrame(kaydirmaAninda); }
+  },{passive:true});
+  kaydirmaAninda();
+
+  /* bolumlerin belirmesi */
+  var hedefler=[].slice.call(document.querySelectorAll(
+    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.katalog,.stack-cell,.manifest,.contact-inner"
+  ));
+  hedefler.forEach(function(el){ el.classList.add("reveal"); });
+
+  function hepsiniGoster(){ hedefler.forEach(function(el){ el.classList.add("in"); }); }
+
+  if(azHareket.matches || !("IntersectionObserver" in window)){
+    hepsiniGoster();
+  }else{
+    var gozlemci=new IntersectionObserver(function(girisler){
+      girisler.forEach(function(g){
+        if(!g.isIntersecting) return;
+        var el=g.target;
+        /* ayni kaptaki kardesler sirayla gelsin, hepsi ayni anda zipllamasin */
+        var sira=el.parentNode?Array.prototype.indexOf.call(el.parentNode.children,el):0;
+        el.style.transitionDelay=(Math.min(sira,5)*70)+"ms";
+        el.classList.add("in");
+        gozlemci.unobserve(el);
+      });
+    },{rootMargin:"0px 0px -8% 0px",threshold:0.08});
+    hedefler.forEach(function(el){ gozlemci.observe(el); });
+    /* gorunur alandakiler icin ilk tetik */
+    requestAnimationFrame(function(){ window.dispatchEvent(new Event("resize")); });
+  }
+
+  /* istatistik sayaci: "30K+" gibi degerlerde yalnizca rakam kismi sayilir */
+  var sayilar=[].slice.call(document.querySelectorAll(".hero-strip .num"));
+  if(!azHareket.matches){
+    sayilar.forEach(function(el){
+      var tamDeger=el.textContent.trim();
+      var m=/^(\D*)(\d+)(.*)$/.exec(tamDeger);
+      if(!m) return;
+      var on=m[1], hedef=parseInt(m[2],10), son=m[3], bas=null, sure=900;
+      /* emniyet: sayim herhangi bir sebeple ilerlemezse son deger yine de yazilir */
+      setTimeout(function(){ el.textContent=tamDeger; }, sure+700);
+      el.textContent=on+"0"+son;
+      function adim(t){
+        if(bas===null) bas=t;
+        var p=Math.min((t-bas)/sure,1);
+        var yumusak=1-Math.pow(1-p,3);
+        el.textContent=on+Math.round(hedef*yumusak)+son;
+        if(p<1) requestAnimationFrame(adim);
+      }
+      setTimeout(function(){ requestAnimationFrame(adim); },260);
+    });
+  }
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Vaka analizi katalogu: kendi kendine akar, fare ile surukleyerek veya
+   parmakla kaydirarak gezilebilir. Kartlarin bir kopyasi eklenir; sondan basa
+   donus bu sayede goze carpmaz. Uzerine gelince, odaklanınca ya da
+   surukleyince akis durur. prefers-reduced-motion aciksa hic akmaz.
+   --------------------------------------------------------------------------- */
+(function(){
+  "use strict";
+  Array.prototype.forEach.call(document.querySelectorAll("[data-katalog]"),kur);
+
+  function kur(kapsayici){
+  var yol=kapsayici.querySelector(".kat-yol");
+  var sira=kapsayici.querySelector(".kat-sira");
+  if(!yol||!sira) return;
+
+  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
+  var aksin=kapsayici.hasAttribute("data-akis");
+  var asillar=[].slice.call(sira.children);
+  if(!asillar.length) return;
+
+  /* kopyalar yalnizca gorseldir: ekran okuyucu ve sekme sirasi disinda */
+  if(aksin) asillar.forEach(function(kart){
+    var kopya=kart.cloneNode(true);
+    kopya.setAttribute("aria-hidden","true");
+    kopya.setAttribute("tabindex","-1");
+    sira.appendChild(kopya);
+  });
+
+  function setGenisligi(){ return aksin?sira.scrollWidth/2:0; }
+
+  var durdu=false, gorunur=true, zamanlayici=null;
+  function duraklat(sure){
+    durdu=true;
+    if(zamanlayici) clearTimeout(zamanlayici);
+    if(sure) zamanlayici=setTimeout(function(){ durdu=false; },sure);
+  }
+  function devam(){ if(zamanlayici) clearTimeout(zamanlayici); durdu=false; }
+
+  kapsayici.addEventListener("pointerenter",function(){ duraklat(0); });
+  kapsayici.addEventListener("pointerleave",function(){ devam(); });
+  kapsayici.addEventListener("focusin",function(){ duraklat(0); });
+  kapsayici.addEventListener("focusout",function(){ devam(); });
+  yol.addEventListener("wheel",function(){ duraklat(2500); },{passive:true});
+  yol.addEventListener("touchstart",function(){ duraklat(4000); },{passive:true});
+
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(g){ gorunur=g[0].isIntersecting; },{threshold:0.15})
+      .observe(kapsayici);
+  }
+
+  function dongu(){
+    if(aksin && !durdu && gorunur && !azHareket.matches && document.visibilityState==="visible"){
+      yol.scrollLeft+=0.4;
+    }
+    var w=setGenisligi();
+    if(w>0){
+      if(yol.scrollLeft>=w) yol.scrollLeft-=w;
+      else if(yol.scrollLeft<0) yol.scrollLeft+=w;
+    }
+    requestAnimationFrame(dongu);
+  }
+  requestAnimationFrame(dongu);
+
+  /* fare ile surukleme — dokunmatikte tarayicinin kendi kaydirmasi kalsin */
+  var tutuyor=false, basX=0, basScroll=0, suruklendi=false;
+  yol.addEventListener("pointerdown",function(e){
+    if(e.pointerType!=="mouse") return;
+    tutuyor=true; suruklendi=false;
+    basX=e.clientX; basScroll=yol.scrollLeft;
+    yol.classList.add("tutuluyor");
+    duraklat(0);
+  });
+  yol.addEventListener("pointermove",function(e){
+    if(!tutuyor) return;
+    var fark=e.clientX-basX;
+    if(Math.abs(fark)>4) suruklendi=true;
+    yol.scrollLeft=basScroll-fark;
+    e.preventDefault();
+  });
+  function birak(){
+    if(!tutuyor) return;
+    tutuyor=false;
+    yol.classList.remove("tutuluyor");
+    duraklat(1500);
+  }
+  yol.addEventListener("pointerup",birak);
+  yol.addEventListener("pointercancel",birak);
+  yol.addEventListener("pointerleave",birak);
+  /* surukleyip birakinca kartin linki acilmasin */
+  yol.addEventListener("click",function(e){
+    if(suruklendi){ e.preventDefault(); e.stopPropagation(); suruklendi=false; }
+  },true);
+
+  /* oklar: bir kart boyu kaydirir */
+  function adim(yon){
+    var kart=sira.firstElementChild;
+    var mesafe=kart?kart.getBoundingClientRect().width+20:300;
+    yol.scrollBy({left:yon*mesafe,behavior:azHareket.matches?"auto":"smooth"});
+    duraklat(3000);
+  }
+
+  var geri=kapsayici.querySelector(".kat-ok.geri");
+  var ileri=kapsayici.querySelector(".kat-ok.ileri");
+  if(geri) geri.addEventListener("click",function(){ adim(-1); });
+  if(ileri) ileri.addEventListener("click",function(){ adim(1); });
+  }
+})();
+</script>
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
+
+
+<script>
+/* Proje filtresi ve "ilk bes proje" siniri.
+   Sinir secili kategoriye gore isler: mobil filtresinde de once bes proje gorunur,
+   dugme kalan sayisini yazar. Filtre degisince liste yeniden toplanir. */
+(function(){
+  var kutu=document.querySelector(".filtreler");
+  if(!kutu) return;
+  var dugme=document.querySelector(".daha-dugme");
+  var ogeler=[].slice.call(document.querySelectorAll(".acc-item[data-tur]"));
+  var dugmeler=[].slice.call(kutu.querySelectorAll(".filtre"));
+  if(!ogeler.length) return;
+
+  var SINIR=5, acik=false, secili="hepsi";
+
+  function uyar(oge,tur){
+    return tur==="hepsi" || oge.getAttribute("data-tur").split(" ").indexOf(tur)>=0;
+  }
+
+  /* her filtrenin kac projeye denk geldigini yaz */
+  dugmeler.forEach(function(d){
+    var tur=d.getAttribute("data-filtre");
+    var adet=ogeler.filter(function(o){ return uyar(o,tur); }).length;
+    var sayi=document.createElement("span");
+    sayi.className="sayi"; sayi.textContent=adet;
+    d.appendChild(sayi);
+  });
+
+  function ciz(){
+    var eslesen=0;
+    ogeler.forEach(function(o){
+      var eslesti=uyar(o,secili);
+      if(eslesti) eslesen++;
+      var goster=eslesti && (acik || eslesen<=SINIR);
+      o.classList.toggle("gizli",!goster);
+      if(!goster && o.classList.contains("open")){
+        o.classList.remove("open");
+        var bas=o.querySelector(".acc-head");
+        if(bas) bas.setAttribute("aria-expanded","false");
+      }
+    });
+    dugmeler.forEach(function(d){
+      var aktif=d.getAttribute("data-filtre")===secili;
+      d.classList.toggle("secili",aktif);
+      d.setAttribute("aria-pressed",aktif?"true":"false");
+    });
+    if(!dugme) return;
+    var kalan=eslesen-SINIR;
+    dugme.style.display=kalan>0?"":"none";
+    dugme.textContent=acik?"daha az göster":"tümünü göster (+"+kalan+")";
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+  }
+
+  dugmeler.forEach(function(d){
+    d.addEventListener("click",function(){
+      secili=d.getAttribute("data-filtre");
+      acik=false;
+      ciz();
+    });
+  });
+  if(dugme) dugme.addEventListener("click",function(){ acik=!acik; ciz(); });
+
+  ciz();
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "BeScript Yazılım Çözümleri",
+  "alternateName": "BeScript",
+  "description": "Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca yazılım geliştirme.",
+  "url": "https://bescript.com.tr/",
+  "logo": "https://bescript.com.tr/assets/logo/brand-512.png",
+  "image": "https://bescript.com.tr/og-image.png",
+  "email": "mailto:iletisim@bescript.com.tr",
+  "telephone": "+90-540-001-05-95",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kartepe",
+    "addressRegion": "Kocaeli",
+    "addressCountry": "TR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Kartepe" },
+    { "@type": "AdministrativeArea", "name": "Kocaeli" },
+    { "@type": "Country", "name": "Türkiye" }
+  ],
+  "knowsLanguage": ["tr", "en"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+90-540-001-05-95",
+    "email": "iletisim@bescript.com.tr",
+    "availableLanguage": ["Turkish", "English"]
+  }
+}
+</script>
+</body>
+</html>

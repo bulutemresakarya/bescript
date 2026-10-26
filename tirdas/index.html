@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tırdaş — Lojistik Yapay Zeka Asistanı (Demo)</title>
+<meta name="description" content="WhatsApp gruplarındaki serbest metin yük ilanlarını AI ile yapılandırıp mobil pazaryerinde sunan lojistik platformunun interaktif demosu.">
+<link rel="canonical" href="https://bescript.com.tr/tirdas/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/tirdas/">
+<meta property="og:title" content="Tırdaş — Lojistik Yapay Zeka Asistanı (Demo)">
+<meta property="og:description" content="WhatsApp gruplarındaki serbest metin yük ilanlarını AI ile yapılandırıp mobil pazaryerinde sunan lojistik platformunun interaktif demosu.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tırdaş — Lojistik Yapay Zeka Asistanı (Demo)">
+<meta name="twitter:description" content="WhatsApp gruplarındaki serbest metin yük ilanlarını AI ile yapılandırıp mobil pazaryerinde sunan lojistik platformunun interaktif demosu.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#071A2F; --navy2:#102C49;
+    --orange:#FF7A00; --amber:#FFB547;
+    --bg:#F5F7FA; --surface:#FFFFFF;
+    --text:#122033; --muted:#718096; --line:#E7ECF2;
+    --green:#16A36A; --red:#E44D5E;
+    --wa-bg:#0B141A; --wa-in:#202C33; --wa-out:#005C4B;
+    --wa-text:#E9EDEF; --wa-muted:#8696A0; --wa-green:#25D366; --sys:#182229;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+  .demo-banner{background:var(--navy);color:#fff;text-align:center;padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .demo-banner b{color:var(--orange)}
+
+  header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:46px 0 40px}
+  .hero-grid{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  .tlogo{width:110px;height:110px;border-radius:22px;object-fit:cover;flex-shrink:0;box-shadow:0 14px 34px rgba(0,0,0,.35)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.12em;margin-bottom:10px}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;font-variation-settings:'wdth' 118;font-size:clamp(30px,5vw,46px)}
+  h1 span{color:var(--orange)}
+  .sub{color:#BCC9D8;max-width:62ch;font-size:16px;margin-top:12px}
+  .sub b{color:#fff}
+  .hero-stats{display:flex;gap:0;margin-top:26px;border:1px solid rgba(255,255,255,.16);border-radius:12px;overflow:hidden;flex-wrap:wrap}
+  .hs{padding:13px 22px;border-right:1px solid rgba(255,255,255,.16);flex:1;min-width:150px}
+  .hs:last-child{border-right:none}
+  .hs .n{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;color:var(--orange)}
+  .hs .l{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB0C2;margin-top:2px;letter-spacing:.04em}
+  /* --- resmi magaza rozetleri --- */
+  .store-btns{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;align-items:center}
+  .store-btns a{display:inline-block;transition:opacity .15s,transform .15s}
+  .store-btns a:hover{opacity:.85;transform:translateY(-2px)}
+  .store-btns a:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:8px}
+  .store-btns img{display:block;width:auto}
+  .badge-apple{height:42px}
+  /* Google'in resmi PNG'sinde %23.2 seffaf dikey dolgu var; gorunur yuksekligi
+     Apple rozetiyle esitlemek icin 55px verip dolguyu negatif margin ile aliyoruz */
+  .badge-google{height:55px;margin:-6px 0}
+
+  .stage{padding:38px 0 8px}
+  h2.sec{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:24px;margin-bottom:6px}
+  .sec-sub{color:var(--muted);font-size:14.5px;margin-bottom:20px;max-width:78ch}
+  .sec-sub b{color:var(--text)}
+  .sec-sub code{font-family:'IBM Plex Mono',monospace;background:#fff;border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:12px}
+
+  .phones{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+  .phone-col{flex:1;min-width:310px;max-width:430px}
+  .phone-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+    text-align:center;margin-bottom:10px;letter-spacing:.05em;
+  }
+  .phone-label b{color:var(--orange)}
+  .phone{
+    background:#0E1620;border-radius:24px;overflow:hidden;border:6px solid var(--navy);
+    box-shadow:0 24px 60px -20px rgba(7,26,47,.45);
+    display:flex;flex-direction:column;height:640px;
+  }
+
+  /* --- WhatsApp taraf --- */
+  .wa-head{background:var(--wa-in);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .wa-avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:#12324A;flex-shrink:0}
+  .wa-title{color:var(--wa-text);font-weight:600;font-size:15px;line-height:1.2}
+  .wa-status{color:var(--wa-green);font-size:12px}
+  .wa-body{flex:1;overflow-y:auto;padding:16px 12px;background:var(--wa-bg);background-image:radial-gradient(rgba(255,255,255,.028) 1.2px,transparent 1.2px);background-size:22px 22px;display:flex;flex-direction:column;gap:8px}
+  .msg{max-width:88%;padding:8px 12px;border-radius:10px;color:var(--wa-text);font-size:13.6px;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;animation:pop .25s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.msg{animation:none}}
+  .msg.in{background:var(--wa-in);align-self:flex-start;border-top-left-radius:3px}
+  .msg.out{background:var(--wa-out);align-self:flex-end;border-top-right-radius:3px}
+  .msg.grp{background:#243447;align-self:flex-start;border-top-left-radius:3px}
+  .msg.grp .who{color:var(--amber);font-size:12px;font-weight:600;display:block;margin-bottom:2px}
+  .msg.sys{background:var(--sys);align-self:center;text-align:center;font-size:11.5px;color:var(--wa-muted);border-radius:8px;padding:5px 12px;max-width:94%;font-family:'IBM Plex Mono',monospace}
+  .msg .time{display:block;text-align:right;font-size:10px;color:var(--wa-muted);margin-top:3px}
+  .msg b{font-weight:600}
+  .typing{display:flex;gap:4px;padding:10px 14px;background:var(--wa-in);border-radius:10px;align-self:flex-start;width:60px}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--wa-muted);animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+  .wa-input{display:flex;gap:8px;padding:10px 12px;background:var(--wa-in);flex-shrink:0;align-items:center}
+  .wa-input input{flex:1;background:#2A3942;border:none;border-radius:10px;padding:11px 14px;color:var(--wa-text);font-size:14px;font-family:'IBM Plex Sans',sans-serif;outline:none;min-width:0}
+  .wa-input input:focus-visible{outline:2px solid var(--wa-green)}
+  .wa-input input::placeholder{color:var(--wa-muted)}
+  .wa-send{width:42px;height:42px;border-radius:50%;background:var(--wa-green);border:none;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
+  .wa-send:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .chips{display:flex;gap:6px;padding:8px 12px 12px;background:var(--wa-in);flex-wrap:wrap;flex-shrink:0}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:transparent;border:1px solid #3B4A54;color:var(--wa-muted);padding:5px 11px;border-radius:999px;cursor:pointer}
+  .chip:hover{border-color:var(--wa-green);color:var(--wa-green)}
+
+  /* --- Mobil app taraf --- */
+  .app{background:var(--bg);flex:1;display:flex;flex-direction:column;overflow:hidden}
+  .app-head{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px;flex-shrink:0}
+  .app-head .hi{font-size:12.5px;color:#9FB0C2}
+  .app-head .name{font-weight:900;font-size:17px}
+  .app-body{flex:1;overflow-y:auto;padding:14px}
+  .app-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:11px}
+  .app h3{font-size:15px;font-weight:900;margin-bottom:8px}
+  .load-route{display:flex;align-items:center;gap:8px;font-weight:900;font-size:14.5px}
+  .load-route .arr{color:var(--orange)}
+  .load-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:7px;font-size:12px;color:var(--muted)}
+  .load-meta span{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:2px 8px}
+  .load-price{font-weight:900;color:var(--orange);font-size:15px;margin-top:8px}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:1px}
+  .badge.wa{background:rgba(37,211,102,.12);color:#128C4B}
+  .badge.urgent{background:rgba(228,77,94,.12);color:var(--red)}
+  .badge.vip{background:linear-gradient(135deg,#F4B942,#D88B08);color:#fff}
+  .masked{font-family:'IBM Plex Mono',monospace;letter-spacing:.5px}
+  .btn-o{display:block;width:100%;background:var(--orange);color:#fff;border:none;border-radius:11px;padding:13px;font-weight:900;font-size:14px;cursor:pointer;font-family:inherit;text-align:center}
+  .btn-o:hover{background:#ff9b4d}
+  .btn-ghost{display:block;width:100%;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:11px;padding:11px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+  .lock-note{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
+  .vip-hero{background:linear-gradient(135deg,var(--navy),#183E63);border-radius:14px;color:#fff;padding:18px;margin-bottom:11px}
+  .vip-hero .t{font-weight:900;font-size:17px}
+  .vip-hero .t span{background:linear-gradient(135deg,#F4B942,#D88B08);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .vip-li{font-size:13px;margin-top:6px}
+  .app-tabs{display:flex;background:var(--surface);border-top:1px solid var(--line);flex-shrink:0}
+  .app-tab{flex:1;text-align:center;padding:9px 4px 11px;font-size:10.5px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit}
+  .app-tab .ico{font-size:19px;display:block;margin-bottom:2px}
+  .app-tab.active{color:var(--orange);font-weight:700}
+  .app-tab.center{position:relative;top:-14px}
+  .app-tab.center .ico{width:52px;height:52px;margin:0 auto 2px;background:var(--orange);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:22px;box-shadow:0 8px 18px rgba(255,122,0,.4)}
+  .app-tab:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+  .offer-ok{background:linear-gradient(135deg,#E8FFF5,#F7FFFB);border:1px solid rgba(22,163,106,.3)}
+
+  .replay{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 18px;border-radius:999px;cursor:pointer}
+  .replay:hover{border-color:var(--orange);color:var(--orange)}
+
+  /* mimari */
+  .arch{padding:44px 0 10px}
+  .arch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:860px){.arch-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.arch-grid{grid-template-columns:1fr}}
+  .acell{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;border-top:3px solid var(--orange)}
+  .acell h3{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy);letter-spacing:.06em;margin-bottom:7px}
+  .acell .tech{font-weight:900;font-size:14.5px;margin-bottom:5px}
+  .acell p{font-size:12.5px;color:var(--muted)}
+
+  .feat{padding:36px 0 54px}
+  .download{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:44px 0 48px}
+  .download h2.sec{color:#fff}
+  .download .sec-sub{color:#BCC9D8;margin-bottom:0}
+  .download .sec-sub b{color:#fff}
+  .download .store-btns{margin-top:20px}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:820px){.feat-grid{grid-template-columns:1fr}}
+  .fcell{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .fcell h3{font-size:14px;font-weight:900;margin-bottom:5px}
+  .fcell p{font-size:13px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:18px 0 34px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">İNTERAKTİF DEMO — örnek veri · (Şubat–Ağustos 2026)</div>
+
+<header>
+  <div class="wrap">
+    <div class="hero-grid">
+      <img class="tlogo" src="logo.jpeg" alt="Tırdaş logosu" onerror="this.style.display='none'">
+      <div>
+        <p class="eyebrow">LOJİSTİK YAPAY ZEKA ASİSTANI</p>
+        <h1>Tırdaş<span>.</span></h1>
+        <p class="sub"><b>Yük–araç pazaryeri.</b> WhatsApp gruplarına serbest metin olarak düşen yük ilanlarını yapay zeka ile yapılandırılmış veriye çevirir; aynı havuzu hem WhatsApp botunda hem mobil pazaryeri uygulamasında sunar. Nakliyeci "kaptan"lar yük bulur, yük sahipleri araç bulur.</p>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="n">4</div><div class="l">bileşen: backend · bot · mobil · admin</div></div>
+      <div class="hs"><div class="n">Hibrit</div><div class="l">baileys (dinleme) + meta cloud api (dm)</div></div>
+      <div class="hs"><div class="n">Freemium</div><div class="l">maskeli numara → vip abonelik</div></div>
+      <div class="hs"><div class="n">7 gün</div><div class="l">otomatik ücretsiz vip deneme</div></div>
+    </div>
+    <div class="store-btns">
+      <a href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
+        <img class="badge-apple" src="/assets/badge/app-store-tr-white.svg" alt="App Store'dan İndirin" width="151" height="40">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
+        <img class="badge-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="wrap">
+    <h2 class="sec">İki Kanal, Tek Havuz</h2>
+    <p class="sec-sub">Solda <b>WhatsApp botu</b>: gruba düşen dağınık ilanın AI ile ayrıştırılmasını izle, sonra bota kendin yaz — <code>İstanbul Ankara yük var mı</code>, <code>hava durumu</code> veya <code>menü</code> dene. Sağda <b>mobil uygulama</b>: alt sekmelere ve butonlara dokunarak gez; aynı ilanın uygulamada nasıl göründüğünü, maskeli numarayı ve VIP akışını gör.</p>
+
+    <div class="phones">
+      <!-- WHATSAPP -->
+      <div class="phone-col">
+        <div class="phone-label">📱 WHATSAPP BOTU · <b>interaktif</b></div>
+        <div class="phone">
+          <div class="wa-head">
+            <div class="wa-avatar">🚛</div>
+            <div>
+              <div class="wa-title">Tırdaş Asistan</div>
+              <div class="wa-status">çevrimiçi · AI destekli</div>
+            </div>
+          </div>
+          <div class="wa-body" id="waBody"></div>
+          <div class="chips" id="chips">
+            <button class="chip">İstanbul Ankara yük var mı</button>
+            <button class="chip">hava durumu Ankara</button>
+            <button class="chip">menü</button>
+          </div>
+          <div class="wa-input">
+            <input id="waInput" type="text" placeholder="Kaptan, bir şey sor…" autocomplete="off" aria-label="Bota mesaj yaz">
+            <button class="wa-send" id="waSend" aria-label="Gönder">➤</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBIL APP -->
+      <div class="phone-col">
+        <div class="phone-label">📲 MOBİL UYGULAMA · <b>tıklanabilir</b></div>
+        <div class="phone">
+          <div class="app">
+            <div class="app-head">
+              <div class="hi">👋 İyi yolculuklar</div>
+              <div class="name">Mehmet Kaptan <span class="badge vip">DENEME VIP · 5 gün</span></div>
+            </div>
+            <div class="app-body" id="appBody"></div>
+            <div class="app-tabs" id="appTabs">
+              <button class="app-tab active" data-s="home"><span class="ico">🏠</span>Ana Sayfa</button>
+              <button class="app-tab" data-s="search"><span class="ico">🔍</span>Yük Ara</button>
+              <button class="app-tab center" data-s="create"><span class="ico">＋</span>Yük Paylaş</button>
+              <button class="app-tab" data-s="loads"><span class="ico">📦</span>İlanlarım</button>
+              <button class="app-tab" data-s="vip"><span class="ico">💎</span>VIP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" id="replay">↻ WhatsApp sahnesini baştan oynat</button>
+  </div>
+</div>
+
+<section class="arch">
+  <div class="wrap">
+    <h2 class="sec">Dört Bileşen, Tek Marka</h2>
+    <p class="sec-sub">Koyu lacivert + turuncu ikilisi mobil uygulamada ve yönetim panelinde birebir aynı hex kodlarıyla kullanılıyor; bot da bu kimliği "kaptan" hitabı ve tutarlı emoji diliyle sohbete taşıyor.</p>
+    <div class="arch-grid">
+      <div class="acell"><h3>BACKEND</h3><div class="tech">Node.js + Express + PostgreSQL</div><p>Tek süreçte bot, mobil API ve admin API. Cron görevleri: kota, süre, temizlik, kampanya worker'ı.</p></div>
+      <div class="acell"><h3>WHATSAPP BOTU</h3><div class="tech">Baileys + Meta Cloud API + OpenAI</div><p>Grup dinleme ayrı, DM ayrı kanal. Structured Outputs ile niyet analizi; rate-limit ve karaliste koruması.</p></div>
+      <div class="acell"><h3>MOBİL UYGULAMA</h3><div class="tech">Expo / React Native</div><p>OTP giriş (WhatsApp kodu), rol bazlı onboarding, teklif sistemi, finans takibi, Expo push, uygulama içi abonelik.</p></div>
+      <div class="acell"><h3>YÖNETİM PANELİ</h3><div class="tech">Vue 3 + PrimeVue</div><p>Kullanıcı/ilan/belge onayı, sistem metinleri düzenleme, bot QR &amp; yeniden bağlanma kontrolü.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feat">
+  <div class="wrap">
+    <div class="feat-grid">
+      <div class="fcell"><h3>🧠 Serbest metin → yapılandırılmış ilan</h3><p>"Ankara'ya 25 ton demir, tenteli lazım acil" gibi dağınık grup mesajları AI ile güzergâh, tonaj, araç tipi ve fiyata ayrıştırılır.</p></div>
+      <div class="fcell"><h3>🔒 Freemium gelir modeli</h3><p>VIP olmayan kullanıcıya ilan sahibinin numarası maskeli gösterilir (0532•••••41). Mobilde mağaza uyumlu uygulama içi abonelik.</p></div>
+      <div class="fcell"><h3>🛡️ Kötüye kullanım koruması</h3><p>Rate-limit (kademeli susturma), karaliste zinciri, uzun mesaj koruması, kota aşımında Telegram'a otomatik uyarı.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="download">
+  <div class="wrap">
+    <h2 class="sec">Uygulama mağazalarda yayında</h2>
+    <p class="sec-sub">Yukarıdaki demo örnek verili bir canlandırma. <b>Gerçek Tırdaş uygulamasını</b> indirip kendi güzergâhındaki ilanlara bakabilir, ilk 7 gün ücretsiz VIP denemesini kullanabilirsin.</p>
+    <div class="store-btns">
+      <a href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
+        <img class="badge-apple" src="/assets/badge/app-store-tr-white.svg" alt="App Store'dan İndirin" width="151" height="40">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
+        <img class="badge-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>tırdaş · lojistik ai asistanı · demo</span>
+    <span>geliştirici: <a href="../">BeScript</a></span>
+  </div>
+</footer>
+
+<script>
+/* ---------- WhatsApp tarafı ---------- */
+const $body=document.getElementById("waBody"),$input=document.getElementById("waInput");
+const now=()=>new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+let timers=[];const clearTimers=()=>{timers.forEach(t=>clearTimeout(t));timers=[]};
+const wait=ms=>new Promise(r=>{const t=setTimeout(r,ms);timers.push(t)});
+function addMsg(type,text,who){
+  const d=document.createElement("div");d.className="msg "+type;
+  let inner=text.replace(/\*(.+?)\*/g,"<b>$1</b>");
+  if(who)inner=`<span class="who">${who}</span>`+inner;
+  d.innerHTML=inner+(type!=="sys"?`<span class="time">${now()}</span>`:"");
+  $body.appendChild(d);$body.scrollTop=$body.scrollHeight;
+}
+async function typing(ms=1100){
+  const t=document.createElement("div");t.className="typing";t.innerHTML="<span></span><span></span><span></span>";
+  $body.appendChild(t);$body.scrollTop=$body.scrollHeight;await wait(ms);t.remove();
+}
+async function intro(){
+  addMsg("sys","NAKLİYE YÜK PAYLAŞIM GRUBU · bot sessizce dinliyor",true);
+  await wait(700);
+  addMsg("grp","istanbul tuzladan ankaraya 25 ton demir profil var tenteli lazım acil yarın sabah yükleme 32bin fiyat 05327764241","Yük Sahibi Hasan");
+  await wait(1400);
+  addMsg("sys","🤖 AI parse etti → is_load ✓ · ilan #4812 kaydedildi · rota takipçilerine push gitti");
+  await wait(900);
+  addMsg("sys","— ŞİMDİ BOTUN DM KANALINDASIN — aşağıdan yaz, kaptan 👇");
+  await wait(600);await typing(900);
+  addMsg("in","👋 Selamun aleyküm kaptan! Tırdaş'a hoş geldin.\n🤖 Bana doğal dilde yazabilirsin: yük sorgula, hava durumu sor ya da *menü* yaz.");
+}
+const LOADS=[
+  {r:"İstanbul (Tuzla) → Ankara",d:"25 ton · Demir profil · Tenteli · ⚡ Acil",p:"32.000 TL",t:"0532•••••41"},
+  {r:"İstanbul (Hadımköy) → Ankara",d:"18 ton · Paletli gıda · Frigo",p:"29.500 TL",t:"0543•••••87"},
+];
+async function botReply(raw){
+  const q=raw.toLowerCase();
+  await typing(1000);
+  if(/yük|yuk|nakliye|araç|arac/.test(q) && /var|ara|lazım|lazim|bul|mı|mi/.test(q)){
+    addMsg("in","📦 *2 uygun yük buldum kaptan:*\n\n1️⃣ *"+LOADS[0].r+"*\n"+LOADS[0].d+"\n💰 "+LOADS[0].p+"\n📞 "+LOADS[0].t+"\n\n2️⃣ *"+LOADS[1].r+"*\n"+LOADS[1].d+"\n💰 "+LOADS[1].p+"\n📞 "+LOADS[1].t+"\n\n🛑 Numaraların tamamını görmek için 💎 *VIP* üyelik gerekir. Deneme VIP'in aktifken uygulamadan tam erişebilirsin!\n🕒 Misafir sorgu hakkın: 4/5");
+  }
+  else if(/hava/.test(q)){
+    addMsg("in","🌤️ *Ankara Hava Durumu*\nBugün: 31°C, açık · Gece: 18°C\nYarın: 33°C, güneşli\n\nYolun açık olsun kaptan! 🚛");
+  }
+  else if(/menü|menu|yardım|yardim|merhaba|selam/.test(q)){
+    addMsg("in","🤖 *Tırdaş Asistan Menüsü*\n\n📦 Yük sorgula → \"İstanbul Ankara yük var mı\"\n🚛 Yük paylaş → ilanını yaz, ben ayrıştırırım\n🌤️ Hava durumu → \"hava durumu Ankara\"\n📍 Mekan ara → \"Bolu'da tır parkı\"\n💰 Gider takibi → \"500 TL mazot yazdım\"\n💎 *VIP*: sınırsız sorgu + 7/24 AI asistan\n\n📲 Uygulamayı indir: tirdas.com.tr");
+  }
+  else if(/gider|mazot|masraf|yakıt|yakit|tl yaz/.test(q)){
+    addMsg("in","✅ *Gider kaydedildi kaptan!*\n⛽ Kategori: Yakıt\nBu ayki toplam giderin: 14.750 TL\n📊 Detaylı rapor için uygulamadaki *Finans* sekmesine göz at.");
+  }
+  else if(/park|mekan|lokanta|dinlen/.test(q)){
+    addMsg("in","📍 *Yakın mekanlar (Bolu Dağı çevresi):*\n1. Kaptanlar Tır Parkı — 4,6 ⭐ · 24 saat\n2. Yıldız Dinlenme Tesisi — 4,4 ⭐ · duş + lokanta\n\nGoogle Haritalar linkleri uygulamada, kaptan! 🗺️");
+  }
+  else{
+    addMsg("in","🤖 Anladım kaptan! Sana en iyi şekilde yardımcı olmak için şunları deneyebilirsin:\n📦 \"İstanbul Ankara yük var mı\"\n🌤️ \"hava durumu\"\n🤖 \"menü\"");
+  }
+}
+function send(){
+  const v=$input.value.trim();if(!v)return;
+  $input.value="";addMsg("out",v);botReply(v);
+}
+document.getElementById("waSend").addEventListener("click",send);
+$input.addEventListener("keydown",e=>{if(e.key==="Enter")send()});
+document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{$input.value=b.textContent;send()}));
+document.getElementById("replay").addEventListener("click",()=>{clearTimers();$body.innerHTML="";intro()});
+intro();
+
+/* ---------- Mobil app tarafı ---------- */
+const $app=document.getElementById("appBody");
+const loadCard=(l,i)=>`<div class="app-card">
+  <div class="load-route">${l.r.replace("→",'<span class="arr">→</span>')} ${i===0?'<span class="badge urgent">ACİL</span>':''}<span class="badge wa">WhatsApp'tan</span></div>
+  <div class="load-meta">${l.d.split("·").map(x=>`<span>${x.trim()}</span>`).join("")}</div>
+  <div class="load-price">${l.p} <span style="color:var(--muted);font-weight:400;font-size:12px">· İletişim: <span class="masked">${l.t}</span></span></div>
+  <button class="btn-o" style="margin-top:10px" data-goto="detail">İlanı İncele</button>
+</div>`;
+const SCREENS={
+  home:()=>`
+    <div class="app-card" style="background:linear-gradient(135deg,#FFF7EC,#FFF)">
+      <h3>🔥 Rotanda öne çıkan fırsat</h3>
+      <div class="load-route">İstanbul <span class="arr">→</span> Ankara <span class="badge urgent">ACİL</span></div>
+      <div class="load-price">32.000 TL</div>
+      <button class="btn-o" style="margin-top:10px" data-goto="detail">Hemen İncele</button>
+    </div>
+    <div class="app-card"><h3>⚡ Hızlı erişim</h3>
+      <div class="load-meta"><span>💰 Finans</span><span>💎 VIP</span><span>🗺️ Yakın Mekanlar</span><span>⭐ Favori Rotalar</span></div>
+    </div>
+    <div class="app-card"><h3>📊 Bu ay</h3><p style="font-size:13px;color:var(--muted)">3 sefer tamamlandı · 84.500 TL gelir · 14.750 TL gider</p></div>`,
+  search:()=>`
+    <div class="app-card" style="padding:10px 14px"><div class="load-meta" style="margin:0"><span>📍 İstanbul → Ankara</span><span>Tenteli</span><span>20-30 ton</span><span style="color:var(--orange);border-color:var(--orange)">Filtrele ⌄</span></div></div>
+    ${LOADS.map(loadCard).join("")}
+    <div class="lock-note">🔒 Numaraların tamamı VIP üyelikle görünür</div>`,
+  detail:()=>`
+    <div class="app-card">
+      <div class="load-route">İstanbul (Tuzla) <span class="arr">→</span> Ankara <span class="badge urgent">ACİL</span></div>
+      <div class="load-meta"><span>25 ton</span><span>Demir profil</span><span>Tenteli</span><span>Yarın 06:00 yükleme</span></div>
+      <div class="load-price">32.000 TL</div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">İlan Sahibi: Hasan Y. · ⭐ 4,7 (23 değerlendirme)<br>İletişim: <span class="masked">0532•••••41</span> 🔒</p>
+      <button class="btn-o" style="margin-top:12px" data-goto="offer">Teklif Ver (30.000 TL)</button>
+      <button class="btn-ghost" data-goto="vip">💎 Numarayı Gör → VIP</button>
+    </div>`,
+  offer:()=>`
+    <div class="app-card offer-ok">
+      <h3>✅ Teklifin gönderildi!</h3>
+      <p style="font-size:13px;color:var(--muted)">İstanbul → Ankara · 25 ton demir profil için <b style="color:var(--text)">30.000 TL</b> teklif verdin. İlan sahibi kabul ederse push bildirimi alacaksın ve numaralar karşılıklı açılacak.</p>
+    </div>
+    <div class="app-card"><h3>📨 Teklif durumların</h3>
+      <p style="font-size:13px;color:var(--muted)">İstanbul → Ankara · 30.000 TL — <b style="color:var(--amber)">Bekliyor</b><br>Kocaeli → İzmir · 24.000 TL — <b style="color:var(--green)">Kabul edildi ✓</b></p>
+    </div>
+    <button class="btn-ghost" data-goto="search">← Yük aramaya dön</button>`,
+  create:()=>`
+    <div class="app-card"><h3>🚛 Yük Paylaş</h3>
+      <p style="font-size:13px;color:var(--muted)">Yük sahibi rolündeki kullanıcılar buradan form ile ilan girer; WhatsApp grubundan gelenler ise AI ile otomatik eklenir. İkisi de aynı havuza düşer.</p>
+      <div class="load-meta" style="margin-top:10px"><span>Nereden / Nereye</span><span>Tonaj</span><span>Araç tipi</span><span>Fiyat</span><span>Tarih</span></div>
+      <button class="btn-o" style="margin-top:12px">İlanı Yayınla</button>
+    </div>`,
+  loads:()=>`
+    <div class="app-card"><h3>📦 Eşleşen ilanlar</h3><p style="font-size:13px;color:var(--muted)">Favori rotan <b style="color:var(--text)">İstanbul → Ankara</b> için bugün 2 yeni ilan düştü. 🔔 Push bildirimleri açık.</p></div>
+    ${loadCard(LOADS[1],1)}`,
+  vip:()=>`
+    <div class="vip-hero">
+      <div class="t">💎 Tırdaş <span>Premium</span></div>
+      <div class="vip-li">✅ Sınırsız yük sorgulama</div>
+      <div class="vip-li">✅ İletişim numaralarına tam erişim</div>
+      <div class="vip-li">✅ Detaylı hava durumu + mekan arama</div>
+      <div class="vip-li">✅ 7/24 yapay zeka asistanı</div>
+    </div>
+    <div class="app-card">
+      <h3>Aylık abonelik</h3>
+      <p style="font-size:13px;color:var(--muted)">İlk 7 gün ücretsiz · Google Play / App Store üzerinden güvenli uygulama içi satın alma · istediğin an iptal</p>
+      <button class="btn-o" style="margin-top:12px">7 Gün Ücretsiz Dene</button>
+    </div>`
+};
+function showScreen(s){
+  $app.innerHTML=SCREENS[s]();
+  document.querySelectorAll(".app-tab").forEach(t=>t.classList.toggle("active",t.dataset.s===s));
+  $app.scrollTop=0;
+  $app.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.goto)));
+}
+document.querySelectorAll(".app-tab").forEach(t=>t.addEventListener("click",()=>showScreen(t.dataset.s)));
+showScreen("home");
+</script>
+</body>
+</html>

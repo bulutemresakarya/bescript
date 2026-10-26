@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueMax.ai — WhatsApp Lead Botu (İnteraktif Demo)</title>
+<meta name="description" content="Emlak ofisleri için FSBO lead üretim botunun interaktif demosu. Gerçek mesaj akışı, gerçek komutlar, örnek veri.">
+<link rel="canonical" href="https://bescript.com.tr/truemax-ai/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0047FF">
+<meta name="apple-mobile-web-app-title" content="bescript">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://bescript.com.tr/truemax-ai/">
+<meta property="og:title" content="TrueMax.ai — WhatsApp Lead Botu (İnteraktif Demo)">
+<meta property="og:description" content="Emlak ofisleri için FSBO lead üretim botunun interaktif demosu. Gerçek mesaj akışı, gerçek komutlar, örnek veri.">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TrueMax.ai — WhatsApp Lead Botu (İnteraktif Demo)">
+<meta name="twitter:description" content="Emlak ofisleri için FSBO lead üretim botunun interaktif demosu. Gerçek mesaj akışı, gerçek komutlar, örnek veri.">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F5F8;
+    --ink:#15222E;
+    --muted:#5D6B7A;
+    --blue:#2196F3;
+    --blue-dark:#0D6EBD;
+    --line:#D7DEE6;
+    --wa-bg:#0B141A;
+    --wa-panel:#111B21;
+    --wa-in:#202C33;
+    --wa-out:#005C4B;
+    --wa-text:#E9EDEF;
+    --wa-muted:#8696A0;
+    --wa-green:#00A884;
+    --sys:#182229;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  .demo-banner{
+    background:var(--ink);color:#fff;text-align:center;padding:6px 12px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;
+  }
+  .demo-banner b{color:var(--blue)}
+
+  header{padding:40px 0 28px}
+  .logo-line{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .bot-head{
+    width:46px;height:46px;border-radius:14px;background:linear-gradient(160deg,#DDE7F0,#B9CBDA);
+    display:grid;place-items:center;position:relative;flex-shrink:0;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.12);
+  }
+  .bot-face{width:30px;height:24px;border-radius:8px;background:#39C2F7;border:3px solid #17323F;position:relative}
+  .bot-face::before,.bot-face::after{content:'';position:absolute;top:6px;width:5px;height:5px;border-radius:50%;background:#17323F}
+  .bot-face::before{left:5px}.bot-face::after{right:5px}
+  .bot-ant{position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:2.5px;height:7px;background:#17323F}
+  .bot-ant::after{content:'';position:absolute;top:-5px;left:-2.2px;width:7px;height:7px;border-radius:50%;background:#39C2F7;border:1.5px solid #17323F}
+  h1{font-family:'Archivo',sans-serif;font-weight:850;font-variation-settings:'wdth' 114;font-size:clamp(26px,4.5vw,38px);letter-spacing:-.01em}
+  h1 .ai{color:var(--blue)}
+  .sub{color:var(--muted);max-width:64ch;font-size:16px}
+  .sub b{color:var(--ink)}
+
+  /* pipeline */
+  .pipeline{
+    display:flex;gap:0;margin:26px 0 0;border:1px solid var(--line);border-radius:12px;
+    background:#fff;overflow-x:auto;
+  }
+  .pstep{
+    flex:1;min-width:120px;padding:14px 16px;border-right:1px solid var(--line);
+    position:relative;cursor:default;
+  }
+  .pstep:last-child{border-right:none}
+  .pstep .n{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--blue);letter-spacing:.06em}
+  .pstep .t{font-weight:600;font-size:13.5px;margin-top:2px}
+  .pstep .d{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  /* tabs */
+  .stage{padding:30px 0 10px}
+  .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .tab{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;
+    padding:9px 16px;border-radius:999px;border:1px solid var(--line);
+    background:#fff;color:var(--muted);cursor:pointer;transition:all .15s;
+  }
+  .tab:hover{border-color:var(--blue);color:var(--ink)}
+  .tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .tab .role-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+
+  .scene-note{
+    font-size:13.5px;color:var(--muted);margin-bottom:14px;max-width:70ch;
+  }
+  .scene-note b{color:var(--ink)}
+  .scene-note code{font-family:'IBM Plex Mono',monospace;background:#fff;border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:12px}
+
+  /* phone */
+  .phone-zone{display:flex;justify-content:center;padding-bottom:10px}
+  .phone{
+    width:100%;max-width:460px;background:var(--wa-panel);
+    border-radius:22px;overflow:hidden;border:6px solid #1E2A32;
+    box-shadow:0 24px 60px -20px rgba(21,34,46,.45);
+    display:flex;flex-direction:column;height:640px;
+  }
+  .wa-head{
+    background:var(--wa-in);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;
+  }
+  .wa-avatar{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    display:grid;place-items:center;font-size:18px;background:#2F3B44;
+  }
+  .wa-title{color:var(--wa-text);font-weight:600;font-size:15px;line-height:1.2}
+  .wa-status{color:var(--wa-green);font-size:12px}
+  .wa-body{
+    flex:1;overflow-y:auto;padding:16px 12px;
+    background:var(--wa-bg);
+    background-image:radial-gradient(rgba(255,255,255,.028) 1.2px, transparent 1.2px);
+    background-size:22px 22px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .msg{
+    max-width:86%;padding:8px 12px;border-radius:10px;
+    color:var(--wa-text);font-size:13.8px;line-height:1.45;
+    white-space:pre-wrap;word-wrap:break-word;position:relative;
+    animation:pop .25s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.msg{animation:none}}
+  .msg.in{background:var(--wa-in);align-self:flex-start;border-top-left-radius:3px}
+  .msg.out{background:var(--wa-out);align-self:flex-end;border-top-right-radius:3px}
+  .msg.sys{
+    background:var(--sys);align-self:center;text-align:center;
+    font-size:11.5px;color:var(--wa-muted);border-radius:8px;padding:5px 12px;max-width:92%;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .msg .time{display:block;text-align:right;font-size:10px;color:var(--wa-muted);margin-top:3px}
+  .msg b{font-weight:600}
+  .msg i{font-style:italic;color:#D3DBE0}
+  .typing{display:flex;gap:4px;padding:10px 14px;background:var(--wa-in);border-radius:10px;align-self:flex-start;width:60px}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--wa-muted);animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+  .wa-input{
+    display:flex;gap:8px;padding:10px 12px;background:var(--wa-in);flex-shrink:0;align-items:center;
+  }
+  .wa-input input{
+    flex:1;background:#2A3942;border:none;border-radius:10px;
+    padding:11px 14px;color:var(--wa-text);font-size:14px;
+    font-family:'IBM Plex Sans',sans-serif;outline:none;min-width:0;
+  }
+  .wa-input input:focus-visible{outline:2px solid var(--wa-green)}
+  .wa-input input::placeholder{color:var(--wa-muted)}
+  .wa-send{
+    width:42px;height:42px;border-radius:50%;background:var(--wa-green);border:none;
+    color:#fff;font-size:17px;cursor:pointer;flex-shrink:0;transition:transform .1s;
+  }
+  .wa-send:hover{transform:scale(1.06)}
+  .wa-send:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .chips{display:flex;gap:6px;padding:8px 12px 12px;background:var(--wa-in);flex-wrap:wrap;flex-shrink:0}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    background:transparent;border:1px solid #3B4A54;color:var(--wa-muted);
+    padding:5px 11px;border-radius:999px;cursor:pointer;transition:all .15s;
+  }
+  .chip:hover{border-color:var(--wa-green);color:var(--wa-green)}
+  .chip:focus-visible{outline:2px solid var(--wa-green);outline-offset:2px}
+
+  .replay{
+    display:block;margin:14px auto 0;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    padding:8px 18px;border-radius:999px;cursor:pointer;transition:all .15s;
+  }
+  .replay:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* results band */
+  .results{
+    margin-top:26px;border:1px solid var(--line);border-radius:12px;background:#fff;
+    display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden;
+  }
+  .res{padding:16px 18px;border-right:1px solid var(--line)}
+  .res:last-child{border-right:none}
+  .res .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(19px,2.4vw,25px);font-variation-settings:'wdth' 108;color:var(--blue-dark)}
+  .res .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.03em}
+  @media(max-width:820px){.results{grid-template-columns:repeat(2,1fr)}.res:nth-child(2){border-right:none}}
+  @media(max-width:480px){.results{grid-template-columns:1fr}.res{border-right:none;border-bottom:1px solid var(--line)}.res:last-child{border-bottom:none}}
+
+  /* yanıt dağılımı */
+  .dist{padding:40px 0 6px}
+  .dist h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:24px;margin-bottom:6px}
+  .dist-sub{color:var(--muted);font-size:14.5px;margin-bottom:16px;max-width:70ch}
+  .bars{border:1px solid var(--line);border-radius:12px;background:#fff;padding:24px}
+  .bar-row{display:grid;grid-template-columns:200px 1fr 80px;gap:14px;align-items:center;padding:7px 0}
+  .bar-row .k{font-size:13.5px}
+  .bar-track{height:14px;background:var(--bg);border-radius:7px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:7px;transition:width 1s ease}
+  .bar-row .v{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:var(--muted)}
+  .dist-note{margin-top:16px;padding:13px 16px;border-radius:10px;background:rgba(33,150,243,.07);border:1px solid rgba(33,150,243,.25);font-size:14px}
+  .dist-note b{color:var(--blue-dark)}
+  @media(max-width:640px){.bar-row{grid-template-columns:1fr;gap:5px}.bar-row .v{text-align:left}}
+
+  /* tech strip */
+  .tech{padding:36px 0 50px}
+  .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:820px){.tech-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.tech-grid{grid-template-columns:1fr}}
+  .tcell{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tcell h3{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue-dark);letter-spacing:.05em;margin-bottom:6px}
+  .tcell p{font-size:13px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:18px 0 34px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--blue-dark);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">İNTERAKTİF DEMO — görüşme verisi örnektir · sonuç metrikleri <b>gerçek</b>: RE/MAX TRUE, Ocak–Kasım 2025</div>
+
+<header>
+  <div class="wrap">
+    <div class="logo-line">
+      <div class="bot-head"><div class="bot-ant"></div><div class="bot-face"></div></div>
+      <h1>TrueMax<span class="ai">.ai</span></h1>
+    </div>
+    <p class="sub">Emlak ofisleri için <b>uçtan uca lead üretim botu.</b> Her gün ilan sitelerini tarar, sahibinden satılık (FSBO) mülk sahiplerine WhatsApp'tan yapay zeka ile ulaşır, olumlu yanıtları yakalayıp doğru bölge uzmanına atar — kabul, takip ve yetki sürecini komutlarla yönetir.</p>
+
+    <div class="pipeline" aria-label="Sistem akışı">
+      <div class="pstep"><div class="n">01</div><div class="t">Tarama</div><div class="d">günlük FSBO toplama</div></div>
+      <div class="pstep"><div class="n">02</div><div class="t">İlk Temas</div><div class="d">AI WhatsApp mesajı</div></div>
+      <div class="pstep"><div class="n">03</div><div class="t">Yanıt</div><div class="d">niyet analizi</div></div>
+      <div class="pstep"><div class="n">04</div><div class="t">Atama</div><div class="d">bölge-uzman eşleşmesi</div></div>
+      <div class="pstep"><div class="n">05</div><div class="t">Kabul</div><div class="d">2 saatlik zamanaşımı</div></div>
+      <div class="pstep"><div class="n">06</div><div class="t">Takip</div><div class="d">/durum · /yetki · /ilan</div></div>
+    </div>
+
+    <div class="results" aria-label="Gerçek saha sonuçları (RE/MAX TRUE, Ocak–Kasım 2025)">
+      <div class="res"><div class="num">30.000+</div><div class="lbl">ulaşılan mülk sahibi</div></div>
+      <div class="res"><div class="num">2.778</div><div class="lbl">iş birliği onayı</div></div>
+      <div class="res"><div class="num">₺39,1 Mr</div><div class="lbl">toplam portföy bedeli</div></div>
+      <div class="res"><div class="num">60+/saat</div><div class="lbl">temas kapasitesi (manuel: 20/gün)</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Rol seçimi">
+      <button class="tab active" data-scene="owner" role="tab"><span class="role-dot" style="background:#39C2F7"></span>Mülk Sahibi Görünümü</button>
+      <button class="tab" data-scene="manager" role="tab"><span class="role-dot" style="background:#E8B93B"></span>Yönetici Görünümü</button>
+      <button class="tab" data-scene="agent" role="tab"><span class="role-dot" style="background:#00A884"></span>Danışman Görünümü (sen dene)</button>
+    </div>
+    <p class="scene-note" id="sceneNote"></p>
+    <div class="phone-zone">
+      <div class="phone">
+        <div class="wa-head">
+          <div class="wa-avatar" id="waAvatar">🤖</div>
+          <div>
+            <div class="wa-title" id="waTitle">TrueMax</div>
+            <div class="wa-status" id="waStatus">çevrimiçi</div>
+          </div>
+        </div>
+        <div class="wa-body" id="waBody"></div>
+        <div class="chips" id="chips" style="display:none"></div>
+        <div class="wa-input" id="waInputZone" style="display:none">
+          <input id="waInput" type="text" placeholder="Komut yazın… ör. /kabul 698524" autocomplete="off" aria-label="Komut girişi">
+          <button class="wa-send" id="waSend" aria-label="Gönder">➤</button>
+        </div>
+      </div>
+    </div>
+    <button class="replay" id="replay">↻ Sahneyi baştan oynat</button>
+  </div>
+</div>
+
+<section class="dist">
+  <div class="wrap">
+    <h2>Yanıt Dağılımı</h2>
+    <p class="dist-sub">11 aylık canlı kullanımda 5.171 sınıflandırılmış görüşmenin yapay zeka niyet analizi:</p>
+    <div class="bars">
+      <div class="bar-row"><span class="k">Olumsuz</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#B8C2CE" data-w="28.5%"></div></div><span class="v">%28,5 · 1.472</span></div>
+      <div class="bar-row"><span class="k">Nötr</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#E0A63C" data-w="27%"></div></div><span class="v">%27,0 · 1.395</span></div>
+      <div class="bar-row"><span class="k">Olumlu</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--blue)" data-w="26.7%"></div></div><span class="v">%26,7 · 1.383</span></div>
+      <div class="bar-row"><span class="k">Satılmış / Tamamlanmış</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#6B7A8C" data-w="16.2%"></div></div><span class="v">%16,2 · 840</span></div>
+      <div class="bar-row"><span class="k">Spam / Sistem / Engel</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#D7DEE6" data-w="0.7%"></div></div><span class="v">%0,6 · 32</span></div>
+    </div>
+    <div class="dist-note">🔹 <b>İş birliğine açık oran: %54,2</b> — her iki mülk sahibinden biri (olumlu + nötr) danışman görüşmesine kapı açtı.</div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="wrap">
+    <div class="tech-grid">
+      <div class="tcell"><h3>İNSANSI MESAJLAŞMA</h3><p>Yazma hızına göre hesaplanan gecikme, rastgele jitter, 1 dakikalık anti-spam mesaj birleştirme.</p></div>
+      <div class="tcell"><h3>AKILLI ATAMA</h3><p>İl / ilçe / mahalle / mülk tipi bazlı bölge-uzman eşleştirme; kabul edilmezse 2 saatte otomatik devir.</p></div>
+      <div class="tcell"><h3>TAM TAKİP DÖNGÜSÜ</h3><p>/durum (6 saat), /yetki (72 saat), /ilan bildirimleri — hiçbir lead takipsiz kalmaz.</p></div>
+      <div class="tcell"><h3>ALTYAPI</h3><p>Node.js · SQLite (WAL) · OpenAI · WhatsApp entegrasyonu · TKGM parsel linkleri. VDS üzerinde 7/24.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>truemax.ai · interaktif demo</span>
+    <span>geliştirici: <a href="../">BeScript</a></span>
+  </div>
+</footer>
+
+<script>
+const $body = document.getElementById("waBody");
+const $note = document.getElementById("sceneNote");
+const $title = document.getElementById("waTitle");
+const $status = document.getElementById("waStatus");
+const $avatar = document.getElementById("waAvatar");
+const $chips = document.getElementById("chips");
+const $inputZone = document.getElementById("waInputZone");
+const $input = document.getElementById("waInput");
+
+const now = () => new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+let timers = [];
+function clearTimers(){ timers.forEach(t=>clearTimeout(t)); timers=[]; }
+function wait(ms){ return new Promise(r=>{ const t=setTimeout(r,ms); timers.push(t); }); }
+
+function addMsg(type, text, instant=false){
+  const div=document.createElement("div");
+  div.className="msg "+type;
+  if(instant) div.style.animation="none";
+  div.innerHTML = text.replace(/\*(.+?)\*/g,"<b>$1</b>").replace(/_(.+?)_/g,"<i>$1</i>")
+    + (type!=="sys" ? `<span class="time">${now()}</span>` : "");
+  $body.appendChild(div);
+  $body.scrollTop=$body.scrollHeight;
+  return div;
+}
+async function typing(ms=1300){
+  const t=document.createElement("div");
+  t.className="typing";t.innerHTML="<span></span><span></span><span></span>";
+  $body.appendChild(t);$body.scrollTop=$body.scrollHeight;
+  await wait(ms); t.remove();
+}
+
+/* --------- SAHNE 1: MÜLK SAHİBİ --------- */
+async function sceneOwner(){
+  $title.textContent="TrueMax";$status.textContent="çevrimiçi";$avatar.textContent="🤖";
+  $note.innerHTML="Bot, ilan sitelerinden topladığı <b>sahibinden ilan sahibine</b> ilk teması kuruyor. Mesajlar yapay zeka ile üretiliyor; yazma hızı ve gecikmeler insan gibi davranacak şekilde ayarlı. Sen mülk sahibinin ekranını izliyorsun.";
+  $chips.style.display="none";$inputZone.style.display="none";
+  addMsg("sys","Bugün · uçtan uca şifreli örnek görüşme",true);
+  await wait(700); await typing(1600);
+  addMsg("in","Merhaba Adem B., Umarım gününüz güzel geçiyordur! 😊\nSize *'TATLIKUYU AHMET PEMBEGÜLLÜ BULVARINDA 260M2 KİRALIK İŞYERİ'* ilanınız üzerinden ulaşıyorum.\nİşimizi severek yapıyoruz ve size yardımcı olmayı çok isterim. Mülkünüz ile ilgili ofisimiz ile çalışmak ister misiniz?");
+  await wait(2200); await typing(900);
+  addMsg("out","Merhaba Teşekkürler Çalışabiliriz");
+  await wait(1200); await typing(1400);
+  addMsg("in","Merhaba Adem Bey, mesajınız için teşekkür ederim. Sizi ilgili danışmanıma aktarıyorum. İyi günler dilerim!\n_Yapay Zeka Asistanı TrueMax_ 🤖");
+  await wait(900);
+  addMsg("sys","✓ olumlu yanıt algılandı → görüşme yöneticiye raporlandı");
+}
+
+/* --------- SAHNE 2: YÖNETİCİ --------- */
+async function sceneManager(){
+  $title.textContent="TrueMax → Yönetici";$status.textContent="anlık raporlama";$avatar.textContent="🗂️";
+  $note.innerHTML="Olumlu yanıt gelir gelmez bot, mülk bilgilerini ve tüm görüşme geçmişini <b>yöneticiye</b> raporlar. Yönetici <code>/ata &lt;müşteri_no&gt; &lt;danışman_adı&gt;</code> komutuyla lead'i bölge uzmanına yönlendirir.";
+  $chips.style.display="none";$inputZone.style.display="none";
+  addMsg("sys","Bugün · yönetici bildirim kanalı",true);
+  await wait(600); await typing(1200);
+  addMsg("in","📩 *Yeni müşteri yanıtladı:* 5305931234\n\n🏡 *Mülk Bilgileri*\n👤 *Ad Soyad:* Adem B.\n📱 *Tel:* 530593****\n📌 *Konum:* Kocaeli, Gebze, Tatlıkuyu Mah\n🏢 *Mülk Tipi:* Ticari / İşyeri\n📄 *İşlem:* Kiralık\n💰 *Fiyat:* 95.000 TL\n📐 *Brüt m²:* 260\n\n📜 *Geçmiş Mesajlar:*\n_TrueMax:_ Size ilanınız üzerinden ulaşıyorum…\n_Mülk Sahibi:_ Merhaba Teşekkürler Çalışabiliriz\n_TrueMax:_ Sizi ilgili danışmanıma aktarıyorum.");
+  await wait(2400); await typing(800);
+  addMsg("out","/ata 5305931234 Taner Şahin");
+  await wait(1000); await typing(900);
+  addMsg("in","✅ *Taner Şahin* danışmanına atama gönderildi.\n⏱️ 2 saat içinde kabul edilmezse otomatik olarak sıradaki bölge uzmanına devredilecek.");
+  await wait(800);
+  addMsg("sys","atama kuyruğa yazıldı · token: 698524");
+}
+
+/* --------- SAHNE 3: DANIŞMAN (İNTERAKTİF) --------- */
+const AGENT_STATE = { accepted:false };
+const CHIP_SETS = {
+  start:["/kabul 698524","/red 698524"],
+  after:["/durum 5305931234 Yarın görüşme var","/yetki 5305931234 evet","/ilan 5305931234 girildi","/devret 5305931234 Selver Barbaros"]
+};
+function setChips(keys){
+  $chips.innerHTML = keys.map(c=>`<button class="chip">${c}</button>`).join("");
+  $chips.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{ $input.value=b.textContent; handleCmd(); }));
+}
+async function sceneAgent(){
+  AGENT_STATE.accepted=false;
+  $title.textContent="TrueMax → Danışman";$status.textContent="senin sıran — komutları dene";$avatar.textContent="🧑‍💼";
+  $note.innerHTML="Bu ekranda <b>danışman sensin.</b> Bot sana yeni bir müşteri atadı; alttaki hazır komutlara dokun ya da kendin yaz: önce <code>/kabul 698524</code> ile müşteriyi al, sonra <code>/durum</code>, <code>/yetki</code>, <code>/ilan</code> komutlarıyla süreci yönet.";
+  $chips.style.display="flex";$inputZone.style.display="flex";
+  setChips(CHIP_SETS.start);
+  addMsg("sys","Bugün · danışman kanalı · interaktif",true);
+  await wait(600); await typing(1100);
+  addMsg("in","_TrueMax'den 1 yeni müşteri atandı_ → (Gebze, Ticari).\n2 saat içinde kabul etmezseniz otomatik sıradaki danışmana geçecektir.\n\n*Broker Notu:* \"Bölgeyi iyi bilen biri ilgilensin.\"\n\nKabul/red işlemi için *bu mesaja yanıt olarak*\n*/kabul 698524* yazın\n*/red 698524* yazın");
+}
+
+async function handleCmd(){
+  const raw=$input.value.trim();
+  if(!raw) return;
+  $input.value="";
+  addMsg("out",raw);
+  const p=raw.split(/\s+/);
+  const cmd=(p[0]||"").toLowerCase();
+  await typing(900);
+
+  if(cmd==="/kabul"){
+    if(p[1]!=="698524"){ addMsg("in","⚠️ Geçersiz token. Bu atama için doğru komut: */kabul 698524*"); return; }
+    AGENT_STATE.accepted=true;
+    setChips(CHIP_SETS.after);
+    addMsg("in","_📩 Merhaba! Müşteriyi kabul ettiğiniz için teşekkürler._\n\n📜 *Mülk Sahibinden Gelen Son Mesajlar:*\n[14:28] \"Merhaba Teşekkürler Çalışabiliriz\"\n\n🏡 *Mülk Bilgileri*\n👤 *Ad Soyad:* Adem B.\n📱 *Tel:* 5305931234\n📌 *Konum:* Kocaeli, Gebze, Tatlıkuyu Mah\n🌍 *TKGM:* parselsorgu.tkgm.gov.tr/#…\n🏢 *Mülk Tipi:* Ticari / İşyeri\n📄 *İşlem:* Kiralık\n💰 *Fiyat:* 95.000 TL\n📐 *Brüt m²:* 260\n\n⚠️ 6 saat içinde */durum* girmeniz gerekir.\n⚠️ 72 saat içinde */yetki* durumu girmeniz gerekir.\n\n_Örnekler:_\n/durum 5305931234 Yarın görüşme var.\n/yetki 5305931234 evet\n/ilan 5305931234 girildi");
+  }
+  else if(cmd==="/red"){
+    addMsg("in","↪️ Atama reddedildi. Müşteri *sıradaki bölge uzmanına* devredildi.\n_Demoyu baştan oynatıp tekrar deneyebilirsin._");
+    setChips(CHIP_SETS.start);
+  }
+  else if(cmd==="/durum"){
+    if(!AGENT_STATE.accepted){ addMsg("in","⚠️ Önce müşteriyi kabul etmelisiniz: */kabul 698524*"); return; }
+    const note=p.slice(2).join(" ")||"—";
+    addMsg("in",`✅ *Durum kaydedildi.*\n📱 5305931234\n📝 "${note}"\n⏱️ 6 saatlik durum sayacı sıfırlandı.`);
+  }
+  else if(cmd==="/yetki"){
+    if(!AGENT_STATE.accepted){ addMsg("in","⚠️ Önce müşteriyi kabul etmelisiniz: */kabul 698524*"); return; }
+    const v=(p[2]||"").toLowerCase();
+    if(v==="evet") addMsg("in","🎉 *Yetki alındı olarak işaretlendi!*\nMüşteri portföye eklenmeye hazır. Yönetici bilgilendirildi.");
+    else if(v==="hayır") addMsg("in","📋 *Yetki alınamadı olarak kaydedildi.*\nMüşteri takip listesinde kalacak; sistem 2 hafta sonra hatırlatma yapacak.");
+    else addMsg("in","⚠️ Kullanım: */yetki 5305931234 evet* veya */yetki 5305931234 hayır*");
+  }
+  else if(cmd==="/ilan"){
+    if(!AGENT_STATE.accepted){ addMsg("in","⚠️ Önce müşteriyi kabul etmelisiniz: */kabul 698524*"); return; }
+    addMsg("in","✅ *İlan durumu güncellendi:* girildi\nPortföy kaydı yönetici panelinde görünür.");
+  }
+  else if(cmd==="/devret"){
+    if(!AGENT_STATE.accepted){ addMsg("in","⚠️ Önce müşteriyi kabul etmelisiniz: */kabul 698524*"); return; }
+    const kime=p.slice(2).join(" ")||"—";
+    addMsg("in",`↪️ Müşteri *${kime}* danışmanına devredildi.\nDevralan danışmana tam mülk raporu ve görüşme geçmişi iletildi.`);
+  }
+  else{
+    addMsg("in","🤖 Tanınmayan komut. Kullanılabilir komutlar:\n*/kabul* · */red* · */durum* · */yetki* · */ilan* · */devret*");
+  }
+}
+document.getElementById("waSend").addEventListener("click",handleCmd);
+$input.addEventListener("keydown",e=>{ if(e.key==="Enter") handleCmd(); });
+
+/* --------- sahne yönetimi --------- */
+const SCENES={owner:sceneOwner,manager:sceneManager,agent:sceneAgent};
+let current="owner";
+function play(name){
+  current=name;clearTimers();$body.innerHTML="";
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.scene===name));
+  SCENES[name]();
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>play(t.dataset.scene)));
+document.getElementById("replay").addEventListener("click",()=>play(current));
+play("owner");
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.width=e.target.dataset.w;io.unobserve(e.target)}
+}),{threshold:.4});
+document.querySelectorAll(".bar-fill").forEach(b=>io.observe(b));
+</script>
+</body>
+</html>
