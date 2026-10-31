@@ -34,6 +34,7 @@
       "etiket": "Muhasebe",
       "ikon": "muhasebe/ikon.png",
       "renk": "#20252E",
+      "ekranlar": ["muhasebe/1.webp", "muhasebe/2.webp"],
       "durum": "Kapalı test",
       "aciklama": "Serbest çalışanlar için muhasebe uygulaması. Google Play'de kapalı testte."
     },
@@ -49,6 +50,7 @@
       "alt": "Kazakistan sürümü",
       "ikon": "tirdaskz/ikon.jpg",
       "renk": "#1B2B42",
+      "ekranlar": ["tirdaskz/1.webp", "tirdaskz/2.webp"],
       "durum": "Kapalı test",
       "aciklama": "Tırdaş'ın Kazakistan pazarına uyarlanan sürümü."
     }
