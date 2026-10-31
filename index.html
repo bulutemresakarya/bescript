@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="dWb3fAmcEK0voAQIB9LimehmcTM4Orc0lK28WuS3wjE" />
 <title>BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT</title>
+<meta name="google-site-verification" content="dWb3fAmcEK0voAQIB9LimehmcTM4Orc0lK28WuS3wjE" />
 <meta name="description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
 <link rel="canonical" href="https://bescript.com.tr/">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0047FF">
+<meta name="theme-color" content="#05070D">
 <meta name="apple-mobile-web-app-title" content="bescript">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="tr_TR">
@@ -26,1066 +26,939 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-  :root{
-    --paper:#EDF0F4;
-    --ink:#141F2A;
-    --ink-soft:#3E4C5A;
-    --line:#C6CDD6;
-    --cobalt:#1746D1;
-    --live:#0E8A4A;
-    --demo:#B45309;
-    --beta:#7A3E9D;
-    --wip:#6D28D9;
-    --card:#F7F9FB;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
-  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
-  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em}
-  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
-  .brand b{color:var(--cobalt);font-weight:500}
-  .topnav{display:flex;gap:20px}
-  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
-  .topnav a:hover{color:var(--cobalt)}
-  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
-    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
-    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
-  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
-  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
-  @media(max-width:560px){
-    .menu-dugme{display:flex}
-    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
-      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
-      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
-    .topbar.menu-acik .topnav{display:flex}
-    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
-    .topnav a:last-child{border-bottom:none}
-  }
+:root{
+  --bg:#05070D; --bg-2:#080C17; --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.15);
+  --text:#ECEFF6; --soft:#B9C1D1; --muted:#8792A7;
+  --brand:#0047FF; --brand-l:#5C86FF; --glow:rgba(0,71,255,.55);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --wrap:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',system-ui,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--brand);color:#fff}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--brand-l);outline-offset:3px;border-radius:6px}
 
-  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line)}
-  @media(max-width:720px){.hero{padding:34px 0 42px}}
-  @media(max-width:520px){.hero{padding:24px 0 34px}.hero-eyebrow{margin-bottom:14px}}
-  .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px}
-  h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118;font-weight:850;font-size:clamp(34px,6vw,58px);line-height:1.04;letter-spacing:-.015em;max-width:16ch}
-  /* Dar ekranda baslik genisletilmis eksende tasiyordu; wdth daraltilip
-     olcek asagi cekiliyor ki sayfa yatay tasmasin. */
-  @media(max-width:560px){
-    h1{font-variation-settings:'wdth' 100;font-size:clamp(27px,8.2vw,40px);max-width:none}
-  }
-  h1 .accent{color:var(--cobalt)}
-  .hero-sub{margin-top:22px;max-width:56ch;color:var(--ink-soft);font-size:17px}
-  .hero-strip{margin-top:36px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
-  .stat{padding:14px 22px;border-right:1px solid var(--line);flex:1;min-width:150px}
-  .stat:last-child{border-right:none}
-  .stat .num{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;font-variation-settings:'wdth' 110}
-  .stat .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;letter-spacing:.03em}
+/* ince doku: tum sayfa */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.035;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
-  section{padding:56px 0;border-bottom:1px solid var(--line)}
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;gap:16px;flex-wrap:wrap}
-  h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 112;font-size:26px;letter-spacing:-.01em}
-  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+/* ---------------------------------------------------------------- menu */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding:0 16px}
+.bar{max-width:1180px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:0 10px 0 16px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(8,11,20,.5);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  transition:background .3s,border-color .3s}
+.nav.scrolled .bar{background:rgba(8,11,20,.82);border-color:var(--line-2)}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;font-family:'Archivo',system-ui,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 720;font-size:19px;letter-spacing:-.01em}
+.logo img{width:32px;height:32px;border-radius:9px;box-shadow:0 6px 18px -4px var(--glow)}
+.links{display:flex;gap:4px}
+.links a{font-size:14.5px;color:var(--soft);text-decoration:none;padding:8px 13px;border-radius:10px;transition:color .2s,background .2s}
+.links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:transparent;color:#fff;cursor:pointer}
+.burger span{display:block;width:18px;height:1.6px;background:currentColor;margin:4px auto;transition:transform .3s,opacity .3s}
+.nav.open .burger span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+.nav.open .burger span:nth-child(2){opacity:0}
+.nav.open .burger span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+@media(max-width:900px){
+  .links{display:none;position:absolute;top:74px;left:16px;right:16px;flex-direction:column;padding:10px;
+    border:1px solid var(--line-2);border-radius:18px;background:rgba(8,11,20,.96);backdrop-filter:blur(18px)}
+  .nav.open .links{display:flex}
+  .links a{padding:14px 14px;font-size:16px}
+  .burger{display:block}
+  .nav-cta .btn{display:none}
+}
 
-  .manifest{border:1px solid var(--line);background:var(--card)}
-  .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
-  .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
-  /* kapali test ve gelistirme asamasindaki urunler */
-  .st-beta{color:var(--beta)} .st-beta .dot{background:var(--beta)}
-  .st-wip{color:var(--wip)} .st-wip .dot{background:var(--wip);box-shadow:0 0 0 3px rgba(109,40,217,.14)}
-  .proj-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
-  .proj-desc{color:var(--ink-soft);font-size:15px;max-width:58ch}
-  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
-  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
-  .price-tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--live);margin-top:10px;font-weight:500}
+/* ---------------------------------------------------------------- butonlar */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;border-radius:14px;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  border:1px solid transparent;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+.btn .ok{width:18px;height:18px;transition:transform .25s var(--ease)}
+.btn:hover .ok{transform:translateX(3px)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 12px 34px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-primary:hover{background:#1d5cff;box-shadow:0 16px 44px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-ghost{border-color:var(--line-2);background:rgba(255,255,255,.03);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+.btn-wa{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.35);color:#7CF0A8}
+.btn-wa:hover{background:rgba(37,211,102,.2)}
+.btn.sm{height:42px;padding:0 16px;font-size:14.5px;border-radius:11px}
 
-  /* --- akordeon proje listesi --- */
-  .filtreler{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-  .filtre{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);background:var(--card);
-    border:1px solid var(--line);padding:7px 13px;cursor:pointer;
-    transition:color .15s,border-color .15s,background .15s}
-  .filtre .sayi{margin-left:7px;opacity:.55}
-  .filtre:hover{color:var(--cobalt);border-color:var(--cobalt)}
-  .filtre.secili{color:#fff;background:var(--cobalt);border-color:var(--cobalt)}
-  .filtre.secili .sayi{opacity:.75}
-  .filtre:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
-  .acc-item.gizli{display:none}
+/* ---------------------------------------------------------------- ortak */
+section{position:relative;padding:110px 0}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:var(--brand-l);
+  display:inline-flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:26px;height:1.5px;background:var(--brand-l)}
+h2{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 104,'wght' 800;font-size:clamp(34px,4.6vw,58px);
+  line-height:1.02;letter-spacing:-.028em;margin-top:18px;text-wrap:balance}
+.sec-head{max-width:760px;margin-bottom:56px}
+.sec-head p{color:var(--soft);font-size:clamp(16.5px,1.4vw,19px);margin-top:18px;max-width:38em}
+.ic-box{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(145deg,#2A63FF,#0036C9);box-shadow:0 10px 26px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.25)}
+.ic-box.sm{width:44px;height:44px;border-radius:12px;flex:none}
+.ic{width:24px;height:24px}
+.more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14.5px;font-weight:600;color:var(--brand-l);text-decoration:none}
+.more .ok{width:16px;height:16px;transition:transform .25s var(--ease)}
+.more:hover .ok{transform:translateX(3px)}
 
-  .acc-item{border-bottom:1px solid var(--line)}
-  .acc-item:last-child{border-bottom:none}
-  .acc-head{
-    width:100%;display:grid;grid-template-columns:38px 1fr auto auto;gap:14px;align-items:center;
-    padding:15px 20px;background:transparent;border:none;cursor:pointer;text-align:left;
-    font-family:inherit;color:inherit;transition:background .15s;
-  }
-  .acc-head:hover{background:rgba(23,70,209,.04)}
-  .acc-head:focus-visible{outline:2px solid var(--cobalt);outline-offset:-2px}
-  .acc-item.open .acc-head{background:rgba(23,70,209,.05)}
-  .logo{
-    width:38px;height:38px;border-radius:9px;overflow:hidden;flex-shrink:0;
-    display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);
-  }
-  .logo img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Cizgisel SVG logolar kirpilmasin, nefes alsin */
-  .logo-contain{padding:5px;background:#fff}
-  .logo-contain img{object-fit:contain}
-  .logo .mono{font-family:'Archivo',sans-serif;font-weight:850;font-size:16px;font-variation-settings:'wdth' 112;color:#fff;line-height:1}
-  .acc-head .proj-name{font-size:16.5px}
-  .acc-head .status{font-size:11.5px}
-  /* yil + durum rozeti tek grup: masaustunde yan yana, mobilde ayni satirda */
-  .head-meta{display:flex;align-items:center;gap:12px}
-  .yr{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .chev{width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s ease;flex-shrink:0}
-  .acc-item.open .chev{transform:rotate(180deg);stroke:var(--cobalt)}
-  .acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
-  .acc-item.open .acc-panel{grid-template-rows:1fr}
-  .acc-inner{overflow:hidden;visibility:hidden;transition:visibility 0s linear .28s}
-  .acc-item.open .acc-inner{visibility:visible;transition-delay:0s}
-  .acc-body{padding:2px 20px 20px 72px}
-  .acc-body .row-link{margin-top:16px}
-  @media(max-width:720px){
-    /* Mobilde durum etiketi proje adinin altina iner */
-    .acc-head{
-      grid-template-columns:32px 1fr auto;
-      grid-template-areas:"logo name chev" "logo status chev";
-      gap:0 11px;row-gap:5px;padding:13px 15px;
-    }
-    .acc-head .logo{grid-area:logo;align-self:center;width:32px;height:32px}
-    .acc-head .proj-name{grid-area:name;font-size:15.5px}
-    .acc-head .head-meta{grid-area:status;gap:9px}
-    .yr{font-size:11px}
-    .acc-head .chev{grid-area:chev;align-self:center}
-    .acc-body{padding:2px 15px 18px 15px}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .acc-panel,.chev,.acc-inner{transition:none}
-  }
-  /* --- cozumler vitrini --- */
-  #cozumler{background:linear-gradient(180deg,var(--card),var(--paper))}
-  /* Vitrin rafi: her kart bir urun, altindaki cizgi raf, kartlar rafin
-     uzerinde duruyormus gibi golge birakir. Bitisik kartlarin raflari
-     bosluga tasip birlesir, boylece kesintisiz tek bir raf gorunur. */
-  /* vitrin katalogu: tek satir, sayfa sayfa gezilir; raf cizgisi kartin
-     altinda kaldigi icin yolun alt bosluguna yer birakiliyor */
-  .katalog.vitrin .kat-yol{padding-bottom:26px}
-  .katalog.vitrin .kat-sira{gap:20px}
-  .katalog.vitrin .sol{flex:0 0 clamp(250px,74vw,318px)}
-  .sol{
-    position:relative;background:#fff;border:1px solid var(--line);border-radius:2px;
-    display:flex;flex-direction:column;overflow:visible;
-    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
-  }
-  /* raf */
-  .sol::after{
-    content:"";position:absolute;left:-10px;right:-10px;bottom:-13px;height:3px;
-    background:linear-gradient(180deg,rgba(20,31,42,.22),rgba(20,31,42,.05));pointer-events:none;
-  }
-  /* kartin rafa dusen golgesi */
-  .sol::before{
-    content:"";position:absolute;left:10px;right:10px;bottom:-12px;height:14px;pointer-events:none;
-    background:radial-gradient(60% 100% at 50% 0,rgba(20,31,42,.26),rgba(20,31,42,0) 72%);
-    transition:opacity .22s ease,transform .22s ease;
-  }
-  .sol:hover{transform:translateY(-7px);border-color:var(--cobalt);
-    box-shadow:0 20px 34px -22px rgba(20,31,42,.5)}
-  .sol:hover::before{transform:scaleX(1.06);opacity:.75}
-  .sol:focus-within{border-color:var(--cobalt)}
-  /* urun nisi: ikonun yasadigi cam bolme */
-  .sol .ico{
-    width:auto;height:104px;border-radius:0;margin:0 0 18px;border:0;
-    border-bottom:1px solid var(--line);
-    background:linear-gradient(180deg,rgba(23,70,209,.10),rgba(23,70,209,.02) 62%,rgba(255,255,255,0));
-    display:grid;place-items:center;transition:background .22s ease;
-  }
-  .sol .ico::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(255,255,255,.7)}
-  .sol:hover .ico{background:linear-gradient(180deg,rgba(23,70,209,.17),rgba(23,70,209,.04) 62%,rgba(255,255,255,0))}
-  .sol .ico svg{width:34px;height:34px;stroke:var(--cobalt);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .sol h3,.sol p,.sol .sol-btns{padding-inline:20px}
-  .sol .sol-btns{padding-bottom:20px}
-  .sol h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:16.5px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
-  .sol p{color:var(--ink-soft);font-size:13.5px;margin-top:7px;margin-bottom:16px;flex:1}
-  .sol .sol-price{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--live);font-weight:500;margin:14px 0 12px;padding-top:12px;border-top:1px dashed var(--line)}
-  .sol-btns{display:flex;gap:8px;flex-wrap:wrap}
-  .sol-btns .btn{flex:1;text-align:center;padding:10px 12px;font-size:12.5px;border-radius:2px}
-  .btn-wa{border-color:#0E8A4A;color:#0E8A4A}
-  .btn-wa:hover{background:#0E8A4A;color:#fff}
+/* imleci takip eden isik */
+.eski-capa{position:absolute;top:0;left:0}
+.spot{position:relative;isolation:isolate}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(92,134,255,.13),transparent 45%)}
+.spot:hover::before{opacity:1}
 
-  /* Katalog: kartlar yatayda dizilir, kendi kendine akar, elle de kaydirilir */
-  .katalog{position:relative}
-  .kat-yol{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;padding:4px 0 8px}
-  .kat-yol::-webkit-scrollbar{display:none}
-  .kat-yol.tutuluyor{cursor:grabbing}
-  .kat-sira{display:flex;gap:14px;width:max-content}
-  .kat-yol{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%);
-    mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%)}
-  .kat-ok{position:absolute;top:calc(50% - 4px);transform:translateY(-50%);z-index:3;
-    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);
-    color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;
-    display:grid;place-items:center;cursor:pointer;opacity:0;box-shadow:0 3px 12px rgba(20,31,42,.16);
-    transition:opacity .18s ease,border-color .15s,color .15s}
-  .katalog:hover .kat-ok{opacity:1}
-  .kat-ok:focus-visible{opacity:1;outline:2px solid var(--cobalt);outline-offset:2px}
-  .kat-ok:hover{border-color:var(--cobalt);color:var(--cobalt)}
-  .kat-ok.geri{left:-6px} .kat-ok.ileri{right:-6px}
-  @media(hover:none){.kat-ok{display:none}}
-  .row-link {
-    display: flex;
-    flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
-    align-items: stretch; /* Tum ogeler en uzun ogenin yuksekligine esitlenir */
-    gap: 10px;
-  }
-  /* Her oge kendi dogal genisliginde durur; sabit genislik vermek butonlari
-     sisman, rozetleri de bosluk icinde yuzer gosteriyordu. Ortak olan tek
-     sey yukseklik: butonlar stretch ile 40px'e cikip rozetlerin ust ve alt
-     kenariyla tam hizalanir, metinleri de ortada kalir. */
-  .row-link .btn{display:flex;align-items:center;justify-content:center}
+/* ---------------------------------------------------------------- hero */
+.hero{padding:170px 0 110px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;width:1100px;height:1100px;right:-300px;top:-380px;z-index:-1;
+  background:radial-gradient(closest-side,rgba(0,71,255,.42),rgba(0,71,255,.12) 45%,transparent 72%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-2;
+  background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 15px 8px 12px;border-radius:999px;
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;color:#C9D6FF;
+  border:1px solid rgba(92,134,255,.3);background:rgba(0,71,255,.1)}
+.pill i{width:8px;height:8px;border-radius:50%;background:#34D399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:nabiz 2.4s infinite}
+@keyframes nabiz{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+h1{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 108,'wght' 830;font-size:clamp(46px,6.8vw,92px);
+  line-height:.96;letter-spacing:-.035em;margin:28px 0 26px}
+h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D7BFF 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--soft);max-width:31em;line-height:1.55}
+.hero-cta{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap}
+.hero-note{margin-top:28px;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
+.hero-note img{height:26px;width:auto;opacity:.9}
 
-  /* Buton içindeki metinlerin tam ortalanması için */
-  .row-link .btn {
-    text-align: center;
-  }
+/* ---------------- hero telefonu: ana ekran + acilan uygulama */
+.stage{position:relative;height:690px;perspective:1600px}
+.layer{position:absolute;will-change:transform}
+.l-mid{left:50%;top:0;margin-left:-146px;transform-style:preserve-3d}
+.phone{position:relative;width:264px;aspect-ratio:9/19.5;border-radius:44px;padding:9px;
+  background:linear-gradient(150deg,#323846 0%,#11141B 45%,#0A0C11 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 60px 110px -30px rgba(0,0,0,.85),0 30px 80px -40px var(--glow)}
+.phone::after{content:"";position:absolute;top:19px;left:50%;width:78px;height:22px;margin-left:-39px;border-radius:20px;background:#000;z-index:10}
+.phone.big{width:292px;border-radius:48px;padding:10px}
+.phone.big::after{top:21px;width:86px;height:24px;margin-left:-43px}
+.scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#000}
+.scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.phone.big .scr{border-radius:39px}
+.float{animation:sus 7s ease-in-out infinite}
+@keyframes sus{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-  /* Yakında butonları için eklenecek yeni sınıf */
-  .btn-soon {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none; /* Linkin tıklanabilirliğini tamamen kapatır */
-   }
-  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:9px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .15s,color .15s;white-space:nowrap}
-  .btn:hover{background:var(--ink);color:var(--paper)}
-  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
-  .btn-primary:hover{background:var(--cobalt);color:#fff}
-  /* --- resmi magaza rozetleri (butonlarla ayni satirda) --- */
-  .badge{display:flex;align-items:center;justify-content:center;transition:opacity .15s,transform .15s}
-  .badge:hover{opacity:.82;transform:translateY(-2px)}
-  .badge-yakinda{cursor:default}
-  .badge-yakinda:hover{opacity:1;transform:none}
-  .badge:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px;border-radius:8px}
-  .badge img{display:block;width:auto}
-  .badge-apple{height:40px}
-  /* Google'in resmi PNG'sinde %23.2 seffaf dikey dolgu var (olculdu: 250px'in
-     192px'i opak). Gorunur yuksekligi Apple rozetiyle esitlemek icin 52px
-     verip dolguyu negatif margin ile geri aliyoruz. */
-  .badge-google{height:52px;margin:-6px 0}
-  @media(max-width:720px){
-    /* Mobilde tek hizalama mantigi: her buton kendi satirinda tam genislik,
-       iki magaza rozeti ise alta tek satirda yan yana ve ortali gelir.
-       Rozetleri tek tek ortalamak, farkli genislikte olduklari icin
-       sayfayi tirtikli gosteriyordu. */
-    .row-link{flex-direction:row;flex-wrap:wrap;align-items:center;
-      justify-content:center;width:100%;gap:10px}
-    .row-link .btn{flex:0 0 100%}
-    .row-link .badge{flex:0 0 auto}
-  }
-  /* Cok dar ekranlarda iki rozet yan yana sigsin diye biraz kuculur;
-     Google rozetinin seffaf dolgu orani korunur. */
-  @media(max-width:380px){
-    .badge-apple{height:36px}
-    .badge-google{height:47px;margin:-5px 0}
-  }
-  .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .stack-cell{background:var(--card);padding:20px 22px}
-  .stack-cell h3{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--cobalt);letter-spacing:.05em;margin-bottom:10px}
-  .stack-cell p{font-size:14px;color:var(--ink-soft)}
-  @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
+.os{background:radial-gradient(80% 50% at 20% 0%,rgba(0,71,255,.55),transparent 70%),
+  radial-gradient(70% 45% at 100% 100%,rgba(124,58,237,.38),transparent 70%),linear-gradient(180deg,#0D1430,#070A16);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.sb{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px 0 30px;font-size:13.5px;font-weight:600;color:#fff;z-index:2}
+.sb svg{height:12px;width:auto;margin-left:5px}
+.home{position:absolute;inset:0;padding:30px 12px 40px;display:flex;flex-direction:column;justify-content:center;transition:transform .55s var(--ease),opacity .45s,filter .45s}
+.home.geri{transform:scale(.9);opacity:.35;filter:blur(3px)}
+.home h5{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 700;font-size:27px;
+  color:#fff;text-align:center;letter-spacing:-.01em;margin-bottom:22px}
+.home h5 small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:400;
+  color:rgba(255,255,255,.55);margin-bottom:6px}
+.folder{max-height:430px;overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px;padding:20px 6px 18px;border-radius:30px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ico{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#fff;cursor:pointer;
+  font:500 11px/1.15 'IBM Plex Sans',system-ui,sans-serif;padding:0;-webkit-tap-highlight-color:transparent}
+.ico img{position:static;width:54px;height:54px;border-radius:15px;object-fit:cover;
+  box-shadow:0 6px 14px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);transition:transform .25s var(--ease)}
+.ico span{max-width:62px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ico:hover img{transform:scale(1.07)}
+.ico:active img{transform:scale(.92)}
 
-  .pano-dugme,.daha-dugme{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
-    color:var(--ink);background:var(--card);border:1px solid var(--line);padding:9px 18px;cursor:pointer;
-    transition:border-color .15s,color .15s}
-  .pano-dugme:hover,.daha-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
-  .pano-dugme:focus-visible,.daha-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+.win{position:absolute;inset:0;z-index:5;background:var(--wbg,#0B1020);border-radius:39px;overflow:hidden;
+  opacity:0;transform:scale(.16);pointer-events:none;
+  transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .3s ease}
+.win.acik{opacity:1;transform:scale(1);pointer-events:auto;cursor:pointer}
+.splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--wfg,#fff);text-align:center;padding:0 26px}
+.splash img{position:static;width:86px;height:86px;border-radius:22px;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
+.splash b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px}
+.splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
+.splash p{font-size:13px;opacity:.72;line-height:1.5}
+.win .ekr{opacity:0;transition:opacity .45s ease}
+/* ekran goruntusu birebir oturur; kendi durum cubugu (ust %4.3) .usb seridinin altinda kalir */
+.usb{position:absolute;left:0;right:0;top:0;height:60px;z-index:7;display:flex;justify-content:space-between;align-items:flex-start;
+  padding:14px 26px 0 30px;font-size:13.5px;font-weight:600;color:var(--uc,#fff);pointer-events:none;
+  background:linear-gradient(var(--ub,transparent) 0,var(--ub,transparent) 29px,transparent 38px);transition:color .3s}
+.usb span:last-child{display:flex;align-items:center;padding-top:3px}
+/* ekran goruntusu gorunurken kendi ev cubugu yeterli; bizimki gizlenir, dokunma alani kalir */
+.os.ekranli .homebar i{opacity:0}
+.usb svg{height:12px;width:auto;margin-left:5px}
+.win .ekr.on{opacity:1}
+.noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
+.noktalar i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.25);box-shadow:0 0 0 1px rgba(255,255,255,.6)}
+.noktalar i.on{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.bs-ekran{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 26px;color:#fff;
+  background:radial-gradient(90% 60% at 0% 0%,rgba(255,255,255,.22),transparent 60%),linear-gradient(170deg,#1C5BFF,#0036C9)}
+.bs-ekran img{position:static;width:54px;height:54px;border-radius:15px;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+.bs-ekran b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 800;font-size:27px;line-height:1.05;letter-spacing:-.02em}
+.bs-ekran p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.5}
+.bs-ekran a{display:flex;align-items:center;justify-content:center;height:46px;border-radius:14px;background:#fff;color:#0036C9;
+  font-weight:600;font-size:14.5px;text-decoration:none;margin-top:6px}
+.homebar{position:absolute;left:50%;bottom:0;width:150px;height:30px;margin-left:-75px;z-index:8;background:none;border:0;cursor:pointer;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+.homebar i{width:112px;height:5px;border-radius:5px;background:rgba(255,255,255,.75);transition:background .3s}
+.os.uyg-acik .homebar i{background:rgba(120,120,120,.85)}
+.dokun{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:9;pointer-events:none;opacity:0;
+  background:rgba(255,255,255,.35);box-shadow:0 0 0 2px rgba(255,255,255,.6)}
+.dokun.bas{animation:bas .7s ease-out}
+@keyframes bas{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.1)}}
+.now{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;
+  padding:9px 16px 9px 9px;border-radius:999px;border:1px solid var(--line-2);background:rgba(10,14,24,.82);
+  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px;width:max-content;max-width:none;transition:opacity .3s}
+.now img{width:28px;height:28px;border-radius:8px}
+.now b{font-weight:600}
+.now span{color:var(--muted)}
+.now .tap{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(92,134,255,.18);color:var(--brand-l)}
+.now .tap svg{width:16px;height:16px}
+.now.kontrol{padding:6px;gap:8px}
+.nb{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;
+  background:rgba(255,255,255,.08);border:1px solid var(--line-2);transition:background .2s,transform .2s var(--ease);-webkit-tap-highlight-color:transparent}
+.nb:hover{background:rgba(92,134,255,.28)}
+.nb:active{transform:scale(.92)}
+.nb svg{width:18px;height:18px}
+.nb-ileri{background:var(--brand);border-color:transparent;box-shadow:0 8px 20px -8px var(--glow)}
+.nb-ileri:hover{background:#1d5cff}
+.now .ad{display:flex;align-items:center;gap:9px;padding:0 4px}
+.now .sayac{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
 
-  .contact{padding:64px 0 80px;border-bottom:none}
-  .contact-kanal{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
-  .contact-kanal a{color:var(--cobalt);text-decoration:none}
-  .contact-kanal a:hover{text-decoration:underline}
-  .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-  .contact-inner h2{max-width:20ch}
-  .contact-text h2{max-width:20ch}
-  .contact-sub{margin-top:10px;color:var(--ink-soft);font-size:15px;max-width:42ch}
-  @media(max-width:720px){
-    .contact-inner{padding:28px;flex-direction:column;align-items:flex-start}
-    .contact-actions{width:100%}
-    .contact-actions .btn{flex:1;text-align:center}
-  }
-  .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
-  
-  footer{padding:24px 0 40px}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
-  footer a{color:var(--cobalt);text-decoration:none}
-  footer a:hover{text-decoration:underline}
+/* ---------------------------------------------------------------- guven seridi */
+.trust{padding:0 0 30px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));overflow:hidden}
+.stat{padding:30px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 108,'wght' 820;font-size:clamp(34px,3.6vw,48px);
+  line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+.partner{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:26px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+.partner b{color:var(--text);font-weight:600}
+.partner img{height:30px;width:auto;opacity:.92}
+.partner .sep{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
 
-  /* ==========================================================================
-     HAREKET — kaydirmayla beliren bolumler, ilerleme cizgisi, hafif parallax.
-     Stiller yalnizca html.anim varken devreye girer: JavaScript kapaliysa
-     sayfa hicbir sey gizlemeden, oldugu gibi acilir.
-     ========================================================================== */
-  section{scroll-margin-top:70px}
+/* ---------------------------------------------------------------- hizmetler */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{padding:30px;border:1px solid var(--line);border-radius:24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));transition:border-color .3s,transform .4s var(--ease)}
+.card:hover{border-color:rgba(92,134,255,.32);transform:translateY(-4px)}
+.card h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:22px;letter-spacing:-.01em;margin:24px 0 10px}
+.card p{color:var(--soft);font-size:15.5px;line-height:1.6}
 
-  .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:30;pointer-events:none}
-  .prog span{display:block;height:100%;width:0;background:var(--cobalt)}
+/* ---------------------------------------------------------------- vitrin */
+.apps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.app{display:grid;grid-template-columns:1.12fr .88fr;min-height:470px;border-radius:30px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(70% 75% at 85% 95%,rgba(var(--ac),.42),transparent 65%),
+             radial-gradient(60% 50% at 0% 0%,rgba(var(--ac),.08),transparent 70%),
+             linear-gradient(180deg,#0B101D,#070A12);transition:border-color .35s}
+.app:hover{border-color:rgba(var(--ac),.45)}
+.app-text{padding:34px 10px 34px 34px;display:flex;flex-direction:column}
+.app-id{display:flex;align-items:center;gap:14px}
+.app-logo{width:52px;height:52px;border-radius:14px;box-shadow:0 10px 24px -8px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1)}
+.app-id h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 800;font-size:26px;letter-spacing:-.015em;line-height:1.1}
+.app-id span{display:block;margin-top:4px;font-size:14px;font-weight:500;color:rgb(var(--ac))}
+.app-text p{color:var(--soft);font-size:15.5px;margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.chips span{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:5px 10px;border-radius:8px;
+  border:1px solid var(--line-2);color:var(--soft);background:rgba(255,255,255,.03)}
+.badges{display:flex;align-items:center;gap:8px 6px;margin-top:auto;padding-top:28px;flex-wrap:wrap}
+.badge{display:block;transition:transform .25s var(--ease),opacity .25s}
+a.badge:hover{transform:translateY(-2px)}
+.badge-off{cursor:default}
+.b-apple{height:40px;width:auto}
+.b-google{height:52px;width:auto;margin:-6px -4px -6px -1px}
+.app-stage{position:relative}
+.app-stage .phone{position:absolute;left:50%;top:44px;margin-left:-104px;width:208px;border-radius:36px;padding:7px;
+  transform:rotate(-5deg) translateY(30px);transition:transform .7s var(--ease)}
+.app-stage .phone::after{top:15px;width:62px;height:18px;margin-left:-31px}
+.app-stage .scr{border-radius:30px}
+.app:hover .app-stage .phone{transform:rotate(0) translateY(0)}
 
-  .topbar{transition:box-shadow .25s ease}
-  .topbar.stuck{box-shadow:0 8px 22px rgba(20,31,42,.07)}
+.others-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:76px 0 22px;flex-wrap:wrap}
+.others-title h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:26px}
+.others-title span{color:var(--muted);font-size:14.5px}
+.others{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mini{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);
+  display:flex;flex-direction:column;transition:border-color .3s,transform .4s var(--ease)}
+.mini:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.mini-top{display:flex;align-items:center;justify-content:space-between}
+.mini-logo{width:42px;height:42px;border-radius:11px;overflow:hidden;display:grid;place-items:center;background:#fff}
+.mini-logo img{width:100%;height:100%;object-fit:cover}
+.mono-logo{width:100%;height:100%;display:grid;place-items:center;background:#2563EB;color:#fff;font-size:20px}
+.st{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.st-canli{color:#4ADE80;background:rgba(74,222,128,.1)}
+.st-test{color:#C4A1FF;background:rgba(167,123,255,.13)}
+.st-yakinda{color:#93A9FF;background:rgba(92,134,255,.13)}
+.st-demo{color:#FBBF77;background:rgba(251,191,119,.1)}
+.mini h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;margin-top:18px}
+.mini p{color:var(--muted);font-size:14.5px;margin-top:6px;line-height:1.55}
+.mini .more{margin-top:auto;padding-top:16px}
 
-  html.anim .reveal{opacity:0;transform:translateY(18px);
-    transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)}
-  html.anim .reveal.in{opacity:1;transform:none}
+/* ---------------------------------------------------------------- hazir cozumler */
+.sols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sol{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
+.sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
+.sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
+.sol-act{display:flex;gap:8px;margin-top:auto;padding-top:20px}
+.sol-act .btn{flex:1}
 
-  .hero .wrap{will-change:transform}
-  .hero-strip .num{font-variant-numeric:tabular-nums}
+/* ---------------------------------------------------------------- surec */
+.process{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}
+.process .sec-head{position:sticky;top:130px;margin:0}
+.tl{position:relative;list-style:none;padding-left:4px}
+.tl::before,.tl-fill{content:"";position:absolute;left:25px;top:12px;bottom:12px;width:2px;border-radius:2px}
+.tl::before{background:var(--line)}
+.tl-fill{background:linear-gradient(var(--brand-l),var(--brand));transform-origin:top;transform:scaleY(1)}
+.step{position:relative;display:grid;grid-template-columns:52px 1fr;gap:22px;padding:18px 0 30px}
+.step .dot{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--bg-2);border:1px solid var(--line-2)}
+.step .dot i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brand-l)}
+.step h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px;margin-top:10px}
+.step p{color:var(--soft);font-size:16px;margin-top:6px;max-width:30em}
 
-  .btn{transition:background .15s,color .15s,transform .15s}
-  .btn:hover{transform:translateY(-1px)}
+/* ---------------------------------------------------------------- ilkeler */
+.prs{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 56px;margin-top:10px}
+.pr{display:flex;gap:18px}
+.pr h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 740;font-size:20px}
+.pr p{color:var(--soft);font-size:15.5px;margin-top:6px}
+.marquee{margin-top:90px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;width:max-content;gap:28px;animation:kay 38s linear infinite}
+.track span{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 110,'wght' 700;font-size:26px;color:rgba(236,239,246,.55);white-space:nowrap}
+.track i{font-style:normal;color:var(--brand-l);opacity:.7;font-size:16px;align-self:center}
+@keyframes kay{to{transform:translateX(-50%)}}
 
-  @media (prefers-reduced-motion: reduce){
-    html.anim .reveal{opacity:1;transform:none;transition:none}
-    .btn:hover{transform:none}
-    .prog{display:none}
-  }
+/* ---------------------------------------------------------------- iletisim */
+.cta{position:relative;isolation:isolate;border-radius:34px;padding:76px 64px;overflow:hidden;border:1px solid rgba(92,134,255,.28);
+  background:radial-gradient(70% 120% at 0% 0%,rgba(0,71,255,.42),transparent 60%),
+             radial-gradient(60% 90% at 100% 100%,rgba(0,71,255,.18),transparent 65%),#080D1A}
+.cta h2{font-size:clamp(38px,5.4vw,68px);margin-top:16px;max-width:12em}
+.cta p{color:var(--soft);font-size:clamp(16.5px,1.4vw,19px);max-width:34em;margin-top:20px}
+.cta-act{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.channels{margin-top:30px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);display:flex;gap:10px 22px;flex-wrap:wrap}
+.channels a{color:var(--text);text-decoration:none}
+.channels a:hover{color:var(--brand-l)}
+
+footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.f-grid p{color:var(--muted);font-size:14.5px;margin-top:14px;max-width:24em}
+.f-grid h5{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:400;margin-bottom:14px}
+.f-grid ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.f-grid li a{text-decoration:none;color:var(--soft);font-size:15px}
+.f-grid li a:hover{color:#fff}
+.f-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+
+/* ---------------------------------------------------------------- duyarli */
+@media(max-width:1080px){
+  .hero-grid{grid-template-columns:1fr;gap:20px}
+  .stage{height:690px;max-width:560px;margin:10px auto 0;width:100%}
+  .apps{grid-template-columns:1fr}
+  .others,.sols{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .process{grid-template-columns:1fr;gap:40px}
+  .process .sec-head{position:static}
+}
+@media(max-width:640px){
+  section{padding:84px 0}
+  .hero{padding:130px 0 70px}
+  .stage{height:706px;transform:scale(.92);transform-origin:top center;margin-bottom:-56px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-bottom:1px solid var(--line)}
+  .stat:nth-child(2n){border-right:none}
+  .stat:nth-child(n+3){border-bottom:none}
+  .grid-3,.others,.prs{grid-template-columns:1fr}
+  .sols{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:10px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
+  .sols::-webkit-scrollbar{display:none}
+  .sol{scroll-snap-align:start}
+  .app{grid-template-columns:1fr;min-height:0}
+  .app-text{padding:28px 26px 8px}
+  .app-stage{height:300px;overflow:hidden}
+  .app-stage .phone{top:26px}
+  .cta{padding:44px 22px;border-radius:26px}
+  .cta h2{font-size:clamp(30px,9vw,38px)}
+  .cta-act .btn{flex:1 1 calc(50% - 6px);padding:0 14px}
+  .cta-act .btn:first-child{flex-basis:100%}
+  .channels{font-size:12.5px;flex-direction:column;gap:6px}
+  .channels a{overflow-wrap:anywhere}
+  .now{font-size:13px;padding:7px 14px 7px 7px}
+  .f-grid{grid-template-columns:1fr}
+  .hero-cta .btn{flex:1 1 100%}
+  .pill{font-size:10.5px;letter-spacing:.06em}
+  .card{padding:24px;display:grid;grid-template-columns:44px 1fr;gap:4px 16px}
+  .card .ic-box{width:44px;height:44px;border-radius:12px;grid-row:span 3}
+  .card h3{margin:8px 0 4px;font-size:20px}
+  .card .more{margin-top:10px}
+}
+
+/* ---------------------------------------------------------------- hareket */
+@media (prefers-reduced-motion:no-preference){
+  .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .float,.track,.pill i{animation:none}
+  .win,.home{transition:none}
+  *{transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="wrap">
-    <div class="brand"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· yazılım çözümleri</span></div>
-    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
-      <a href="#projeler">projeler</a>
-      <a href="#cozumler">çözümler</a>
-      <a href="/hakkimizda/">hakkımızda</a>
-      <a href="#iletisim">iletişim</a>
-    </nav>
-    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
-  </div>
-</div>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="hero-eyebrow">MOBİL UYGULAMA · AI OTOMASYON · IoT · KARTEPE / KOCAELİ</p>
-    <h1>Fikirden mağazaya,<br><span class="accent">uçtan uca.</span></h1>
-    <p class="hero-sub">BeScript — mobil uygulama, AI otomasyon ve IoT sistemleri geliştiren
-    bir yazılım stüdyosu. Tasarım, backend, mağaza yayını ve sonrası aynı elden çıkar.
-    Geliştirdiğimiz dört uygulama Google Play'de, ikisi App Store'da da yayında; kurduğumuz sistemler sahada 7/24 çalışıyor.</p>
-    <div class="hero-strip" role="list" aria-label="Özet istatistikler">
-      <div class="stat" role="listitem"><div class="num">11</div><div class="lbl">proje · canlı, test, yakında</div></div>
-      <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
-      <div class="stat" role="listitem"><div class="num">5+</div><div class="lbl">yıl saha deneyimi</div></div>
-      <div class="stat" role="listitem"><div class="num">4</div><div class="lbl">uygulama mağazalarda</div></div>
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="#ust"><img src="/assets/logo/brand-192.png" alt="" width="32" height="32">BeScript</a>
+    <nav class="links" id="links" aria-label="Site gezinmesi">
+      <a href="#hizmetler">Hizmetler</a>
+      <a href="#uygulamalar">Uygulamalar</a>
+      <a href="#cozumler">Hazır çözümler</a>
+      <a href="#surec">Süreç</a>
+      <a href="/hakkimizda/">Hakkımızda</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary sm magnet" href="#iletisim">Teklif al</a>
+      <button class="burger" id="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<section id="projeler">
+<main id="ust">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill" data-in><i></i>MOBİL UYGULAMA · AI OTOMASYON · IoT</span>
+      <h1 data-in>Fikirden mağazaya,<span class="grad">uçtan uca.</span></h1>
+      <p class="lead" data-in>Uygulamanızı tasarlıyor, geliştiriyor ve App Store ile Google Play'e çıkarıyoruz. Tasarım, backend, mağaza yayını ve sonrası tek ekipte.</p>
+      <div class="hero-cta" data-in>
+        <a class="btn btn-primary magnet" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">Projenizi konuşalım <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#uygulamalar">Uygulamalarımızı görün</a>
+      </div>
+      <div class="hero-note" data-in><span>Geliştirdiğimiz dört uygulama Google Play'de, ikisi App Store'da da yayında.</span></div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="layer l-mid" id="telKatman"><div class="float"><div class="phone big">
+        <div class="scr os" id="os">
+          <div class="sb"><span id="saat">09:41</span><span><svg viewBox="0 0 18 12" fill="#fff"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#fff"/><path d="M24.5 4v4" stroke="#fff" stroke-linecap="round" opacity=".5"/></svg></span></div>
+          <div class="home" id="home">
+            <h5><small>BESCRIPT</small>Uygulamalarımız</h5>
+            <div class="folder" id="folder">
+              <button class="ico" type="button" data-ad="BeScript" data-alt="Projenizi konuşalım" data-logo="/assets/logo/brand-192.png" data-bg="#0036C9" data-bs="1" aria-label="BeScript uygulamasını aç"><img src="/assets/logo/brand-192.png" alt=""><span>BeScript</span></button>
+            </div>
+          </div>
+          <div class="win" id="win" role="dialog" aria-label="Uygulama önizlemesi"></div>
+          <span class="dokun" id="dokun"></span>
+          <button class="homebar" id="homebar" type="button" aria-label="Ana ekrana dön"><i></i></button>
+        </div>
+      </div></div></div>
+      <div class="now" id="now" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" aria-label="Özet">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Projeler</h2>
-      <span class="sec-note">filtrele · başlığa dokun · demolar gerçek sistemlerin canlandırması</span>
+    <div class="stats" data-reveal>
+      <div class="stat"><b data-count="4">4</b><span>uygulama mağazalarda</span></div>
+      <div class="stat"><b data-count="11">11</b><span>proje · canlı, test, yakında</span></div>
+      <div class="stat"><b data-count="30" data-suffix="K+">30K+</b><span>tek sistemle ulaşılan müşteri</span></div>
+      <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>yıl saha deneyimi</span></div>
     </div>
-    <div class="filtreler" role="group" aria-label="Proje filtresi">
-      <button class="filtre secili" type="button" data-filtre="hepsi" aria-pressed="true">tümü</button>
-      <button class="filtre" type="button" data-filtre="ai" aria-pressed="false">yapay zekâ</button>
-      <button class="filtre" type="button" data-filtre="mobil" aria-pressed="false">mobil</button>
-      <button class="filtre" type="button" data-filtre="whatsapp" aria-pressed="false">whatsapp botu</button>
-      <button class="filtre" type="button" data-filtre="web" aria-pressed="false">web &amp; pano</button>
-      <button class="filtre" type="button" data-filtre="iot" aria-pressed="false">iot &amp; donanım</button>
+    <div class="partner" data-reveal>
+      <span>İş ortağımız</span><img src="/assets/logo/karaarslan-beyaz.png" alt="" width="22" height="30"><b>Karaarslan Dijital</b>
+      <span class="sep"></span><span>Yayında: <b>App Store</b> · <b>Google Play</b></span>
     </div>
-    <div class="manifest" id="projeListesi">
+  </div>
+</section>
 
-      <div class="acc-item" data-tur="ai mobil whatsapp">
-        <button class="acc-head" id="h-tirdas" aria-expanded="false" aria-controls="p-tirdas">
-          <span class="logo"><img src="assets/logo/tirdas.jpg" alt="" width="80" height="80"></span>
-          <span class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-tirdas" role="region" aria-labelledby="h-tirdas">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Yük–araç pazaryeri: WhatsApp gruplarındaki serbest metin ilanları AI ile yapılandırıp botta ve mobil uygulamada aynı havuzda sunar. Mobil uygulama Play Store ve App Store'da yayında.</p>
-            <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
-            <div class="row-link">
-              <a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
-                <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
-              </a>
-              <a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
-                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
-              </a>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="mobil web">
-        <button class="acc-head" id="h-kelimece" aria-expanded="false" aria-controls="p-kelimece">
-          <span class="logo"><img src="assets/logo/kelimece.png" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">Kelimece — Türkçe Kelime Oyunu</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-kelimece" role="region" aria-labelledby="h-kelimece">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Harf çemberinden kelime kurulan Türkçe bulmaca oyunu, kendi ürünümüz. 1300'den fazla seviye Türkçe sözlükten üretildi; zorluk dalga dalga artıyor, her seviyede tek harfle bağlanan bir zor kelime var. Haftalık lig, madalyalar, kelime anlamları ve günlük hatırlatmalar var; internet olmadan da oynanıyor. Uygulama <b>Google Play'de yayında</b>.</p>
-            <div class="tags">
-              <span class="tag">capacitor</span>
-              <span class="tag">supabase</span>
-              <span class="tag">admob</span>
-              <span class="tag">pwa</span>
-            </div>
-            <div class="row-link">
-              <span class="badge badge-yakinda">
-                <img class="badge-apple" src="assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40">
-              </span>
-              <a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.kelimece" target="_blank" rel="noopener">
-                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
-              </a>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="mobil">
-        <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
-          <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-quadmate" role="region" aria-labelledby="h-quadmate">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Kullanıcılar harita üzerinden yakındaki açık masaları görüyor, ilanlara katılıyor ya da kendi masasını açıp bildirimle oyuncu topluyor. Uygulama <b>Google Play ve App Store'da yayında</b>: gerçek Supabase projesi, kendi alan adı ve e-posta altyapısıyla canlı çalışıyor.</p>
-            <div class="tags">
-              <span class="tag">react native</span>
-              <span class="tag">expo</span>
-              <span class="tag">supabase</span>
-              <span class="tag">postgis</span>
-            </div>
-            <div class="row-link">
-              <a class="badge" href="https://apps.apple.com/tr/app/quadmate/id6813102419" target="_blank" rel="noopener">
-                <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
-              </a>
-              <a class="badge" href="https://play.google.com/store/apps/details?id=com.quadmate.app" target="_blank" rel="noopener">
-                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
-              </a>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="iot mobil">
-        <button class="acc-head" id="h-bocu" aria-expanded="false" aria-controls="p-bocu">
-          <span class="logo"><img src="assets/logo/bocu.jpg" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-bocu" role="region" aria-labelledby="h-bocu">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Tarımsal sulamada kullanılan 3 fazlı pompaları uzaktan izleyen, koruyan ve kontrol eden IoT sistemi. Cihaz NB-IoT ile MQTT konuşuyor; sunucu tarafı (broker, ingest ve komut worker'ları, imzalı komut yolu) ve mobil uygulama bizde, firmware harici ekipte. Koruma kararı cihazda: internet gitse de motor korunur. Mobil uygulama <b>Google Play'de yayında</b>.</p>
-            <div class="tags">
-              <span class="tag">python · fastapi</span>
-              <span class="tag">mqtt · emqx</span>
-              <span class="tag">supabase · rls</span>
-              <span class="tag">react native</span>
-              <span class="tag">nb-iot</span>
-            </div>
-            <div class="row-link">
-              <span class="badge badge-yakinda">
-                <img class="badge-apple" src="assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40">
-              </span>
-              <a class="badge" href="https://play.google.com/store/apps/details?id=com.bocu.app" target="_blank" rel="noopener">
-                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
-              </a>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="mobil">
-        <button class="acc-head" id="h-muhasebe" aria-expanded="false" aria-controls="p-muhasebe">
-          <span class="logo"><img src="assets/logo/muhasebe.png" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">Muhasebe Defterim — Serbest Çalışanlar İçin Muhasebe</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-beta"><span class="dot"></span>KAPALI TEST</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-muhasebe" role="region" aria-labelledby="h-muhasebe">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Serbest çalışanların, yazılımcıların ve küçük işletmelerin işini, parasını ve evini tek yerden takip ettiği muhasebe uygulaması, kendi ürünümüz. Her iş için anlaşılan tutar ya da saatlik ücret, tahsilat ve kalan bakiye; bildirimden durdurulabilen mesai sayacı; seçilen tarih aralığındaki mesailerden PDF fatura. Defter telefonda tutulur, internet olmadan tam çalışır, Google hesabıyla buluta eşitlenir. Uygulama <b>Google Play'de kapalı testte</b>, iOS sürümü TestFlight'ta.</p>
-            <div class="tags"><span class="tag">react native</span><span class="tag">expo</span><span class="tag">sqlite</span><span class="tag">supabase</span></div>
-            <div class="row-link">
-              <span class="badge badge-yakinda">
-                <img class="badge-apple" src="assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40">
-              </span>
-              <span class="badge badge-yakinda">
-                <img class="badge-google" src="assets/badge/google-play-yakinda-tr.png" alt="Google Play'de yakında" width="646" height="250">
-              </span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="mobil">
-        <button class="acc-head" id="h-muezzin" aria-expanded="false" aria-controls="p-muezzin">
-          <span class="logo"><img src="assets/logo/muezzin.png" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">Müezzin — Namaz Vakitleri ve Kaza Takibi</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-wip"><span class="dot"></span>YAKINDA</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-muezzin" role="region" aria-labelledby="h-muezzin">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Namaz vakitleri, günlük namaz takibi ve Hanefi yaklaşımına göre kaza takibi için mobil uygulama, kendi ürünümüz. Vakitler cihazda hesaplanıyor ve ezan bildirimleriyle hatırlatılıyor; uygulama internet olmadan çalışıyor, giriş yapılırsa veriler cihazlar arasında eşitleniyor. Çok dilli geliştiriliyor; ilk sürüm Android'e, iOS sürümü aynı kod tabanından gelecek.</p>
-            <div class="tags"><span class="tag">react native</span><span class="tag">expo</span><span class="tag">typescript</span><span class="tag">supabase</span></div>
-            <div class="row-link">
-              <span class="badge badge-yakinda">
-                <img class="badge-apple" src="assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40">
-              </span>
-              <span class="badge badge-yakinda">
-                <img class="badge-google" src="assets/badge/google-play-yakinda-tr.png" alt="Google Play'de yakında" width="646" height="250">
-              </span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="ai mobil">
-        <button class="acc-head" id="h-tirdaskz" aria-expanded="false" aria-controls="p-tirdaskz">
-          <span class="logo"><img src="assets/logo/tirdaskz.jpg" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">Tirdas.kz — Tırdaş Kazakistan Sürümü</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-beta"><span class="dot"></span>KAPALI TEST</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-tirdaskz" role="region" aria-labelledby="h-tirdaskz">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Tırdaş'ın Kazakistan pazarına uyarlanan sürümü. Yükü ve aracı aynı havuzda buluşturan lojistik platformu, bölgenin diline, para birimine ve koşullarına göre yeniden yapılandırılıyor. Uygulama <b>test aşamasında</b>.</p>
-            <div class="tags"><span class="tag">react native</span><span class="tag">yapay zekâ</span><span class="tag">lojistik</span></div>
-            <div class="row-link">
-              <span class="badge badge-yakinda">
-                <img class="badge-apple" src="assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40">
-              </span>
-              <span class="badge badge-yakinda">
-                <img class="badge-google" src="assets/badge/google-play-yakinda-tr.png" alt="Google Play'de yakında" width="646" height="250">
-              </span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="web">
-        <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
-          <span class="logo logo-contain"><img src="assets/logo/cleanhome.svg" alt="" width="48" height="48" loading="lazy"></span>
-          <span class="proj-name">CleanHome</span>
-          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-cleanhome" role="region" aria-labelledby="h-cleanhome">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri - teslimden beri kesintisiz yayında.</p>
-            <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="ai whatsapp">
-        <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
-          <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
-          <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
-          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-truemax" role="region" aria-labelledby="h-truemax">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması. 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli.</p>
-            <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a></div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="web">
-        <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
-          <span class="logo" style="background:#2E6BE6;border-color:#2E6BE6"><span class="mono">▦</span></span>
-          <span class="proj-name">Danışman Performans Dashboard'u</span>
-          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-dashboard" role="region" aria-labelledby="h-dashboard">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
-            <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a></div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="acc-item" data-tur="ai whatsapp">
-        <button class="acc-head" id="h-redi" aria-expanded="false" aria-controls="p-redi">
-          <span class="logo"><img src="assets/logo/red-i.png" alt="" width="80" height="80" loading="lazy"></span>
-          <span class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</span>
-          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="acc-panel" id="p-redi" role="region" aria-labelledby="h-redi">
-          <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Aynı motorun RedPartners kurulumu, kanıtlanmış saha sonuçlarıyla. Demo sayfasında yanıt dağılımı analizi ve tam sunum PDF'i de var.</p>
-            <div class="tags"><span class="tag">ai niyet analizi</span><span class="tag">whatsapp</span><span class="tag">lead-gen</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="red-i/">Demoyu dene →</a></div>
-          </div></div>
-        </div>
-      </div>
-
+<section id="hizmetler">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">HİZMETLER</span>
+      <h2>Tek ekip, uçtan uca teslim.</h2>
+      <p>Fikri birlikte netleştiriyor, tasarlıyor, geliştiriyor ve mağazaya çıkarıyoruz. Yayından sonra da yanınızdayız.</p>
     </div>
-    <button class="daha-dugme" type="button" aria-expanded="false" aria-controls="projeListesi">tümünü göster</button>
+    <div class="grid-3"><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+      <h3>Mobil uygulama</h3><p>iOS ve Android'e tek kod tabanıyla: pazaryeri, eşleştirme, işletme takibi. Tasarımdan mağaza yayınına.</p>
+      <a class="more" href="/cozumler/mobil/">Detay <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></svg></div>
+      <h3>Backend ve altyapı</h3><p>API, veritabanı ve sunucu kurulumu. Hangi servisin aylık ne tuttuğu baştan yazılı; kod ve veri sizde kalır.</p>
+      
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8.2l1 2.3 2.3 1-2.3 1-1 2.3-1-2.3-2.3-1 2.3-1z"/></svg></div>
+      <h3>AI otomasyon ve WhatsApp</h3><p>7/24 yanıt veren yapay zekâ temsilcileri, ilan okuyan botlar, elle taşınan işi otomatiğe alan akışlar.</p>
+      <a class="more" href="/cozumler/chatbot/">Detay <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.5 15.5a5 5 0 0 1 0-7M15.5 8.5a5 5 0 0 1 0 7M5.6 18.4a9 9 0 0 1 0-12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></div>
+      <h3>IoT ve saha sistemleri</h3><p>Cihazdan buluta uzaktan izleme, kontrol ve alarm. İnternet kesilse de çalışmaya devam eden sistemler.</p>
+      
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 14v4a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-4"/></svg></div>
+      <h3>Mağaza yayını ve bakım</h3><p>App Store ve Google Play başvurusu, inceleme süreci, güncellemeler ve yayın sonrası izleme bizde.</p>
+      
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+      <h3>Dashboard ve veri</h3><p>Excel, Sheets ya da POS'taki dağınık veriyi tek panoda toplar: ciro, trend, karşılaştırma.</p>
+      <a class="more" href="/cozumler/dashboard/">Detay <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article></div>
+  </div>
+</section>
+
+<section id="uygulamalar">
+  <span id="projeler" class="eski-capa" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">MAĞAZADA YAYINDA</span>
+      <h2>Sahada çalışan uygulamalar.</h2>
+      <p>Geliştirdiğimiz uygulamalar App Store ve Google Play'de gerçek kullanıcılarla çalışıyor. Sizin projeniz de aynı özenle hazırlanır.</p>
+    </div>
+    <div class="apps"><article class="app spot" style="--ac:242,138,30" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/tirdas.jpg" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Tırdaş</h3><span>Lojistik yapay zekâ asistanı</span></div></div>
+        <p>WhatsApp gruplarındaki yük ilanlarını yapay zekâ ile okuyup bot ve mobil uygulamada aynı havuzda buluşturan yük–araç pazaryeri.</p>
+        <div class="chips"><span>react native</span><span>meta cloud api</span><span>openai</span><span>postgresql</span></div>
+        <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/tirdas/1.webp" alt="Tırdaş uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:244,196,48" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/kelimece.png" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Kelimece</h3><span>Türkçe kelime oyunu</span></div></div>
+        <p>Harf çemberinden kelime kurulan Türkçe bulmaca oyunu, kendi ürünümüz. 1300'den fazla seviye, haftalık lig, internetsiz oyun.</p>
+        <div class="chips"><span>capacitor</span><span>supabase</span><span>admob</span></div>
+        <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.kelimece" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/kelimece/1.webp" alt="Kelimece uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:240,65,79" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/quadmate.png" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Quadmate</h3><span>Oyun arkadaşı bulma</span></div></div>
+        <p>Yakındaki açık masaları haritada gösterip okey, bilardo, 101, satranç gibi oyunlar için eksik oyuncuyu bulan sosyal uygulama.</p>
+        <div class="chips"><span>react native</span><span>expo</span><span>supabase</span><span>postgis</span></div>
+        <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/quadmate/id6813102419" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.quadmate.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/quadmate/1.webp" alt="Quadmate uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:201,161,90" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/bocu.jpg" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Bocu Remote</h3><span>Pompa koruma ve uzaktan kontrol</span></div></div>
+        <p>Tarımsal sulamadaki üç fazlı pompaları uzaktan izleyen ve koruyan IoT sistemi. Koruma kararı cihazda; internet kesilse de motor korunur.</p>
+        <div class="chips"><span>python · fastapi</span><span>mqtt</span><span>react native</span><span>nb-iot</span></div>
+        <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bocu.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/bocu/1.webp" alt="Bocu Remote uygulama ekranı" loading="lazy"></div></div></div>
+    </article></div>
+    <div class="others-title" data-reveal><h3>Diğer projeler</h3><span>yolda olan uygulamalar, web siteleri ve demolar</span></div>
+    <div class="others"><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/muhasebe.png" alt=""></span><span class="st st-test">Kapalı test</span></div>
+      <h4>Muhasebe Defterim</h4><p>Serbest çalışanlar için mesai sayacı, tahsilat takibi ve PDF fatura; internetsiz çalışan defter.</p>
+      
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/muezzin.png" alt=""></span><span class="st st-yakinda">Yakında</span></div>
+      <h4>Müezzin</h4><p>Namaz vakitleri, günlük namaz ve Hanefi kaza takibi; ezan bildirimleriyle.</p>
+      
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/tirdaskz.jpg" alt=""></span><span class="st st-test">Kapalı test</span></div>
+      <h4>Tirdas.kz</h4><p>Tırdaş'ın Kazakistan pazarına uyarlanan sürümü.</p>
+      
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/cleanhome.svg" alt=""></span><span class="st st-canli">Canlı</span></div>
+      <h4>CleanHome</h4><p>Kocaeli merkezli temizlik şirketi için kurumsal site; teslimden beri kesintisiz yayında.</p>
+      <a class="more" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a>
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/truemax.svg" alt=""></span><span class="st st-demo">Demo</span></div>
+      <h4>TrueMax.ai</h4><p>Emlak için yapay zekâ lead botu: 30.000+ mülk sahibine ulaştı, 2.778 iş birliği onayı.</p>
+      <a class="more" href="/truemax-ai/">Demoyu dene</a>
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><span class="mono-logo">▦</span></span><span class="st st-demo">Demo</span></div>
+      <h4>Danışman Paneli</h4><p>Gayrimenkul ofisi için canlı performans panosu; 40+ danışmanla sahada çalıştı.</p>
+      <a class="more" href="/dashboard/">Demoyu dene</a>
+    </article><article class="mini spot" data-reveal>
+      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/red-i.png" alt=""></span><span class="st st-demo">Demo</span></div>
+      <h4>RED-i</h4><p>TrueMax motorunun RedPartners kurulumu; yanıt analizi ve sunum demo sayfasında.</p>
+      <a class="more" href="/red-i/">Demoyu dene</a>
+    </article></div>
   </div>
 </section>
 
 <section id="cozumler">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Hazır Çözümler</h2>
-      <span class="sec-note">size de kurarız — dene, beğen, sipariş ver</span>
+    <div class="sec-head" data-reveal>
+      <span class="kicker">HAZIR ÇÖZÜMLER</span>
+      <h2>Hızlı başlamak için hazır paketler.</h2>
+      <p>Dene, beğen, sipariş ver. Her paket işinize göre özelleştirilir.</p>
     </div>
-    <div class="katalog vitrin" data-katalog data-akis>
-      <button class="kat-ok geri" type="button" aria-label="Önceki sayfa">‹</button>
-      <button class="kat-ok ileri" type="button" aria-label="Sonraki sayfa">›</button>
-      <div class="kat-yol" tabindex="0" role="region" aria-label="Hazır çözümler — yatay kaydırılabilir liste">
-        <div class="kat-sira">
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3c-1.5 0-2.9-.35-4.1-.97L3 20l1.2-4.3A8.1 8.1 0 0 1 3 11.5 8.4 8.4 0 0 1 12.5 3.2 8.4 8.4 0 0 1 21 11.5z"/><circle cx="8.6" cy="11.5" r=".4"/><circle cx="12.5" cy="11.5" r=".4"/><circle cx="16.4" cy="11.5" r=".4"/></svg></div>
-        <h3>AI Müşteri Temsilcisi</h3>
-        <p>WhatsApp'ta 7/24 yanıt veren, randevu ve sipariş alan yapay zeka temsilci. Demoda 5 sektör var — kendi sektörünü seç, botla kendin konuş.</p>
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/chatbot/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22AI%20M%C3%BC%C5%9Fteri%20Temsilcisi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 5.2h3"/><circle cx="12" cy="18.4" r=".7"/></svg></div>
-        <h3>Mobil Uygulama</h3>
-        <p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar: pazaryeri, eşleştirme, işletme takip, sadakat. Mağaza yayını ve güncellemeler dahil — Tırdaş ve Quadmate bu şekilde yayınlandı.</p>
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/mobil/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h3v3h-3zM20.5 14v.5M17 20.5h.5M20.5 18v2.5"/></svg></div>
-        <h3>QR Menü & Dijital Katalog</h3>
-        <p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma. Fiyat güncellemesi saniyeler sürer, baskı maliyeti biter.</p>
-        
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/qrmenu/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22QR%20Men%C3%BC%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="13" rx="1.5"/><path d="M3.5 8.5h17M9.2 8.5V17M14.9 8.5V17"/><path d="M12 17.5v3M10 19l2 2 2-2"/></svg></div>
-        <h3>Web'den Excel'e Veri Toplama</h3>
-        <p>İhtiyacınız olan veriyi (ilanlar, fiyatlar, rakip listeleri) web'den otomatik toplayıp temiz Excel tablosuna çevirir.</p>
-        
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/veri/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Veri%20Toplama%20Sistemi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3.6 10.8c-.8.3-.75 1.4.06 1.66l4.54 1.44 1.6 4.9c.25.8 1.3.9 1.7.16l2.1-3.9 4.6 3.3c.6.44 1.46.1 1.6-.65L21.9 5c.13-.75-.5-1.3-.9-1z"/><path d="M8.2 13.9 21 4"/></svg></div>
-        <h3>Telegram İş Botu</h3>
-        <p>İstediğiniz kaynağı 7/24 izler; fiyat, ilan, ihale, sipariş — koşul sağlanınca Telegram'a bildirim düşürür, tek dokunuşla aksiyon aldırır.</p>
-        
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/telegram/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v15.5h16.5"/><rect x="7" y="12" width="2.8" height="7.5" rx=".6"/><rect x="12" y="9" width="2.8" height="10.5" rx=".6"/><rect x="17" y="5.5" width="2.8" height="14" rx=".6"/></svg></div>
-        <h3>Sektörel KPI Dashboard'u</h3>
-        <p>Verileriniz nerede olursa olsun (Excel, Sheets, POS) tek panoda: ciro, trend, karşılaştırma, TV modu.</p>
-        
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/dashboard/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22KPI%20Dashboard%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="2.5"/><circle cx="18.5" cy="5.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M7.8 10.8 16.2 6.6M7.8 13.2l8.4 4.2"/></svg></div>
-        <h3>Entegrasyon & Otomasyon</h3>
-        <p>"Form doldu, CRM'e yazıldı, WhatsApp onayı gitti, rapor düştü." Kullandığınız araçları birbirine bağlar, elle taşınan her işi otomatiğe alırız.</p>
-     
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="cozumler/entegrasyon/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20ve%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-      <div class="sol">
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3.5v17h17"/><path d="M7.5 16.2l3.6-4.6 3 2.5 5.4-7.1"/><path d="M19.5 7h-3.6M19.5 7v3.6"/></svg></div>
-        <h3>Kripto Alım-Satım Botu</h3>
-        <p>Kendi stratejinizi borsa API'si üzerinden çalıştıran bot ve kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu, açık pozisyon takibi ve canlı PnL. Strateji sizin; önce paper-trading modunda, gerçek para riske girmeden denenir.</p>
-        <div class="sol-btns">
-          <a class="btn btn-primary" href="kripto-bot/">Dene →</a>
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Kripto%20Al%C4%B1m-Sat%C4%B1m%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
-        </div>
-      </div>
-        </div>
-      </div>
-    </div>
+    <div class="sols"><article class="sol spot" data-reveal>
+      <h4>AI Müşteri Temsilcisi</h4><p>WhatsApp'ta 7/24 yanıt veren, randevu ve sipariş alan yapay zekâ temsilci. Demoda 5 sektör var.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/chatbot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22AI%20M%C3%BC%C5%9Fteri%20Temsilcisi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Mobil Uygulama</h4><p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar. Mağaza yayını ve güncellemeler dahil.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/mobil/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>QR Menü & Dijital Katalog</h4><p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/qrmenu/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22QR%20Men%C3%BC%20%26%20Dijital%20Katalog%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Web'den Excel'e Veri Toplama</h4><p>İlanlar, fiyatlar, rakip listeleri: web'den otomatik toplayıp temiz Excel tablosuna çevirir.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/veri/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Web%27den%20Excel%27e%20Veri%20Toplama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Telegram İş Botu</h4><p>İstediğiniz kaynağı 7/24 izler; koşul sağlanınca Telegram'a bildirim düşürür.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/telegram/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Sektörel KPI Dashboard'u</h4><p>Excel, Sheets ya da POS verisi tek panoda: ciro, trend, karşılaştırma, TV modu.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/dashboard/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Sekt%C3%B6rel%20KPI%20Dashboard%27u%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Entegrasyon & Otomasyon</h4><p>Form doldu, CRM'e yazıldı, WhatsApp onayı gitti: elle taşınan işi otomatiğe alırız.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/entegrasyon/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20%26%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" data-reveal>
+      <h4>Kripto Alım-Satım Botu</h4><p>Kendi stratejinizi borsa API'si üzerinden çalıştıran bot; önce paper-trading modunda denenir.</p>
+      <div class="sol-act"><a class="btn btn-ghost sm" href="/kripto-bot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Kripto%20Al%C4%B1m-Sat%C4%B1m%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article></div>
   </div>
 </section>
 
-<section id="stack">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Nasıl Çalışıyoruz</h2>
-      <span class="sec-note">hazır platform yok, kod var</span>
+<section id="surec">
+  <div class="wrap process">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">SÜREÇ</span>
+      <h2>Fikirden mağazaya altı adım.</h2>
+      <p>Her adımda ne olduğunu bilirsiniz. Müşteri İlişkileri ekibimiz proje boyunca tek muhatabınız olur.</p>
     </div>
-    <div class="stack-grid">
-      <div class="stack-cell"><h3>ÇEKİRDEK</h3><p>Python · Node.js · FastAPI · PostgreSQL · LangChain / LangGraph · React Native</p></div>
-      <div class="stack-cell"><h3>ALTYAPI</h3><p>Kendi VDS sunucularımız (Oracle Cloud vb.) ve işin gerektirdiği yerde Supabase gibi yönetilen servisler. Hangi servisin aylık ne tuttuğu baştan yazılı; kod ve veri sende kalır, istediğin an taşınır.</p></div>
-      <div class="stack-cell"><h3>YAKLAŞIM</h3><p>Her otomasyon özel yazılmış kod. No-code araç kullanmıyoruz; sistemin her satırına hakimiz, her şey özelleştirilebilir.</p></div>
-    </div>
+    <ol class="tl" id="tl"><span class="tl-fill" id="tlFill"></span><li class="step" data-reveal><span class="dot"><i>01</i></span>
+      <div><h4>Keşif</h4><p>İhtiyacınızı dinliyor, kapsamı ve fiyatı aynı gün yazılı olarak netleştiriyoruz.</p></div></li><li class="step" data-reveal><span class="dot"><i>02</i></span>
+      <div><h4>Tasarım</h4><p>Ekranlar ve akış onayınıza sunulur; kod yazılmadan önce ne alacağınızı görürsünüz.</p></div></li><li class="step" data-reveal><span class="dot"><i>03</i></span>
+      <div><h4>Geliştirme</h4><p>Mobil, backend ve entegrasyonlar birlikte ilerler; ara teslimlerle ilerlemeyi siz de takip edersiniz.</p></div></li><li class="step" data-reveal><span class="dot"><i>04</i></span>
+      <div><h4>Test</h4><p>Gerçek cihazlarda ve gerçek veriyle test; mağaza kurallarına uygunluk kontrolü.</p></div></li><li class="step" data-reveal><span class="dot"><i>05</i></span>
+      <div><h4>Yayın</h4><p>Google Play ve App Store başvurusu, mağaza görselleri ve inceleme süreci bizde.</p></div></li><li class="step" data-reveal><span class="dot"><i>06</i></span>
+      <div><h4>Bakım</h4><p>Yayın sonrası hata takibi, güncellemeler ve sunucu bakımı.</p></div></li></ol>
   </div>
 </section>
 
-<section id="iletisim" class="contact">
+<section id="ilkeler">
   <div class="wrap">
-    <div class="contact-inner">
-      <div class="contact-text">
-        <h2>Projeniz için konuşalım.</h2>
-        <p class="contact-sub">Ne yapmak istediğinizi anlatın; kapsamı ve fiyatı aynı gün netleştirelim.
-        Müşteri İlişkileri ekibimiz talebinizi alır ve proje boyunca tek muhatabınız olur.</p>
-        <p class="contact-kanal">Müşteri İlişkileri · <a href="tel:+905400010595">0540 001 05 95</a> · <a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a> · Instagram <a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></p>
+    <div class="sec-head" data-reveal>
+      <span class="kicker">NASIL ÇALIŞIYORUZ</span>
+      <h2>Bağımlılık değil, sahiplik.</h2>
+    </div>
+    <div class="prs"><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></svg></div><div><h4>Kod ve veri sizin</h4><p>Kaynak kod ve veriler teslimde size geçer. Hazır platformlara kilitlenmezsiniz; istediğiniz an başka bir sunucuya taşınır.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div><div><h4>Hazır şablon değil, özel kod</h4><p>No-code araç kullanmıyoruz. Sistemin her satırını biz yazıyoruz, bu yüzden her şey değiştirilebilir.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><h4>Tek muhatap</h4><p>Müşteri İlişkileri proje boyunca sizinle; kime ulaşacağınızı düşünmezsiniz.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 2.1 3.2-.3.8 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.8 3.1-3.2-.3L12 22l-2.4-2.1-3.2.3-.8-3.1-2.8-1.6 1.2-3-1.2-3 2.8-1.6.8-3.1 3.2.3z"/><path d="M8.5 12l2.3 2.3 4.7-4.7"/></svg></div><div><h4>Sahada kanıtlanmış</h4><p>Uygulamalarımız mağazalarda yayında, IoT sistemlerimiz gerçek tesislerde çalışıyor.</p></div></div></div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div class="track"><span>React Native</span><i>✦</i><span>Expo</span><i>✦</i><span>TypeScript</span><i>✦</i><span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>Node.js</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Supabase</span><i>✦</i><span>LangChain</span><i>✦</i><span>OpenAI</span><i>✦</i><span>MQTT</span><i>✦</i><span>Capacitor</span><i>✦</i><span>PostGIS</span><i>✦</i><span>Docker</span><i>✦</i><span>React Native</span><i>✦</i><span>Expo</span><i>✦</i><span>TypeScript</span><i>✦</i><span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>Node.js</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Supabase</span><i>✦</i><span>LangChain</span><i>✦</i><span>OpenAI</span><i>✦</i><span>MQTT</span><i>✦</i><span>Capacitor</span><i>✦</i><span>PostGIS</span><i>✦</i><span>Docker</span><i>✦</i></div></div>
+</section>
+
+<section id="iletisim">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <span class="kicker">İLETİŞİM</span>
+      <h2>Projeniz için konuşalım.</h2>
+      <p>Ne yapmak istediğinizi anlatın; kapsamı ve fiyatı aynı gün netleştirelim. Müşteri İlişkileri ekibimiz talebinizi alır ve proje boyunca tek muhatabınız olur.</p>
+      <div class="cta-act">
+        <a class="btn btn-primary magnet" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp'tan yazın <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+905400010595">Arayın</a>
+        <a class="btn btn-ghost" href="mailto:bescript.yazilim@gmail.com">E-posta</a>
       </div>
-      <div class="contact-actions">
-        <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp 💬</a>
-        <a class="btn btn-primary" href="tel:+905400010595">Ara ☎</a>
-        <a class="btn btn-primary" href="mailto:bescript.yazilim@gmail.com">E-posta ✉</a>
-        <a class="btn" href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">Instagram ↗</a>
-        <a class="btn" href="/hakkimizda/">Hakkımızda</a>
-      </div>
+      <div class="channels"><span>Müşteri İlişkileri</span><a href="tel:+905400010595">0540 001 05 95</a><a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a><a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></div>
     </div>
   </div>
 </section>
+</main>
 
-<footer>            
+<footer>
   <div class="wrap">
-    <span>© 2026 BeScript Yazılım Çözümleri</span>
-    <span>kartepe / kocaeli · türkiye geneli hizmet · <a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></span>
+    <div class="f-grid">
+      <div><a class="logo" href="#ust"><img src="/assets/logo/brand-192.png" alt="" width="32" height="32">BeScript</a>
+        <p>Fikirden mağazaya, uçtan uca. Mobil uygulama, AI otomasyon ve IoT sistemleri.</p></div>
+      <div><h5>SİTE</h5><ul>
+        <li><a href="#hizmetler">Hizmetler</a></li><li><a href="#uygulamalar">Uygulamalar</a></li>
+        <li><a href="#cozumler">Hazır çözümler</a></li><li><a href="#surec">Süreç</a></li><li><a href="/hakkimizda/">Hakkımızda</a></li></ul></div>
+      <div><h5>İLETİŞİM</h5><ul>
+        <li><a href="tel:+905400010595">0540 001 05 95</a></li><li><a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">Instagram · @bescript.tr</a></li></ul></div>
+    </div>
+    <div class="f-bot"><span>© 2026 BeScript Yazılım Çözümleri</span><span>kartepe / kocaeli · türkiye geneli hizmet</span></div>
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script>
-/* Akordeon: tek seferde bir proje acik kalir, boylece liste kompakt kalir */
-document.querySelectorAll(".acc-head").forEach(function(btn){
-  btn.addEventListener("click",function(){
-    var item=btn.closest(".acc-item");
-    var wasOpen=item.classList.contains("open");
-    document.querySelectorAll(".acc-item.open").forEach(function(open){
-      open.classList.remove("open");
-      open.querySelector(".acc-head").setAttribute("aria-expanded","false");
-    });
-    if(!wasOpen){
-      item.classList.add("open");
-      btn.setAttribute("aria-expanded","true");
-    }
+document.addEventListener("DOMContentLoaded", function(){
+  var azHareket = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var html = document.documentElement;
+
+  /* menu */
+  var nav = document.getElementById("nav"), burger = document.getElementById("burger");
+  burger.addEventListener("click", function(){
+    var acik = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", acik ? "true" : "false");
   });
-});
-</script>
+  document.querySelectorAll("#links a").forEach(function(a){ a.addEventListener("click", function(){ nav.classList.remove("open"); }); });
+  var kaydir = function(){ nav.classList.toggle("scrolled", window.scrollY > 24); };
+  kaydir(); window.addEventListener("scroll", kaydir, {passive:true});
 
-
-<script>
-/* ---------------------------------------------------------------------------
-   Hareket: kaydirma ilerleme cizgisi, bolumlerin belirmesi, hero'da hafif
-   parallax ve istatistik sayaci. Kutuphane yok; hepsi IntersectionObserver
-   ve requestAnimationFrame ile. prefers-reduced-motion aciksa hicbiri calismaz,
-   icerik oldugu yerde durur.
-   --------------------------------------------------------------------------- */
-(function(){
-  "use strict";
-  var kok=document.documentElement;
-  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
-  kok.classList.add("anim");
-
-  /* ilerleme cizgisi + yapisik ust bar + hero parallax */
-  var cizgi=document.createElement("div");
-  cizgi.className="prog"; cizgi.setAttribute("aria-hidden","true");
-  var dolgu=document.createElement("span"); cizgi.appendChild(dolgu);
-  document.body.appendChild(cizgi);
-
-  var ustBar=document.querySelector(".topbar");
-  var heroIc=document.querySelector(".hero .wrap");
-  var sirada=false;
-
-  function kaydirmaAninda(){
-    var y=window.pageYOffset||0;
-    var toplam=document.documentElement.scrollHeight-window.innerHeight;
-    dolgu.style.width=(toplam>0?Math.min(100,(y/toplam)*100):0)+"%";
-    if(ustBar){ ustBar.classList.toggle("stuck", y>8); }
-    if(heroIc && !azHareket.matches){
-      var k=Math.min(y,420);
-      heroIc.style.transform="translateY("+(k*0.06).toFixed(1)+"px)";
-      heroIc.style.opacity=String(1-Math.min(k/900,0.4));
-    }
-    sirada=false;
+  /* hero: telefon ana ekrani, dokununca uygulama acilir */
+  var os = document.getElementById("os"), home = document.getElementById("home"), win = document.getElementById("win"),
+      now = document.getElementById("now"), dokun = document.getElementById("dokun"),
+      folder = document.getElementById("folder"), bsIkon = folder.querySelector("[data-bs]"), acikIkon = null, ekrSira = 0, kullanici = false;
+  var TAP = '<span class="tap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v3.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4 14.5a1.5 1.5 0 0 1 2.3-1.9L9 15"/></svg></span>';
+  var OK_SOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+      OK_SAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+  function sayacMetni(){
+    var n = win.querySelectorAll(".ekr").length;
+    return n ? (ekrSira + 1) + "/" + n : kac(acikIkon && acikIkon.dataset.durum || "");
   }
-  window.addEventListener("scroll",function(){
-    if(!sirada){ sirada=true; requestAnimationFrame(kaydirmaAninda); }
-  },{passive:true});
-  kaydirmaAninda();
+  function etiket(ic){
+    now.style.opacity = 0;
+    setTimeout(function(){
+      if (ic){
+        now.className = "now kontrol";
+        now.innerHTML = '<button class="nb" type="button" data-k="geri" aria-label="Ana ekrana dön">' + OK_SOL + '</button>' +
+          '<span class="ad"><img src="' + kac(ic.dataset.logo) + '" alt=""><b>' + kac(ic.dataset.ad) + '</b><span class="sayac">' + sayacMetni() + '</span></span>' +
+          '<button class="nb nb-ileri" type="button" data-k="ileri" aria-label="İleri">' + OK_SAG + '</button>';
+      } else {
+        now.className = "now";
+        now.innerHTML = TAP + '<span>Bir uygulamaya dokunun</span>';
+      }
+      now.style.opacity = 1;
+    }, 250);
+  }
+  etiket(null);
+  function saatMetni(){ var t = new Date(); return ("0" + t.getHours()).slice(-2) + ":" + ("0" + t.getMinutes()).slice(-2); }
+  function saat(){ var m = saatMetni(); document.querySelectorAll("#saat, .saat-t").forEach(function(e){ e.textContent = m; }); }
+  var SB_IKON = '<svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>' +
+    '<svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M24.5 4v4" stroke="currentColor" stroke-linecap="round" opacity=".5"/></svg>';
+  /* ekran goruntusunun durum cubugunun hemen altindaki seritten renk al */
+  function cubukRengi(im){
+    if (!im) return;
+    if (!im.complete || !im.naturalWidth){ im.addEventListener("load", function(){ cubukRengi(im); }, {once:true}); return; }
+    if (!im.dataset.renk){
+      try {
+        var c = document.createElement("canvas"); c.width = 12; c.height = 1;
+        var x = c.getContext("2d"), nh = im.naturalHeight;
+        x.drawImage(im, 0, nh * .047, im.naturalWidth, nh * .01, 0, 0, 12, 1);
+        var v = x.getImageData(0, 0, 12, 1).data, r = 0, g = 0, b = 0;
+        for (var i = 0; i < v.length; i += 4){ r += v[i]; g += v[i + 1]; b += v[i + 2]; }
+        r = Math.round(r / 12); g = Math.round(g / 12); b = Math.round(b / 12);
+        im.dataset.renk = "rgb(" + r + "," + g + "," + b + ")";
+        im.dataset.yazi = (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? "#111" : "#fff";
+      } catch (e){ im.dataset.renk = "#000"; im.dataset.yazi = "#fff"; }
+    }
+    if (im.classList.contains("on")){ win.style.setProperty("--ub", im.dataset.renk); win.style.setProperty("--uc", im.dataset.yazi); }
+  }
+  saat(); setInterval(saat, 15000);
+  function merkez(el){
+    var a = os.getBoundingClientRect(), b = el.getBoundingClientRect(), k = a.width / os.offsetWidth || 1;
+    return [(b.left + b.width / 2 - a.left) / k, (b.top + b.height / 2 - a.top) / k];
+  }
+  function ekranGoster(i){
+    win.querySelectorAll(".ekr").forEach(function(e, k){ e.classList.toggle("on", k === i); });
+    win.querySelectorAll(".noktalar i").forEach(function(e, k){ e.classList.toggle("on", k === i); });
+    var sy = now.querySelector(".sayac"); if (sy) sy.textContent = sayacMetni();
+    cubukRengi(win.querySelectorAll(".ekr")[i]);
+    os.classList.toggle("ekranli", !!win.querySelectorAll(".ekr")[i]);
+  }
+  function ac(ic){
+    if (acikIkon === ic) return;
+    var d = ic.dataset, m = merkez(ic.querySelector("img")), h;
+    win.style.transition = "none"; win.classList.remove("acik");
+    win.style.transformOrigin = m[0] + "px " + m[1] + "px";
+    win.style.setProperty("--wbg", d.bg);
+    if (d.bs){
+      h = '<div class="bs-ekran"><img src="' + d.logo + '" alt=""><b>Fikrinizi uygulamaya dönüştürelim.</b>' +
+          '<p>Tasarım, geliştirme ve mağaza yayını tek ekipte. Müşteri İlişkileri ekibimiz size dönüş yapar.</p>' +
+          '<a href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp\'tan yazın</a></div>';
+    } else {
+      win.style.setProperty("--wfg", acikRenk(d.bg) ? "#1A1F2B" : "#fff");
+      h = '<div class="splash"><img src="' + kac(d.logo) + '" alt=""><b>' + kac(d.ad) + '</b>' +
+          (d.durum ? '<em>' + kac(d.durum) + '</em>' : '') + (d.not ? '<p>' + kac(d.not) + '</p>' : '') + '</div>';
+      if (d.ekran){
+        var liste = d.ekran.split("|");
+        liste.forEach(function(e){ h += '<img class="ekr" src="' + kac(e) + '" alt="' + kac(d.ad) + ' ekranı">'; });
+      }
+    }
+    win.style.setProperty("--ub", "transparent"); os.classList.remove("ekranli");
+    win.style.setProperty("--uc", !d.bs && acikRenk(d.bg) ? "#111" : "#fff");
+    win.innerHTML = h + '<div class="usb"><span class="saat-t">' + saatMetni() + '</span><span>' + SB_IKON + '</span></div>';
+    void win.offsetWidth; win.style.transition = "";
+    win.classList.add("acik"); home.classList.add("geri"); os.classList.add("uyg-acik");
+    acikIkon = ic; ekrSira = 0; etiket(ic);
+    if (d.ekran) setTimeout(function(){ if (acikIkon === ic) ekranGoster(0); }, azHareket ? 0 : 450);
+  }
+  function kapat(){
+    if (!acikIkon) return;
+    win.classList.remove("acik"); home.classList.remove("geri"); os.classList.remove("uyg-acik", "ekranli");
+    acikIkon = null; etiket(null);
+  }
+  function sonraki(){
+    var ekr = win.querySelectorAll(".ekr"); if (ekr.length < 2) return;
+    ekrSira = (ekrSira + 1) % ekr.length; ekranGoster(ekrSira);
+  }
+  /* Ileri: sonraki ekran; son ekrandaysa siradaki uygulama */
+  function gec(ic){
+    if (!acikIkon){ ac(ic); return; }
+    kapat(); setTimeout(function(){ ac(ic); }, azHareket ? 0 : 420);
+  }
+  function ilerle(){
+    if (!acikIkon) return;
+    var n = win.querySelectorAll(".ekr").length;
+    if (n && ekrSira < n - 1){ ekrSira++; ekranGoster(ekrSira); return; }
+    var hepsi = [].slice.call(folder.querySelectorAll(".ico")), i = hepsi.indexOf(acikIkon);
+    gec(hepsi[(i + 1) % hepsi.length]);
+  }
+  function geriGit(){
+    if (!acikIkon) return;
+    if (ekrSira > 0){ ekrSira--; ekranGoster(ekrSira); return; }
+    kapat();
+  }
+  function el(){ kullanici = true; }
+  now.addEventListener("click", function(e){
+    var b = e.target.closest("[data-k]"); if (!b) return;
+    el(); if (b.dataset.k === "ileri") ilerle(); else kapat();
+  });
+  folder.addEventListener("click", function(e){ var ic = e.target.closest(".ico"); if (ic){ el(); ac(ic); } });
 
-  /* bolumlerin belirmesi */
-  var hedefler=[].slice.call(document.querySelectorAll(
-    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.katalog,.stack-cell,.manifest,.contact-inner"
-  ));
-  hedefler.forEach(function(el){ el.classList.add("reveal"); });
+  /* uygulama listesi: /telefon/uygulamalar.json (BENIOKU.md'ye bakin) */
+  function kac(t){ return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function acikRenk(hex){
+    var m = /^#?([0-9a-f]{6})$/i.exec(hex || ""); if (!m) return false;
+    var n = parseInt(m[1], 16);
+    return (0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) > 170;
+  }
+  function yol(p){ return /^(https?:)?\//.test(p) ? p : "/telefon/" + p; }
+  fetch("/telefon/uygulamalar.json", {cache:"no-cache"}).then(function(r){ return r.json(); }).then(function(v){
+    (v.uygulamalar || []).forEach(function(u){
+      if (!u || !u.ad || !u.ikon || u.gizle) return;
+      var b = document.createElement("button");
+      b.className = "ico"; b.type = "button";
+      b.dataset.ad = u.ad; b.dataset.alt = u.alt || u.durum || "";
+      b.dataset.logo = yol(u.ikon); b.dataset.bg = u.renk || "#0B1020";
+      if (u.ekranlar && u.ekranlar.length) b.dataset.ekran = u.ekranlar.map(yol).join("|");
+      if (u.durum) b.dataset.durum = u.durum;
+      if (u.aciklama) b.dataset.not = u.aciklama;
+      b.setAttribute("aria-label", u.ad + " uygulamasını aç");
+      b.innerHTML = '<img src="' + kac(yol(u.ikon)) + '" alt=""><span>' + kac(u.etiket || u.ad) + '</span>';
+      folder.insertBefore(b, bsIkon);
+    });
+  }).catch(function(e){ if (window.console) console.warn("telefon/uygulamalar.json okunamadı:", e); });
+  document.getElementById("homebar").addEventListener("click", function(){ el(); kapat(); });
+  /* ekranda: dokun = ileri, sola/saga kaydir = ileri/geri, yukari kaydir = ana ekran.
+     Sayfa kaydirilirken parmak degerse (pointercancel) dokunus sayilmaz. */
+  var p0 = null;
+  win.addEventListener("pointerdown", function(e){ p0 = [e.clientX, e.clientY]; });
+  win.addEventListener("pointercancel", function(){ p0 = null; });
+  win.addEventListener("pointerup", function(e){
+    if (!p0) return;
+    var dx = e.clientX - p0[0], dy = e.clientY - p0[1]; p0 = null;
+    if (e.target.closest("a")) return;
+    if (-dy > 50 && Math.abs(dy) > Math.abs(dx)){ el(); kapat(); return; }
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){ el(); if (dx < 0) ilerle(); else geriGit(); return; }
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10){ el(); ilerle(); }
+  });
+  document.addEventListener("keydown", function(e){
+    if (!acikIkon) return;
+    if (e.key === "Escape"){ el(); kapat(); }
+    else if (e.key === "ArrowRight"){ el(); ilerle(); }
+    else if (e.key === "ArrowLeft"){ el(); geriGit(); }
+  });
 
-  function hepsiniGoster(){ hedefler.forEach(function(el){ el.classList.add("in"); }); }
-
-  if(azHareket.matches || !("IntersectionObserver" in window)){
-    hepsiniGoster();
-  }else{
-    var gozlemci=new IntersectionObserver(function(girisler){
-      girisler.forEach(function(g){
-        if(!g.isIntersecting) return;
-        var el=g.target;
-        /* ayni kaptaki kardesler sirayla gelsin, hepsi ayni anda zipllamasin */
-        var sira=el.parentNode?Array.prototype.indexOf.call(el.parentNode.children,el):0;
-        el.style.transitionDelay=(Math.min(sira,5)*70)+"ms";
-        el.classList.add("in");
-        gozlemci.unobserve(el);
+  /* kendi kendine tanitim: kimse dokunmazsa sirayla acar */
+  if (!azHareket){
+    var gorunur = true, adim = 0;
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver(function(g){ gorunur = g[0].isIntersecting; }).observe(os);
+    var bekle = function(ms, f){ setTimeout(function(){ if (kullanici) return; if (!gorunur || document.hidden) return bekle(800, f); f(); }, ms); };
+    var dongu = function(){
+      var tanitim = [].slice.call(folder.querySelectorAll(".ico[data-ekran]")).slice(0, 4);
+      if (!tanitim.length) return bekle(1000, dongu);
+      var ic = tanitim[adim++ % tanitim.length], m = merkez(ic.querySelector("img"));
+      dokun.style.left = m[0] + "px"; dokun.style.top = m[1] + "px";
+      dokun.classList.remove("bas"); void dokun.offsetWidth; dokun.classList.add("bas");
+      bekle(260, function(){
+        ac(ic);
+        bekle(2400, function(){
+          sonraki();
+          bekle(2400, function(){ kapat(); bekle(1500, dongu); });
+        });
       });
-    },{rootMargin:"0px 0px -8% 0px",threshold:0.08});
-    hedefler.forEach(function(el){ gozlemci.observe(el); });
-    /* gorunur alandakiler icin ilk tetik */
-    requestAnimationFrame(function(){ window.dispatchEvent(new Event("resize")); });
+    };
+    bekle(2600, dongu);
   }
 
-  /* istatistik sayaci: "30K+" gibi degerlerde yalnizca rakam kismi sayilir */
-  var sayilar=[].slice.call(document.querySelectorAll(".hero-strip .num"));
-  if(!azHareket.matches){
-    sayilar.forEach(function(el){
-      var tamDeger=el.textContent.trim();
-      var m=/^(\D*)(\d+)(.*)$/.exec(tamDeger);
-      if(!m) return;
-      var on=m[1], hedef=parseInt(m[2],10), son=m[3], bas=null, sure=900;
-      /* emniyet: sayim herhangi bir sebeple ilerlemezse son deger yine de yazilir */
-      setTimeout(function(){ el.textContent=tamDeger; }, sure+700);
-      el.textContent=on+"0"+son;
-      function adim(t){
-        if(bas===null) bas=t;
-        var p=Math.min((t-bas)/sure,1);
-        var yumusak=1-Math.pow(1-p,3);
-        el.textContent=on+Math.round(hedef*yumusak)+son;
-        if(p<1) requestAnimationFrame(adim);
-      }
-      setTimeout(function(){ requestAnimationFrame(adim); },260);
-    });
-  }
-})();
-</script>
-
-<script>
-/* ---------------------------------------------------------------------------
-   Hazir cozumler katalogu: kendi kendine akar, fare ile surukleyerek veya
-   parmakla kaydirarak gezilebilir. Kartlarin bir kopyasi eklenir; sondan basa
-   donus bu sayede goze carpmaz. Uzerine gelince, odaklanınca ya da
-   surukleyince akis durur. prefers-reduced-motion aciksa hic akmaz.
-   --------------------------------------------------------------------------- */
-(function(){
-  "use strict";
-  Array.prototype.forEach.call(document.querySelectorAll("[data-katalog]"),kur);
-
-  function kur(kapsayici){
-  var yol=kapsayici.querySelector(".kat-yol");
-  var sira=kapsayici.querySelector(".kat-sira");
-  if(!yol||!sira) return;
-
-  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
-  var aksin=kapsayici.hasAttribute("data-akis");
-  var asillar=[].slice.call(sira.children);
-  if(!asillar.length) return;
-
-  /* kopyalar yalnizca gorseldir: ekran okuyucu ve sekme sirasi disinda */
-  if(aksin) asillar.forEach(function(kart){
-    var kopya=kart.cloneNode(true);
-    kopya.setAttribute("aria-hidden","true");
-    kopya.setAttribute("tabindex","-1");
-    sira.appendChild(kopya);
-  });
-
-  function setGenisligi(){ return aksin?sira.scrollWidth/2:0; }
-
-  var durdu=false, gorunur=true, zamanlayici=null;
-  function duraklat(sure){
-    durdu=true;
-    if(zamanlayici) clearTimeout(zamanlayici);
-    if(sure) zamanlayici=setTimeout(function(){ durdu=false; },sure);
-  }
-  function devam(){ if(zamanlayici) clearTimeout(zamanlayici); durdu=false; }
-
-  kapsayici.addEventListener("pointerenter",function(){ duraklat(0); });
-  kapsayici.addEventListener("pointerleave",function(){ devam(); });
-  kapsayici.addEventListener("focusin",function(){ duraklat(0); });
-  kapsayici.addEventListener("focusout",function(){ devam(); });
-  yol.addEventListener("wheel",function(){ duraklat(2500); },{passive:true});
-  yol.addEventListener("touchstart",function(){ duraklat(4000); },{passive:true});
-
-  if("IntersectionObserver" in window){
-    new IntersectionObserver(function(g){ gorunur=g[0].isIntersecting; },{threshold:0.15})
-      .observe(kapsayici);
-  }
-
-  function dongu(){
-    if(aksin && !durdu && gorunur && !azHareket.matches && document.visibilityState==="visible"){
-      yol.scrollLeft+=0.4;
-    }
-    var w=setGenisligi();
-    if(w>0){
-      if(yol.scrollLeft>=w) yol.scrollLeft-=w;
-      else if(yol.scrollLeft<0) yol.scrollLeft+=w;
-    }
-    requestAnimationFrame(dongu);
-  }
-  requestAnimationFrame(dongu);
-
-  /* fare ile surukleme — dokunmatikte tarayicinin kendi kaydirmasi kalsin */
-  var tutuyor=false, basX=0, basScroll=0, suruklendi=false;
-  yol.addEventListener("pointerdown",function(e){
-    if(e.pointerType!=="mouse") return;
-    tutuyor=true; suruklendi=false;
-    basX=e.clientX; basScroll=yol.scrollLeft;
-    yol.classList.add("tutuluyor");
-    duraklat(0);
-  });
-  yol.addEventListener("pointermove",function(e){
-    if(!tutuyor) return;
-    var fark=e.clientX-basX;
-    if(Math.abs(fark)>4) suruklendi=true;
-    yol.scrollLeft=basScroll-fark;
-    e.preventDefault();
-  });
-  function birak(){
-    if(!tutuyor) return;
-    tutuyor=false;
-    yol.classList.remove("tutuluyor");
-    duraklat(1500);
-  }
-  yol.addEventListener("pointerup",birak);
-  yol.addEventListener("pointercancel",birak);
-  yol.addEventListener("pointerleave",birak);
-  /* surukleyip birakinca kartin linki acilmasin */
-  yol.addEventListener("click",function(e){
-    if(suruklendi){ e.preventDefault(); e.stopPropagation(); suruklendi=false; }
-  },true);
-
-  /* oklar: bir kart boyu kaydirir */
-  function adim(yon){
-    var kart=sira.firstElementChild;
-    var mesafe=kart?kart.getBoundingClientRect().width+20:300;
-    yol.scrollBy({left:yon*mesafe,behavior:azHareket.matches?"auto":"smooth"});
-    duraklat(3000);
-  }
-
-  var geri=kapsayici.querySelector(".kat-ok.geri");
-  var ileri=kapsayici.querySelector(".kat-ok.ileri");
-  if(geri) geri.addEventListener("click",function(){ adim(-1); });
-  if(ileri) ileri.addEventListener("click",function(){ adim(1); });
-  }
-})();
-</script>
-
-<script>
-/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
-(function(){
-  var bar=document.querySelector(".topbar");
-  var dugme=document.querySelector(".menu-dugme");
-  if(!bar||!dugme) return;
-  function ayarla(acik){
-    bar.classList.toggle("menu-acik",acik);
-    dugme.setAttribute("aria-expanded",acik?"true":"false");
-    dugme.textContent=acik?"\u00d7":"\u2261";
-  }
-  dugme.addEventListener("click",function(){
-    ayarla(!bar.classList.contains("menu-acik"));
-  });
-  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
-    a.addEventListener("click",function(){ ayarla(false); });
-  });
-  document.addEventListener("keydown",function(e){
-    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
-  });
-})();
-</script>
-
-
-<script>
-/* Proje filtresi ve "ilk bes proje" siniri.
-   Sinir secili kategoriye gore isler: mobil filtresinde de once bes proje gorunur,
-   dugme kalan sayisini yazar. Filtre degisince liste yeniden toplanir. */
-(function(){
-  var kutu=document.querySelector(".filtreler");
-  if(!kutu) return;
-  var dugme=document.querySelector(".daha-dugme");
-  var ogeler=[].slice.call(document.querySelectorAll(".acc-item[data-tur]"));
-  var dugmeler=[].slice.call(kutu.querySelectorAll(".filtre"));
-  if(!ogeler.length) return;
-
-  var SINIR=5, acik=false, secili="hepsi";
-
-  function uyar(oge,tur){
-    return tur==="hepsi" || oge.getAttribute("data-tur").split(" ").indexOf(tur)>=0;
-  }
-
-  /* her filtrenin kac projeye denk geldigini yaz */
-  dugmeler.forEach(function(d){
-    var tur=d.getAttribute("data-filtre");
-    var adet=ogeler.filter(function(o){ return uyar(o,tur); }).length;
-    var sayi=document.createElement("span");
-    sayi.className="sayi"; sayi.textContent=adet;
-    d.appendChild(sayi);
-  });
-
-  function ciz(){
-    var eslesen=0;
-    ogeler.forEach(function(o){
-      var eslesti=uyar(o,secili);
-      if(eslesti) eslesen++;
-      var goster=eslesti && (acik || eslesen<=SINIR);
-      o.classList.toggle("gizli",!goster);
-      if(!goster && o.classList.contains("open")){
-        o.classList.remove("open");
-        var bas=o.querySelector(".acc-head");
-        if(bas) bas.setAttribute("aria-expanded","false");
-      }
-    });
-    dugmeler.forEach(function(d){
-      var aktif=d.getAttribute("data-filtre")===secili;
-      d.classList.toggle("secili",aktif);
-      d.setAttribute("aria-pressed",aktif?"true":"false");
-    });
-    if(!dugme) return;
-    var kalan=eslesen-SINIR;
-    dugme.style.display=kalan>0?"":"none";
-    dugme.textContent=acik?"daha az göster":"tümünü göster (+"+kalan+")";
-    dugme.setAttribute("aria-expanded",acik?"true":"false");
-  }
-
-  dugmeler.forEach(function(d){
-    d.addEventListener("click",function(){
-      secili=d.getAttribute("data-filtre");
-      acik=false;
-      ciz();
+  /* imleci takip eden isik */
+  document.querySelectorAll(".spot").forEach(function(el){
+    el.addEventListener("pointermove", function(e){
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px"); el.style.setProperty("--my", (e.clientY - r.top) + "px");
     });
   });
-  if(dugme) dugme.addEventListener("click",function(){ acik=!acik; ciz(); });
 
-  ciz();
-})();
+  function hepsiniGoster(){ html.classList.remove("js"); }
+  if (azHareket || !window.gsap || !window.ScrollTrigger){ hepsiniGoster(); return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* acilis */
+  gsap.timeline({defaults:{ease:"power3.out"}})
+    .to(".hero [data-in]", {opacity:1, y:0, duration:1, stagger:.1})
+    .from(".stage .layer", {opacity:0, y:80, duration:1.4, stagger:.12, ease:"power4.out"}, "-=.9")
+    .from("#now", {opacity:0, y:16, duration:.8}, "-=.6");
+
+  /* kaydirinca belirme */
+  ScrollTrigger.batch("[data-reveal]", {start:"top 88%", once:true,
+    onEnter: function(els){ gsap.to(els, {opacity:1, y:0, duration:.95, ease:"power3.out", stagger:.08}); }});
+
+  /* hero derinlik: imlec + kaydirma */
+  var stage = document.getElementById("stage"), tel = document.getElementById("telKatman");
+  if (window.matchMedia("(pointer:fine)").matches){
+    document.querySelector(".hero").addEventListener("pointermove", function(e){
+      var dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5;
+      gsap.to(tel, {rotationY: dx * 12, rotationX: -dy * 8, duration:1.2, ease:"power3.out"});
+    });
+  }
+  if (window.innerWidth > 1080) gsap.to(stage, {yPercent:-10, ease:"none", scrollTrigger:{trigger:".hero", start:"top top", end:"bottom top", scrub:true}});
+
+  /* sayaclar */
+  document.querySelectorAll("[data-count]").forEach(function(el){
+    var hedef = +el.dataset.count, ek = el.dataset.suffix || "", o = {v:0};
+    ScrollTrigger.create({trigger:el, start:"top 90%", once:true, onEnter:function(){
+      gsap.to(o, {v:hedef, duration:1.6, ease:"power2.out", onUpdate:function(){ el.textContent = Math.round(o.v) + ek; }});
+    }});
+    el.textContent = "0" + ek;
+  });
+
+  /* surec cizgisi */
+  gsap.fromTo("#tlFill", {scaleY:0}, {scaleY:1, ease:"none",
+    scrollTrigger:{trigger:"#tl", start:"top 70%", end:"bottom 65%", scrub:true}});
+
+  /* miknatis butonlar */
+  if (window.matchMedia("(pointer:fine)").matches){
+    document.querySelectorAll(".magnet").forEach(function(b){
+      b.addEventListener("pointermove", function(e){
+        var r = b.getBoundingClientRect();
+        gsap.to(b, {x:(e.clientX - r.left - r.width/2) * .18, y:(e.clientY - r.top - r.height/2) * .25, duration:.4, ease:"power3.out"});
+      });
+      b.addEventListener("pointerleave", function(){ gsap.to(b, {x:0, y:0, duration:.6, ease:"elastic.out(1,.5)"}); });
+    });
+  }
+});
+/* GSAP hic yuklenmezse icerik gizli kalmasin */
+setTimeout(function(){ if (!window.gsap) document.documentElement.classList.remove("js"); }, 4000);
 </script>
 <script type="application/ld+json">
 {
