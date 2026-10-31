@@ -1,0 +1,56 @@
+{
+  "uygulamalar": [
+    {
+      "ad": "Tırdaş",
+      "alt": "Lojistik",
+      "ikon": "tirdas/ikon.jpg",
+      "renk": "#0E1B33",
+      "ekranlar": ["tirdas/1.webp", "tirdas/2.webp"]
+    },
+    {
+      "ad": "Kelimece",
+      "alt": "Kelime oyunu",
+      "ikon": "kelimece/ikon.png",
+      "renk": "#1A3E16",
+      "ekranlar": ["kelimece/1.webp", "kelimece/2.webp"]
+    },
+    {
+      "ad": "Quadmate",
+      "alt": "Oyun arkadaşı",
+      "ikon": "quadmate/ikon.png",
+      "renk": "#F4F6FB",
+      "ekranlar": ["quadmate/1.webp", "quadmate/2.webp"]
+    },
+    {
+      "ad": "Bocu Remote",
+      "etiket": "Bocu",
+      "alt": "Tarım · IoT",
+      "ikon": "bocu/ikon.jpg",
+      "renk": "#000000",
+      "ekranlar": ["bocu/1.webp", "bocu/2.webp"]
+    },
+    {
+      "ad": "Muhasebe Defterim",
+      "etiket": "Muhasebe",
+      "ikon": "muhasebe/ikon.png",
+      "renk": "#20252E",
+      "durum": "Kapalı test",
+      "aciklama": "Serbest çalışanlar için muhasebe uygulaması. Google Play'de kapalı testte."
+    },
+    {
+      "ad": "Müezzin",
+      "ikon": "muezzin/ikon.png",
+      "renk": "#0A344B",
+      "durum": "Yakında",
+      "aciklama": "Namaz vakitleri ve kaza takibi. Yakında mağazalarda."
+    },
+    {
+      "ad": "Тырдаш",
+      "alt": "Kazakistan sürümü",
+      "ikon": "tirdaskz/ikon.jpg",
+      "renk": "#1B2B42",
+      "durum": "Kapalı test",
+      "aciklama": "Tırdaş'ın Kazakistan pazarına uyarlanan sürümü."
+    }
+  ]
+}

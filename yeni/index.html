@@ -151,7 +151,7 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
   color:#fff;text-align:center;letter-spacing:-.01em;margin-bottom:22px}
 .home h5 small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:400;
   color:rgba(255,255,255,.55);margin-bottom:6px}
-.folder{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px;padding:20px 6px 18px;border-radius:30px;
+.folder{max-height:430px;overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px;padding:20px 6px 18px;border-radius:30px;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .ico{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#fff;cursor:pointer;
   font:500 11px/1.15 'IBM Plex Sans',system-ui,sans-serif;padding:0;-webkit-tap-highlight-color:transparent}
@@ -165,12 +165,12 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
   opacity:0;transform:scale(.16);pointer-events:none;
   transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .3s ease}
 .win.acik{opacity:1;transform:scale(1);pointer-events:auto;cursor:pointer}
-.splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;text-align:center;padding:0 26px}
+.splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--wfg,#fff);text-align:center;padding:0 26px}
 .splash img{position:static;width:86px;height:86px;border-radius:22px;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
 .splash b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px}
 .splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff}
-.splash p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
+  padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
+.splash p{font-size:13px;opacity:.72;line-height:1.5}
 .win .ekr{opacity:0;transition:opacity .45s ease}
 .win .ekr.on{opacity:1}
 .noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
@@ -419,14 +419,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
           <div class="sb"><span id="saat">09:41</span><span><svg viewBox="0 0 18 12" fill="#fff"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#fff"/><path d="M24.5 4v4" stroke="#fff" stroke-linecap="round" opacity=".5"/></svg></span></div>
           <div class="home" id="home">
             <h5><small>BESCRIPT</small>Uygulamalarımız</h5>
-            <div class="folder">
-              <button class="ico" type="button" data-ad="Tırdaş" data-alt="Lojistik" data-logo="/assets/logo/tirdas.jpg" data-bg="#0E1B33" data-ekran="tirdas-3,tirdas-1" aria-label="Tırdaş uygulamasını aç"><img src="/assets/logo/tirdas.jpg" alt=""><span>Tırdaş</span></button>
-              <button class="ico" type="button" data-ad="Kelimece" data-alt="Kelime oyunu" data-logo="/assets/logo/kelimece.png" data-bg="#1A3E16" data-ekran="kelimece-web,kelimece-oyun" aria-label="Kelimece uygulamasını aç"><img src="/assets/logo/kelimece.png" alt=""><span>Kelimece</span></button>
-              <button class="ico" type="button" data-ad="Quadmate" data-alt="Oyun arkadaşı" data-logo="/assets/logo/quadmate.png" data-bg="#F4F6FB" data-ekran="quadmate-1,quadmate-4" aria-label="Quadmate uygulamasını aç"><img src="/assets/logo/quadmate.png" alt=""><span>Quadmate</span></button>
-              <button class="ico" type="button" data-ad="Bocu Remote" data-alt="Tarım · IoT" data-logo="/assets/logo/bocu.jpg" data-bg="#000000" data-ekran="bocu-2,bocu-4" aria-label="Bocu Remote uygulamasını aç"><img src="/assets/logo/bocu.jpg" alt=""><span>Bocu</span></button>
-              <button class="ico" type="button" data-ad="Muhasebe Defterim" data-alt="Kapalı test" data-logo="/assets/logo/muhasebe.png" data-bg="#20252E" data-durum="Kapalı test" data-not="Serbest çalışanlar için muhasebe uygulaması. Google Play'de kapalı testte." aria-label="Muhasebe Defterim uygulamasını aç"><img src="/assets/logo/muhasebe.png" alt=""><span>Muhasebe</span></button>
-              <button class="ico" type="button" data-ad="Müezzin" data-alt="Yakında" data-logo="/assets/logo/muezzin.png" data-bg="#0A344B" data-durum="Yakında" data-not="Namaz vakitleri ve kaza takibi. Yakında mağazalarda." aria-label="Müezzin uygulamasını aç"><img src="/assets/logo/muezzin.png" alt=""><span>Müezzin</span></button>
-              <button class="ico" type="button" data-ad="Тырдаш" data-alt="Kazakistan sürümü" data-logo="/assets/logo/tirdaskz.jpg" data-bg="#1B2B42" data-durum="Kapalı test" data-not="Tırdaş'ın Kazakistan pazarına uyarlanan sürümü." aria-label="Тырдаш uygulamasını aç"><img src="/assets/logo/tirdaskz.jpg" alt=""><span>Тырдаш</span></button>
+            <div class="folder" id="folder">
               <button class="ico" type="button" data-ad="BeScript" data-alt="Projenizi konuşalım" data-logo="/assets/logo/brand-192.png" data-bg="#0036C9" data-bs="1" aria-label="BeScript uygulamasını aç"><img src="/assets/logo/brand-192.png" alt=""><span>BeScript</span></button>
             </div>
           </div>
@@ -505,7 +498,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="chips"><span>react native</span><span>meta cloud api</span><span>openai</span><span>postgresql</span></div>
         <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/assets/screens/tirdas-3.webp" alt="Tırdaş uygulama ekranı" loading="lazy"></div></div></div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/tirdas/1.webp" alt="Tırdaş uygulama ekranı" loading="lazy"></div></div></div>
     </article><article class="app spot" style="--ac:244,196,48" data-reveal>
       <div class="app-text">
         <div class="app-id"><img class="app-logo" src="/assets/logo/kelimece.png" alt="" width="52" height="52" loading="lazy">
@@ -514,7 +507,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="chips"><span>capacitor</span><span>supabase</span><span>admob</span></div>
         <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.kelimece" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/assets/screens/kelimece-web.webp" alt="Kelimece uygulama ekranı" loading="lazy"></div></div></div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/kelimece/1.webp" alt="Kelimece uygulama ekranı" loading="lazy"></div></div></div>
     </article><article class="app spot" style="--ac:240,65,79" data-reveal>
       <div class="app-text">
         <div class="app-id"><img class="app-logo" src="/assets/logo/quadmate.png" alt="" width="52" height="52" loading="lazy">
@@ -523,7 +516,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="chips"><span>react native</span><span>expo</span><span>supabase</span><span>postgis</span></div>
         <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/quadmate/id6813102419" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.quadmate.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/assets/screens/quadmate-1.webp" alt="Quadmate uygulama ekranı" loading="lazy"></div></div></div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/quadmate/1.webp" alt="Quadmate uygulama ekranı" loading="lazy"></div></div></div>
     </article><article class="app spot" style="--ac:201,161,90" data-reveal>
       <div class="app-text">
         <div class="app-id"><img class="app-logo" src="/assets/logo/bocu.jpg" alt="" width="52" height="52" loading="lazy">
@@ -532,7 +525,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="chips"><span>python · fastapi</span><span>mqtt</span><span>react native</span><span>nb-iot</span></div>
         <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bocu.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/assets/screens/bocu-2.webp" alt="Bocu Remote uygulama ekranı" loading="lazy"></div></div></div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/bocu/1.webp" alt="Bocu Remote uygulama ekranı" loading="lazy"></div></div></div>
     </article></div>
     <div class="others-title" data-reveal><h3>Diğer projeler</h3><span>yolda olan uygulamalar, web siteleri ve demolar</span></div>
     <div class="others"><article class="mini spot" data-reveal>
@@ -690,7 +683,7 @@ document.addEventListener("DOMContentLoaded", function(){
   /* hero: telefon ana ekrani, dokununca uygulama acilir */
   var os = document.getElementById("os"), home = document.getElementById("home"), win = document.getElementById("win"),
       now = document.getElementById("now"), dokun = document.getElementById("dokun"),
-      ikonlar = [].slice.call(os.querySelectorAll(".ico")), acikIkon = null, ekrSira = 0, kullanici = false;
+      folder = document.getElementById("folder"), bsIkon = folder.querySelector("[data-bs]"), acikIkon = null, ekrSira = 0, kullanici = false;
   var TAP = '<span class="tap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v3.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4 14.5a1.5 1.5 0 0 1 2.3-1.9L9 15"/></svg></span>';
   function etiket(ic){
     now.style.opacity = 0;
@@ -722,11 +715,12 @@ document.addEventListener("DOMContentLoaded", function(){
           '<p>Tasarım, geliştirme ve mağaza yayını tek ekipte. Müşteri İlişkileri ekibimiz size dönüş yapar.</p>' +
           '<a href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp\'tan yazın</a></div>';
     } else {
-      h = '<div class="splash"><img src="' + d.logo + '" alt=""><b style="color:' + (d.bg === "#F4F6FB" ? "#1A1F2B" : "#fff") + '">' + d.ad + '</b>' +
-          (d.durum ? '<em>' + d.durum + '</em><p>' + d.not + '</p>' : '') + '</div>';
+      win.style.setProperty("--wfg", acikRenk(d.bg) ? "#1A1F2B" : "#fff");
+      h = '<div class="splash"><img src="' + kac(d.logo) + '" alt=""><b>' + kac(d.ad) + '</b>' +
+          (d.durum ? '<em>' + kac(d.durum) + '</em>' : '') + (d.not ? '<p>' + kac(d.not) + '</p>' : '') + '</div>';
       if (d.ekran){
-        var liste = d.ekran.split(",");
-        liste.forEach(function(e){ h += '<img class="ekr" src="/assets/screens/' + e + '.webp" alt="' + d.ad + ' ekranı">'; });
+        var liste = d.ekran.split("|");
+        liste.forEach(function(e){ h += '<img class="ekr" src="' + kac(e) + '" alt="' + kac(d.ad) + ' ekranı">'; });
         h += '<div class="noktalar">' + liste.map(function(){ return "<i></i>"; }).join("") + '</div>';
       }
     }
@@ -746,7 +740,31 @@ document.addEventListener("DOMContentLoaded", function(){
     ekrSira = (ekrSira + 1) % ekr.length; ekranGoster(ekrSira);
   }
   function el(){ kullanici = true; }
-  ikonlar.forEach(function(ic){ ic.addEventListener("click", function(){ el(); ac(ic); }); });
+  folder.addEventListener("click", function(e){ var ic = e.target.closest(".ico"); if (ic){ el(); ac(ic); } });
+
+  /* uygulama listesi: /telefon/uygulamalar.json (BENIOKU.md'ye bakin) */
+  function kac(t){ return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function acikRenk(hex){
+    var m = /^#?([0-9a-f]{6})$/i.exec(hex || ""); if (!m) return false;
+    var n = parseInt(m[1], 16);
+    return (0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) > 170;
+  }
+  function yol(p){ return /^(https?:)?\//.test(p) ? p : "/telefon/" + p; }
+  fetch("/telefon/uygulamalar.json", {cache:"no-cache"}).then(function(r){ return r.json(); }).then(function(v){
+    (v.uygulamalar || []).forEach(function(u){
+      if (!u || !u.ad || !u.ikon || u.gizle) return;
+      var b = document.createElement("button");
+      b.className = "ico"; b.type = "button";
+      b.dataset.ad = u.ad; b.dataset.alt = u.alt || u.durum || "";
+      b.dataset.logo = yol(u.ikon); b.dataset.bg = u.renk || "#0B1020";
+      if (u.ekranlar && u.ekranlar.length) b.dataset.ekran = u.ekranlar.map(yol).join("|");
+      if (u.durum) b.dataset.durum = u.durum;
+      if (u.aciklama) b.dataset.not = u.aciklama;
+      b.setAttribute("aria-label", u.ad + " uygulamasını aç");
+      b.innerHTML = '<img src="' + kac(yol(u.ikon)) + '" alt=""><span>' + kac(u.etiket || u.ad) + '</span>';
+      folder.insertBefore(b, bsIkon);
+    });
+  }).catch(function(e){ if (window.console) console.warn("telefon/uygulamalar.json okunamadı:", e); });
   document.getElementById("homebar").addEventListener("click", function(){ el(); kapat(); });
   var y0 = null;
   win.addEventListener("pointerdown", function(e){ y0 = e.clientY; });
@@ -760,11 +778,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
   /* kendi kendine tanitim: kimse dokunmazsa sirayla acar */
   if (!azHareket){
-    var gorunur = true, adim = 0, tanitim = ikonlar.slice(0, 4);
+    var gorunur = true, adim = 0;
     if ("IntersectionObserver" in window)
       new IntersectionObserver(function(g){ gorunur = g[0].isIntersecting; }).observe(os);
     var bekle = function(ms, f){ setTimeout(function(){ if (kullanici) return; if (!gorunur || document.hidden) return bekle(800, f); f(); }, ms); };
     var dongu = function(){
+      var tanitim = [].slice.call(folder.querySelectorAll(".ico[data-ekran]")).slice(0, 4);
+      if (!tanitim.length) return bekle(1000, dongu);
       var ic = tanitim[adim++ % tanitim.length], m = merkez(ic.querySelector("img"));
       dokun.style.left = m[0] + "px"; dokun.style.top = m[1] + "px";
       dokun.classList.remove("bas"); void dokun.offsetWidth; dokun.classList.add("bas");
