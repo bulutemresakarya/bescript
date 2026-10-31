@@ -171,7 +171,14 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
 .splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
 .splash p{font-size:13px;opacity:.72;line-height:1.5}
-.win .ekr{opacity:0;transition:opacity .45s ease}
+.win .ekr{opacity:0;transition:opacity .45s ease;top:2.5%}
+/* ekran goruntusu %2.5 asagi kayar: kendi durum cubugu bu seridin altinda kalir,
+   alttaki kendi ev cubugu da cercevenin disina tasar */
+.usb{position:absolute;left:0;right:0;top:0;height:60px;z-index:7;display:flex;justify-content:space-between;align-items:flex-start;
+  padding:17px 26px 0 30px;font-size:13.5px;font-weight:600;color:var(--uc,#fff);pointer-events:none;
+  background:linear-gradient(var(--ub,transparent) 0,var(--ub,transparent) 43px,transparent 56px);transition:color .3s}
+.usb span:last-child{display:flex;align-items:center;padding-top:3px}
+.usb svg{height:12px;width:auto;margin-left:5px}
 .win .ekr.on{opacity:1}
 .noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
 .noktalar i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.25);box-shadow:0 0 0 1px rgba(255,255,255,.6)}
@@ -717,7 +724,28 @@ document.addEventListener("DOMContentLoaded", function(){
     }, 250);
   }
   etiket(null);
-  function saat(){ var t = new Date(); document.getElementById("saat").textContent = ("0" + t.getHours()).slice(-2) + ":" + ("0" + t.getMinutes()).slice(-2); }
+  function saatMetni(){ var t = new Date(); return ("0" + t.getHours()).slice(-2) + ":" + ("0" + t.getMinutes()).slice(-2); }
+  function saat(){ var m = saatMetni(); document.querySelectorAll("#saat, .saat-t").forEach(function(e){ e.textContent = m; }); }
+  var SB_IKON = '<svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>' +
+    '<svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M24.5 4v4" stroke="currentColor" stroke-linecap="round" opacity=".5"/></svg>';
+  /* ekran goruntusunun durum cubugunun hemen altindaki seritten renk al */
+  function cubukRengi(im){
+    if (!im) return;
+    if (!im.complete || !im.naturalWidth){ im.addEventListener("load", function(){ cubukRengi(im); }, {once:true}); return; }
+    if (!im.dataset.renk){
+      try {
+        var c = document.createElement("canvas"); c.width = 12; c.height = 1;
+        var x = c.getContext("2d"), nh = im.naturalHeight;
+        x.drawImage(im, 0, nh * .047, im.naturalWidth, nh * .01, 0, 0, 12, 1);
+        var v = x.getImageData(0, 0, 12, 1).data, r = 0, g = 0, b = 0;
+        for (var i = 0; i < v.length; i += 4){ r += v[i]; g += v[i + 1]; b += v[i + 2]; }
+        r = Math.round(r / 12); g = Math.round(g / 12); b = Math.round(b / 12);
+        im.dataset.renk = "rgb(" + r + "," + g + "," + b + ")";
+        im.dataset.yazi = (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? "#111" : "#fff";
+      } catch (e){ im.dataset.renk = "#000"; im.dataset.yazi = "#fff"; }
+    }
+    if (im.classList.contains("on")){ win.style.setProperty("--ub", im.dataset.renk); win.style.setProperty("--uc", im.dataset.yazi); }
+  }
   saat(); setInterval(saat, 15000);
   function merkez(el){
     var a = os.getBoundingClientRect(), b = el.getBoundingClientRect(), k = a.width / os.offsetWidth || 1;
@@ -727,6 +755,7 @@ document.addEventListener("DOMContentLoaded", function(){
     win.querySelectorAll(".ekr").forEach(function(e, k){ e.classList.toggle("on", k === i); });
     win.querySelectorAll(".noktalar i").forEach(function(e, k){ e.classList.toggle("on", k === i); });
     var sy = now.querySelector(".sayac"); if (sy) sy.textContent = sayacMetni();
+    cubukRengi(win.querySelectorAll(".ekr")[i]);
   }
   function ac(ic){
     if (acikIkon === ic) return;
@@ -748,7 +777,9 @@ document.addEventListener("DOMContentLoaded", function(){
         h += '<div class="noktalar">' + liste.map(function(){ return "<i></i>"; }).join("") + '</div>';
       }
     }
-    win.innerHTML = h;
+    win.style.setProperty("--ub", "transparent");
+    win.style.setProperty("--uc", !d.bs && acikRenk(d.bg) ? "#111" : "#fff");
+    win.innerHTML = h + '<div class="usb"><span class="saat-t">' + saatMetni() + '</span><span>' + SB_IKON + '</span></div>';
     void win.offsetWidth; win.style.transition = "";
     win.classList.add("acik"); home.classList.add("geri"); os.classList.add("uyg-acik");
     acikIkon = ic; ekrSira = 0; etiket(ic);
