@@ -123,31 +123,82 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
 .hero-note{margin-top:28px;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
 .hero-note img{height:26px;width:auto;opacity:.9}
 
-.stage{position:relative;height:640px}
+/* ---------------- hero telefonu: ana ekran + acilan uygulama */
+.stage{position:relative;height:690px;perspective:1600px}
 .layer{position:absolute;will-change:transform}
-.l-left{left:0;top:96px;z-index:1}
-.l-mid{left:50%;top:6px;margin-left:-132px;z-index:3}
-.l-right{right:0;top:120px;z-index:2}
+.l-mid{left:50%;top:0;margin-left:-146px;transform-style:preserve-3d}
 .phone{position:relative;width:264px;aspect-ratio:9/19.5;border-radius:44px;padding:9px;
   background:linear-gradient(150deg,#323846 0%,#11141B 45%,#0A0C11 100%);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 60px 110px -30px rgba(0,0,0,.85),0 30px 80px -40px var(--glow)}
-.phone::after{content:"";position:absolute;top:19px;left:50%;width:78px;height:22px;margin-left:-39px;border-radius:20px;background:#000;z-index:3}
+.phone::after{content:"";position:absolute;top:19px;left:50%;width:78px;height:22px;margin-left:-39px;border-radius:20px;background:#000;z-index:10}
+.phone.big{width:292px;border-radius:48px;padding:10px}
+.phone.big::after{top:21px;width:86px;height:24px;margin-left:-43px}
 .scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#000}
 .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
-.l-left .phone,.l-right .phone{width:230px;filter:brightness(.72) saturate(.9)}
-.tilt-l{transform:rotate(-9deg)} .tilt-r{transform:rotate(8deg)}
+.phone.big .scr{border-radius:39px}
 .float{animation:sus 7s ease-in-out infinite}
-.l-left .float{animation-duration:8s;animation-delay:-2s} .l-right .float{animation-duration:9s;animation-delay:-4s}
-@keyframes sus{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.rotator img{opacity:0;transition:opacity 1s var(--ease),transform 1.2s var(--ease);transform:scale(1.04)}
-.rotator img.on{opacity:1;transform:scale(1)}
-.now{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;
+@keyframes sus{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.os{background:radial-gradient(80% 50% at 20% 0%,rgba(0,71,255,.55),transparent 70%),
+  radial-gradient(70% 45% at 100% 100%,rgba(124,58,237,.38),transparent 70%),linear-gradient(180deg,#0D1430,#070A16);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.sb{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;
+  padding:6px 26px 0 30px;font-size:13.5px;font-weight:600;color:#fff;z-index:2}
+.sb svg{height:12px;width:auto;margin-left:5px}
+.home{position:absolute;inset:0;padding:30px 12px 40px;display:flex;flex-direction:column;justify-content:center;transition:transform .55s var(--ease),opacity .45s,filter .45s}
+.home.geri{transform:scale(.9);opacity:.35;filter:blur(3px)}
+.home h5{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 700;font-size:27px;
+  color:#fff;text-align:center;letter-spacing:-.01em;margin-bottom:22px}
+.home h5 small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:400;
+  color:rgba(255,255,255,.55);margin-bottom:6px}
+.folder{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px;padding:20px 6px 18px;border-radius:30px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ico{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#fff;cursor:pointer;
+  font:500 11px/1.15 'IBM Plex Sans',system-ui,sans-serif;padding:0;-webkit-tap-highlight-color:transparent}
+.ico img{position:static;width:54px;height:54px;border-radius:15px;object-fit:cover;
+  box-shadow:0 6px 14px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);transition:transform .25s var(--ease)}
+.ico span{max-width:62px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ico:hover img{transform:scale(1.07)}
+.ico:active img{transform:scale(.92)}
+
+.win{position:absolute;inset:0;z-index:5;background:var(--wbg,#0B1020);border-radius:39px;overflow:hidden;
+  opacity:0;transform:scale(.16);pointer-events:none;
+  transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .3s ease}
+.win.acik{opacity:1;transform:scale(1);pointer-events:auto;cursor:pointer}
+.splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;text-align:center;padding:0 26px}
+.splash img{position:static;width:86px;height:86px;border-radius:22px;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
+.splash b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px}
+.splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff}
+.splash p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
+.win .ekr{opacity:0;transition:opacity .45s ease}
+.win .ekr.on{opacity:1}
+.noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
+.noktalar i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.25);box-shadow:0 0 0 1px rgba(255,255,255,.6)}
+.noktalar i.on{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.bs-ekran{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 26px;color:#fff;
+  background:radial-gradient(90% 60% at 0% 0%,rgba(255,255,255,.22),transparent 60%),linear-gradient(170deg,#1C5BFF,#0036C9)}
+.bs-ekran img{position:static;width:54px;height:54px;border-radius:15px;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+.bs-ekran b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 800;font-size:27px;line-height:1.05;letter-spacing:-.02em}
+.bs-ekran p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.5}
+.bs-ekran a{display:flex;align-items:center;justify-content:center;height:46px;border-radius:14px;background:#fff;color:#0036C9;
+  font-weight:600;font-size:14.5px;text-decoration:none;margin-top:6px}
+.homebar{position:absolute;left:50%;bottom:0;width:150px;height:30px;margin-left:-75px;z-index:8;background:none;border:0;cursor:pointer;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+.homebar i{width:112px;height:5px;border-radius:5px;background:rgba(255,255,255,.75);transition:background .3s}
+.os.uyg-acik .homebar i{background:rgba(120,120,120,.85)}
+.dokun{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:9;pointer-events:none;opacity:0;
+  background:rgba(255,255,255,.35);box-shadow:0 0 0 2px rgba(255,255,255,.6)}
+.dokun.bas{animation:bas .7s ease-out}
+@keyframes bas{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.1)}}
+.now{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;
   padding:9px 16px 9px 9px;border-radius:999px;border:1px solid var(--line-2);background:rgba(10,14,24,.82);
-  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px;width:max-content;max-width:none}
+  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px;width:max-content;max-width:none;transition:opacity .3s}
 .now img{width:28px;height:28px;border-radius:8px}
 .now b{font-weight:600}
 .now span{color:var(--muted)}
-.now .fade{transition:opacity .4s}
+.now .tap{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(92,134,255,.18);color:var(--brand-l)}
+.now .tap svg{width:16px;height:16px}
 
 /* ---------------------------------------------------------------- guven seridi */
 .trust{padding:0 0 30px}
@@ -278,7 +329,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
 /* ---------------------------------------------------------------- duyarli */
 @media(max-width:1080px){
   .hero-grid{grid-template-columns:1fr;gap:20px}
-  .stage{height:600px;max-width:560px;margin:10px auto 0;width:100%}
+  .stage{height:690px;max-width:560px;margin:10px auto 0;width:100%}
   .apps{grid-template-columns:1fr}
   .others,.sols{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:repeat(2,1fr)}
@@ -288,8 +339,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
 @media(max-width:640px){
   section{padding:84px 0}
   .hero{padding:130px 0 70px}
-  .stage{height:520px;transform:scale(.86);transform-origin:top center;margin-bottom:-60px}
-  .l-left{left:-30px} .l-right{right:-30px}
+  .stage{height:706px;transform:scale(.92);transform-origin:top center;margin-bottom:-56px}
   .stats{grid-template-columns:1fr 1fr}
   .stat{border-bottom:1px solid var(--line)}
   .stat:nth-child(2n){border-right:none}
@@ -325,6 +375,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
 }
 @media (prefers-reduced-motion:reduce){
   .float,.track,.pill i{animation:none}
+  .win,.home{transition:none}
   *{transition-duration:.01ms!important}
 }
 </style>
@@ -362,16 +413,29 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
       <div class="hero-note" data-in><span>Geliştirdiğimiz dört uygulama Google Play'de, ikisi App Store'da da yayında.</span></div>
     </div>
 
-    <div class="stage" id="stage" aria-hidden="true">
-      <div class="layer l-left" data-depth="18"><div class="tilt-l"><div class="float"><div class="phone"><div class="scr"><img src="/assets/screens/bocu-4.webp" alt=""></div></div></div></div></div>
-      <div class="layer l-right" data-depth="26"><div class="tilt-r"><div class="float"><div class="phone"><div class="scr"><img src="/assets/screens/quadmate-4.webp" alt=""></div></div></div></div></div>
-      <div class="layer l-mid" data-depth="40"><div class="float"><div class="phone"><div class="scr rotator" id="rotator">
-        <img class="on" src="/assets/screens/tirdas-3.webp" alt="" data-ad="Tırdaş" data-alt="Lojistik" data-logo="/assets/logo/tirdas.jpg">
-        <img src="/assets/screens/kelimece-web.webp" alt="" data-ad="Kelimece" data-alt="Kelime oyunu" data-logo="/assets/logo/kelimece.png">
-        <img src="/assets/screens/quadmate-1.webp" alt="" data-ad="Quadmate" data-alt="Sosyal oyun" data-logo="/assets/logo/quadmate.png">
-        <img src="/assets/screens/bocu-2.webp" alt="" data-ad="Bocu Remote" data-alt="Tarım · IoT" data-logo="/assets/logo/bocu.jpg">
-      </div></div></div></div>
-      <div class="now" id="now"><img class="fade" src="/assets/logo/tirdas.jpg" alt=""><b class="fade">Tırdaş</b><span class="fade">Lojistik</span></div>
+    <div class="stage" id="stage">
+      <div class="layer l-mid" id="telKatman"><div class="float"><div class="phone big">
+        <div class="scr os" id="os">
+          <div class="sb"><span id="saat">09:41</span><span><svg viewBox="0 0 18 12" fill="#fff"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#fff"/><path d="M24.5 4v4" stroke="#fff" stroke-linecap="round" opacity=".5"/></svg></span></div>
+          <div class="home" id="home">
+            <h5><small>BESCRIPT</small>Uygulamalarımız</h5>
+            <div class="folder">
+              <button class="ico" type="button" data-ad="Tırdaş" data-alt="Lojistik" data-logo="/assets/logo/tirdas.jpg" data-bg="#0E1B33" data-ekran="tirdas-3,tirdas-1" aria-label="Tırdaş uygulamasını aç"><img src="/assets/logo/tirdas.jpg" alt=""><span>Tırdaş</span></button>
+              <button class="ico" type="button" data-ad="Kelimece" data-alt="Kelime oyunu" data-logo="/assets/logo/kelimece.png" data-bg="#1A3E16" data-ekran="kelimece-web,kelimece-oyun" aria-label="Kelimece uygulamasını aç"><img src="/assets/logo/kelimece.png" alt=""><span>Kelimece</span></button>
+              <button class="ico" type="button" data-ad="Quadmate" data-alt="Oyun arkadaşı" data-logo="/assets/logo/quadmate.png" data-bg="#F4F6FB" data-ekran="quadmate-1,quadmate-4" aria-label="Quadmate uygulamasını aç"><img src="/assets/logo/quadmate.png" alt=""><span>Quadmate</span></button>
+              <button class="ico" type="button" data-ad="Bocu Remote" data-alt="Tarım · IoT" data-logo="/assets/logo/bocu.jpg" data-bg="#000000" data-ekran="bocu-2,bocu-4" aria-label="Bocu Remote uygulamasını aç"><img src="/assets/logo/bocu.jpg" alt=""><span>Bocu</span></button>
+              <button class="ico" type="button" data-ad="Muhasebe Defterim" data-alt="Kapalı test" data-logo="/assets/logo/muhasebe.png" data-bg="#20252E" data-durum="Kapalı test" data-not="Serbest çalışanlar için muhasebe uygulaması. Google Play'de kapalı testte." aria-label="Muhasebe Defterim uygulamasını aç"><img src="/assets/logo/muhasebe.png" alt=""><span>Muhasebe</span></button>
+              <button class="ico" type="button" data-ad="Müezzin" data-alt="Yakında" data-logo="/assets/logo/muezzin.png" data-bg="#0A344B" data-durum="Yakında" data-not="Namaz vakitleri ve kaza takibi. Yakında mağazalarda." aria-label="Müezzin uygulamasını aç"><img src="/assets/logo/muezzin.png" alt=""><span>Müezzin</span></button>
+              <button class="ico" type="button" data-ad="Тырдаш" data-alt="Kazakistan sürümü" data-logo="/assets/logo/tirdaskz.jpg" data-bg="#1B2B42" data-durum="Kapalı test" data-not="Tırdaş'ın Kazakistan pazarına uyarlanan sürümü." aria-label="Тырдаш uygulamasını aç"><img src="/assets/logo/tirdaskz.jpg" alt=""><span>Тырдаш</span></button>
+              <button class="ico" type="button" data-ad="BeScript" data-alt="Projenizi konuşalım" data-logo="/assets/logo/brand-192.png" data-bg="#0036C9" data-bs="1" aria-label="BeScript uygulamasını aç"><img src="/assets/logo/brand-192.png" alt=""><span>BeScript</span></button>
+            </div>
+          </div>
+          <div class="win" id="win" role="dialog" aria-label="Uygulama önizlemesi"></div>
+          <span class="dokun" id="dokun"></span>
+          <button class="homebar" id="homebar" type="button" aria-label="Ana ekrana dön"><i></i></button>
+        </div>
+      </div></div></div>
+      <div class="now" id="now" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -623,18 +687,97 @@ document.addEventListener("DOMContentLoaded", function(){
   var kaydir = function(){ nav.classList.toggle("scrolled", window.scrollY > 24); };
   kaydir(); window.addEventListener("scroll", kaydir, {passive:true});
 
-  /* hero: ekran dongusu */
-  var imgs = [].slice.call(document.querySelectorAll("#rotator img")), now = document.getElementById("now"), sira = 0;
-  function goster(i){
-    imgs.forEach(function(im, k){ im.classList.toggle("on", k === i); });
-    var parca = now.querySelectorAll(".fade");
-    parca.forEach(function(p){ p.style.opacity = 0; });
+  /* hero: telefon ana ekrani, dokununca uygulama acilir */
+  var os = document.getElementById("os"), home = document.getElementById("home"), win = document.getElementById("win"),
+      now = document.getElementById("now"), dokun = document.getElementById("dokun"),
+      ikonlar = [].slice.call(os.querySelectorAll(".ico")), acikIkon = null, ekrSira = 0, kullanici = false;
+  var TAP = '<span class="tap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v3.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4 14.5a1.5 1.5 0 0 1 2.3-1.9L9 15"/></svg></span>';
+  function etiket(ic){
+    now.style.opacity = 0;
     setTimeout(function(){
-      var d = imgs[i].dataset; parca[0].src = d.logo; parca[1].textContent = d.ad; parca[2].textContent = d.alt;
-      parca.forEach(function(p){ p.style.opacity = 1; });
-    }, 380);
+      now.innerHTML = ic ? '<img src="' + ic.dataset.logo + '" alt=""><b>' + ic.dataset.ad + '</b><span>' + ic.dataset.alt + '</span>'
+                         : TAP + '<span>Bir uygulamaya dokunun</span>';
+      now.style.opacity = 1;
+    }, 250);
   }
-  if (!azHareket) setInterval(function(){ if (!document.hidden){ sira = (sira + 1) % imgs.length; goster(sira); } }, 3800);
+  etiket(null);
+  function saat(){ var t = new Date(); document.getElementById("saat").textContent = ("0" + t.getHours()).slice(-2) + ":" + ("0" + t.getMinutes()).slice(-2); }
+  saat(); setInterval(saat, 15000);
+  function merkez(el){
+    var a = os.getBoundingClientRect(), b = el.getBoundingClientRect(), k = a.width / os.offsetWidth || 1;
+    return [(b.left + b.width / 2 - a.left) / k, (b.top + b.height / 2 - a.top) / k];
+  }
+  function ekranGoster(i){
+    win.querySelectorAll(".ekr").forEach(function(e, k){ e.classList.toggle("on", k === i); });
+    win.querySelectorAll(".noktalar i").forEach(function(e, k){ e.classList.toggle("on", k === i); });
+  }
+  function ac(ic){
+    if (acikIkon === ic) return;
+    var d = ic.dataset, m = merkez(ic.querySelector("img")), h;
+    win.style.transition = "none"; win.classList.remove("acik");
+    win.style.transformOrigin = m[0] + "px " + m[1] + "px";
+    win.style.setProperty("--wbg", d.bg);
+    if (d.bs){
+      h = '<div class="bs-ekran"><img src="' + d.logo + '" alt=""><b>Fikrinizi uygulamaya dönüştürelim.</b>' +
+          '<p>Tasarım, geliştirme ve mağaza yayını tek ekipte. Müşteri İlişkileri ekibimiz size dönüş yapar.</p>' +
+          '<a href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp\'tan yazın</a></div>';
+    } else {
+      h = '<div class="splash"><img src="' + d.logo + '" alt=""><b style="color:' + (d.bg === "#F4F6FB" ? "#1A1F2B" : "#fff") + '">' + d.ad + '</b>' +
+          (d.durum ? '<em>' + d.durum + '</em><p>' + d.not + '</p>' : '') + '</div>';
+      if (d.ekran){
+        var liste = d.ekran.split(",");
+        liste.forEach(function(e){ h += '<img class="ekr" src="/assets/screens/' + e + '.webp" alt="' + d.ad + ' ekranı">'; });
+        h += '<div class="noktalar">' + liste.map(function(){ return "<i></i>"; }).join("") + '</div>';
+      }
+    }
+    win.innerHTML = h;
+    void win.offsetWidth; win.style.transition = "";
+    win.classList.add("acik"); home.classList.add("geri"); os.classList.add("uyg-acik");
+    acikIkon = ic; ekrSira = 0; etiket(ic);
+    if (d.ekran) setTimeout(function(){ if (acikIkon === ic) ekranGoster(0); }, azHareket ? 0 : 450);
+  }
+  function kapat(){
+    if (!acikIkon) return;
+    win.classList.remove("acik"); home.classList.remove("geri"); os.classList.remove("uyg-acik");
+    acikIkon = null; etiket(null);
+  }
+  function sonraki(){
+    var ekr = win.querySelectorAll(".ekr"); if (ekr.length < 2) return;
+    ekrSira = (ekrSira + 1) % ekr.length; ekranGoster(ekrSira);
+  }
+  function el(){ kullanici = true; }
+  ikonlar.forEach(function(ic){ ic.addEventListener("click", function(){ el(); ac(ic); }); });
+  document.getElementById("homebar").addEventListener("click", function(){ el(); kapat(); });
+  var y0 = null;
+  win.addEventListener("pointerdown", function(e){ y0 = e.clientY; });
+  win.addEventListener("pointerup", function(e){
+    if (y0 !== null && y0 - e.clientY > 50){ el(); kapat(); y0 = null; return; }
+    y0 = null;
+    if (e.target.closest("a")) return;
+    el(); sonraki();
+  });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && acikIkon){ el(); kapat(); } });
+
+  /* kendi kendine tanitim: kimse dokunmazsa sirayla acar */
+  if (!azHareket){
+    var gorunur = true, adim = 0, tanitim = ikonlar.slice(0, 4);
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver(function(g){ gorunur = g[0].isIntersecting; }).observe(os);
+    var bekle = function(ms, f){ setTimeout(function(){ if (kullanici) return; if (!gorunur || document.hidden) return bekle(800, f); f(); }, ms); };
+    var dongu = function(){
+      var ic = tanitim[adim++ % tanitim.length], m = merkez(ic.querySelector("img"));
+      dokun.style.left = m[0] + "px"; dokun.style.top = m[1] + "px";
+      dokun.classList.remove("bas"); void dokun.offsetWidth; dokun.classList.add("bas");
+      bekle(260, function(){
+        ac(ic);
+        bekle(2400, function(){
+          sonraki();
+          bekle(2400, function(){ kapat(); bekle(1500, dongu); });
+        });
+      });
+    };
+    bekle(2600, dongu);
+  }
 
   /* imleci takip eden isik */
   document.querySelectorAll(".spot").forEach(function(el){
@@ -659,11 +802,11 @@ document.addEventListener("DOMContentLoaded", function(){
     onEnter: function(els){ gsap.to(els, {opacity:1, y:0, duration:.95, ease:"power3.out", stagger:.08}); }});
 
   /* hero derinlik: imlec + kaydirma */
-  var stage = document.getElementById("stage"), katman = [].slice.call(stage.querySelectorAll(".layer"));
+  var stage = document.getElementById("stage"), tel = document.getElementById("telKatman");
   if (window.matchMedia("(pointer:fine)").matches){
     document.querySelector(".hero").addEventListener("pointermove", function(e){
       var dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5;
-      katman.forEach(function(l){ var d = +l.dataset.depth; gsap.to(l, {x: -dx * d, y: -dy * d * .6, duration:1.2, ease:"power3.out"}); });
+      gsap.to(tel, {rotationY: dx * 12, rotationX: -dy * 8, duration:1.2, ease:"power3.out"});
     });
   }
   if (window.innerWidth > 1080) gsap.to(stage, {yPercent:-10, ease:"none", scrollTrigger:{trigger:".hero", start:"top top", end:"bottom top", scrub:true}});
