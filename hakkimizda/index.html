@@ -10,7 +10,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0047FF">
+<meta name="theme-color" content="#05070D">
 <meta name="apple-mobile-web-app-title" content="bescript">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="tr_TR">
@@ -25,229 +25,638 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-  :root{
-    --paper:#EDF0F4; --ink:#141F2A; --ink-soft:#3E4C5A;
-    --line:#C6CDD6; --cobalt:#1746D1; --live:#0E8A4A; --card:#F7F9FB;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:var(--cobalt)}
-  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+:root{
+  --bg:#05070D; --bg-2:#080C17; --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.15);
+  --text:#ECEFF6; --soft:#B9C1D1; --muted:#8792A7;
+  --brand:#0047FF; --brand-l:#5C86FF; --glow:rgba(0,71,255,.55);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --wrap:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',system-ui,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--brand);color:#fff}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--brand-l);outline-offset:3px;border-radius:6px}
 
-  /* ---------- ust bar ---------- */
-  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
-  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
-  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
-  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
-  .brand b{color:var(--cobalt);font-weight:500}
-  .topnav{display:flex;gap:20px}
-  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
-  .topnav a:hover{color:var(--cobalt)}
-  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
-    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
-    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
-  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
-  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
-  @media(max-width:620px){
-    .menu-dugme{display:flex}
-    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
-      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
-      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
-    .topbar.menu-acik .topnav{display:flex}
-    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
-    .topnav a:last-child{border-bottom:none}
-  }
+/* ince doku: tum sayfa */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.035;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
-  /* ---------- giris ---------- */
-  .intro{padding:52px 0 10px}
-  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--cobalt)}
-  .intro h1{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 110,"wght" 820;
-    font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.015em;margin:12px 0 16px;text-wrap:balance}
-  .intro h1 .accent{color:var(--cobalt)}
-  @media(max-width:560px){.intro h1{font-variation-settings:"wdth" 100,"wght" 820;font-size:clamp(27px,8vw,38px)}}
-  .intro p{max-width:62ch;color:var(--ink-soft);font-size:17px}
+/* ---------------------------------------------------------------- menu */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding:0 16px}
+.bar{max-width:1180px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:0 10px 0 16px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(8,11,20,.5);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  transition:background .3s,border-color .3s}
+.nav.scrolled .bar{background:rgba(8,11,20,.82);border-color:var(--line-2)}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;font-family:'Archivo',system-ui,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 720;font-size:19px;letter-spacing:-.01em}
+.logo img{width:32px;height:32px;border-radius:9px;box-shadow:0 6px 18px -4px var(--glow)}
+.links{display:flex;gap:4px}
+.links a{font-size:14.5px;color:var(--soft);text-decoration:none;padding:8px 13px;border-radius:10px;transition:color .2s,background .2s}
+.links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:transparent;color:#fff;cursor:pointer}
+.burger span{display:block;width:18px;height:1.6px;background:currentColor;margin:4px auto;transition:transform .3s,opacity .3s}
+.nav.open .burger span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+.nav.open .burger span:nth-child(2){opacity:0}
+.nav.open .burger span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+@media(max-width:900px){
+  .links{display:none;position:absolute;top:74px;left:16px;right:16px;flex-direction:column;padding:10px;
+    border:1px solid var(--line-2);border-radius:18px;background:rgba(8,11,20,.96);backdrop-filter:blur(18px)}
+  .nav.open .links{display:flex}
+  .links a{padding:14px 14px;font-size:16px}
+  .burger{display:block}
+  .nav-cta .btn{display:none}
+}
 
-  .serit{margin-top:30px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
-  .serit div{padding:14px 22px;border-right:1px solid var(--line);flex:1;min-width:150px}
-  .serit div:last-child{border-right:none}
-  .serit b{display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;font-variation-settings:'wdth' 110}
-  .serit span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.03em}
+/* ---------------------------------------------------------------- butonlar */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;border-radius:14px;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  border:1px solid transparent;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+.btn .ok{width:18px;height:18px;transition:transform .25s var(--ease)}
+.btn:hover .ok{transform:translateX(3px)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 12px 34px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-primary:hover{background:#1d5cff;box-shadow:0 16px 44px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-ghost{border-color:var(--line-2);background:rgba(255,255,255,.03);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+.btn-wa{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.35);color:#7CF0A8}
+.btn-wa:hover{background:rgba(37,211,102,.2)}
+.btn.sm{height:42px;padding:0 16px;font-size:14.5px;border-radius:11px}
 
-  /* ---------- bolumler ---------- */
-  section{padding:48px 0;border-bottom:1px solid var(--line)}
-  section:last-of-type{border-bottom:none}
-  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-    flex-wrap:wrap;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-  .sec-head h2{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 96,"wght" 700;
-    font-size:clamp(21px,2.6vw,27px);line-height:1.2}
-  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
+/* ---------------------------------------------------------------- ortak */
+section{position:relative;padding:110px 0}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:var(--brand-l);
+  display:inline-flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:26px;height:1.5px;background:var(--brand-l)}
+h2{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 104,'wght' 800;font-size:clamp(34px,4.6vw,58px);
+  line-height:1.02;letter-spacing:-.028em;margin-top:18px;text-wrap:balance}
+.sec-head{max-width:760px;margin-bottom:56px}
+.sec-head p{color:var(--soft);font-size:clamp(16.5px,1.4vw,19px);margin-top:18px;max-width:38em}
+.ic-box{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(145deg,#2A63FF,#0036C9);box-shadow:0 10px 26px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.25)}
+.ic-box.sm{width:44px;height:44px;border-radius:12px;flex:none}
+.ic{width:24px;height:24px}
+.more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14.5px;font-weight:600;color:var(--brand-l);text-decoration:none}
+.more .ok{width:16px;height:16px;transition:transform .25s var(--ease)}
+.more:hover .ok{transform:translateX(3px)}
 
-  /* surec: gercek bir sira oldugu icin numarali */
-  .surec{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;
-    background:var(--line);border:1px solid var(--line);counter-reset:adim}
-  .surec li{background:var(--card);padding:18px 20px;display:flex;flex-direction:column;gap:6px;counter-increment:adim}
-  .surec li::before{content:"0" counter(adim);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt)}
-  .surec h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:17px}
-  .surec p{font-size:14.5px;color:var(--ink-soft)}
+/* imleci takip eden isik */
+.eski-capa{position:absolute;top:0;left:0}
+.spot{position:relative;isolation:isolate}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(92,134,255,.13),transparent 45%)}
+.spot:hover::before{opacity:1}
 
-  .alanlar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-  .alan{border:1px solid var(--line);background:var(--card);padding:16px 18px;border-left:3px solid var(--cobalt)}
-  .alan h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:16px;margin-bottom:4px}
-  .alan p{font-size:14px;color:var(--ink-soft)}
+/* ---------------------------------------------------------------- hero */
+.hero{padding:170px 0 110px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;width:1100px;height:1100px;right:-300px;top:-380px;z-index:-1;
+  background:radial-gradient(closest-side,rgba(0,71,255,.42),rgba(0,71,255,.12) 45%,transparent 72%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-2;
+  background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 15px 8px 12px;border-radius:999px;
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;color:#C9D6FF;
+  border:1px solid rgba(92,134,255,.3);background:rgba(0,71,255,.1)}
+.pill i{width:8px;height:8px;border-radius:50%;background:#34D399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:nabiz 2.4s infinite}
+@keyframes nabiz{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+h1{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 108,'wght' 830;font-size:clamp(46px,6.8vw,92px);
+  line-height:.96;letter-spacing:-.035em;margin:28px 0 26px}
+h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D7BFF 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--soft);max-width:31em;line-height:1.55}
+.hero-cta{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap}
+.hero-note{margin-top:28px;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
+.hero-note img{height:26px;width:auto;opacity:.9}
 
-  .ilkeler{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:22px 32px}
-  @media(max-width:520px){.ilkeler{grid-template-columns:1fr}}
-  .ilke h3{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:17px;margin-bottom:4px}
-  .ilke p{font-size:14.5px;color:var(--ink-soft);max-width:52ch}
+/* ---------------- hero telefonu: ana ekran + acilan uygulama */
+.stage{position:relative;height:690px;perspective:1600px}
+.layer{position:absolute;will-change:transform}
+.l-mid{left:50%;top:0;margin-left:-146px;transform-style:preserve-3d}
+.phone{position:relative;width:264px;aspect-ratio:9/19.5;border-radius:44px;padding:9px;
+  background:linear-gradient(150deg,#323846 0%,#11141B 45%,#0A0C11 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 60px 110px -30px rgba(0,0,0,.85),0 30px 80px -40px var(--glow)}
+.phone::after{content:"";position:absolute;top:19px;left:50%;width:78px;height:22px;margin-left:-39px;border-radius:20px;background:#000;z-index:10}
+.phone.big{width:292px;border-radius:48px;padding:10px}
+.phone.big::after{top:21px;width:86px;height:24px;margin-left:-43px}
+.scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#000}
+.scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.phone.big .scr{border-radius:39px}
+.float{animation:sus 7s ease-in-out infinite}
+@keyframes sus{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-  /* ---------- iletisim ---------- */
-  .iletisim{border:1px solid var(--ink);background:var(--card);padding:32px;display:flex;
-    justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-  .iletisim h2{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:clamp(22px,3vw,30px);line-height:1.15}
-  .iletisim p{color:var(--ink-soft);margin-top:6px;max-width:48ch}
-  .kanal{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
-  .kanal a{text-decoration:none}
-  .kanal a:hover{text-decoration:underline}
-  .butonlar{display:flex;flex-wrap:wrap;gap:10px}
-  .btn{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;
-    padding:10px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;
-    transition:background .15s,color .15s;white-space:nowrap}
-  .btn:hover{background:var(--ink);color:var(--paper)}
-  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
-  .btn-primary:hover{background:var(--cobalt);color:#fff}
-  .btn-wa{border-color:#128C7E;color:#128C7E}
-  .btn-wa:hover{background:#128C7E;color:#fff}
-  @media(max-width:620px){.iletisim{padding:24px;flex-direction:column;align-items:flex-start}
-    .butonlar{width:100%}.butonlar .btn{flex:1 1 100%;text-align:center}}
+.os{background:radial-gradient(80% 50% at 20% 0%,rgba(0,71,255,.55),transparent 70%),
+  radial-gradient(70% 45% at 100% 100%,rgba(124,58,237,.38),transparent 70%),linear-gradient(180deg,#0D1430,#070A16);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.sb{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px 0 30px;font-size:13.5px;font-weight:600;color:#fff;z-index:2}
+.sb svg{height:12px;width:auto;margin-left:5px}
+.home{position:absolute;inset:0;padding:30px 12px 40px;display:flex;flex-direction:column;justify-content:center;transition:transform .55s var(--ease),opacity .45s,filter .45s}
+.home.geri{transform:scale(.9);opacity:.35;filter:blur(3px)}
+.home h5{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 700;font-size:27px;
+  color:#fff;text-align:center;letter-spacing:-.01em;margin-bottom:22px}
+.home h5 small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:400;
+  color:rgba(255,255,255,.55);margin-bottom:6px}
+.folder{max-height:430px;overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px;padding:20px 6px 18px;border-radius:30px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ico{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#fff;cursor:pointer;
+  font:500 11px/1.15 'IBM Plex Sans',system-ui,sans-serif;padding:0;-webkit-tap-highlight-color:transparent}
+.ico img{position:static;width:54px;height:54px;border-radius:15px;object-fit:cover;
+  box-shadow:0 6px 14px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);transition:transform .25s var(--ease)}
+.ico span{max-width:62px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ico:hover img{transform:scale(1.07)}
+.ico:active img{transform:scale(.92)}
 
-  footer{padding:26px 0 40px;border-top:1px solid var(--line)}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
-  footer a{color:var(--cobalt);text-decoration:none}
-  footer a:hover{text-decoration:underline}
+.win{position:absolute;inset:0;z-index:5;background:var(--wbg,#0B1020);border-radius:39px;overflow:hidden;
+  opacity:0;transform:scale(.16);pointer-events:none;
+  transition:transform .55s cubic-bezier(.2,.85,.25,1),opacity .3s ease}
+.win.acik{opacity:1;transform:scale(1);pointer-events:auto;cursor:pointer}
+.splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--wfg,#fff);text-align:center;padding:0 26px}
+.splash img{position:static;width:86px;height:86px;border-radius:22px;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
+.splash b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px}
+.splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
+.splash p{font-size:13px;opacity:.72;line-height:1.5}
+.win .ekr{opacity:0;transition:opacity .45s ease}
+/* ekran goruntusu birebir oturur; kendi durum cubugu (ust %4.3) .usb seridinin altinda kalir */
+.usb{position:absolute;left:0;right:0;top:0;height:60px;z-index:7;display:flex;justify-content:space-between;align-items:flex-start;
+  padding:14px 26px 0 30px;font-size:13.5px;font-weight:600;color:var(--uc,#fff);pointer-events:none;
+  background:linear-gradient(var(--ub,transparent) 0,var(--ub,transparent) 29px,transparent 38px);transition:color .3s}
+.usb span:last-child{display:flex;align-items:center;padding-top:3px}
+/* ekran goruntusu gorunurken kendi ev cubugu yeterli; bizimki gizlenir, dokunma alani kalir */
+.os.ekranli .homebar i{opacity:0}
+.usb svg{height:12px;width:auto;margin-left:5px}
+.win .ekr.on{opacity:1}
+.noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
+.noktalar i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.25);box-shadow:0 0 0 1px rgba(255,255,255,.6)}
+.noktalar i.on{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.bs-ekran{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 26px;color:#fff;
+  background:radial-gradient(90% 60% at 0% 0%,rgba(255,255,255,.22),transparent 60%),linear-gradient(170deg,#1C5BFF,#0036C9)}
+.bs-ekran img{position:static;width:54px;height:54px;border-radius:15px;box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+.bs-ekran b{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 800;font-size:27px;line-height:1.05;letter-spacing:-.02em}
+.bs-ekran p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.5}
+.bs-ekran a{display:flex;align-items:center;justify-content:center;height:46px;border-radius:14px;background:#fff;color:#0036C9;
+  font-weight:600;font-size:14.5px;text-decoration:none;margin-top:6px}
+.homebar{position:absolute;left:50%;bottom:0;width:150px;height:30px;margin-left:-75px;z-index:8;background:none;border:0;cursor:pointer;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+.homebar i{width:112px;height:5px;border-radius:5px;background:rgba(255,255,255,.75);transition:background .3s}
+.os.uyg-acik .homebar i{background:rgba(120,120,120,.85)}
+.dokun{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:9;pointer-events:none;opacity:0;
+  background:rgba(255,255,255,.35);box-shadow:0 0 0 2px rgba(255,255,255,.6)}
+.dokun.bas{animation:bas .7s ease-out}
+@keyframes bas{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.1)}}
+.now{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;
+  padding:9px 16px 9px 9px;border-radius:999px;border:1px solid var(--line-2);background:rgba(10,14,24,.82);
+  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px;width:max-content;max-width:none;transition:opacity .3s}
+.now img{width:28px;height:28px;border-radius:8px}
+.now b{font-weight:600}
+.now span{color:var(--muted)}
+.now .tap{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(92,134,255,.18);color:var(--brand-l)}
+.now .tap svg{width:16px;height:16px}
+.now.kontrol{padding:6px;gap:8px}
+.nb{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;
+  background:rgba(255,255,255,.08);border:1px solid var(--line-2);transition:background .2s,transform .2s var(--ease);-webkit-tap-highlight-color:transparent}
+.nb:hover{background:rgba(92,134,255,.28)}
+.nb:active{transform:scale(.92)}
+.nb svg{width:18px;height:18px}
+.nb-ileri{background:var(--brand);border-color:transparent;box-shadow:0 8px 20px -8px var(--glow)}
+.nb-ileri:hover{background:#1d5cff}
+.now .ad{display:flex;align-items:center;gap:9px;padding:0 4px}
+.now .sayac{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+
+/* ---------------------------------------------------------------- guven seridi */
+.trust{padding:0 0 30px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));overflow:hidden}
+.stat{padding:30px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 108,'wght' 820;font-size:clamp(34px,3.6vw,48px);
+  line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+.partner{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:26px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+.partner b{color:var(--text);font-weight:600}
+.partner img{height:30px;width:auto;opacity:.92}
+.partner .sep{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+
+/* ---------------------------------------------------------------- hizmetler */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{padding:30px;border:1px solid var(--line);border-radius:24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));transition:border-color .3s,transform .4s var(--ease)}
+.card:hover{border-color:rgba(92,134,255,.32);transform:translateY(-4px)}
+.card h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:22px;letter-spacing:-.01em;margin:24px 0 10px}
+.card p{color:var(--soft);font-size:15.5px;line-height:1.6}
+
+/* ---------------------------------------------------------------- vitrin */
+.apps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.app{display:grid;grid-template-columns:1.12fr .88fr;min-height:470px;border-radius:30px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(70% 75% at 85% 95%,rgba(var(--ac),.42),transparent 65%),
+             radial-gradient(60% 50% at 0% 0%,rgba(var(--ac),.08),transparent 70%),
+             linear-gradient(180deg,#0B101D,#070A12);transition:border-color .35s}
+.app:hover{border-color:rgba(var(--ac),.45)}
+.app-text{padding:34px 10px 34px 34px;display:flex;flex-direction:column}
+.app-id{display:flex;align-items:center;gap:14px}
+.app-logo{width:52px;height:52px;border-radius:14px;box-shadow:0 10px 24px -8px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1)}
+.app-id h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 800;font-size:26px;letter-spacing:-.015em;line-height:1.1}
+.app-id span{display:block;margin-top:4px;font-size:14px;font-weight:500;color:rgb(var(--ac))}
+.app-text p{color:var(--soft);font-size:15.5px;margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.chips span{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:5px 10px;border-radius:8px;
+  border:1px solid var(--line-2);color:var(--soft);background:rgba(255,255,255,.03)}
+.badges{display:flex;align-items:center;gap:8px 6px;margin-top:auto;padding-top:28px;flex-wrap:wrap}
+.badge{display:block;transition:transform .25s var(--ease),opacity .25s}
+a.badge:hover{transform:translateY(-2px)}
+.badge-off{cursor:default}
+.b-apple{height:40px;width:auto}
+.b-google{height:52px;width:auto;margin:-6px -4px -6px -1px}
+.app-stage{position:relative}
+.app-stage .phone{position:absolute;left:50%;top:44px;margin-left:-104px;width:208px;border-radius:36px;padding:7px;
+  transform:rotate(-5deg) translateY(30px);transition:transform .7s var(--ease)}
+.app-stage .phone::after{top:15px;width:62px;height:18px;margin-left:-31px}
+.app-stage .scr{border-radius:30px}
+.app:hover .app-stage .phone{transform:rotate(0) translateY(0)}
+
+.others-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:76px 0 22px;flex-wrap:wrap}
+.others-title h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:26px}
+.others-title span{color:var(--muted);font-size:14.5px}
+.others{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mini{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);
+  display:flex;flex-direction:column;transition:border-color .3s,transform .4s var(--ease)}
+.mini:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.mini-top{display:flex;align-items:center;justify-content:space-between}
+.mini-logo{width:42px;height:42px;border-radius:11px;overflow:hidden;display:grid;place-items:center;background:#fff}
+.mini-logo img{width:100%;height:100%;object-fit:cover}
+.mono-logo{width:100%;height:100%;display:grid;place-items:center;background:#2563EB;color:#fff;font-size:20px}
+.st{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.st-canli{color:#4ADE80;background:rgba(74,222,128,.1)}
+.st-test{color:#C4A1FF;background:rgba(167,123,255,.13)}
+.st-yakinda{color:#93A9FF;background:rgba(92,134,255,.13)}
+.st-demo{color:#FBBF77;background:rgba(251,191,119,.1)}
+.mini h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;margin-top:18px}
+.mini p{color:var(--muted);font-size:14.5px;margin-top:6px;line-height:1.55}
+.mini .more{margin-top:auto;padding-top:16px}
+
+/* ---------------------------------------------------------------- hazir cozumler */
+.sols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sol{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
+.sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
+.sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
+.sol-act{display:flex;gap:8px;margin-top:auto;padding-top:20px}
+.sol-act .btn{flex:1}
+
+/* ---------------------------------------------------------------- surec */
+.process{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}
+.process .sec-head{position:sticky;top:130px;margin:0}
+.tl{position:relative;list-style:none;padding-left:4px}
+.tl::before,.tl-fill{content:"";position:absolute;left:25px;top:12px;bottom:12px;width:2px;border-radius:2px}
+.tl::before{background:var(--line)}
+.tl-fill{background:linear-gradient(var(--brand-l),var(--brand));transform-origin:top;transform:scaleY(1)}
+.step{position:relative;display:grid;grid-template-columns:52px 1fr;gap:22px;padding:18px 0 30px}
+.step .dot{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--bg-2);border:1px solid var(--line-2)}
+.step .dot i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brand-l)}
+.step h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:22px;margin-top:10px}
+.step p{color:var(--soft);font-size:16px;margin-top:6px;max-width:30em}
+
+/* ---------------------------------------------------------------- ilkeler */
+.prs{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 56px;margin-top:10px}
+.pr{display:flex;gap:18px}
+.pr h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 740;font-size:20px}
+.pr p{color:var(--soft);font-size:15.5px;margin-top:6px}
+.marquee{margin-top:90px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;width:max-content;gap:28px;animation:kay 38s linear infinite}
+.track span{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 110,'wght' 700;font-size:26px;color:rgba(236,239,246,.55);white-space:nowrap}
+.track i{font-style:normal;color:var(--brand-l);opacity:.7;font-size:16px;align-self:center}
+@keyframes kay{to{transform:translateX(-50%)}}
+
+/* ---------------------------------------------------------------- iletisim */
+.cta{position:relative;isolation:isolate;border-radius:34px;padding:76px 64px;overflow:hidden;border:1px solid rgba(92,134,255,.28);
+  background:radial-gradient(70% 120% at 0% 0%,rgba(0,71,255,.42),transparent 60%),
+             radial-gradient(60% 90% at 100% 100%,rgba(0,71,255,.18),transparent 65%),#080D1A}
+.cta h2{font-size:clamp(38px,5.4vw,68px);margin-top:16px;max-width:12em}
+.cta p{color:var(--soft);font-size:clamp(16.5px,1.4vw,19px);max-width:34em;margin-top:20px}
+.cta-act{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.channels{margin-top:30px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);display:flex;gap:10px 22px;flex-wrap:wrap}
+.channels a{color:var(--text);text-decoration:none}
+.channels a:hover{color:var(--brand-l)}
+
+footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.f-grid p{color:var(--muted);font-size:14.5px;margin-top:14px;max-width:24em}
+.f-grid h5{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:400;margin-bottom:14px}
+.f-grid ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.f-grid li a{text-decoration:none;color:var(--soft);font-size:15px}
+.f-grid li a:hover{color:#fff}
+.f-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+
+/* ---------------------------------------------------------------- duyarli */
+@media(max-width:1080px){
+  .hero-grid{grid-template-columns:1fr;gap:20px}
+  .stage{height:690px;max-width:560px;margin:10px auto 0;width:100%}
+  .apps{grid-template-columns:1fr}
+  .others,.sols{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .process{grid-template-columns:1fr;gap:40px}
+  .process .sec-head{position:static}
+}
+@media(max-width:640px){
+  section{padding:84px 0}
+  .hero{padding:130px 0 70px}
+  .stage{height:706px;transform:scale(.92);transform-origin:top center;margin-bottom:-56px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-bottom:1px solid var(--line)}
+  .stat:nth-child(2n){border-right:none}
+  .stat:nth-child(n+3){border-bottom:none}
+  .grid-3,.others,.prs{grid-template-columns:1fr}
+  .sols{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:10px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
+  .sols::-webkit-scrollbar{display:none}
+  .sol{scroll-snap-align:start}
+  .app{grid-template-columns:1fr;min-height:0}
+  .app-text{padding:28px 26px 8px}
+  .app-stage{height:300px;overflow:hidden}
+  .app-stage .phone{top:26px}
+  .cta{padding:44px 22px;border-radius:26px}
+  .cta h2{font-size:clamp(30px,9vw,38px)}
+  .cta-act .btn{flex:1 1 calc(50% - 6px);padding:0 14px}
+  .cta-act .btn:first-child{flex-basis:100%}
+  .channels{font-size:12.5px;flex-direction:column;gap:6px}
+  .channels a{overflow-wrap:anywhere}
+  .now{font-size:13px;padding:7px 14px 7px 7px}
+  .f-grid{grid-template-columns:1fr}
+  .hero-cta .btn{flex:1 1 100%}
+  .pill{font-size:10.5px;letter-spacing:.06em}
+  .card{padding:24px;display:grid;grid-template-columns:44px 1fr;gap:4px 16px}
+  .card .ic-box{width:44px;height:44px;border-radius:12px;grid-row:span 3}
+  .card h3{margin:8px 0 4px;font-size:20px}
+  .card .more{margin-top:10px}
+}
+
+/* ---------------------------------------------------------------- hareket */
+@media (prefers-reduced-motion:no-preference){
+  .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .float,.track,.pill i{animation:none}
+  .win,.home{transition:none}
+  *{transition-duration:.01ms!important}
+}
+
+/* ---------------- hakkimizda */
+.links a[aria-current]{color:#fff;background:rgba(255,255,255,.08)}
+.hero-ab{padding:160px 0 70px;overflow:hidden;isolation:isolate}
+.hero-ab::before{content:"";position:absolute;width:1000px;height:1000px;right:-260px;top:-300px;z-index:-1;
+  background:radial-gradient(closest-side,rgba(0,71,255,.38),rgba(0,71,255,.1) 45%,transparent 72%)}
+.hero-ab::after{content:"";position:absolute;inset:0;z-index:-2;
+  background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 70% at 60% 30%,#000 30%,transparent 75%)}
+.hero-ab h1 .grad{display:inline}
+.orbit{position:relative;width:min(460px,100%);aspect-ratio:1;margin:0 auto}
+.ring{position:absolute;inset:0;border-radius:50%}
+.ring.r1{inset:22%;border:1px solid rgba(255,255,255,.1);animation:don 70s linear infinite}
+.ring.r2{inset:2%;border:1px dashed rgba(255,255,255,.12);animation:don 110s linear infinite reverse}
+.orb-i{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;
+  transform:rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)))}
+.orb-i img{width:58px;height:58px;border-radius:16px;box-shadow:0 14px 30px -12px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1)}
+.ring.r1 .orb-i{--r:118px} .ring.r2 .orb-i{--r:206px}
+.core{position:absolute;left:50%;top:50%;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:30px;
+  overflow:hidden;
+  box-shadow:0 0 0 10px rgba(0,71,255,.12),0 0 0 22px rgba(0,71,255,.06),0 30px 80px -10px var(--glow),inset 0 1px 0 rgba(255,255,255,.3)}
+.core img{width:100%;height:100%;display:block}
+@keyframes don{to{transform:rotate(360deg)}}
+/* halka donerken ikonlar dik kalsin: ters yonde ayni hizla doner */
+.ring.r1 .orb-i img{animation:don-ters 70s linear infinite}
+.ring.r2 .orb-i img{animation:don 110s linear infinite}
+@keyframes don-ters{to{transform:rotate(-360deg)}}
+@media (prefers-reduced-motion:no-preference){.js .hero-ab [data-in]{opacity:0;transform:translateY(26px)}}
+.orbit-not{text-align:center;margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.08em;color:var(--muted)}
+@media(max-width:1080px){.orbit{width:min(420px,100%)} }
+@media(max-width:640px){
+  .hero-ab{padding:124px 0 40px}
+  .orbit{width:320px}
+  .ring.r1 .orb-i{--r:76px} .ring.r2 .orb-i{--r:134px}
+  .orb-i,.orb-i img{width:46px;height:46px} .orb-i{margin:-23px 0 0 -23px} .orb-i img{border-radius:13px}
+  .core{width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:24px}
+}
+@media(max-width:1080px){.hero-ab .hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:370px){.hero-ab h1{font-size:40px}.hero-ab .pill{font-size:10px;letter-spacing:.04em}.orbit{transform:translateX(-50%) scale(.84);margin:-26px 0 -26px 50%}}
+@media (prefers-reduced-motion:reduce){.ring,.orb-i img{animation:none!important}}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap">
-    <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· hakkımızda</span></a>
-    <nav id="ustmenu" class="topnav" aria-label="Site gezinmesi">
-      <a href="/#projeler">projeler</a>
-      <a href="/#cozumler">çözümler</a>
-      <a href="#iletisim">iletişim</a>
+<header class="nav" id="nav">
+  <div class="bar">
+    <a class="logo" href="/"><img src="/assets/logo/brand-192.png" alt="" width="32" height="32">BeScript</a>
+    <nav class="links" id="links" aria-label="Site gezinmesi">
+      <a href="/#hizmetler">Hizmetler</a>
+      <a href="/#uygulamalar">Uygulamalar</a>
+      <a href="/#cozumler">Hazır çözümler</a>
+      <a href="#surec">Süreç</a>
+      <a href="/hakkimizda/" aria-current="page">Hakkımızda</a>
     </nav>
-    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
+    <div class="nav-cta">
+      <a class="btn btn-primary sm magnet" href="#iletisim">Teklif al</a>
+      <button class="burger" id="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
+    </div>
   </div>
-</div>
+</header>
 
-<main>
-  <div class="intro">
-    <div class="wrap">
-      <p class="eyebrow"><span lang="en">BeScript</span> Yazılım Çözümleri · Kartepe / Kocaeli</p>
-      <h1>Fikirden mağazaya,<br><span class="accent">tek çatı altında.</span></h1>
-      <p>BeScript, Kartepe'de kurulu bir yazılım stüdyosu. Mobil uygulama, AI otomasyon ve IoT
+<main id="ust">
+<section class="hero-ab">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill" data-in><i></i>HAKKIMIZDA · KARTEPE / KOCAELİ</span>
+      <h1 data-in>Fikirden mağazaya, <span class="grad">tek çatı altında.</span></h1>
+      <p class="lead" data-in>BeScript, Kartepe'de kurulu bir yazılım stüdyosu. Mobil uygulama, AI otomasyon ve IoT
       sistemleri geliştiriyoruz; tasarım, backend, mağaza yayını ve yayın sonrası bakım aynı
       ekipte. Geliştirdiğimiz uygulamalar Google Play ve App Store'da yayında, kurduğumuz
       sistemler sahada çalışıyor.</p>
-      <div class="serit" role="list" aria-label="Özet">
-        <div role="listitem"><b>11</b><span>proje · canlı, test, yakında</span></div>
-        <div role="listitem"><b>4</b><span>uygulama mağazalarda</span></div>
-        <div role="listitem"><b>5+</b><span>yıl saha deneyimi</span></div>
-        <div role="listitem"><b>30K+</b><span>tek sistemle ulaşılan müşteri</span></div>
+      <div class="hero-cta" data-in>
+        <a class="btn btn-primary magnet" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">Projenizi konuşalım <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="/#uygulamalar">Uygulamalarımız</a>
       </div>
+    </div>
+    <div data-in>
+      <div class="orbit" aria-label="Geliştirdiğimiz uygulamalar">
+        <div class="ring r2"><span class="orb-i" style="--a:20deg" title="Bocu Remote"><img src="/telefon/bocu/ikon.jpg" alt="Bocu Remote" width="58" height="58" loading="lazy"></span><span class="orb-i" style="--a:110deg" title="Muhasebe Defterim"><img src="/telefon/muhasebe/ikon.png" alt="Muhasebe Defterim" width="58" height="58" loading="lazy"></span><span class="orb-i" style="--a:200deg" title="Müezzin"><img src="/telefon/muezzin/ikon.png" alt="Müezzin" width="58" height="58" loading="lazy"></span><span class="orb-i" style="--a:290deg" title="Тырдаш"><img src="/telefon/tirdaskz/ikon.jpg" alt="Тырдаш" width="58" height="58" loading="lazy"></span></div>
+        <div class="ring r1"><span class="orb-i" style="--a:-90deg" title="Tırdaş"><img src="/telefon/tirdas/ikon.jpg" alt="Tırdaş" width="58" height="58" loading="lazy"></span><span class="orb-i" style="--a:30deg" title="Kelimece"><img src="/telefon/kelimece/ikon.png" alt="Kelimece" width="58" height="58" loading="lazy"></span><span class="orb-i" style="--a:150deg" title="Quadmate"><img src="/telefon/quadmate/ikon.png" alt="Quadmate" width="58" height="58" loading="lazy"></span></div>
+        <div class="core"><img src="/assets/logo/brand-512.png" alt="BeScript" width="112" height="112"></div>
+      </div>
+      <p class="orbit-not">tek çatı altında geliştirdiğimiz uygulamalar</p>
     </div>
   </div>
+</section>
 
-  <section id="surec">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Nasıl çalışıyoruz</h2>
-        <span class="sec-note">altı adımda teslim</span>
-      </div>
-      <ol class="surec">
-        <li><h3>Keşif</h3><p>İhtiyacınızı dinliyor, kapsamı ve fiyatı aynı gün yazılı olarak netleştiriyoruz.</p></li>
-        <li><h3>Tasarım</h3><p>Ekranlar ve akış onayınıza sunulur; kod yazılmadan önce ne alacağınızı görürsünüz.</p></li>
-        <li><h3>Geliştirme</h3><p>Mobil, backend ve entegrasyonlar birlikte ilerler; ara teslimlerle ilerlemeyi siz de takip edersiniz.</p></li>
-        <li><h3>Test</h3><p>Gerçek cihazlarda ve gerçek veriyle test; mağaza kurallarına uygunluk kontrolü.</p></li>
-        <li><h3>Yayın</h3><p>Google Play ve App Store başvurusu, mağaza görselleri ve inceleme süreci bizde.</p></li>
-        <li><h3>Bakım</h3><p>Yayın sonrası hata takibi, güncellemeler ve sunucu bakımı.</p></li>
-      </ol>
+<section class="trust" aria-label="Özet">
+  <div class="wrap">
+    <div class="stats" data-reveal>
+      <div class="stat"><b data-count="4">4</b><span>uygulama mağazalarda</span></div>
+      <div class="stat"><b data-count="11">11</b><span>proje · canlı, test, yakında</span></div>
+      <div class="stat"><b data-count="30" data-suffix="K+">30K+</b><span>tek sistemle ulaşılan müşteri</span></div>
+      <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>yıl saha deneyimi</span></div>
     </div>
-  </section>
+    <div class="partner" data-reveal>
+      <span>İş ortağımız</span><img src="/assets/logo/karaarslan-beyaz.png" alt="" width="22" height="30"><b>Karaarslan Dijital</b>
+      <span class="sep"></span><span>Yayında: <b>App Store</b> · <b>Google Play</b></span>
+    </div>
+  </div>
+</section>
 
-  <section id="alanlar">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Sorumluluk alanları</h2>
-        <span class="sec-note">bir projede neler bizde</span>
-      </div>
-      <div class="alanlar">
-        <div class="alan"><h3>Proje yönetimi</h3><p>Kapsam, takvim ve ara teslimlerin planlanması.</p></div>
-        <div class="alan"><h3>Mobil geliştirme</h3><p>iOS ve Android'e tek kod tabanıyla uygulama; React Native ve Expo.</p></div>
-        <div class="alan"><h3>Backend ve altyapı</h3><p>API, veritabanı, sunucu kurulumu; Python, FastAPI, PostgreSQL, Supabase.</p></div>
-        <div class="alan"><h3>AI ve otomasyon</h3><p>WhatsApp botları, agentic sistemler, veri toplama ve entegrasyonlar.</p></div>
-        <div class="alan"><h3>Test ve yayın</h3><p>Cihaz testleri, mağaza başvuruları ve yayın sonrası izleme.</p></div>
-        <div class="alan"><h3>Müşteri ilişkileri</h3><p>Talebinizi alır, proje boyunca tek muhatabınız olur; her soruyu ilgili ekibe iletir.</p></div>
-      </div>
+<section id="alanlar">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">SORUMLULUK ALANLARI</span>
+      <h2>Bir projede neler bizde.</h2>
+      <p>Fikirden yayına kadar her adımın sorumlusu belli; siz yalnızca tek bir muhatapla konuşursunuz.</p>
     </div>
-  </section>
+    <div class="grid-3"><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 10h16M8 14h3M8 17h6"/></svg></div>
+      <h3>Proje yönetimi</h3><p>Kapsam, takvim ve ara teslimlerin planlanması.</p>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+      <h3>Mobil geliştirme</h3><p>iOS ve Android'e tek kod tabanıyla uygulama; React Native ve Expo.</p>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></svg></div>
+      <h3>Backend ve altyapı</h3><p>API, veritabanı, sunucu kurulumu; Python, FastAPI, PostgreSQL, Supabase.</p>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8.2l1 2.3 2.3 1-2.3 1-1 2.3-1-2.3-2.3-1 2.3-1z"/></svg></div>
+      <h3>AI ve otomasyon</h3><p>WhatsApp botları, agentic sistemler, veri toplama ve entegrasyonlar.</p>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 14v4a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-4"/></svg></div>
+      <h3>Test ve yayın</h3><p>Cihaz testleri, mağaza başvuruları ve yayın sonrası izleme.</p>
+    </article><article class="card spot" data-reveal>
+      <div class="ic-box"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="7" rx="1.5"/><rect x="17.5" y="13" width="4" height="7" rx="1.5"/><path d="M19.5 20a3 3 0 0 1-3 2H13"/></svg></div>
+      <h3>Müşteri ilişkileri</h3><p>Talebinizi alır, proje boyunca tek muhatabınız olur; her soruyu ilgili ekibe iletir.</p>
+    </article></div>
+  </div>
+</section>
 
-  <section id="ilkeler">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Neye önem veriyoruz</h2>
-        <span class="sec-note">her projede aynı</span>
-      </div>
-      <div class="ilkeler">
-        <div class="ilke"><h3>Kod ve veri sizin</h3><p>Kaynak kod ve veriler teslimde size geçer. Hazır platformlara kilitlenmezsiniz; istediğiniz an başka bir sunucuya taşınır.</p></div>
-        <div class="ilke"><h3>Hazır şablon değil, özel kod</h3><p>No-code araç kullanmıyoruz. Sistemin her satırını biz yazıyoruz, bu yüzden her şey değiştirilebilir.</p></div>
-        <div class="ilke"><h3>Tek muhatap</h3><p>Müşteri İlişkileri proje boyunca sizinle; kime ulaşacağınızı düşünmezsiniz.</p></div>
-        <div class="ilke"><h3>Sahada kanıtlanmış</h3><p>Uygulamalarımız mağazalarda yayında, IoT sistemlerimiz gerçek tesislerde çalışıyor. Sitedeki demolar bu sistemlerin canlandırması.</p></div>
-      </div>
+<section id="surec">
+  <div class="wrap process">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">SÜREÇ</span>
+      <h2>Fikirden mağazaya altı adım.</h2>
+      <p>Her adımda ne olduğunu bilirsiniz. Müşteri İlişkileri ekibimiz proje boyunca tek muhatabınız olur.</p>
     </div>
-  </section>
+    <ol class="tl" id="tl"><span class="tl-fill" id="tlFill"></span><li class="step" data-reveal><span class="dot"><i>01</i></span>
+      <div><h4>Keşif</h4><p>İhtiyacınızı dinliyor, kapsamı ve fiyatı aynı gün yazılı olarak netleştiriyoruz.</p></div></li><li class="step" data-reveal><span class="dot"><i>02</i></span>
+      <div><h4>Tasarım</h4><p>Ekranlar ve akış onayınıza sunulur; kod yazılmadan önce ne alacağınızı görürsünüz.</p></div></li><li class="step" data-reveal><span class="dot"><i>03</i></span>
+      <div><h4>Geliştirme</h4><p>Mobil, backend ve entegrasyonlar birlikte ilerler; ara teslimlerle ilerlemeyi siz de takip edersiniz.</p></div></li><li class="step" data-reveal><span class="dot"><i>04</i></span>
+      <div><h4>Test</h4><p>Gerçek cihazlarda ve gerçek veriyle test; mağaza kurallarına uygunluk kontrolü.</p></div></li><li class="step" data-reveal><span class="dot"><i>05</i></span>
+      <div><h4>Yayın</h4><p>Google Play ve App Store başvurusu, mağaza görselleri ve inceleme süreci bizde.</p></div></li><li class="step" data-reveal><span class="dot"><i>06</i></span>
+      <div><h4>Bakım</h4><p>Yayın sonrası hata takibi, güncellemeler ve sunucu bakımı.</p></div></li></ol>
+  </div>
+</section>
 
-  <section id="iletisim">
-    <div class="wrap">
-      <div class="iletisim">
-        <div>
-          <h2>Projeniz için konuşalım.</h2>
-          <p>Müşteri İlişkileri ekibimiz talebinizi alır, kapsamı ve fiyatı aynı gün netleştirir.</p>
-          <p class="kanal">Müşteri İlişkileri · <a href="tel:+905400010595">0540 001 05 95</a> · <a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a> · Instagram <a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></p>
-        </div>
-        <div class="butonlar">
-          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp 💬</a>
-          <a class="btn btn-primary" href="tel:+905400010595">Ara ☎</a>
-          <a class="btn btn-primary" href="mailto:bescript.yazilim@gmail.com">E-posta ✉</a>
-          <a class="btn" href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">Instagram ↗</a>
-        </div>
-      </div>
+<section id="ilkeler">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">NEYE ÖNEM VERİYORUZ</span>
+      <h2>Her projede aynı dört ilke.</h2>
     </div>
-  </section>
+    <div class="prs"><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></svg></div><div><h4>Kod ve veri sizin</h4><p>Kaynak kod ve veriler teslimde size geçer. Hazır platformlara kilitlenmezsiniz; istediğiniz an başka bir sunucuya taşınır.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div><div><h4>Hazır şablon değil, özel kod</h4><p>No-code araç kullanmıyoruz. Sistemin her satırını biz yazıyoruz, bu yüzden her şey değiştirilebilir.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><h4>Tek muhatap</h4><p>Müşteri İlişkileri proje boyunca sizinle; kime ulaşacağınızı düşünmezsiniz.</p></div></div><div class="pr" data-reveal><div class="ic-box sm"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 2.1 3.2-.3.8 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.8 3.1-3.2-.3L12 22l-2.4-2.1-3.2.3-.8-3.1-2.8-1.6 1.2-3-1.2-3 2.8-1.6.8-3.1 3.2.3z"/><path d="M8.5 12l2.3 2.3 4.7-4.7"/></svg></div><div><h4>Sahada kanıtlanmış</h4><p>Uygulamalarımız mağazalarda yayında, IoT sistemlerimiz gerçek tesislerde çalışıyor.</p></div></div></div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div class="track"><span>React Native</span><i>✦</i><span>Expo</span><i>✦</i><span>TypeScript</span><i>✦</i><span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>Node.js</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Supabase</span><i>✦</i><span>LangChain</span><i>✦</i><span>OpenAI</span><i>✦</i><span>MQTT</span><i>✦</i><span>Capacitor</span><i>✦</i><span>PostGIS</span><i>✦</i><span>Docker</span><i>✦</i><span>React Native</span><i>✦</i><span>Expo</span><i>✦</i><span>TypeScript</span><i>✦</i><span>Python</span><i>✦</i><span>FastAPI</span><i>✦</i><span>Node.js</span><i>✦</i><span>PostgreSQL</span><i>✦</i><span>Supabase</span><i>✦</i><span>LangChain</span><i>✦</i><span>OpenAI</span><i>✦</i><span>MQTT</span><i>✦</i><span>Capacitor</span><i>✦</i><span>PostGIS</span><i>✦</i><span>Docker</span><i>✦</i></div></div>
+</section>
+
+<section id="iletisim">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <span class="kicker">İLETİŞİM</span>
+      <h2>Projeniz için konuşalım.</h2>
+      <p>Ne yapmak istediğinizi anlatın; kapsamı ve fiyatı aynı gün netleştirelim. Müşteri İlişkileri ekibimiz talebinizi alır ve proje boyunca tek muhatabınız olur.</p>
+      <div class="cta-act">
+        <a class="btn btn-primary magnet" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp'tan yazın <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+905400010595">Arayın</a>
+        <a class="btn btn-ghost" href="mailto:bescript.yazilim@gmail.com">E-posta</a>
+      </div>
+      <div class="channels"><span>Müşteri İlişkileri</span><a href="tel:+905400010595">0540 001 05 95</a><a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a><a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>© 2026 BeScript Yazılım Çözümleri</span>
-    <span>kartepe / kocaeli · türkiye geneli hizmet · <a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">@bescript.tr</a></span>
+    <div class="f-grid">
+      <div><a class="logo" href="/"><img src="/assets/logo/brand-192.png" alt="" width="32" height="32">BeScript</a>
+        <p>Fikirden mağazaya, uçtan uca. Mobil uygulama, AI otomasyon ve IoT sistemleri.</p></div>
+      <div><h5>SİTE</h5><ul>
+        <li><a href="/#hizmetler">Hizmetler</a></li><li><a href="/#uygulamalar">Uygulamalar</a></li>
+        <li><a href="/#cozumler">Hazır çözümler</a></li><li><a href="#surec">Süreç</a></li><li><a href="/hakkimizda/">Hakkımızda</a></li></ul></div>
+      <div><h5>İLETİŞİM</h5><ul>
+        <li><a href="tel:+905400010595">0540 001 05 95</a></li><li><a href="mailto:bescript.yazilim@gmail.com">bescript.yazilim@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/bescript.tr/" target="_blank" rel="noopener">Instagram · @bescript.tr</a></li></ul></div>
+    </div>
+    <div class="f-bot"><span>© 2026 BeScript Yazılım Çözümleri</span><span>kartepe / kocaeli · türkiye geneli hizmet</span></div>
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script>
-/* Mobil menu */
-(function(){
-  var topbar=document.querySelector(".topbar");
-  var dugme=document.querySelector(".menu-dugme");
-  if(!topbar||!dugme) return;
-  dugme.addEventListener("click",function(){
-    var acik=topbar.classList.toggle("menu-acik");
-    dugme.setAttribute("aria-expanded",acik?"true":"false");
+document.addEventListener("DOMContentLoaded", function(){
+  var azHareket = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var html = document.documentElement;
+
+  /* menu */
+  var nav = document.getElementById("nav"), burger = document.getElementById("burger");
+  burger.addEventListener("click", function(){
+    var acik = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", acik ? "true" : "false");
   });
-})();
+  document.querySelectorAll("#links a").forEach(function(a){ a.addEventListener("click", function(){ nav.classList.remove("open"); }); });
+  var kaydir = function(){ nav.classList.toggle("scrolled", window.scrollY > 24); };
+  kaydir(); window.addEventListener("scroll", kaydir, {passive:true});
+
+  /* imleci takip eden isik */
+  document.querySelectorAll(".spot").forEach(function(el){
+    el.addEventListener("pointermove", function(e){
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px"); el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+
+  if (azHareket || !window.gsap || !window.ScrollTrigger){ html.classList.remove("js"); return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.timeline({defaults:{ease:"power3.out"}})
+    .to(".hero-ab [data-in]", {opacity:1, y:0, duration:1, stagger:.1});
+
+  ScrollTrigger.batch("[data-reveal]", {start:"top 88%", once:true,
+    onEnter: function(els){ gsap.to(els, {opacity:1, y:0, duration:.95, ease:"power3.out", stagger:.08}); }});
+
+  document.querySelectorAll("[data-count]").forEach(function(el){
+    var hedef = +el.dataset.count, ek = el.dataset.suffix || "", o = {v:0};
+    ScrollTrigger.create({trigger:el, start:"top 90%", once:true, onEnter:function(){
+      gsap.to(o, {v:hedef, duration:1.6, ease:"power2.out", onUpdate:function(){ el.textContent = Math.round(o.v) + ek; }});
+    }});
+    el.textContent = "0" + ek;
+  });
+
+  gsap.fromTo("#tlFill", {scaleY:0}, {scaleY:1, ease:"none",
+    scrollTrigger:{trigger:"#tl", start:"top 70%", end:"bottom 65%", scrub:true}});
+
+  if (window.matchMedia("(pointer:fine)").matches){
+    document.querySelectorAll(".magnet").forEach(function(b){
+      b.addEventListener("pointermove", function(e){
+        var r = b.getBoundingClientRect();
+        gsap.to(b, {x:(e.clientX - r.left - r.width/2) * .18, y:(e.clientY - r.top - r.height/2) * .25, duration:.4, ease:"power3.out"});
+      });
+      b.addEventListener("pointerleave", function(){ gsap.to(b, {x:0, y:0, duration:.6, ease:"elastic.out(1,.5)"}); });
+    });
+  }
+});
+setTimeout(function(){ if (!window.gsap) document.documentElement.classList.remove("js"); }, 4000);
 </script>
 <script type="application/ld+json">
 {
