@@ -143,7 +143,7 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
 .rotator img.on{opacity:1;transform:scale(1)}
 .now{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:10px;
   padding:9px 16px 9px 9px;border-radius:999px;border:1px solid var(--line-2);background:rgba(10,14,24,.82);
-  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px}
+  backdrop-filter:blur(12px);white-space:nowrap;font-size:14px;width:max-content;max-width:none}
 .now img{width:28px;height:28px;border-radius:8px}
 .now b{font-weight:600}
 .now span{color:var(--muted)}
@@ -303,7 +303,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .app-text{padding:28px 26px 8px}
   .app-stage{height:300px;overflow:hidden}
   .app-stage .phone{top:26px}
-  .cta{padding:48px 26px;border-radius:26px}
+  .cta{padding:44px 22px;border-radius:26px}
+  .cta h2{font-size:clamp(30px,9vw,38px)}
+  .cta-act .btn{flex:1 1 calc(50% - 6px);padding:0 14px}
+  .cta-act .btn:first-child{flex-basis:100%}
+  .channels{font-size:12.5px;flex-direction:column;gap:6px}
+  .channels a{overflow-wrap:anywhere}
+  .now{font-size:13px;padding:7px 14px 7px 7px}
   .f-grid{grid-template-columns:1fr}
   .hero-cta .btn{flex:1 1 100%}
   .pill{font-size:10.5px;letter-spacing:.06em}
