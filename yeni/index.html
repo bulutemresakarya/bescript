@@ -143,7 +143,7 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
   radial-gradient(70% 45% at 100% 100%,rgba(124,58,237,.38),transparent 70%),linear-gradient(180deg,#0D1430,#070A16);
   font-family:'IBM Plex Sans',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
 .sb{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;
-  padding:6px 26px 0 30px;font-size:13.5px;font-weight:600;color:#fff;z-index:2}
+  padding:0 26px 0 30px;font-size:13.5px;font-weight:600;color:#fff;z-index:2}
 .sb svg{height:12px;width:auto;margin-left:5px}
 .home{position:absolute;inset:0;padding:30px 12px 40px;display:flex;flex-direction:column;justify-content:center;transition:transform .55s var(--ease),opacity .45s,filter .45s}
 .home.geri{transform:scale(.9);opacity:.35;filter:blur(3px)}
@@ -171,13 +171,14 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
 .splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
 .splash p{font-size:13px;opacity:.72;line-height:1.5}
-.win .ekr{opacity:0;transition:opacity .45s ease;top:2.5%}
-/* ekran goruntusu %2.5 asagi kayar: kendi durum cubugu bu seridin altinda kalir,
-   alttaki kendi ev cubugu da cercevenin disina tasar */
+.win .ekr{opacity:0;transition:opacity .45s ease}
+/* ekran goruntusu birebir oturur; kendi durum cubugu (ust %4.3) .usb seridinin altinda kalir */
 .usb{position:absolute;left:0;right:0;top:0;height:60px;z-index:7;display:flex;justify-content:space-between;align-items:flex-start;
-  padding:17px 26px 0 30px;font-size:13.5px;font-weight:600;color:var(--uc,#fff);pointer-events:none;
-  background:linear-gradient(var(--ub,transparent) 0,var(--ub,transparent) 43px,transparent 56px);transition:color .3s}
+  padding:14px 26px 0 30px;font-size:13.5px;font-weight:600;color:var(--uc,#fff);pointer-events:none;
+  background:linear-gradient(var(--ub,transparent) 0,var(--ub,transparent) 29px,transparent 38px);transition:color .3s}
 .usb span:last-child{display:flex;align-items:center;padding-top:3px}
+/* ekran goruntusu gorunurken kendi ev cubugu yeterli; bizimki gizlenir, dokunma alani kalir */
+.os.ekranli .homebar i{opacity:0}
 .usb svg{height:12px;width:auto;margin-left:5px}
 .win .ekr.on{opacity:1}
 .noktalar{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;gap:6px;z-index:6}
@@ -756,6 +757,7 @@ document.addEventListener("DOMContentLoaded", function(){
     win.querySelectorAll(".noktalar i").forEach(function(e, k){ e.classList.toggle("on", k === i); });
     var sy = now.querySelector(".sayac"); if (sy) sy.textContent = sayacMetni();
     cubukRengi(win.querySelectorAll(".ekr")[i]);
+    os.classList.toggle("ekranli", !!win.querySelectorAll(".ekr")[i]);
   }
   function ac(ic){
     if (acikIkon === ic) return;
@@ -774,10 +776,9 @@ document.addEventListener("DOMContentLoaded", function(){
       if (d.ekran){
         var liste = d.ekran.split("|");
         liste.forEach(function(e){ h += '<img class="ekr" src="' + kac(e) + '" alt="' + kac(d.ad) + ' ekranı">'; });
-        h += '<div class="noktalar">' + liste.map(function(){ return "<i></i>"; }).join("") + '</div>';
       }
     }
-    win.style.setProperty("--ub", "transparent");
+    win.style.setProperty("--ub", "transparent"); os.classList.remove("ekranli");
     win.style.setProperty("--uc", !d.bs && acikRenk(d.bg) ? "#111" : "#fff");
     win.innerHTML = h + '<div class="usb"><span class="saat-t">' + saatMetni() + '</span><span>' + SB_IKON + '</span></div>';
     void win.offsetWidth; win.style.transition = "";
@@ -787,7 +788,7 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   function kapat(){
     if (!acikIkon) return;
-    win.classList.remove("acik"); home.classList.remove("geri"); os.classList.remove("uyg-acik");
+    win.classList.remove("acik"); home.classList.remove("geri"); os.classList.remove("uyg-acik", "ekranli");
     acikIkon = null; etiket(null);
   }
   function sonraki(){
