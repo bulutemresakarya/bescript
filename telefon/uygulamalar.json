@@ -32,11 +32,10 @@
     {
       "ad": "Muhasebe Defterim",
       "etiket": "Muhasebe",
+      "alt": "Muhasebe",
       "ikon": "muhasebe/ikon.png",
       "renk": "#20252E",
-      "ekranlar": ["muhasebe/1.webp", "muhasebe/2.webp"],
-      "durum": "Kapalı test",
-      "aciklama": "Serbest çalışanlar için muhasebe uygulaması. Google Play'de kapalı testte."
+      "ekranlar": ["muhasebe/1.webp", "muhasebe/2.webp"]
     },
     {
       "ad": "Müezzin",
