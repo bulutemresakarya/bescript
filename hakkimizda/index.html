@@ -306,12 +306,11 @@ a.badge:hover{transform:translateY(-2px)}
 
 /* ---------------------------------------------------------------- hazir cozumler */
 /* kayan serit: iki kopya yan yana, yarisi kadar kayinca basa doner */
-.kayan{overflow:hidden;padding:4px 0;
+.kayan{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:4px 0;cursor:grab;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-.kayan-iz{display:flex;gap:16px;width:max-content;padding-right:16px;animation:paket 80s linear infinite}
-.kayan:focus-within .kayan-iz,.kayan.dur .kayan-iz{animation-play-state:paused}
-@media(hover:hover){.kayan:hover .kayan-iz{animation-play-state:paused}}
-@keyframes paket{to{transform:translateX(-50%)}}
+.kayan::-webkit-scrollbar{display:none}
+.kayan.surukle{cursor:grabbing;user-select:none}
+.kayan-iz{display:flex;gap:16px;width:max-content;padding:0 16px 0 0}
 .sol{width:300px;flex:none;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
 .sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
 .sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
@@ -384,7 +383,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .stat:nth-child(n+3){border-bottom:none}
   .grid-3,.others,.prs{grid-template-columns:1fr}
   .sol{width:270px}
-  .kayan-iz{animation-duration:60s}
   .app{grid-template-columns:1fr;min-height:0}
   .app-text{padding:28px 26px 8px}
   .app-stage{height:300px;overflow:hidden}
@@ -410,8 +408,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .float,.track,.pill i,.kayan-iz{animation:none}
-  .kayan{overflow-x:auto}
+  .float,.track,.pill i{animation:none}
   .win,.home{transition:none}
   *{transition-duration:.01ms!important}
 }

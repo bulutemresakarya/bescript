@@ -307,12 +307,11 @@ a.badge:hover{transform:translateY(-2px)}
 
 /* ---------------------------------------------------------------- hazir cozumler */
 /* kayan serit: iki kopya yan yana, yarisi kadar kayinca basa doner */
-.kayan{overflow:hidden;padding:4px 0;
+.kayan{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:4px 0;cursor:grab;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-.kayan-iz{display:flex;gap:16px;width:max-content;padding-right:16px;animation:paket 80s linear infinite}
-.kayan:focus-within .kayan-iz,.kayan.dur .kayan-iz{animation-play-state:paused}
-@media(hover:hover){.kayan:hover .kayan-iz{animation-play-state:paused}}
-@keyframes paket{to{transform:translateX(-50%)}}
+.kayan::-webkit-scrollbar{display:none}
+.kayan.surukle{cursor:grabbing;user-select:none}
+.kayan-iz{display:flex;gap:16px;width:max-content;padding:0 16px 0 0}
 .sol{width:300px;flex:none;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
 .sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
 .sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
@@ -385,7 +384,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .stat:nth-child(n+3){border-bottom:none}
   .grid-3,.others,.prs{grid-template-columns:1fr}
   .sol{width:270px}
-  .kayan-iz{animation-duration:60s}
   .app{grid-template-columns:1fr;min-height:0}
   .app-text{padding:28px 26px 8px}
   .app-stage{height:300px;overflow:hidden}
@@ -411,8 +409,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .float,.track,.pill i,.kayan-iz{animation:none}
-  .kayan{overflow-x:auto}
+  .float,.track,.pill i{animation:none}
   .win,.home{transition:none}
   *{transition-duration:.01ms!important}
 }
@@ -941,10 +938,60 @@ document.addEventListener("DOMContentLoaded", function(){
     bekle(2600, dongu);
   }
 
-  /* hazir paketler: dokununca serit durur, birakinca bir sure sonra devam eder */
-  var kayan = document.getElementById("kayan"), kayanZ;
-  kayan.addEventListener("touchstart", function(){ clearTimeout(kayanZ); kayan.classList.add("dur"); }, {passive:true});
-  kayan.addEventListener("touchend", function(){ kayanZ = setTimeout(function(){ kayan.classList.remove("dur"); }, 3500); });
+  /* hazir paketler: kendiliginden akar; elle (parmak, fare, touchpad) iki yone kaydirilir.
+     Iz iki kopyadan olusur; yarisi gecilince konum bir kopya kadar geri alinir, dongu kesintisiz. */
+  (function(){
+    var k = document.getElementById("kayan"), iz = k.firstElementChild;
+    var hiz = 28, konum = 0, son = 0, bekle = 0, ustunde = false, gorunur = true, surukle = null, oynadi = false;
+    function yari(){ return iz.scrollWidth / 2; }
+    function sar(){
+      var y = yari(); if (!y) return;
+      if (k.scrollLeft >= y + 1) k.scrollLeft -= y;
+      else if (k.scrollLeft < 1) k.scrollLeft += y;
+    }
+    function durdur(ms){ bekle = performance.now() + ms; }
+    k.addEventListener("scroll", function(){ if (!surukle) sar(); }, {passive:true});
+    ["touchstart", "wheel"].forEach(function(o){ k.addEventListener(o, function(){ durdur(3000); }, {passive:true}); });
+    k.addEventListener("touchmove", function(){ durdur(3000); }, {passive:true});
+    k.addEventListener("focusin", function(){ durdur(8000); });
+    if (window.matchMedia("(hover:hover)").matches){
+      k.addEventListener("mouseenter", function(){ ustunde = true; });
+      k.addEventListener("mouseleave", function(){ ustunde = false; durdur(1200); });
+    }
+    /* fareyle tutup surukleme */
+    k.addEventListener("pointerdown", function(e){
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      surukle = {x: e.clientX, l: k.scrollLeft}; oynadi = false;
+    });
+    window.addEventListener("pointermove", function(e){
+      if (!surukle) return;
+      var dx = e.clientX - surukle.x;
+      if (Math.abs(dx) > 5){ oynadi = true; k.classList.add("surukle"); }
+      if (oynadi){ k.scrollLeft = surukle.l - dx; }
+    });
+    window.addEventListener("pointerup", function(){
+      if (!surukle) return;
+      surukle = null; k.classList.remove("surukle"); sar(); durdur(2000);
+    });
+    /* surukleme bitiminde butona tiklanmasin */
+    k.addEventListener("click", function(e){ if (oynadi){ e.preventDefault(); e.stopPropagation(); oynadi = false; } }, true);
+    k.addEventListener("dragstart", function(e){ e.preventDefault(); });
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver(function(g){ gorunur = g[0].isIntersecting; }).observe(k);
+    if (azHareket) return;
+    k.scrollLeft = konum = 1;
+    function kare(t){
+      var dt = son ? Math.min(t - son, 64) : 0; son = t;
+      if (gorunur && !ustunde && !surukle && t > bekle && !document.hidden){
+        if (Math.abs(k.scrollLeft - konum) > 2) konum = k.scrollLeft;   /* elle kaydirildiysa oradan devam */
+        konum += hiz * dt / 1000;
+        var y = yari(); if (y && konum >= y + 1) konum -= y;
+        k.scrollLeft = konum;
+      }
+      requestAnimationFrame(kare);
+    }
+    requestAnimationFrame(kare);
+  })();
 
   /* imleci takip eden isik */
   document.querySelectorAll(".spot").forEach(function(el){
