@@ -18,11 +18,11 @@
 <meta property="og:url" content="https://bescript.com.tr/">
 <meta property="og:title" content="BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT">
 <meta property="og:description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
-<meta property="og:image" content="https://bescript.com.tr/og-image.png?v=3">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png?v=5">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BeScript Yazılım Çözümleri — Mobil Uygulama, AI Otomasyon ve IoT">
 <meta name="twitter:description" content="BeScript Yazılım Çözümleri — Kartepe/Kocaeli. Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca. Canlı sistemler ve interaktif demolar.">
-<meta name="twitter:image" content="https://bescript.com.tr/og-image.png?v=3">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -288,7 +288,7 @@ a.badge:hover{transform:translateY(-2px)}
 .others-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:76px 0 22px;flex-wrap:wrap}
 .others-title h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:26px}
 .others-title span{color:var(--muted);font-size:14.5px}
-.others{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
 .mini{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);
   display:flex;flex-direction:column;transition:border-color .3s,transform .4s var(--ease)}
 .mini:hover{border-color:var(--line-2);transform:translateY(-3px)}
@@ -306,8 +306,14 @@ a.badge:hover{transform:translateY(-2px)}
 .mini .more{margin-top:auto;padding-top:16px}
 
 /* ---------------------------------------------------------------- hazir cozumler */
-.sols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.sol{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
+/* kayan serit: iki kopya yan yana, yarisi kadar kayinca basa doner */
+.kayan{overflow:hidden;padding:4px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.kayan-iz{display:flex;gap:16px;width:max-content;padding-right:16px;animation:paket 80s linear infinite}
+.kayan:focus-within .kayan-iz,.kayan.dur .kayan-iz{animation-play-state:paused}
+@media(hover:hover){.kayan:hover .kayan-iz{animation-play-state:paused}}
+@keyframes paket{to{transform:translateX(-50%)}}
+.sol{width:300px;flex:none;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
 .sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
 .sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
 .sol-act{display:flex;gap:8px;margin-top:auto;padding-top:20px}
@@ -365,7 +371,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .hero-grid{grid-template-columns:1fr;gap:20px}
   .stage{height:690px;max-width:560px;margin:10px auto 0;width:100%}
   .apps{grid-template-columns:1fr}
-  .others,.sols{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:repeat(2,1fr)}
   .process{grid-template-columns:1fr;gap:40px}
   .process .sec-head{position:static}
@@ -379,10 +384,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .stat:nth-child(2n){border-right:none}
   .stat:nth-child(n+3){border-bottom:none}
   .grid-3,.others,.prs{grid-template-columns:1fr}
-  .sols{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;
-    padding-bottom:10px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
-  .sols::-webkit-scrollbar{display:none}
-  .sol{scroll-snap-align:start}
+  .sol{width:270px}
+  .kayan-iz{animation-duration:60s}
   .app{grid-template-columns:1fr;min-height:0}
   .app-text{padding:28px 26px 8px}
   .app-stage{height:300px;overflow:hidden}
@@ -408,7 +411,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .float,.track,.pill i{animation:none}
+  .float,.track,.pill i,.kayan-iz{animation:none}
+  .kayan{overflow-x:auto}
   .win,.home{transition:none}
   *{transition-duration:.01ms!important}
 }
@@ -444,7 +448,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <a class="btn btn-primary magnet" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">Projenizi konuşalım <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-ghost" href="#uygulamalar">Uygulamalarımızı görün</a>
       </div>
-      <div class="hero-note" data-in><span>Geliştirdiğimiz beş uygulama Google Play'de, ikisi App Store'da da yayında.</span></div>
+      <div class="hero-note" data-in><span>Geliştirdiğimiz altı uygulama Google Play'de, ikisi App Store'da da yayında.</span></div>
     </div>
 
     <div class="stage" id="stage">
@@ -470,8 +474,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
 <section class="trust" aria-label="Özet">
   <div class="wrap">
     <div class="stats" data-reveal>
-      <div class="stat"><b data-count="5">5</b><span>uygulama mağazalarda</span></div>
-      <div class="stat"><b data-count="11">11</b><span>proje · canlı, test, yakında</span></div>
+      <div class="stat"><b data-count="6">6</b><span>uygulama mağazalarda</span></div>
+      <div class="stat"><b data-count="9">9</b><span>proje · canlı, test, yakında</span></div>
       <div class="stat"><b data-count="30" data-suffix="K+">30K+</b><span>tek sistemle ulaşılan müşteri</span></div>
       <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>yıl saha deneyimi</span></div>
     </div>
@@ -570,20 +574,21 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.muhasebedefterim" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
       <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/muhasebe/1.webp" alt="Muhasebe Defterim uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:0,175,202" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/tirdaskz.jpg" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Тырдаш</h3><span>Tirdas.kz · Kazakistan sürümü</span></div></div>
+        <p>Tırdaş'ın Kazakistan pazarına uyarlanan sürümü. Yük ve araç sahiplerini aynı havuzda buluşturur; ilanlar ve gelir-gider takibi tenge (₸) ile.</p>
+        <div class="chips"><span>react native</span><span>openai</span><span>postgresql</span><span>çok dilli</span></div>
+        <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.kz" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/tirdaskz/1.webp" alt="Тырдаш uygulama ekranı" loading="lazy"></div></div></div>
     </article></div>
-    <div class="others-title" data-reveal><h3>Diğer projeler</h3><span>yolda olan uygulamalar, web siteleri ve demolar</span></div>
+    <div class="others-title" data-reveal><h3>Diğer projeler</h3><span>yolda olan uygulamalar ve demolar</span></div>
     <div class="others"><article class="mini spot" data-reveal>
       <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/muezzin.png" alt=""></span><span class="st st-yakinda">Yakında</span></div>
       <h4>Müezzin</h4><p>Namaz vakitleri, günlük namaz ve Hanefi kaza takibi; ezan bildirimleriyle.</p>
       
-    </article><article class="mini spot" data-reveal>
-      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/tirdaskz.jpg" alt=""></span><span class="st st-test">Kapalı test</span></div>
-      <h4>Tirdas.kz</h4><p>Tırdaş'ın Kazakistan pazarına uyarlanan sürümü.</p>
-      
-    </article><article class="mini spot" data-reveal>
-      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/cleanhome.svg" alt=""></span><span class="st st-canli">Canlı</span></div>
-      <h4>CleanHome</h4><p>Kocaeli merkezli temizlik şirketi için kurumsal site; teslimden beri kesintisiz yayında.</p>
-      <a class="more" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a>
     </article><article class="mini spot" data-reveal>
       <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/truemax.svg" alt=""></span><span class="st st-demo">Demo</span></div>
       <h4>TrueMax.ai</h4><p>Emlak için yapay zekâ lead botu: 30.000+ mülk sahibine ulaştı, 2.778 iş birliği onayı.</p>
@@ -592,10 +597,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
       <div class="mini-top"><span class="mini-logo"><span class="mono-logo">▦</span></span><span class="st st-demo">Demo</span></div>
       <h4>Danışman Paneli</h4><p>Gayrimenkul ofisi için canlı performans panosu; 40+ danışmanla sahada çalıştı.</p>
       <a class="more" href="/dashboard/">Demoyu dene</a>
-    </article><article class="mini spot" data-reveal>
-      <div class="mini-top"><span class="mini-logo"><img src="/assets/logo/red-i.png" alt=""></span><span class="st st-demo">Demo</span></div>
-      <h4>RED-i</h4><p>TrueMax motorunun RedPartners kurulumu; yanıt analizi ve sunum demo sayfasında.</p>
-      <a class="more" href="/red-i/">Demoyu dene</a>
     </article></div>
   </div>
 </section>
@@ -607,40 +608,72 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
       <h2>Hızlı başlamak için hazır paketler.</h2>
       <p>Dene, beğen, sipariş ver. Her paket işinize göre özelleştirilir.</p>
     </div>
-    <div class="sols"><article class="sol spot" data-reveal>
+  </div>
+  <div class="kayan" id="kayan" data-reveal><div class="kayan-iz"><article class="sol spot">
       <h4>AI Müşteri Temsilcisi</h4><p>WhatsApp'ta 7/24 yanıt veren, randevu ve sipariş alan yapay zekâ temsilci. Demoda 5 sektör var.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/chatbot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22AI%20M%C3%BC%C5%9Fteri%20Temsilcisi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Mobil Uygulama</h4><p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar. Mağaza yayını ve güncellemeler dahil.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/mobil/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>QR Menü & Dijital Katalog</h4><p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/qrmenu/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22QR%20Men%C3%BC%20%26%20Dijital%20Katalog%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Web'den Excel'e Veri Toplama</h4><p>İlanlar, fiyatlar, rakip listeleri: web'den otomatik toplayıp temiz Excel tablosuna çevirir.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/veri/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Web%27den%20Excel%27e%20Veri%20Toplama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Telegram İş Botu</h4><p>İstediğiniz kaynağı 7/24 izler; koşul sağlanınca Telegram'a bildirim düşürür.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/telegram/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Sektörel KPI Dashboard'u</h4><p>Excel, Sheets ya da POS verisi tek panoda: ciro, trend, karşılaştırma, TV modu.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/dashboard/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Sekt%C3%B6rel%20KPI%20Dashboard%27u%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Entegrasyon & Otomasyon</h4><p>Form doldu, CRM'e yazıldı, WhatsApp onayı gitti: elle taşınan işi otomatiğe alırız.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/cozumler/entegrasyon/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20%26%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article><article class="sol spot" data-reveal>
+    </article><article class="sol spot">
       <h4>Kripto Alım-Satım Botu</h4><p>Kendi stratejinizi borsa API'si üzerinden çalıştıran bot; önce paper-trading modunda denenir.</p>
       <div class="sol-act"><a class="btn btn-ghost sm" href="/kripto-bot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Kripto%20Al%C4%B1m-Sat%C4%B1m%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
-    </article></div>
-  </div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>AI Müşteri Temsilcisi</h4><p>WhatsApp'ta 7/24 yanıt veren, randevu ve sipariş alan yapay zekâ temsilci. Demoda 5 sektör var.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/chatbot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22AI%20M%C3%BC%C5%9Fteri%20Temsilcisi%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Mobil Uygulama</h4><p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar. Mağaza yayını ve güncellemeler dahil.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/mobil/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>QR Menü & Dijital Katalog</h4><p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/qrmenu/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22QR%20Men%C3%BC%20%26%20Dijital%20Katalog%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Web'den Excel'e Veri Toplama</h4><p>İlanlar, fiyatlar, rakip listeleri: web'den otomatik toplayıp temiz Excel tablosuna çevirir.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/veri/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Web%27den%20Excel%27e%20Veri%20Toplama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Telegram İş Botu</h4><p>İstediğiniz kaynağı 7/24 izler; koşul sağlanınca Telegram'a bildirim düşürür.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/telegram/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Telegram%20%C4%B0%C5%9F%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Sektörel KPI Dashboard'u</h4><p>Excel, Sheets ya da POS verisi tek panoda: ciro, trend, karşılaştırma, TV modu.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/dashboard/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Sekt%C3%B6rel%20KPI%20Dashboard%27u%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Entegrasyon & Otomasyon</h4><p>Form doldu, CRM'e yazıldı, WhatsApp onayı gitti: elle taşınan işi otomatiğe alırız.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/cozumler/entegrasyon/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20%26%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article><article class="sol spot" aria-hidden="true">
+      <h4>Kripto Alım-Satım Botu</h4><p>Kendi stratejinizi borsa API'si üzerinden çalıştıran bot; önce paper-trading modunda denenir.</p>
+      <div class="sol-act"><a tabindex="-1" class="btn btn-ghost sm" href="/kripto-bot/">Dene <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a tabindex="-1" class="btn btn-wa sm" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Kripto%20Al%C4%B1m-Sat%C4%B1m%20Botu%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş ver</a></div>
+    </article></div></div>
 </section>
 
 <section id="surec">
@@ -908,6 +941,11 @@ document.addEventListener("DOMContentLoaded", function(){
     bekle(2600, dongu);
   }
 
+  /* hazir paketler: dokununca serit durur, birakinca bir sure sonra devam eder */
+  var kayan = document.getElementById("kayan"), kayanZ;
+  kayan.addEventListener("touchstart", function(){ clearTimeout(kayanZ); kayan.classList.add("dur"); }, {passive:true});
+  kayan.addEventListener("touchend", function(){ kayanZ = setTimeout(function(){ kayan.classList.remove("dur"); }, 3500); });
+
   /* imleci takip eden isik */
   document.querySelectorAll(".spot").forEach(function(el){
     el.addEventListener("pointermove", function(e){
@@ -976,7 +1014,7 @@ setTimeout(function(){ if (!window.gsap) document.documentElement.classList.remo
   "description": "Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca yazılım geliştirme.",
   "url": "https://bescript.com.tr/",
   "logo": "https://bescript.com.tr/assets/logo/brand-512.png",
-  "image": "https://bescript.com.tr/og-image.png?v=3",
+  "image": "https://bescript.com.tr/og-image.png?v=5",
   "email": "mailto:bescript.yazilim@gmail.com",
   "telephone": "+90-540-001-05-95",
   "priceRange": "$$",

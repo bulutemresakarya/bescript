@@ -17,11 +17,11 @@
 <meta property="og:url" content="https://bescript.com.tr/hakkimizda/">
 <meta property="og:title" content="Hakkımızda — BeScript Yazılım Çözümleri">
 <meta property="og:description" content="Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca.">
-<meta property="og:image" content="https://bescript.com.tr/og-image.png?v=3">
+<meta property="og:image" content="https://bescript.com.tr/og-image.png?v=5">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Hakkımızda — BeScript Yazılım Çözümleri">
 <meta name="twitter:description" content="Mobil uygulama, AI otomasyon ve IoT sistemleri; tasarımdan mağaza yayınına uçtan uca.">
-<meta name="twitter:image" content="https://bescript.com.tr/og-image.png?v=3">
+<meta name="twitter:image" content="https://bescript.com.tr/og-image.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -287,7 +287,7 @@ a.badge:hover{transform:translateY(-2px)}
 .others-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:76px 0 22px;flex-wrap:wrap}
 .others-title h3{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 760;font-size:26px}
 .others-title span{color:var(--muted);font-size:14.5px}
-.others{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
 .mini{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);
   display:flex;flex-direction:column;transition:border-color .3s,transform .4s var(--ease)}
 .mini:hover{border-color:var(--line-2);transform:translateY(-3px)}
@@ -305,8 +305,14 @@ a.badge:hover{transform:translateY(-2px)}
 .mini .more{margin-top:auto;padding-top:16px}
 
 /* ---------------------------------------------------------------- hazir cozumler */
-.sols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.sol{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
+/* kayan serit: iki kopya yan yana, yarisi kadar kayinca basa doner */
+.kayan{overflow:hidden;padding:4px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.kayan-iz{display:flex;gap:16px;width:max-content;padding-right:16px;animation:paket 80s linear infinite}
+.kayan:focus-within .kayan-iz,.kayan.dur .kayan-iz{animation-play-state:paused}
+@media(hover:hover){.kayan:hover .kayan-iz{animation-play-state:paused}}
+@keyframes paket{to{transform:translateX(-50%)}}
+.sol{width:300px;flex:none;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.022);display:flex;flex-direction:column}
 .sol h4{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100,'wght' 720;font-size:18px;line-height:1.25}
 .sol p{color:var(--muted);font-size:14.5px;margin-top:10px;line-height:1.55}
 .sol-act{display:flex;gap:8px;margin-top:auto;padding-top:20px}
@@ -364,7 +370,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .hero-grid{grid-template-columns:1fr;gap:20px}
   .stage{height:690px;max-width:560px;margin:10px auto 0;width:100%}
   .apps{grid-template-columns:1fr}
-  .others,.sols{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:repeat(2,1fr)}
   .process{grid-template-columns:1fr;gap:40px}
   .process .sec-head{position:static}
@@ -378,10 +383,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .stat:nth-child(2n){border-right:none}
   .stat:nth-child(n+3){border-bottom:none}
   .grid-3,.others,.prs{grid-template-columns:1fr}
-  .sols{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;
-    padding-bottom:10px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
-  .sols::-webkit-scrollbar{display:none}
-  .sol{scroll-snap-align:start}
+  .sol{width:270px}
+  .kayan-iz{animation-duration:60s}
   .app{grid-template-columns:1fr;min-height:0}
   .app-text{padding:28px 26px 8px}
   .app-stage{height:300px;overflow:hidden}
@@ -407,7 +410,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
   .js [data-reveal],.js .hero [data-in]{opacity:0;transform:translateY(26px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .float,.track,.pill i{animation:none}
+  .float,.track,.pill i,.kayan-iz{animation:none}
+  .kayan{overflow-x:auto}
   .win,.home{transition:none}
   *{transition-duration:.01ms!important}
 }
@@ -502,8 +506,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
 <section class="trust" aria-label="Özet">
   <div class="wrap">
     <div class="stats" data-reveal>
-      <div class="stat"><b data-count="5">5</b><span>uygulama mağazalarda</span></div>
-      <div class="stat"><b data-count="11">11</b><span>proje · canlı, test, yakında</span></div>
+      <div class="stat"><b data-count="6">6</b><span>uygulama mağazalarda</span></div>
+      <div class="stat"><b data-count="9">9</b><span>proje · canlı, test, yakında</span></div>
       <div class="stat"><b data-count="30" data-suffix="K+">30K+</b><span>tek sistemle ulaşılan müşteri</span></div>
       <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>yıl saha deneyimi</span></div>
     </div>
