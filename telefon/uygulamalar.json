@@ -43,13 +43,6 @@
       "renk": "#0A344B",
       "durum": "Yakında",
       "aciklama": "Namaz vakitleri ve kaza takibi. Yakında mağazalarda."
-    },
-    {
-      "ad": "Тырдаш",
-      "alt": "Kazakistan sürümü",
-      "ikon": "tirdaskz/ikon.jpg",
-      "renk": "#1B2B42",
-      "ekranlar": ["tirdaskz/1.webp", "tirdaskz/2.webp"]
     }
   ]
 }
