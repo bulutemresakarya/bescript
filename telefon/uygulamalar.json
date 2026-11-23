@@ -38,6 +38,14 @@
       "ekranlar": ["muhasebe/1.webp", "muhasebe/2.webp"]
     },
     {
+      "ad": "Koyun İstasyonu",
+      "etiket": "Koyun",
+      "alt": "Çiftlik oyunu",
+      "ikon": "koyun/ikon.png",
+      "renk": "#4C9A2A",
+      "ekranlar": ["koyun/1.webp", "koyun/2.webp"]
+    },
+    {
       "ad": "Müezzin",
       "ikon": "muezzin/ikon.png",
       "renk": "#0A344B",
