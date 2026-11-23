@@ -46,6 +46,13 @@
       "ekranlar": ["koyun/1.webp", "koyun/2.webp"]
     },
     {
+      "ad": "Тырдаш",
+      "alt": "Kazakistan sürümü",
+      "ikon": "tirdaskz/ikon.jpg",
+      "renk": "#1B2B42",
+      "ekranlar": ["tirdaskz/1.webp", "tirdaskz/2.webp"]
+    },
+    {
       "ad": "Müezzin",
       "ikon": "muezzin/ikon.png",
       "renk": "#0A344B",
