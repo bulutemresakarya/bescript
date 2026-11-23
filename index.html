@@ -924,29 +924,6 @@ document.addEventListener("DOMContentLoaded", function(){
     else if (e.key === "ArrowLeft"){ el(); geriGit(); }
   });
 
-  /* kendi kendine tanitim: kimse dokunmazsa sirayla acar */
-  if (!azHareket){
-    var gorunur = true, adim = 0;
-    if ("IntersectionObserver" in window)
-      new IntersectionObserver(function(g){ gorunur = g[0].isIntersecting; }).observe(os);
-    var bekle = function(ms, f){ setTimeout(function(){ if (kullanici) return; if (!gorunur || document.hidden) return bekle(800, f); f(); }, ms); };
-    var dongu = function(){
-      var tanitim = [].slice.call(folder.querySelectorAll(".ico[data-ekran]")).slice(0, 4);
-      if (!tanitim.length) return bekle(1000, dongu);
-      var ic = tanitim[adim++ % tanitim.length], m = merkez(ic.querySelector("img"));
-      dokun.style.left = m[0] + "px"; dokun.style.top = m[1] + "px";
-      dokun.classList.remove("bas"); void dokun.offsetWidth; dokun.classList.add("bas");
-      bekle(260, function(){
-        ac(ic);
-        bekle(2400, function(){
-          sonraki();
-          bekle(2400, function(){ kapat(); bekle(1500, dongu); });
-        });
-      });
-    };
-    bekle(2600, dongu);
-  }
-
   /* hazir paketler: kendiliginden akar; elle (parmak, fare, touchpad) iki yone kaydirilir.
      Iz iki kopyadan olusur; yarisi gecilince konum bir kopya kadar geri alinir, dongu kesintisiz. */
   (function(){
