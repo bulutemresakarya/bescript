@@ -3,31 +3,20 @@
     {
       "ad": "Tırdaş",
       "alt": "Lojistik",
-      "ikon": "tirdas/ikon.jpg",
-      "renk": "#0E1B33",
+      "ikon": "tirdas/ikon-hd.webp",
       "bilgi": "Yükü ve aracı tek havuzda buluşturan lojistik asistanı.",
+      "renkler": ["#2557D6", "#F28A1E"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.tirdas.app", "durum": "Yayında" }
       ]
     },
     {
-      "ad": "Kelimece",
-      "alt": "Kelime oyunu",
-      "ikon": "kelimece/ikon.png",
-      "renk": "#1A3E16",
-      "bilgi": "Harf çemberinden kelime kurduğun Türkçe bulmaca oyunu.",
-      "magaza": [
-        { "ad": "App Store", "durum": "Yakında" },
-        { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.bescript.kelimece", "durum": "Yayında" }
-      ]
-    },
-    {
       "ad": "Quadmate",
       "alt": "Oyun arkadaşı",
-      "ikon": "quadmate/ikon.png",
-      "renk": "#F4F6FB",
+      "ikon": "quadmate/ikon-hd.webp",
       "bilgi": "Eksik oyuncuyu bulmanın en hızlı yolu.",
+      "renkler": ["#4353D1", "#E0313F"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/quadmate/id6813102419", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.quadmate.app", "durum": "Yayında" }
@@ -37,9 +26,9 @@
       "ad": "Bocu Remote",
       "etiket": "Bocu",
       "alt": "Tarım · IoT",
-      "ikon": "bocu/ikon.jpg",
-      "renk": "#000000",
+      "ikon": "bocu/ikon-hd.webp",
       "bilgi": "Sulama pompanız tarlada, kontrolü cebinizde.",
+      "renkler": ["#B08A45", "#3B4250"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/bocu-remote-ak%C4%B1ll%C4%B1-koruma/id6810282927?l=tr", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.bocu.app", "durum": "Yayında" }
@@ -49,45 +38,56 @@
       "ad": "Muhasebe Defterim",
       "etiket": "Muhasebe",
       "alt": "Muhasebe",
-      "ikon": "muhasebe/ikon.png",
-      "renk": "#20252E",
+      "ikon": "muhasebe/ikon-hd.webp",
       "bilgi": "Serbest çalışanlar için mesai, tahsilat ve PDF fatura.",
+      "renkler": ["#F59E32", "#3556A8"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/muhasebe-defterim-time-pay/id6829048081", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.bescript.muhasebedefterim", "durum": "Yayında" }
       ]
     },
     {
-      "ad": "Koyun İstasyonu",
-      "etiket": "Koyun",
-      "alt": "Çiftlik oyunu",
-      "ikon": "koyun/ikon.png",
-      "renk": "#4C9A2A",
-      "bilgi": "Koyunları romörke bindir, traktörle ağıla taşı.",
-      "magaza": [
-        { "ad": "App Store", "url": "https://apps.apple.com/tr/app/sheep-station/id6835718588", "durum": "Yayında" },
-        { "ad": "Google Play", "durum": "Kapalı test" }
-      ]
-    },
-    {
       "ad": "Тырдаш",
       "alt": "Kazakistan sürümü",
-      "ikon": "tirdaskz/ikon.jpg",
-      "renk": "#1B2B42",
+      "ikon": "tirdaskz/ikon-hd.webp",
       "bilgi": "Tırdaş'ın Kazakistan sürümü: yük ve araç sahipleri tek havuzda.",
+      "renkler": ["#00AFCA", "#F28A1E"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/%D1%82%D1%8B%D1%80%D0%B4%D0%B0%D1%88-tirdas-kz/id6824191994", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.tirdas.kz", "durum": "Yayında" }
       ]
     },
     {
+      "ad": "Kelimece",
+      "alt": "Kelime oyunu",
+      "ikon": "kelimece/ikon-hd.webp",
+      "bilgi": "Harf çemberinden kelime kurduğun Türkçe bulmaca oyunu.",
+      "renkler": ["#3E9B2C", "#F4C430"],
+      "magaza": [
+        { "ad": "App Store", "durum": "Yakında" },
+        { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.bescript.kelimece", "durum": "Yayında" }
+      ]
+    },
+    {
       "ad": "Müezzin",
-      "ikon": "muezzin/ikon.png",
-      "renk": "#0A344B",
+      "ikon": "muezzin/ikon-hd.webp",
       "bilgi": "Namaz vakitleri, kıble pusulası ve kaza takibi.",
+      "renkler": ["#12A57A", "#1D5C8F"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/muezzin-prayer-qada-tracker/id6829551945", "durum": "Yayında" },
         { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.bescript.muezzin", "durum": "Yayında" }
+      ]
+    },
+    {
+      "ad": "Koyun İstasyonu",
+      "etiket": "Koyun",
+      "alt": "Çiftlik oyunu",
+      "ikon": "koyun/ikon-hd.webp",
+      "bilgi": "Koyunları romörke bindir, traktörle ağıla taşı.",
+      "renkler": ["#4CB035", "#3BA3E6"],
+      "magaza": [
+        { "ad": "App Store", "url": "https://apps.apple.com/tr/app/sheep-station/id6835718588", "durum": "Yayında" },
+        { "ad": "Google Play", "durum": "Kapalı test" }
       ]
     }
   ]

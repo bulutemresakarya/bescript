@@ -185,7 +185,14 @@ h1 .grad{display:block;background:linear-gradient(100deg,#fff 0%,#AFC3FF 40%,#4D
 .splash em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;background:rgba(128,128,128,.2);color:inherit}
 .splash p{text-wrap:balance;font-size:13.5px;opacity:.78;line-height:1.5;max-width:230px}
-.splash{background:radial-gradient(80% 50% at 15% 0%,rgba(255,255,255,.16),transparent 70%),radial-gradient(70% 45% at 100% 100%,rgba(255,255,255,.10),transparent 70%)}
+.splash{color:#fff;background:
+  radial-gradient(75% 48% at 8% 6%,var(--c1) 0%,transparent 72%),
+  radial-gradient(70% 50% at 100% 52%,var(--c2) 0%,transparent 72%),
+  radial-gradient(80% 45% at 30% 104%,var(--c1) 0%,transparent 70%),
+  #0A0C16}
+.splash::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,12,22,.05),rgba(10,12,22,.35))}
+.splash > *{position:relative;z-index:1}
+.splash img{background:#fff}
 .magaza{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px}
 .mg{display:flex;align-items:center;gap:14px;height:56px;padding:0 18px;border-radius:16px;background:rgba(255,255,255,.94);color:#14161F;
   text-decoration:none;text-align:left;box-shadow:0 10px 24px -14px rgba(0,0,0,.6)}
@@ -546,15 +553,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
       <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/tirdas/1.webp" alt="Tırdaş uygulama ekranı" loading="lazy"></div></div></div>
-    </article><article class="app spot" style="--ac:244,196,48" data-reveal>
-      <div class="app-text">
-        <div class="app-id"><img class="app-logo" src="/assets/logo/kelimece.png" alt="" width="52" height="52" loading="lazy">
-          <div><h3>Kelimece</h3><span>Türkçe kelime oyunu</span></div></div>
-        <p>Harf çemberinden kelime kurulan Türkçe bulmaca oyunu, kendi ürünümüz. 1300'den fazla seviye, haftalık lig, internetsiz oyun.</p>
-        <div class="chips"><span>capacitor</span><span>supabase</span><span>admob</span></div>
-        <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.kelimece" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
-      </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/kelimece/1.webp" alt="Kelimece uygulama ekranı" loading="lazy"></div></div></div>
     </article><article class="app spot" style="--ac:240,65,79" data-reveal>
       <div class="app-text">
         <div class="app-id"><img class="app-logo" src="/assets/logo/quadmate.png" alt="" width="52" height="52" loading="lazy">
@@ -582,15 +580,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/muhasebe-defterim-time-pay/id6829048081" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.muhasebedefterim" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
       <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/muhasebe/1.webp" alt="Muhasebe Defterim uygulama ekranı" loading="lazy"></div></div></div>
-    </article><article class="app spot" style="--ac:112,190,64" data-reveal>
-      <div class="app-text">
-        <div class="app-id"><img class="app-logo" src="/assets/logo/koyun.png" alt="" width="52" height="52" loading="lazy">
-          <div><h3>Koyun İstasyonu</h3><span>Çiftlik bulmaca oyunu</span></div></div>
-        <p>Koyunları renklerine göre romörklere bindirdiğin, hem rahatlatan hem düşündüren bir çiftlik bulmacası, kendi oyunumuz. Traktör romörkü takıp ağıla park eder; 300 seviye, destekler ve hesap gerektirmeyen ilerleme.</p>
-        <div class="chips"><span>capacitor</span><span>javascript</span><span>admob</span></div>
-        <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/sheep-station/id6835718588" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><span class="badge badge-off"><img class="b-google" src="/assets/badge/google-play-kapali-test-tr.png" alt="Google Play'de kapalı testte" width="646" height="250"></span></div>
-      </div>
-      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/koyun/1.webp" alt="Koyun İstasyonu oyun ekranı" loading="lazy"></div></div></div>
     </article><article class="app spot" style="--ac:0,175,202" data-reveal>
       <div class="app-text">
         <div class="app-id"><img class="app-logo" src="/assets/logo/tirdaskz.jpg" alt="" width="52" height="52" loading="lazy">
@@ -600,6 +589,24 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:120px}
         <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/%D1%82%D1%8B%D1%80%D0%B4%D0%B0%D1%88-tirdas-kz/id6824191994" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.kz" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
       </div>
       <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/tirdaskz/1.webp" alt="Тырдаш uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:244,196,48" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/kelimece.png" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Kelimece</h3><span>Türkçe kelime oyunu</span></div></div>
+        <p>Harf çemberinden kelime kurulan Türkçe bulmaca oyunu, kendi ürünümüz. 1300'den fazla seviye, haftalık lig, internetsiz oyun.</p>
+        <div class="chips"><span>capacitor</span><span>supabase</span><span>admob</span></div>
+        <div class="badges"><span class="badge badge-off"><img class="b-apple" src="/assets/badge/app-store-yakinda-tr.svg" alt="App Store'da yakında" width="151" height="40"></span><a class="badge" href="https://play.google.com/store/apps/details?id=com.bescript.kelimece" target="_blank" rel="noopener"><img class="b-google" src="/assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250"></a></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/kelimece/1.webp" alt="Kelimece uygulama ekranı" loading="lazy"></div></div></div>
+    </article><article class="app spot" style="--ac:112,190,64" data-reveal>
+      <div class="app-text">
+        <div class="app-id"><img class="app-logo" src="/assets/logo/koyun.png" alt="" width="52" height="52" loading="lazy">
+          <div><h3>Koyun İstasyonu</h3><span>Çiftlik bulmaca oyunu</span></div></div>
+        <p>Koyunları renklerine göre romörklere bindirdiğin, hem rahatlatan hem düşündüren bir çiftlik bulmacası, kendi oyunumuz. Traktör romörkü takıp ağıla park eder; 300 seviye, destekler ve hesap gerektirmeyen ilerleme.</p>
+        <div class="chips"><span>capacitor</span><span>javascript</span><span>admob</span></div>
+        <div class="badges"><a class="badge" href="https://apps.apple.com/tr/app/sheep-station/id6835718588" target="_blank" rel="noopener"><img class="b-apple" src="/assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40"></a><span class="badge badge-off"><img class="b-google" src="/assets/badge/google-play-kapali-test-tr.png" alt="Google Play'de kapalı testte" width="646" height="250"></span></div>
+      </div>
+      <div class="app-stage"><div class="phone sm"><div class="scr"><img src="/telefon/koyun/1.webp" alt="Koyun İstasyonu oyun ekranı" loading="lazy"></div></div></div>
     </article></div>
     <div class="others-title" data-reveal><h3>Diğer projeler</h3><span>yolda olan uygulamalar ve demolar</span></div>
     <div class="others"><article class="mini spot" data-reveal>
@@ -855,12 +862,12 @@ document.addEventListener("DOMContentLoaded", function(){
           '<p>Tasarım, geliştirme ve mağaza yayını tek ekipte. Müşteri İlişkileri ekibimiz size dönüş yapar.</p>' +
           '<a href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp\'tan yazın</a></div>';
     } else {
-      win.style.setProperty("--wfg", acikRenk(d.bg) ? "#1A1F2B" : "#fff");
+      win.style.setProperty("--c1", d.c1 || "#2A3A8F"); win.style.setProperty("--c2", d.c2 || "#5B2A8F");
       h = '<div class="splash"><img src="' + kac(d.logo) + '" alt=""><b>' + kac(d.ad) + '</b>' +
           (d.not ? '<p>' + kac(d.not) + '</p>' : '') + magazaHtml(d.magaza) + '</div>';
     }
     win.style.setProperty("--ub", "transparent"); os.classList.remove("ekranli");
-    win.style.setProperty("--uc", !d.bs && acikRenk(d.bg) ? "#111" : "#fff");
+    win.style.setProperty("--uc", "#fff");
     win.innerHTML = h + '<div class="usb"><span class="saat-t">' + saatMetni() + '</span><span>' + SB_IKON + '</span></div>';
     void win.offsetWidth; win.style.transition = "";
     win.classList.add("acik"); home.classList.add("geri"); os.classList.add("uyg-acik");
@@ -914,7 +921,8 @@ document.addEventListener("DOMContentLoaded", function(){
       var b = document.createElement("button");
       b.className = "ico"; b.type = "button";
       b.dataset.ad = u.ad; b.dataset.alt = u.alt || u.durum || "";
-      b.dataset.logo = yol(u.ikon); b.dataset.bg = u.renk || "#0B1020";
+      b.dataset.logo = yol(u.ikon); b.dataset.bg = "#0A0C16";
+      if (u.renkler && u.renkler.length){ b.dataset.c1 = u.renkler[0]; b.dataset.c2 = u.renkler[1] || u.renkler[0]; }
       if (u.magaza && u.magaza.length) b.dataset.magaza = JSON.stringify(u.magaza);
       if (u.bilgi) b.dataset.not = u.bilgi;
       b.setAttribute("aria-label", u.ad + " uygulamasını aç");

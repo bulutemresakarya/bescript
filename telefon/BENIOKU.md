@@ -25,7 +25,7 @@ Muhasebe, Koyun, Tırdaş.kz); kartlardaki görüntüyü güncellemek için ayn�
 
 ## Yeni uygulama eklemek
 
-1. `telefon/yeniuygulama/ikon.png` olarak ikonu yükle (GitHub: **Add file → Upload files**).
+1. `telefon/yeniuygulama/ikon-hd.webp` (ya da `.png`) olarak ikonu yükle (GitHub: **Add file → Upload files**).
 2. `uygulamalar.json`'u aç (kalem simgesi), listeye bir blok ekle:
 
 ```json
@@ -33,8 +33,8 @@ Muhasebe, Koyun, Tırdaş.kz); kartlardaki görüntüyü güncellemek için ayn�
       "ad": "Yeni Uygulama",
       "etiket": "Yeni",
       "alt": "Kısa tanım",
-      "ikon": "yeniuygulama/ikon.png",
-      "renk": "#101828",
+      "ikon": "yeniuygulama/ikon-hd.webp",
+      "renkler": ["#2557D6", "#F28A1E"],
       "bilgi": "Uygulamayı anlatan tek cümle.",
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/...", "durum": "Yayında" },
@@ -52,10 +52,10 @@ JSON bozulursa telefonda yalnızca BeScript ikonu görünür.
 | alan        | zorunlu | ne işe yarar |
 |-------------|---------|--------------|
 | `ad`        | evet    | Uygulamanın adı (açılış ekranında ve alttaki etikette) |
-| `ikon`      | evet    | İkon dosyası, `telefon/`'a göre yol |
+| `ikon`      | evet    | İkon dosyası, `telefon/`'a göre yol. Keskin görünmesi için en az 360×360 olsun (mağazadaki 512'lik ikon ideal) |
 | `etiket`    | hayır   | İkonun altındaki kısa ad. Yoksa `ad` kullanılır |
 | `alt`       | hayır   | Telefonun altındaki etikette adın yanındaki kısa tanım |
-| `renk`      | hayır   | Uygulama ekranının arka plan rengi, örn. `#0E1B33`. Açık renkte yazı otomatik koyu olur |
+| `renkler`   | hayır   | Uygulama ekranının arka planındaki iki marka rengi, örn. `["#4353D1", "#E0313F"]`. Zemin hep koyudur; renkler köşelerden yumuşakça yayılır |
 | `bilgi`     | hayır   | Logonun altındaki tek cümlelik açıklama |
 | `magaza`    | hayır   | Mağaza rozetleri listesi (aşağıya bak) |
 | `gizle`     | hayır   | `true` yazarsan silmeden gizler |
@@ -69,5 +69,5 @@ Uygulama mağazada yayına çıkınca o rozete `url` ekleyip `durum`'u `Yayında
 
 ## Sıra
 
-- Telefondaki sıra, `uygulamalar.json`'daki sıradır. BeScript ikonu her zaman en sonda durur.
+- Telefondaki sıra, `uygulamalar.json`'daki sıradır (şu an mağazaya çıkış tarihine göre). BeScript ikonu her zaman en sonda durur.
 - Klasöre rahatça 11 uygulama sığar (BeScript ile 3 sıra). Daha fazlası olursa klasör kaydırılabilir olur.
