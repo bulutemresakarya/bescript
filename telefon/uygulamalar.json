@@ -19,7 +19,7 @@
       "renkler": ["#4353D1", "#E0313F"],
       "magaza": [
         { "ad": "App Store", "url": "https://apps.apple.com/tr/app/quadmate/id6813102419", "durum": "Yayında" },
-        { "ad": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.quadmate.app", "durum": "Yayında" }
+        { "ad": "Google Play", "durum": "Bakımda" }
       ]
     },
     {
